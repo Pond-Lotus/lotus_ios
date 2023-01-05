@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */; };
 		7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549C2965BEF3001290C2 /* AppDelegate.swift */; };
 		7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */; };
 		7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC154A02965BEF3001290C2 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailForSignUpViewController.swift; sourceTree = "<group>"; };
 		7EC154992965BEF3001290C2 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC1549C2965BEF3001290C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				7EC154A52965BEF3001290C2 /* Assets.xcassets */,
 				7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */,
 				7EC154AA2965BEF3001290C2 /* Info.plist */,
+				3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */,
+				3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */,
 				7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */,
 				7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */,
 			);
