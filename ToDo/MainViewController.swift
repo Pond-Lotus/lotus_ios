@@ -20,6 +20,13 @@ class MainViewController : UIViewController
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = true
+       
+//        let nickname =  ?? "사람"
+//
+//        welcomLabel.text = """
+//        환영합니다.
+//        \(nickname)님
+//        """
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
