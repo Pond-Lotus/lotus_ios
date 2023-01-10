@@ -10,3 +10,13 @@ import Foundation
 struct ResponseData : Codable{
     let resultCode:Int
 }
+
+struct RegisterResponseData : Codable{
+    let account:Account
+    let resultCode:Int
+}
+
+struct Account:Codable{
+    let nickname:String
+    let email:String
+}

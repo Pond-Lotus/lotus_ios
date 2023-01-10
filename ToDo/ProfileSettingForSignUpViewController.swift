@@ -9,66 +9,74 @@ import UIKit
 
 class ProfileSettingForSignUpViewController:UIViewController{
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var pwCheckTextField: UITextField!
+    @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
+    @IBOutlet weak var pwCheckTextField: UITextField!
+    
     var email:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailTextField.text = email ?? ""
+        emailTextField.text = email
     }
     
     @IBAction func tapFinishButton(_ sender: Any) {
-        let dicData = ["nickname" : "감자찜" ,
-                       "email":"hi011004@naver.com",
-                       "password":"password1234"] as Dictionary<String,String>
-        let jsonData = try! JSONSerialization.data(withJSONObject: dicData, options: [])
-        
-        guard var url = URLComponents(string: "https://plotustodo-ctzhc.run.goorm.io/account/register/") else {
-            print("url error")
-            return
+        if pwTextField.text == pwCheckTextField.text{
+            print("password check OK")
+            doRegister()
+        }else{
+            print("passwords are not same")
         }
-        //        let emailParam = URLQueryItem(name: "email", value: emailTextField.text ?? "")
-        //        url.queryItems?.append(emailParam)
-        
-        var request:URLRequest = URLRequest(url: (url.url!))
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpBody = jsonData
-        
-        //        request.httpBody = jsonData
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                print("Error: error calling GET")
-                print(error!)
-                return
-            }
-            if let data = data{
-                guard let result = try? JSONDecoder().decode(ResponseData.self, from: data) else{return}
-                print("result code:\(result.resultCode)")
-            }else {
-                print("Error: Did not receive data")
-                return
-            }
-//            print("data: \(String(data: data, encoding: .utf8) ?? "error")")
-//            print("response: \(response)")
-            guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
-                print("Error: HTTP request failed")
-                return
-            }
-            
-            //              guard let output = try? JSONDecoder().decode(Response.self, from: data) else {
-            //                  print("Error: JSON Data Parsing failed")
-            //                  return
-            //              }
-            
-            //              completionHandler(true, output.result)
-            
-        }.resume()
     }
     
     @IBAction func tapPreButton(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: false)
+    }
+    
+    func doRegister(){
+        let data:RegisterRequestData = .init(email: email ?? "", nickname: nicknameTextField.text ?? "", password: pwTextField.text ?? "")
+        let jsonData = try? JSONEncoder().encode(data)
+        
+        guard var url = URL(string: "https://plotustodo-ctzhc.run.goorm.io/account/register/") else {
+            print("url error")
+            return
+        }
+        
+        var request:URLRequest = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print("Error: error calling POST")
+                print(error!)
+                return
+            }
+            if let data = data{
+                guard let result = try? JSONDecoder().decode(ResponseData.self, from: data) else{
+                    print("decode error")
+                    return}
+                print("result code: \(result.resultCode)")
+                if result.resultCode == 200{
+                    DispatchQueue.main.async {
+                        guard let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "FinishRegisterViewController") as? FinishRegisterVeiwController else {return}
+//                        nextViewController.nickname = result.account.nickname
+                        nextViewController.modalPresentationStyle = .fullScreen
+                        self.present(nextViewController, animated: false)
+                    }
+                }else{
+                    print("register error")
+                }
+            }else {
+                print("Error: Did not receive data")
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
+                print("Error: HTTP request failed")
+                return
+            }
+        }.resume()
     }
 }

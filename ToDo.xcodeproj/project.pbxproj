@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */; };
 		3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */; };
 		3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */; };
 		3EDDDFD8296BED370048D941 /* ProfileSettingForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */; };
 		3EDDDFDA296BFBB80048D941 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFD9296BFBB80048D941 /* ResponseData.swift */; };
 		3EDDDFDC296C68AE0048D941 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFDB296C68AE0048D941 /* RequestData.swift */; };
-		3EDDDFDE296C7E9A0048D941 /* RequestCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFDD296C7E9A0048D941 /* RequestCode.swift */; };
 		7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549C2965BEF3001290C2 /* AppDelegate.swift */; };
 		7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */; };
 		7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC154A02965BEF3001290C2 /* ViewController.swift */; };
@@ -22,12 +22,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegisterVeiwController.swift; sourceTree = "<group>"; };
 		3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EDDDFD9296BFBB80048D941 /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		3EDDDFDB296C68AE0048D941 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
-		3EDDDFDD296C7E9A0048D941 /* RequestCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCode.swift; sourceTree = "<group>"; };
 		7EC154992965BEF3001290C2 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC1549C2965BEF3001290C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,9 +78,9 @@
 				3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */,
 				3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */,
 				3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */,
+				3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */,
 				3EDDDFD9296BFBB80048D941 /* ResponseData.swift */,
 				3EDDDFDB296C68AE0048D941 /* RequestData.swift */,
-				3EDDDFDD296C7E9A0048D941 /* RequestCode.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -160,10 +160,10 @@
 				3EDDDFDA296BFBB80048D941 /* ResponseData.swift in Sources */,
 				3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */,
 				7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */,
-				3EDDDFDE296C7E9A0048D941 /* RequestCode.swift in Sources */,
 				3EDDDFD8296BED370048D941 /* ProfileSettingForSignUpViewController.swift in Sources */,
 				7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */,
 				3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */,
+				3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */,
 				3EDDDFDC296C68AE0048D941 /* RequestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

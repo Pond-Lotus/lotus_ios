@@ -9,37 +9,31 @@ import UIKit
 
 class VerificationCodeForSignUpViewController :UIViewController{
     @IBOutlet weak var codeTextField: UITextField!
+    @IBOutlet weak var wrongCodeLabel: UILabel!
     var email:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("email:\(email)")
         textFieldSetting()
     }
     
     @IBAction func tapNextButton(_ sender: Any) {
-        guard let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingForSignUpViewController") as? ProfileSettingForSignUpViewController else {return}
-        nextViewController.modalPresentationStyle = .fullScreen
-        nextViewController.email = email
-        self.present(nextViewController, animated: false)
-        verifyCode()
+       verifyCode()
     }
     
     @IBAction func tapPreButton(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: false)
     }
     func verifyCode(){
-        guard let inputCodeText = codeTextField.text else {return}
-        guard let inputCode:Int = Int(inputCodeText) else {return}
-        let data:RequestData = .init(email: email ?? "", code: inputCode)
+        let data:RequestData = .init(email: email ?? "", code: codeTextField.text ?? "")
         let jsonData = try? JSONEncoder().encode(data)
-        let printdata = try? JSONDecoder().decode(RequestData.self, from: jsonData!)
-        print("printdata: \(printdata!)")
-        guard var url = URLComponents(string: "https://plotustodo-ctzhc.run.goorm.io/account/emailcode/") else {
+        guard var url = URL(string: "https://plotustodo-ctzhc.run.goorm.io/account/emailcode/") else {
             print("url error")
             return
         }
 
-        var request:URLRequest = URLRequest(url: (url.url!))
+        var request:URLRequest = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = jsonData
@@ -51,8 +45,20 @@ class VerificationCodeForSignUpViewController :UIViewController{
                 return
             }
             if var data = data{
-                let result = try? JSONDecoder().decode(RequestCode.self, from: data)
-                print("verify result code: \(result?.requestCode)")
+                let result = try? JSONDecoder().decode(ResponseData.self, from: data)
+                print("verify result code: \(result?.resultCode)")
+                if result?.resultCode == 200{
+                    DispatchQueue.main.async {
+                        self.wrongCodeLabel.isHidden = true
+                        guard let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "ProfileSettingForSignUpViewController") as? ProfileSettingForSignUpViewController else {return}
+                        nextViewController.modalPresentationStyle = .fullScreen
+                        nextViewController.email = self.email
+                        self.present(nextViewController, animated: false)
+                    }
+                }else{
+                    print("verification code is incorrect")
+                    self.wrongCodeLabel.isHidden = false
+                }
             }
             else {
                 print("Error: Did not receive data")

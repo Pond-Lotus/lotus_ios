@@ -9,19 +9,18 @@ import UIKit
 
 class EmailForSignUpViewController : UIViewController{
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var isValidLabel: UILabel!
+    @IBOutlet weak var nextButton: UIButton!
+    var isValid:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func tapNextButton(_ sender: Any) {
+        nextButton.isEnabled = false
         emailCheck()
-        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "VerificationCodeForSignUpViewController") as? VerificationCodeForSignUpViewController else {return}
-        viewController.modalPresentationStyle = .fullScreen
-        viewController.email = emailTextField.text
-        self.present(viewController, animated: false)
     }
-    
     
     func emailCheck(){
         guard var url = URL(string: "https://plotustodo-ctzhc.run.goorm.io/account/emailcode/?email=\(emailTextField.text ?? "")") else {
@@ -43,7 +42,19 @@ class EmailForSignUpViewController : UIViewController{
                 guard let result = try? JSONDecoder().decode(ResponseData.self, from: data) else{return}
                 print("result code:\(result.resultCode)")
                 if result.resultCode == 200 {
-                    
+                    DispatchQueue.main.async {
+                        self.nextButton.isEnabled = true
+                        self.isValidLabel.isHidden = true
+                        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "VerificationCodeForSignUpViewController") as? VerificationCodeForSignUpViewController else {return}
+                        viewController.modalPresentationStyle = .fullScreen
+                        viewController.email = self.emailTextField.text
+                        self.present(viewController, animated: false)
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        self.nextButton.isEnabled = true
+                        self.isValidLabel.isHidden = false
+                    }
                 }
                 
             }else {

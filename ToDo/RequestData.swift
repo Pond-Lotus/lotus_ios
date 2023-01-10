@@ -9,5 +9,13 @@ import Foundation
 
 struct RequestData:Codable{
     var email:String
-    var code:Int
+    var code:String
 }
+
+struct RegisterRequestData:Codable{
+    var email:String
+    var nickname:String
+    var password:String
+}
+
+
