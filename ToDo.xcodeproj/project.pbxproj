@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E24915B2972F1A50091DB28 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915A2972F1A50091DB28 /* RegisterService.swift */; };
+		3E24915D2972F2070091DB28 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915C2972F2070091DB28 /* Server.swift */; };
+		3E24915F297329E90091DB28 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915E297329E90091DB28 /* NetworkResult.swift */; };
 		3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */; };
 		3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */; };
 		3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */; };
@@ -19,9 +22,15 @@
 		7EC154A42965BEF3001290C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC154A22965BEF3001290C2 /* Main.storyboard */; };
 		7EC154A62965BEF3001290C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EC154A52965BEF3001290C2 /* Assets.xcassets */; };
 		7EC154A92965BEF3001290C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */; };
+		C7E8C54D09DFF715899E1B30 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B02F5DFC740F7F2128805F /* Pods_ToDo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13B02F5DFC740F7F2128805F /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		261EEE0D0E4AC86077D8F3DF /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
+		3E24915A2972F1A50091DB28 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
+		3E24915C2972F2070091DB28 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		3E24915E297329E90091DB28 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegisterVeiwController.swift; sourceTree = "<group>"; };
 		3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeForSignUpViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +45,7 @@
 		7EC154A52965BEF3001290C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7EC154A82965BEF3001290C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7EC154AA2965BEF3001290C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB9238C5BDDBF2F2342B69A2 /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +53,68 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7E8C54D09DFF715899E1B30 /* Pods_ToDo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E2491602974015D0091DB28 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3E24915C2972F2070091DB28 /* Server.swift */,
+				3E24915A2972F1A50091DB28 /* RegisterService.swift */,
+				3E24915E297329E90091DB28 /* NetworkResult.swift */,
+				3E249161297401710091DB28 /* Model */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		3E249161297401710091DB28 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3EDDDFD9296BFBB80048D941 /* ResponseData.swift */,
+				3EDDDFDB296C68AE0048D941 /* RequestData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3E249162297401CC0091DB28 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3E249163297401F80091DB28 /* SignUp */,
+				7EC154A02965BEF3001290C2 /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3E249163297401F80091DB28 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */,
+				3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */,
+				3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */,
+				3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		674BC37312B54487FC9D41A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13B02F5DFC740F7F2128805F /* Pods_ToDo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7EC154902965BEF2001290C2 = {
 			isa = PBXGroup;
 			children = (
 				7EC1549B2965BEF3001290C2 /* ToDo */,
 				7EC1549A2965BEF3001290C2 /* Products */,
+				FF1387DE83D79AF52DFCD716 /* Pods */,
+				674BC37312B54487FC9D41A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,21 +129,25 @@
 		7EC1549B2965BEF3001290C2 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				3E249162297401CC0091DB28 /* ViewController */,
+				3E2491602974015D0091DB28 /* Network */,
 				7EC1549C2965BEF3001290C2 /* AppDelegate.swift */,
 				7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */,
-				7EC154A02965BEF3001290C2 /* ViewController.swift */,
 				7EC154A22965BEF3001290C2 /* Main.storyboard */,
 				7EC154A52965BEF3001290C2 /* Assets.xcassets */,
 				7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */,
 				7EC154AA2965BEF3001290C2 /* Info.plist */,
-				3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */,
-				3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */,
-				3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */,
-				3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */,
-				3EDDDFD9296BFBB80048D941 /* ResponseData.swift */,
-				3EDDDFDB296C68AE0048D941 /* RequestData.swift */,
 			);
 			path = ToDo;
+			sourceTree = "<group>";
+		};
+		FF1387DE83D79AF52DFCD716 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				261EEE0D0E4AC86077D8F3DF /* Pods-ToDo.debug.xcconfig */,
+				BB9238C5BDDBF2F2342B69A2 /* Pods-ToDo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,9 +157,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7EC154AD2965BEF3001290C2 /* Build configuration list for PBXNativeTarget "ToDo" */;
 			buildPhases = (
+				637392144A0CADE13FA68C73 /* [CP] Check Pods Manifest.lock */,
 				7EC154952965BEF3001290C2 /* Sources */,
 				7EC154962965BEF3001290C2 /* Frameworks */,
 				7EC154972965BEF3001290C2 /* Resources */,
+				4BDA41DBD3D5572536AB5869 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +218,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4BDA41DBD3D5572536AB5869 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		637392144A0CADE13FA68C73 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7EC154952965BEF3001290C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -159,11 +268,14 @@
 				7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */,
 				3EDDDFDA296BFBB80048D941 /* ResponseData.swift in Sources */,
 				3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */,
+				3E24915F297329E90091DB28 /* NetworkResult.swift in Sources */,
 				7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */,
+				3E24915B2972F1A50091DB28 /* RegisterService.swift in Sources */,
 				3EDDDFD8296BED370048D941 /* ProfileSettingForSignUpViewController.swift in Sources */,
 				7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */,
 				3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */,
 				3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */,
+				3E24915D2972F2070091DB28 /* Server.swift in Sources */,
 				3EDDDFDC296C68AE0048D941 /* RequestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +418,7 @@
 		};
 		7EC154AE2965BEF3001290C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 261EEE0D0E4AC86077D8F3DF /* Pods-ToDo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -334,6 +447,7 @@
 		};
 		7EC154AF2965BEF3001290C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB9238C5BDDBF2F2342B69A2 /* Pods-ToDo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
