@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VerificationCodeForSignUpViewController :UIViewController{
+class VerificationCodeForSignUpViewController :UIViewController {
     @IBOutlet weak var codeTextField: UITextField!
     @IBOutlet weak var wrongCodeLabel: UILabel!
     var email:String?

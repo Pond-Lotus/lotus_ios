@@ -19,5 +19,3 @@ struct RegisterResponseData :Codable{
         let email:String
     }
 }
-
-

@@ -78,6 +78,7 @@ class RegisterService{
                                  parameters: parameter,
                                  encoding: JSONEncoding.default,
                                  headers: header)
+        
         request.responseData { dataResponse in
             switch dataResponse.result {
             case .success:
@@ -102,6 +103,7 @@ class RegisterService{
             "email":email,
             "password": password
         ]
+        print("email: \(email), nickname: \(nickname), pw: \(password)")
         
         let request = AF.request(url,
                                  method: .post,
@@ -114,6 +116,7 @@ class RegisterService{
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
                 guard let value = dataResponse.value else {return}
+                print("statusCode: \(statusCode)")
                 let networkResult = self.judgeRegisterStatus(by: statusCode, value)
                 completion(networkResult)
                 
@@ -126,18 +129,18 @@ class RegisterService{
     //아까 받은 statusCode 바탕으로 결과값 어떻게 처리할 건지 정의
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode{
-        case 200: return isValidData(data: data) //성공. 데이터 가공해서 전달 해야하니까 isValidData 함수로 데이터 넘김 결과적으로 return 하는 값은 .success(data)
-        case 400: return .pathErr //요청 오류
-        case 500 : return .serverErr //서버 에러
+        case ..<300: return isValidData(data: data) //성공. 데이터 가공해서 전달 해야하니까 isValidData 함수로 데이터 넘김 결과적으로 return 하는 값은 .success(data)
+        case ..<500: return .pathErr //요청 오류
+        case ..<600 : return .serverErr //서버 에러
         default: return .networkFail //네트워크 에러 -> 분기처리
         }
     }
     
     private func judgeRegisterStatus(by statusCode:Int, _ data:Data) -> NetworkResult<Any>{
         switch statusCode{
-        case 200: return isReigserValidData(data: data)
-        case 400: return .pathErr
-        case 500 : return .serverErr
+        case ..<300 : return isRegisterValidData(data: data)
+        case ..<500: return .pathErr
+        case ..<600 : return .serverErr
         default: return .networkFail
         }
     }
@@ -152,12 +155,20 @@ class RegisterService{
         return .success(decodedData)
     }
     
-    private func isReigserValidData(data:Data) -> NetworkResult<Any> {
+    private func isRegisterValidData(data:Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .pathErr}
+        guard let resultCodeData = try? decoder.decode(ResponseData.self, from: data) else {return .pathErr}
+        var originData:RegisterResponseData? = .init(account: .init(nickname: "", email: ""), resultCode: resultCodeData.resultCode)
+
+        if resultCodeData.resultCode == 200{
+            guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .pathErr}
+            originData = decodedData
+        }
+
+        print("resultCode: \(resultCodeData.resultCode)")
         
-        return .success(decodedData)
+        return .success(originData)
     }
     
 }

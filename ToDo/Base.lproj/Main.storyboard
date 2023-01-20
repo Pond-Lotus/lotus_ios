@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtj-CG-Qnc">
-                                <rect key="frame" x="276" y="666" width="101" height="52"/>
+                                <rect key="frame" x="276" y="667" width="101" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="nextBtn"/>
@@ -147,7 +147,7 @@
                         <constraints>
                             <constraint firstItem="K0G-6D-cZW" firstAttribute="top" secondItem="JwS-a9-Tbd" secondAttribute="top" constant="100" id="87l-ZV-ZIh"/>
                             <constraint firstItem="X3T-0E-ecY" firstAttribute="leading" secondItem="JwS-a9-Tbd" secondAttribute="leading" constant="22" id="J95-PK-hu4"/>
-                            <constraint firstItem="8En-zD-dWV" firstAttribute="top" secondItem="K0G-6D-cZW" secondAttribute="bottom" constant="70" id="T3o-cU-PiB"/>
+                            <constraint firstItem="8En-zD-dWV" firstAttribute="top" secondItem="K0G-6D-cZW" secondAttribute="bottom" constant="70" id="QDG-AG-hOS"/>
                             <constraint firstItem="X3T-0E-ecY" firstAttribute="top" secondItem="8En-zD-dWV" secondAttribute="bottom" constant="60" id="WbS-OP-OHD"/>
                             <constraint firstItem="JwS-a9-Tbd" firstAttribute="trailing" secondItem="X3T-0E-ecY" secondAttribute="trailing" constant="22" id="fnM-fG-C1d"/>
                         </constraints>
@@ -216,26 +216,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRQ-NU-zlw">
-                                <rect key="frame" x="279" y="700" width="101" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="nextBtn"/>
-                                <connections>
-                                    <action selector="tapFinishButton:" destination="BkB-v2-XYb" eventType="touchUpInside" id="VBX-s5-DSV"/>
-                                    <action selector="tapNextButton:" destination="yY1-Zi-fgX" eventType="touchUpInside" id="yfb-yu-6X8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXp-2b-bC6">
-                                <rect key="frame" x="9" y="700" width="101" height="52"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="preBtn"/>
-                                <connections>
-                                    <action selector="tapFinishButton:" destination="BkB-v2-XYb" eventType="touchUpInside" id="Il4-q5-dwK"/>
-                                    <action selector="tapPreButton:" destination="BkB-v2-XYb" eventType="touchUpInside" id="LPI-Xe-0TJ"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="2~6글자로 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dOc-fQ-gzU">
                                 <rect key="frame" x="51" y="383" width="268" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -249,6 +229,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRQ-NU-zlw">
+                                <rect key="frame" x="281" y="686" width="101" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="nextBtn"/>
+                                <connections>
+                                    <action selector="tapFinishButton:" destination="BkB-v2-XYb" eventType="touchUpInside" id="VBX-s5-DSV"/>
+                                    <action selector="tapNextButton:" destination="yY1-Zi-fgX" eventType="touchUpInside" id="yfb-yu-6X8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXp-2b-bC6">
+                                <rect key="frame" x="11" y="686" width="101" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="preBtn"/>
+                                <connections>
+                                    <action selector="tapFinishButton:" destination="BkB-v2-XYb" eventType="touchUpInside" id="Il4-q5-dwK"/>
+                                    <action selector="tapPreButton:" destination="BkB-v2-XYb" eventType="touchUpInside" id="LPI-Xe-0TJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mYk-D0-SBr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
