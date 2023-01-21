@@ -8,5 +8,6 @@ target 'ToDo' do
   # Pods for ToDo
   pod 'Alamofire', '~> 5.2'
   pod 'FSCalendar'
+  pod 'BetterSegmentedControl', '~> 2.0'
 
 end
