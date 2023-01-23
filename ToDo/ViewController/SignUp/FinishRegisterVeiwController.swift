@@ -16,5 +16,8 @@ class FinishRegisterVeiwController : UIViewController{
         nicknameLabel.text = nickname
     }
     @IBAction func tapLoginButton(_ sender: Any) {
+        guard let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {return}
+                
+        self.present(loginViewController, animated: false)
     }
 }

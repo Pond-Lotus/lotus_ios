@@ -12,4 +12,6 @@ struct Server{
     static let getEmailCode:String = "/account/emailcode/"
     static let postEmailCode:String = "/account/emailcode/"
     static let register:String = "/account/register/"
+    static let login:String = "/account/login/"
+    static let todo:String = "/todo/todo/"
 }

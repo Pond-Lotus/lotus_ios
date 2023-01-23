@@ -55,5 +55,6 @@ class VerificationCodeForSignUpViewController :UIViewController {
     func textFieldSetting(){
         codeTextField.defaultTextAttributes.updateValue(45.0, forKey: NSAttributedString.Key.kern)
         codeTextField.borderStyle = .line
+        codeTextField.font?.withSize(30)
     }
 }

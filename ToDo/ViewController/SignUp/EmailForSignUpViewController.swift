@@ -18,6 +18,14 @@ class EmailForSignUpViewController : UIViewController{
     }
     
     @IBAction func tapNextButton(_ sender: Any) {
+        checkEmail()
+    }
+    
+    @IBAction func tapPreButton(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: false)
+    }
+    
+    private func checkEmail(){
         nextButton.isEnabled = false
 
         RegisterService.shared.checkValidEamil(email: emailTextField.text ?? "") { (response) in
@@ -50,8 +58,6 @@ class EmailForSignUpViewController : UIViewController{
             }
         }
     }
-    
-    
 }
 
 

@@ -126,6 +126,39 @@ class RegisterService{
         }
     }
     
+    func login(email:String, password:String, completion: @escaping(NetworkResult<Any>)->Void){
+        
+        let url = Server.serverURL + Server.login
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json"]
+        
+        let parameter:Parameters = [
+            "email":email,
+            "password": password
+        ]
+        
+        let request = AF.request(url,
+                                 method: .post,
+                                 parameters: parameter,
+                                 encoding: JSONEncoding.default,
+                                 headers: header)
+        
+        request.responseData { dataResponse in
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                print("statusCode: \(statusCode)")
+                let networkResult = self.judgeLoginStatus(by: statusCode, value)
+                completion(networkResult)
+                
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+        
+    }
+    
     //아까 받은 statusCode 바탕으로 결과값 어떻게 처리할 건지 정의
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode{
@@ -145,6 +178,15 @@ class RegisterService{
         }
     }
     
+    private func judgeLoginStatus(by statusCode:Int, _ data:Data) -> NetworkResult<Any>{
+        switch statusCode{
+        case ..<300 : return isLoginRegisterValidData(data: data)
+        case ..<500: return .pathErr
+        case ..<600 : return .serverErr
+        default: return .networkFail
+        }
+    }
+    
     //200대로 떨어졌을 때 데이터를 가공하기 위한 함수 랍니다
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
@@ -156,19 +198,33 @@ class RegisterService{
     }
     
     private func isRegisterValidData(data:Data) -> NetworkResult<Any> {
+//        let decoder = JSONDecoder()
+//
+//        guard let resultCodeData = try? decoder.decode(ResponseData.self, from: data) else {return .pathErr}
+//        var originData:RegisterResponseData? = .init(account: .init(nickname: "", email: ""), resultCode: resultCodeData.resultCode)
+//
+//        if resultCodeData.resultCode == 200{
+//            guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .pathErr}
+//            originData = decodedData
+//        }
+
+//        print("resultCode: \(resultCodeData.resultCode)")
+        
         let decoder = JSONDecoder()
         
-        guard let resultCodeData = try? decoder.decode(ResponseData.self, from: data) else {return .pathErr}
-        var originData:RegisterResponseData? = .init(account: .init(nickname: "", email: ""), resultCode: resultCodeData.resultCode)
-
-        if resultCodeData.resultCode == 200{
-            guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .pathErr}
-            originData = decodedData
-        }
-
-        print("resultCode: \(resultCodeData.resultCode)")
+        guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .pathErr}
         
-        return .success(originData)
+        //성공적으로 decode 마치면 success에 data부분을 담아서 completion을 호출한다...
+        return .success(decodedData)
+    }
+    
+    private func isLoginRegisterValidData(data:Data) -> NetworkResult<Any> {
+        let decoder = JSONDecoder()
+        
+        guard let decodedData = try? decoder.decode(LoginResponseData.self, from: data) else {return .pathErr}
+        
+        //성공적으로 decode 마치면 success에 data부분을 담아서 completion을 호출한다...
+        return .success(decodedData)
     }
     
 }
