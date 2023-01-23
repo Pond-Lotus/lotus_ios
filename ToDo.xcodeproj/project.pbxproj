@@ -7,82 +7,234 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E80502B296BB15500C5949D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E80502A296BB15500C5949D /* SignInViewController.swift */; };
-		7E83D78A296BE40100028F10 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E83D789296BE40100028F10 /* MainViewController.swift */; };
-		7EBD6702296BD7C800E6AC38 /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBD6701296BD7C800E6AC38 /* EnterEmailViewController.swift */; };
-		7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549C2965BEF3001290C2 /* AppDelegate.swift */; };
-		7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */; };
-		7EC154A42965BEF3001290C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC154A22965BEF3001290C2 /* Main.storyboard */; };
-		7EC154A62965BEF3001290C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7EC154A52965BEF3001290C2 /* Assets.xcassets */; };
-		7EC154A92965BEF3001290C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */; };
+		51357751340D01C223FCDC37 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC2F451BA96252F9EFDE9D9 /* Pods_ToDo.framework */; };
+		7E18230F29753621002B0D4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E18230E29753621002B0D4A /* AppDelegate.swift */; };
+		7E18231129753621002B0D4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E18231029753621002B0D4A /* SceneDelegate.swift */; };
+		7E18231329753621002B0D4A /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E18231229753621002B0D4A /* LogInViewController.swift */; };
+		7E18231629753621002B0D4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E18231429753621002B0D4A /* Main.storyboard */; };
+		7E18231829753621002B0D4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E18231729753621002B0D4A /* Assets.xcassets */; };
+		7E18231B29753621002B0D4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E18231929753621002B0D4A /* LaunchScreen.storyboard */; };
+		7E1E2F8929781D6E00BB12BC /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1E2F8829781D6E00BB12BC /* Task.swift */; };
+		7E43514229766E6C00EF0DDF /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E43514129766E6C00EF0DDF /* UserService.swift */; };
+		7E443B6E29780ACF00749291 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E443B6D29780ACF00749291 /* ListViewController.swift */; };
+		7E4AD934297670A400066846 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4AD933297670A400066846 /* APIConstants.swift */; };
+		7E4DBF882976724700F124F9 /* NetwokResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF872976724700F124F9 /* NetwokResult.swift */; };
+		7E4DBF8B2976887900F124F9 /* LogInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF8A2976887900F124F9 /* LogInModel.swift */; };
+		7E4DBF8D2976888100F124F9 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF8C2976888100F124F9 /* SignUpModel.swift */; };
+		7E55EB8829758292008C6689 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55EB8729758292008C6689 /* SignUpViewController.swift */; };
+		7E6090AA2976C7C700B12882 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6090A92976C7C700B12882 /* ResultViewController.swift */; };
+		7EC9BEDB297ECA4400C84D84 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC9BEDA297ECA4400C84D84 /* MainViewController.swift */; };
+		7EE726D92975A5A200AD6FBD /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE726D82975A5A200AD6FBD /* EnterEmailViewController.swift */; };
+		7EE726DB2975A5B100AD6FBD /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE726DA2975A5B100AD6FBD /* EnterCodeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7E80502A296BB15500C5949D /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		7E83D789296BE40100028F10 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		7EBD6701296BD7C800E6AC38 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
-		7EC154992965BEF3001290C2 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EC1549C2965BEF3001290C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7EC154A32965BEF3001290C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7EC154A52965BEF3001290C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7EC154A82965BEF3001290C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7EC154AA2965BEF3001290C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CC2F451BA96252F9EFDE9D9 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61D322F0DC220F69EC3B6DFC /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
+		7E18230B29753621002B0D4A /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E18230E29753621002B0D4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7E18231029753621002B0D4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7E18231229753621002B0D4A /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		7E18231529753621002B0D4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7E18231729753621002B0D4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7E18231A29753621002B0D4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7E18231C29753621002B0D4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E1E2F8829781D6E00BB12BC /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		7E43514129766E6C00EF0DDF /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		7E443B6D29780ACF00749291 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		7E4AD933297670A400066846 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		7E4DBF872976724700F124F9 /* NetwokResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokResult.swift; sourceTree = "<group>"; };
+		7E4DBF8A2976887900F124F9 /* LogInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInModel.swift; sourceTree = "<group>"; };
+		7E4DBF8C2976888100F124F9 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
+		7E55EB8729758292008C6689 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		7E6090A92976C7C700B12882 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		7EC9BEDA297ECA4400C84D84 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ToDo/MainViewController.swift; sourceTree = SOURCE_ROOT; };
+		7EE726D82975A5A200AD6FBD /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
+		7EE726DA2975A5B100AD6FBD /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
+		BBE4917C901C8CCD6841A195 /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7EC154962965BEF3001290C2 /* Frameworks */ = {
+		7E18230829753621002B0D4A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51357751340D01C223FCDC37 /* Pods_ToDo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7EC154902965BEF2001290C2 = {
+		5FFF9AAD1075BC8EE6DAFADE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7EC1549B2965BEF3001290C2 /* ToDo */,
-				7EC1549A2965BEF3001290C2 /* Products */,
+				2CC2F451BA96252F9EFDE9D9 /* Pods_ToDo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E09929A29766FCF0070BD5F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7E43514129766E6C00EF0DDF /* UserService.swift */,
+				7E4AD933297670A400066846 /* APIConstants.swift */,
+				7E4DBF872976724700F124F9 /* NetwokResult.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		7E18230229753621002B0D4A = {
+			isa = PBXGroup;
+			children = (
+				7E18230D29753621002B0D4A /* ToDo */,
+				7E18230C29753621002B0D4A /* Products */,
+				D83F8C418C73A541C73DA77E /* Pods */,
+				5FFF9AAD1075BC8EE6DAFADE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		7EC1549A2965BEF3001290C2 /* Products */ = {
+		7E18230C29753621002B0D4A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7EC154992965BEF3001290C2 /* ToDo.app */,
+				7E18230B29753621002B0D4A /* ToDo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7EC1549B2965BEF3001290C2 /* ToDo */ = {
+		7E18230D29753621002B0D4A /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				7EC1549C2965BEF3001290C2 /* AppDelegate.swift */,
-				7E80502A296BB15500C5949D /* SignInViewController.swift */,
-				7EBD6701296BD7C800E6AC38 /* EnterEmailViewController.swift */,
-				7E83D789296BE40100028F10 /* MainViewController.swift */,
-				7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */,
-				7EC154A22965BEF3001290C2 /* Main.storyboard */,
-				7EC154A52965BEF3001290C2 /* Assets.xcassets */,
-				7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */,
-				7EC154AA2965BEF3001290C2 /* Info.plist */,
+				7EF2D82E297EAE1E0010EA5A /* Screen */,
+				7EF2D82B297EADB30010EA5A /* Resource */,
+				7E09929A29766FCF0070BD5F /* Network */,
+				7E443B6D29780ACF00749291 /* ListViewController.swift */,
+				7E1E2F8829781D6E00BB12BC /* Task.swift */,
+				7EC9BEDA297ECA4400C84D84 /* MainViewController.swift */,
+				7E18231C29753621002B0D4A /* Info.plist */,
 			);
 			path = ToDo;
+			sourceTree = "<group>";
+		};
+		7E4DBF892976883800F124F9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7E4DBF8A2976887900F124F9 /* LogInModel.swift */,
+				7E4DBF8C2976888100F124F9 /* SignUpModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7EF2D82B297EADB30010EA5A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7EF2D82D297EADCD0010EA5A /* Asset */,
+				7EF2D82C297EADC50010EA5A /* Support */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		7EF2D82C297EADC50010EA5A /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				7E18230E29753621002B0D4A /* AppDelegate.swift */,
+				7E18231029753621002B0D4A /* SceneDelegate.swift */,
+				7E18231929753621002B0D4A /* LaunchScreen.storyboard */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		7EF2D82D297EADCD0010EA5A /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				7E18231729753621002B0D4A /* Assets.xcassets */,
+			);
+			path = Asset;
+			sourceTree = "<group>";
+		};
+		7EF2D82E297EAE1E0010EA5A /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				7EF2D830297EAE2C0010EA5A /* Tabbar */,
+				7EF2D82F297EAE250010EA5A /* Auth */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		7EF2D82F297EAE250010EA5A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				7EF2D832297EAE4B0010EA5A /* Controller */,
+				7EF2D831297EAE430010EA5A /* View */,
+				7E4DBF892976883800F124F9 /* Model */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		7EF2D830297EAE2C0010EA5A /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				7EF2D834297EB1510010EA5A /* New Group */,
+				7EF2D833297EB1490010EA5A /* Main */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		7EF2D831297EAE430010EA5A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7E18231429753621002B0D4A /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7EF2D832297EAE4B0010EA5A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7E6090A92976C7C700B12882 /* ResultViewController.swift */,
+				7EE726DA2975A5B100AD6FBD /* EnterCodeViewController.swift */,
+				7E55EB8729758292008C6689 /* SignUpViewController.swift */,
+				7E18231229753621002B0D4A /* LogInViewController.swift */,
+				7EE726D82975A5A200AD6FBD /* EnterEmailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7EF2D833297EB1490010EA5A /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		7EF2D834297EB1510010EA5A /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		D83F8C418C73A541C73DA77E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BBE4917C901C8CCD6841A195 /* Pods-ToDo.debug.xcconfig */,
+				61D322F0DC220F69EC3B6DFC /* Pods-ToDo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7EC154982965BEF3001290C2 /* ToDo */ = {
+		7E18230A29753621002B0D4A /* ToDo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7EC154AD2965BEF3001290C2 /* Build configuration list for PBXNativeTarget "ToDo" */;
+			buildConfigurationList = 7E18231F29753621002B0D4A /* Build configuration list for PBXNativeTarget "ToDo" */;
 			buildPhases = (
-				7EC154952965BEF3001290C2 /* Sources */,
-				7EC154962965BEF3001290C2 /* Frameworks */,
-				7EC154972965BEF3001290C2 /* Resources */,
+				8DD5DEFF675747FE364C13EF /* [CP] Check Pods Manifest.lock */,
+				7E18230729753621002B0D4A /* Sources */,
+				7E18230829753621002B0D4A /* Frameworks */,
+				7E18230929753621002B0D4A /* Resources */,
+				88EBB791606DAFA6DFE2B5AF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -90,25 +242,25 @@
 			);
 			name = ToDo;
 			productName = ToDo;
-			productReference = 7EC154992965BEF3001290C2 /* ToDo.app */;
+			productReference = 7E18230B29753621002B0D4A /* ToDo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7EC154912965BEF2001290C2 /* Project object */ = {
+		7E18230329753621002B0D4A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
-					7EC154982965BEF3001290C2 = {
+					7E18230A29753621002B0D4A = {
 						CreatedOnToolsVersion = 14.1;
 					};
 				};
 			};
-			buildConfigurationList = 7EC154942965BEF2001290C2 /* Build configuration list for PBXProject "ToDo" */;
+			buildConfigurationList = 7E18230629753621002B0D4A /* Build configuration list for PBXProject "ToDo" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,57 +268,109 @@
 				en,
 				Base,
 			);
-			mainGroup = 7EC154902965BEF2001290C2;
-			productRefGroup = 7EC1549A2965BEF3001290C2 /* Products */;
+			mainGroup = 7E18230229753621002B0D4A;
+			productRefGroup = 7E18230C29753621002B0D4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7EC154982965BEF3001290C2 /* ToDo */,
+				7E18230A29753621002B0D4A /* ToDo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7EC154972965BEF3001290C2 /* Resources */ = {
+		7E18230929753621002B0D4A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EC154A92965BEF3001290C2 /* LaunchScreen.storyboard in Resources */,
-				7EC154A62965BEF3001290C2 /* Assets.xcassets in Resources */,
-				7EC154A42965BEF3001290C2 /* Main.storyboard in Resources */,
+				7E18231B29753621002B0D4A /* LaunchScreen.storyboard in Resources */,
+				7E18231829753621002B0D4A /* Assets.xcassets in Resources */,
+				7E18231629753621002B0D4A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		88EBB791606DAFA6DFE2B5AF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToDo/Pods-ToDo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8DD5DEFF675747FE364C13EF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		7EC154952965BEF3001290C2 /* Sources */ = {
+		7E18230729753621002B0D4A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E80502B296BB15500C5949D /* SignInViewController.swift in Sources */,
-				7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */,
-				7EBD6702296BD7C800E6AC38 /* EnterEmailViewController.swift in Sources */,
-				7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */,
-				7E83D78A296BE40100028F10 /* MainViewController.swift in Sources */,
+				7E43514229766E6C00EF0DDF /* UserService.swift in Sources */,
+				7E4DBF8B2976887900F124F9 /* LogInModel.swift in Sources */,
+				7EE726DB2975A5B100AD6FBD /* EnterCodeViewController.swift in Sources */,
+				7E6090AA2976C7C700B12882 /* ResultViewController.swift in Sources */,
+				7E55EB8829758292008C6689 /* SignUpViewController.swift in Sources */,
+				7E18231329753621002B0D4A /* LogInViewController.swift in Sources */,
+				7E4AD934297670A400066846 /* APIConstants.swift in Sources */,
+				7E18230F29753621002B0D4A /* AppDelegate.swift in Sources */,
+				7EE726D92975A5A200AD6FBD /* EnterEmailViewController.swift in Sources */,
+				7EC9BEDB297ECA4400C84D84 /* MainViewController.swift in Sources */,
+				7E4DBF8D2976888100F124F9 /* SignUpModel.swift in Sources */,
+				7E4DBF882976724700F124F9 /* NetwokResult.swift in Sources */,
+				7E443B6E29780ACF00749291 /* ListViewController.swift in Sources */,
+				7E1E2F8929781D6E00BB12BC /* Task.swift in Sources */,
+				7E18231129753621002B0D4A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7EC154A22965BEF3001290C2 /* Main.storyboard */ = {
+		7E18231429753621002B0D4A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7EC154A32965BEF3001290C2 /* Base */,
+				7E18231529753621002B0D4A /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */ = {
+		7E18231929753621002B0D4A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7EC154A82965BEF3001290C2 /* Base */,
+				7E18231A29753621002B0D4A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -174,7 +378,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		7EC154AB2965BEF3001290C2 /* Debug */ = {
+		7E18231D29753621002B0D4A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -234,7 +438,7 @@
 			};
 			name = Debug;
 		};
-		7EC154AC2965BEF3001290C2 /* Release */ = {
+		7E18231E29753621002B0D4A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -288,8 +492,9 @@
 			};
 			name = Release;
 		};
-		7EC154AE2965BEF3001290C2 /* Debug */ = {
+		7E18232029753621002B0D4A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBE4917C901C8CCD6841A195 /* Pods-ToDo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -316,8 +521,9 @@
 			};
 			name = Debug;
 		};
-		7EC154AF2965BEF3001290C2 /* Release */ = {
+		7E18232129753621002B0D4A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61D322F0DC220F69EC3B6DFC /* Pods-ToDo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -347,25 +553,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7EC154942965BEF2001290C2 /* Build configuration list for PBXProject "ToDo" */ = {
+		7E18230629753621002B0D4A /* Build configuration list for PBXProject "ToDo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7EC154AB2965BEF3001290C2 /* Debug */,
-				7EC154AC2965BEF3001290C2 /* Release */,
+				7E18231D29753621002B0D4A /* Debug */,
+				7E18231E29753621002B0D4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7EC154AD2965BEF3001290C2 /* Build configuration list for PBXNativeTarget "ToDo" */ = {
+		7E18231F29753621002B0D4A /* Build configuration list for PBXNativeTarget "ToDo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7EC154AE2965BEF3001290C2 /* Debug */,
-				7EC154AF2965BEF3001290C2 /* Release */,
+				7E18232029753621002B0D4A /* Debug */,
+				7E18232129753621002B0D4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7EC154912965BEF2001290C2 /* Project object */;
+	rootObject = 7E18230329753621002B0D4A /* Project object */;
 }
