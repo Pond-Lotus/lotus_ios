@@ -14,23 +14,23 @@ class ListViewController: UIViewController {
     @IBOutlet var editButton: UIBarButtonItem!
     var doneButton: UIBarButtonItem?
     
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    
     var tasks = [Task]() {
         didSet {
-            // tasks 배열에 추가될 때마다 UserDefaults에 할 일이 저장됨
-            self.saveTasks()
+//            self.saveTasks()
+            self.saveToDo()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTap))
-        // 이게 없으면 extension에 정의한 함수가 호출되지 않음
         self.tableView.dataSource = self
-        
         self.tableView.delegate = self
-
-        self.loadTasks()
-        
+//        self.loadTasks()
+        print(UserDefaults.standard.string(forKey: "myToken")!)
     }
     
     @objc func doneButtonTap() {
@@ -52,9 +52,19 @@ class ListViewController: UIViewController {
         let registerButton = UIAlertAction(title: "등록", style: .default, handler: { [weak self] _ in
             guard let title = alert.textFields?[0].text else {return}
             
-            let task = Task(title: title, done: false)
-            self?.tasks.append(task)
-            self?.tableView.reloadData()
+//            let task = Task(title: title, done: false)
+//            self?.tasks.append(task)
+//            self?.tableView.reloadData()
+            
+            let date = DateFormatter()
+            date.dateFormat = "Y"
+            let year = date.string(from: Date())
+            date.dateFormat = "M"
+            let month = date.string(from: Date())
+            date.dateFormat = "D"
+            let day = date.string(from: Date())
+
+            self?.writeCheck(year: year, month: month, day: day, title: title)
         })
         let cancelButton = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
@@ -65,6 +75,30 @@ class ListViewController: UIViewController {
         })
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func tapSearchButton(_ sender: Any) {
+        let date = DateFormatter()
+        date.dateFormat = "Y"
+        let year = date.string(from: Date())
+        date.dateFormat = "M"
+        let month = date.string(from: Date())
+        date.dateFormat = "D"
+        let day = date.string(from: Date())
+        
+        self.searchCheck(year: year, month: month, day: "24")
+    }
+    
+    @IBAction func tapDeleteButton(_ sender: Any) {
+        let date = DateFormatter()
+        date.dateFormat = "Y"
+        let year = date.string(from: Date())
+        date.dateFormat = "M"
+        let month = date.string(from: Date())
+        date.dateFormat = "D"
+        let day = date.string(from: Date())
+        
+        self.deleteCheck(year: year, month: month, day: day, title: "ss", done: "true")
     }
     
     func saveTasks() {
@@ -89,6 +123,13 @@ class ListViewController: UIViewController {
             return Task(title: title, done: done)
         }
     }
+    
+    func saveToDo() {
+    }
+    
+    func loadToDo() {
+    }
+    
 }
 
 // 코드 가독성을 위해
@@ -140,6 +181,187 @@ extension ListViewController: UITableViewDelegate {
         task.done = !task.done
         self.tasks[indexPath.row] = task
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        let alert = UIAlertController(title: "할 일 수정", message: nil, preferredStyle: .alert)
+        // 클로저 내에 캡쳐 목록 정의([weak self])를 하여 강한 순환참조 회피
+        let registerButton = UIAlertAction(title: "수정", style: .default, handler: { [weak self] _ in
+            guard let title = alert.textFields?[0].text else {return}
+            
+            let task = Task(title: title, done: false)
+            self?.tasks.remove(at: indexPath.row)
+            self?.tasks.append(task)
+            self?.tableView.reloadData()
+            
+            let date = DateFormatter()
+            date.dateFormat = "Y"
+            let year = date.string(from: Date())
+            date.dateFormat = "M"
+            let month = date.string(from: Date())
+            date.dateFormat = "D"
+            let day = date.string(from: Date())
+            let done: String?
+            if task.done == true {
+                done = "true"
+            } else {
+                done = "false"
+            }
+                
+            self?.editCheck(year: year, month: month, day: day, title: title, done: done!)
+        })
+        let cancelButton = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(registerButton)
+        alert.addAction(cancelButton)
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "할 일을 입력하세요."
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension ListViewController {
+    func writeCheck(year: String, month: String, day: String, title: String) {
+        ToDoService.shared.writeToDo(year: year, month: month, day: day, title: title) {
+            response in
+            print(response)
+            switch response {
+            case .success(let data):
+                guard let data = data as? ToDoResponse else { return }
+                
+                if data.resultCode == 200 {
+                    self.alertLoginFail(message: "작성 성공")
+                    
+                    let task = Task(title: title, done: false)
+                    self.tasks.append(task)
+                    self.tableView.reloadData()
+                    
+                } else if data.resultCode == 500 {
+                    self.alertLoginFail(message: "작성 실패")
+                }
+            case .requestErr(let err):
+                print(err)
+                self.alertLoginFail(message: "작성 실패")
+            case .pathErr:
+                print("pathErr")
+                self.alertLoginFail(message: "작성 실패")
+            case .serverErr:
+                print("serverErr")
+                self.alertLoginFail(message: "작성 실패")
+            case .networkFail:
+                print("networkFail")
+                self.alertLoginFail(message: "작성 실패")
+            }
+        }
+    }
+
+    func searchCheck(year: String, month: String, day: String) {
+        ToDoService.shared.searchToDo(year: year, month: month, day: day) {
+            response in
+            switch response {
+            case .success(let data):
+                guard let data = data as? ToDoListResponse else { return }
+                
+                if data.resultCode == 200 {
+                    self.alertLoginFail(message: "조회 성공")
+                    let task = data.data.map {
+                        [
+                            "id": $0.id,
+                            "title": $0.title,
+                            "done": $0.done
+                        ]
+                    }
+                    self.tasks = task.compactMap {
+//                        guard let title = $0["id"] as? Int else {return nil}
+                        guard let title = $0["title"] as? String else {return nil}
+                        guard let done = $0["done"] as? Bool else {return nil}
+
+                        return Task(title: title, done: done)
+                    }
+                    self.tableView.reloadData()
+                    
+                } else {
+                    self.alertLoginFail(message: "조회 실패")
+                }
+            case .requestErr(let err):
+                print(err)
+                self.alertLoginFail(message: "조회 실패")
+            case .pathErr:
+                print("pathErr")
+                self.alertLoginFail(message: "조회 실패")
+            case .serverErr:
+                print("serverErr")
+                self.alertLoginFail(message: "조회 실패")
+            case .networkFail:
+                print("networkFail")
+                self.alertLoginFail(message: "조회 실패")
+            }
+        }
     }
     
+    func editCheck(year: String, month: String, day: String, title: String, done: String) {
+        ToDoService.shared.editToDo(year: year, month: month, day: day, title: title, done: done) {
+            response in
+            print(response)
+            switch response {
+            case .success(let data):
+                guard let data = data as? ToDoResponse else { return }
+
+                if data.resultCode == 200 {
+                    self.alertLoginFail(message: "수정 성공")
+                } else {
+                    self.alertLoginFail(message: "수정 실패")
+                }
+            case .requestErr(let err):
+                print(err)
+                self.alertLoginFail(message: "수정 실패")
+            case .pathErr:
+                print("pathErr")
+                self.alertLoginFail(message: "수정 실패")
+            case .serverErr:
+                print("serverErr")
+                self.alertLoginFail(message: "수정 실패")
+            case .networkFail:
+                print("networkFail")
+                self.alertLoginFail(message: "수정 실패")
+            }
+        }
+    }
+    
+    func deleteCheck(year: String, month: String, day: String, title: String, done: String) {
+        ToDoService.shared.deleteToDo(year: year, month: month, day: day, title: title, done: done) {
+            response in
+            print(response)
+            switch response {
+            case .success(let data):
+                guard let data = data as? DeleteToDoResponse else { return }
+                
+                if data.detail.isEmpty
+                {
+                    self.alertLoginFail(message: "삭제 성공")
+                } else {
+                    self.alertLoginFail(message: data.detail)
+                }
+            case .requestErr(let err):
+                print(err)
+                self.alertLoginFail(message: "삭제 실패")
+            case .pathErr:
+                print("pathErr")
+                self.alertLoginFail(message: "삭제 실패")
+            case .serverErr:
+                print("serverErr")
+                self.alertLoginFail(message: "삭제 실패")
+            case .networkFail:
+                print("networkFail")
+                self.alertLoginFail(message: "삭제 실패")
+            }
+        }
+    }
+    
+    func alertLoginFail(message:String) {
+        let alertVC = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+        alertVC.addAction(cancelAction)
+        present(alertVC,animated:true,completion: nil)
+    }
 }

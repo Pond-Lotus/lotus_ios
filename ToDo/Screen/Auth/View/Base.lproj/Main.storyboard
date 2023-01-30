@@ -17,14 +17,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="icg-3e-vD6" kind="relationship" relationship="rootViewController" id="UU6-38-0iL"/>
+                        <segue destination="bbJ-Pf-Luh" kind="relationship" relationship="rootViewController" id="FR8-6M-mFh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgh-1o-lbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationBar contentMode="scaleToFill" id="9MC-6z-k0I">
-                    <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </navigationBar>
             </objects>
             <point key="canvasLocation" x="-265" y="580"/>
         </scene>
@@ -232,70 +228,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26S-zl-KFX">
-                                <rect key="frame" x="176" y="160" width="41.333333333333343" height="20.333333333333371"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" id="yTb-PF-i4D">
                                 <rect key="frame" x="30" y="260" width="333" height="331"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="닉네임을 입력하세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53m-P4-KOR">
-                                        <rect key="frame" x="0.0" y="0.0" width="333" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="14"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EWR-90-aX6">
-                                        <rect key="frame" x="0.0" y="20" width="333" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="636-a8-yqJ"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="34" width="333" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="비밀번호를 입력하세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDQ-vO-VRz">
-                                        <rect key="frame" x="0.0" y="90" width="333" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="88" width="333" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J1k-8U-0Tm">
-                                        <rect key="frame" x="0.0" y="110" width="333" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="c8C-Nf-s5Y"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="128.33333333333334" width="333" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="비밀번호를 다시 입력하세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u3l-E3-O9m">
-                                        <rect key="frame" x="0.0" y="180" width="333" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="182.33333333333334" width="333" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdQ-gz-z7T">
-                                        <rect key="frame" x="0.0" y="200" width="333" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="rgy-nu-5yT"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="222.66666666666666" width="333" height="33.999999999999972"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiD-nL-gW7">
-                                        <rect key="frame" x="0.0" y="251" width="333" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiD-nL-gW7">
+                                        <rect key="frame" x="0.0" y="276.66666666666669" width="333" height="0.0"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" systemColor="systemPinkColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLl-gD-dtM">
-                                        <rect key="frame" x="0.0" y="271" width="333" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLl-gD-dtM">
+                                        <rect key="frame" x="0.0" y="296.66666666666669" width="333" height="34.333333333333314"/>
                                         <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="ejD-X4-7zP"/>
-                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="다음"/>
                                         <connections>
@@ -304,17 +282,17 @@
                                     </button>
                                 </subviews>
                                 <viewLayoutGuide key="safeArea" id="sQ6-rm-m5M"/>
-                                <constraints>
-                                    <constraint firstItem="fdQ-gz-z7T" firstAttribute="top" secondItem="u3l-E3-O9m" secondAttribute="bottom" id="Ijg-cH-yeU"/>
-                                    <constraint firstItem="BiD-nL-gW7" firstAttribute="top" secondItem="fdQ-gz-z7T" secondAttribute="bottom" id="RgP-RS-5gQ"/>
-                                </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26S-zl-KFX">
+                                <rect key="frame" x="176" y="181" width="41.333333333333343" height="20.333333333333343"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nhb-Lo-vHz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="yTb-PF-i4D" firstAttribute="top" secondItem="26S-zl-KFX" secondAttribute="bottom" constant="8" symbolic="YES" id="8m1-Cc-Ahw"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="emailLabel" destination="26S-zl-KFX" id="Sfp-3K-f0I"/>
@@ -367,8 +345,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ps7-zY-vC9">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="qLp-80-fLg">
+                                <rect key="frame" x="78" y="93" width="76" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="조회"/>
+                                <connections>
+                                    <action selector="tapSearchButton:" destination="bbJ-Pf-Luh" eventType="touchUpInside" id="vAA-uj-BIZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B50-fD-b0A">
+                                <rect key="frame" x="242" y="92" width="54" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="삭제"/>
+                                <connections>
+                                    <action selector="tapDeleteButton:" destination="bbJ-Pf-Luh" eventType="touchUpInside" id="aDZ-Xc-o2B"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="14v-fI-SX1" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="176" width="393" height="272"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ps7-zY-vC9">
+                                <rect key="frame" x="0.0" y="456" width="393" height="411"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToDoCell" textLabel="zNJ-YO-TYE" style="IBUITableViewCellStyleDefault" id="Vqv-88-plr">
@@ -393,14 +395,9 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EMZ-Jz-cDs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ps7-zY-vC9" firstAttribute="leading" secondItem="EMZ-Jz-cDs" secondAttribute="leading" id="GYv-in-R9P"/>
-                            <constraint firstItem="ps7-zY-vC9" firstAttribute="top" secondItem="EMZ-Jz-cDs" secondAttribute="top" id="V1M-j0-HYB"/>
-                            <constraint firstItem="EMZ-Jz-cDs" firstAttribute="trailing" secondItem="ps7-zY-vC9" secondAttribute="trailing" id="ac5-US-kBD"/>
-                            <constraint firstItem="EMZ-Jz-cDs" firstAttribute="bottom" secondItem="ps7-zY-vC9" secondAttribute="bottom" id="qAo-9n-cNv"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PXY-EU-C7l">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="mFz-ns-MRK">
                             <connections>
                                 <action selector="tapEditButton:" destination="bbJ-Pf-Luh" id="j6N-js-cMV"/>
@@ -413,13 +410,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteButton" destination="B50-fD-b0A" id="2Ib-8s-zZr"/>
                         <outlet property="editButton" destination="mFz-ns-MRK" id="l86-rb-RS7"/>
+                        <outlet property="searchButton" destination="qLp-80-fLg" id="cdL-UU-MWr"/>
                         <outlet property="tableView" destination="ps7-zY-vC9" id="Xec-dR-ksk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wxs-fM-vzR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="502" y="1327"/>
+            <point key="canvasLocation" x="501.52671755725191" y="1326.7605633802818"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Zh6-6D-4DZ">
@@ -428,13 +427,28 @@
                     <view key="view" contentMode="scaleToFill" id="fab-gm-Fgi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T83-gm-SPb" customClass="FSCalendar">
+                                <rect key="frame" x="16" y="147" width="361" height="376"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="headerHeight">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="1j5-n7-okY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3G-Lg-9XO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1317" y="1327"/>
+            <point key="canvasLocation" x="1316.793893129771" y="1326.7605633802818"/>
         </scene>
     </scenes>
     <resources>

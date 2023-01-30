@@ -8,6 +8,7 @@
 import Foundation
 
 struct Task {
+//    var id: Int
     var title: String
-    var done: Bool
+    var done: Bool = false
 }

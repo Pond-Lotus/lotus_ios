@@ -13,6 +13,7 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    var token: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,17 @@ class LogInViewController: UIViewController {
         }
     }
     
-
     @IBAction func signUpTapped(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let viewController = storyboard.instantiateViewController(identifier: "EnterEmailViewController") // Storyboard ID
         viewController.modalPresentationStyle = .fullScreen
         navigationController?.show(viewController, sender: nil)
+    }
+    
+    func saveToken() {
+        let data = self.token
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(data, forKey: "myToken")
     }
 }
 
@@ -54,15 +60,14 @@ extension LogInViewController {
                 guard let data = data as? LoginResponse else { return }
 
                 if data.resultCode == 200 {
+                    self.token = data.token
+                    self.saveToken()
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     let viewController = storyboard.instantiateViewController(identifier: "ListViewController") // Storyboard ID
                     viewController.modalPresentationStyle = .fullScreen
                     self.navigationController?.show(viewController, sender: nil)
                 } else if data.resultCode == 500 {
                     self.alertLoginFail(message: "로그인 실패")
-                } else
-                {
-                    self.alertLoginFail(message: "fuck you")
                 }
             case .requestErr(let err):
                 print(err)
