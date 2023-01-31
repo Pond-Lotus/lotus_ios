@@ -27,16 +27,13 @@ class SignUpViewController: UIViewController {
         let password = passwordTextField.text ?? ""
         let passwordCheck = passwordCheckTextField.text ?? ""
         
-        if password == passwordCheck
-        {
+        if password == passwordCheck {
             self.errorMessageLabel.text = ""
             
             if let nickName = nickNameTextField.text, let password = passwordTextField.text {
                 signUp(email: originEmail!, nickname: nickName, password: password)
             }
-        }
-        else
-        {
+        } else {
             self.errorMessageLabel.text = "비밀번호가 일치하지 않습니다."
         }
     }

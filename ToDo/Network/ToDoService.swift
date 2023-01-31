@@ -24,17 +24,16 @@ class ToDoService {
             "day" : day,
             "title" : title
         ]
-        print(body)
         let dataRequest = AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header)
         
         dataRequest.responseData{
             response in
             switch response.result {
             case .success:
-                guard let statusCode = response.response?.statusCode else {return}
+                guard let statusCode = response.response?.statusCode else { return }
                 guard let value = response.value else {return}
+                let networkResult = self.judgeStatus(by: statusCode, value, .add)
                 
-                let networkResult = self.judgeStatus(by: statusCode, value)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -42,7 +41,7 @@ class ToDoService {
         }
     }
     
-    func searchToDo(year: String, month: String, day: String, completion: @escaping(NetworkResult<Any>) -> Void)
+    func inquireToDo(year: String, month: String, day: String, completion: @escaping(NetworkResult<Any>) -> Void)
     {
         let url = APIConstants.toDoURL
         let header: HTTPHeaders = ["Authorization" : "Token " + UserDefaults.standard.string(forKey: "myToken")!]
@@ -59,8 +58,7 @@ class ToDoService {
             case .success:
                 guard let statusCode = response.response?.statusCode else {return}
                 guard let value = response.value else {return}
-                
-                let networkResult = self.judgeStatus2(by: statusCode, value)
+                let networkResult = self.judgeStatus(by: statusCode, value, .inquire)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -68,14 +66,14 @@ class ToDoService {
         }
     }
     
-    func editToDo(year: String, month: String, day: String, title: String, done: String, completion: @escaping(NetworkResult<Any>) -> Void)
+    func editToDo(id: Int, year: String, month: String, day: String, title: String, done: Bool, completion: @escaping(NetworkResult<Any>) -> Void)
     {
-        let url = APIConstants.toDoURL + "72/"
+        let url = APIConstants.toDoURL + "\(id)/" // 꼭 /을 붙여야함
         let header: HTTPHeaders = ["Authorization" : "Token " + UserDefaults.standard.string(forKey: "myToken")!]
         let body: Parameters = [
-            "year" : year,
-            "month" : month,
-            "day" : day,
+            "year" : Int(year)!, // 와 타입 때문에 pathError..
+            "month" : Int(month)!,
+            "day" : Int(day)!,
             "title" : title,
             "done" : done
         ]
@@ -86,9 +84,8 @@ class ToDoService {
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else {return}
-                guard let value = response.value else {return}
-                
-                let networkResult = self.judgeStatus(by: statusCode, value)
+                guard let value = response.value else { return }
+                let networkResult = self.judgeStatus(by: statusCode, value, .edit)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -96,28 +93,20 @@ class ToDoService {
         }
     }
     
-    func deleteToDo(year: String, month: String, day: String, title: String, done: String, completion: @escaping(NetworkResult<Any>) -> Void)
+    func deleteToDo(id: Int, completion: @escaping(NetworkResult<Any>) -> Void)
     {
-        let url = APIConstants.toDoURL + "71/"
+        let url = APIConstants.toDoURL + "\(id)/"
         let header: HTTPHeaders = ["Authorization" : "Token " + UserDefaults.standard.string(forKey: "myToken")!]
-        let body: Parameters = [
-            "year" : year,
-            "month" : month,
-            "day" : day,
-            "title" : title,
-            "done" : done
-        ]
-        let dataRequest = AF.request(url, method: .delete, parameters: body, encoding: JSONEncoding.default, headers: header)
+        let dataRequest = AF.request(url, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: header)
         
         dataRequest.responseData{
             response in
-            print("response : \(response)");
             switch response.result {
             case .success:
                 guard let statusCode = response.response?.statusCode else {return}
                 guard let value = response.value else {return}
                 
-                let networkResult = self.judgeStatus3(by: statusCode, value)
+                let networkResult = self.judgeStatus(by: statusCode, value, .delete)
                 completion(networkResult)
             case .failure:
                 completion(.networkFail)
@@ -125,55 +114,32 @@ class ToDoService {
         }
     }
     
-    private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
+    private func judgeStatus(by statusCode: Int, _ data: Data, _ form: API) -> NetworkResult<Any> {
         switch statusCode {
-        case ..<300 : return isVaildData(data: data)
+        case ..<300 : return isVaildData(data: data, form: form)
         case 400..<500 : return .pathErr
         case 500..<600 : return .serverErr
         default : return .networkFail
         }
     }
     
-    private func judgeStatus2(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        switch statusCode {
-        case ..<300 : return isVaildData2(data: data)
-        case 400..<500 : return .pathErr
-        case 500..<600 : return .serverErr
-        default : return .networkFail
+    private func isVaildData(data: Data, form: API) -> NetworkResult<Any> {
+        let decoder = JSONDecoder()
+        
+        switch form {
+        case .add:
+            guard let decodedData = try? decoder.decode(ToDoResponse.self, from: data) else { return .pathErr }
+            return .success(decodedData as Any)
+        case .edit:
+            guard let decodedData = try? decoder.decode(EditToDoResponse.self, from: data) else { return .pathErr }
+            return .success(decodedData as Any)
+        case .inquire:
+            guard let decodedData = try? decoder.decode(ToDoListResponse.self, from: data) else { return .pathErr }
+            return .success(decodedData as Any)
+        case .delete:
+            guard let decodedData = try? decoder.decode(DeleteToDoResponse.self, from: data) else { return .pathErr }
+            return .success(decodedData as Any)
         }
-    }
-    
-    private func judgeStatus3(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        switch statusCode {
-        case ..<300 : return isVaildData3(data: data)
-        case 400..<500 : return .pathErr
-        case 500..<600 : return .serverErr
-        default : return .networkFail
-        }
-    }
-    
-    private func isVaildData(data: Data) -> NetworkResult<Any> {
-        let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(ToDoResponse.self, from: data)
-        else { return .pathErr }
-        
-        return .success(decodedData as Any)
-    }
-    
-    private func isVaildData2(data: Data) -> NetworkResult<Any> {
-        let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(ToDoListResponse.self, from: data)
-        else { return .pathErr }
-        
-        return .success(decodedData as Any)
-    }
-    
-    private func isVaildData3(data: Data) -> NetworkResult<Any> {
-        let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(DeleteToDoResponse.self, from: data)
-        else { return .pathErr }
-        
-        return .success(decodedData as Any)
     }
 }
 

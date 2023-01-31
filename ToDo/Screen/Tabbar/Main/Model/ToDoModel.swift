@@ -16,8 +16,9 @@ struct ToDoResponse: Codable {
 // MARK: - ToDoData
 struct ToDoData: Codable {
     let title: String
-    let year, month, day: Int
+    let year, month, day, id: Int // 응답 오는 순서 상관 없이 잘 들어간다!
     let writer: String
+    let done: Bool
 }
 
 struct ToDoListResponse: Codable {
@@ -33,6 +34,19 @@ struct ToDoListData: Codable {
     let writer: String
 }
 
+struct EditToDoResponse: Codable {
+    let resultCode: Int
+    let data: EditToDoData
+}
+
+struct EditToDoData: Codable {
+    let title: String
+    let year, month, day, color: Int
+    let description, time: String
+    let id: Int
+    let done: Bool
+}
+
 struct DeleteToDoResponse: Codable {
-    let detail: String
+    let resultCode: Int
 }

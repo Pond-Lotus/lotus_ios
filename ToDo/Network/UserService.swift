@@ -94,7 +94,43 @@ class UserService {
             "password" : password
         ]
         let dataRequest = AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header)
-        print(body)
+        
+        dataRequest.responseData{
+            response in
+            switch response.result {
+            case .success:
+                guard let statusCode = response.response?.statusCode else {return}
+                guard let value = response.value else {return}
+                
+                let networkResult = self.judgeSignupStatus(by: statusCode, value)
+                completion(networkResult)
+            case .failure:
+                completion(.networkFail)
+            }
+        }
+    }
+    
+    func editProfile(nickname: String, image: UIImage?, completion: @escaping(NetworkResult<Any>) -> Void)
+    {
+        let url = APIConstants.editprofileURL + "1/"
+        
+        let header : HTTPHeaders = ["Content-Type" : "multipart/form-data"]
+        let body : Parameters = [
+            "nickname": nickname
+        ]
+        
+        let dataRequest = AF.upload(multipartFormData: { MultipartFormData in
+            //body 추가
+            for (key, value) in body {
+                MultipartFormData.append("\(value)".data(using: .utf8)!, withName: key)
+            }
+            //img 추가
+            if let img = image?.pngData() {
+                MultipartFormData.append(img, withName: "img", fileName: "\(img).jpg", mimeType: "image/png")
+            }
+        }, to: url, usingThreshold: UInt64.init(), method: .post, headers: header)
+
+        
         dataRequest.responseData{
             response in
             switch response.result {
@@ -147,6 +183,7 @@ class UserService {
             return .networkFail
         }
     }
+    
     private func isVaildData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         guard let decodedData = try? decoder.decode(SignupResponse.self, from: data)
