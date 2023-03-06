@@ -191,7 +191,7 @@ class RegisterService{
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode(ResponseData.self, from: data) else {return .pathErr}
+        guard let decodedData = try? decoder.decode(ResponseData.self, from: data) else {return .decodeErr}
         
         //성공적으로 decode 마치면 success에 data부분을 담아서 completion을 호출한다...
         return .success(decodedData)
@@ -212,16 +212,17 @@ class RegisterService{
         
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .pathErr}
+        guard let decodedData = try? decoder.decode(RegisterResponseData.self, from: data) else {return .decodeErr}
         
         //성공적으로 decode 마치면 success에 data부분을 담아서 completion을 호출한다...
         return .success(decodedData)
+        
     }
     
     private func isLoginRegisterValidData(data:Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode(LoginResponseData.self, from: data) else {return .pathErr}
+        guard let decodedData = try? decoder.decode(LoginResponseData.self, from: data) else {return .decodeErr}
         
         //성공적으로 decode 마치면 success에 data부분을 담아서 completion을 호출한다...
         return .success(decodedData)

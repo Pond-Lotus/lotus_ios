@@ -37,8 +37,13 @@ class ViewController: UIViewController {
                     if data.resultCode == 200 {
                         let userDefault = UserDefaults.standard
                         userDefault.set(data.token, forKey: "token")
+                        if data.image != nil {
+                            userDefault.set(data.image, forKey: "profileImage")
+                        }
+                        userDefault.set(data.nickname, forKey: "nickname")
+                        userDefault.set(data.email, forKey: "email")
                         
-                        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TodoMainViewController") as? TodoMainViewController else {return}
+                        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {return}
                         viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: false)
                     }
@@ -51,6 +56,8 @@ class ViewController: UIViewController {
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
         

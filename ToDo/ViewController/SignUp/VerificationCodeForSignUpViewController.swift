@@ -44,6 +44,8 @@ class VerificationCodeForSignUpViewController :UIViewController {
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }
@@ -56,5 +58,10 @@ class VerificationCodeForSignUpViewController :UIViewController {
         codeTextField.defaultTextAttributes.updateValue(45.0, forKey: NSAttributedString.Key.kern)
         codeTextField.borderStyle = .line
         codeTextField.font?.withSize(30)
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view?.endEditing(true)
+        print("touch")
     }
 }

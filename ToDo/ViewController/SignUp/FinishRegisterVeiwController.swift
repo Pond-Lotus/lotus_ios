@@ -17,7 +17,12 @@ class FinishRegisterVeiwController : UIViewController{
     }
     @IBAction func tapLoginButton(_ sender: Any) {
         guard let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {return}
-                
+        loginViewController.modalPresentationStyle = .fullScreen
         self.present(loginViewController, animated: false)
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view?.endEditing(true)
+        print("touch")
     }
 }

@@ -14,4 +14,7 @@ struct Server{
     static let register:String = "/account/register/"
     static let login:String = "/account/login/"
     static let todo:String = "/todo/todo/"
+    static let profileEdit1 = "/account/edit1/"
+    static let priority = "/todo/color/priority/"
+    static let getColor = "/todo/color/"
 }

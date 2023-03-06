@@ -8,19 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		1A301C788C800FCF8C2F5521 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50146E538FCC5E4309E504E0 /* Pods_ToDo.framework */; };
+		3E029DA4298661900091DF6E /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E029DA3298661900091DF6E /* TodoViewController.swift */; };
 		3E24915B2972F1A50091DB28 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915A2972F1A50091DB28 /* RegisterService.swift */; };
 		3E24915D2972F2070091DB28 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915C2972F2070091DB28 /* Server.swift */; };
 		3E24915F297329E90091DB28 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915E297329E90091DB28 /* NetworkResult.swift */; };
+		3E7BD5CB29A89C8B00BACC3E /* SetPriorityVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BD5CA29A89C8B00BACC3E /* SetPriorityVeiwController.swift */; };
+		3E7BD5CD29A8A99400BACC3E /* PriorityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BD5CC29A8A99400BACC3E /* PriorityTableViewCell.swift */; };
 		3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */; };
-		3E837951297AE53B00508E92 /* TodoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E837950297AE53B00508E92 /* TodoMainViewController.swift */; };
+		3EAC412E29A285B800207440 /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAC412D29A285B800207440 /* SelectColorViewController.swift */; };
 		3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */; };
 		3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */; };
+		3EC2FB742989050B002DA822 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2FB732989050B002DA822 /* EditProfileViewController.swift */; };
 		3ECE8F5F297E9D8C006CD0D1 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE8F5E297E9D8C006CD0D1 /* TodoList.swift */; };
 		3ECE8F63297EA527006CD0D1 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE8F62297EA527006CD0D1 /* TodoTableViewCell.swift */; };
 		3EDDDFD8296BED370048D941 /* ProfileSettingForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */; };
 		3EDDDFDA296BFBB80048D941 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFD9296BFBB80048D941 /* ResponseData.swift */; };
 		3EDDDFDC296C68AE0048D941 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFDB296C68AE0048D941 /* RequestData.swift */; };
+		3EEEDABA29966EC200634B13 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEDAB929966EC200634B13 /* DrawerViewController.swift */; };
+		3EEEDAC42998D38900634B13 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEDAC32998D38900634B13 /* BottomSheetViewController.swift */; };
+		3EEEDAC72998E26300634B13 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEDAC62998E26300634B13 /* Color.swift */; };
 		3EFD261E297EF1B200019AB9 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD261D297EF1B200019AB9 /* TodoService.swift */; };
+		3EFE4F102990EF5700DB9A53 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE4F0F2990EF5700DB9A53 /* ProfileService.swift */; };
 		7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549C2965BEF3001290C2 /* AppDelegate.swift */; };
 		7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */; };
 		7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC154A02965BEF3001290C2 /* ViewController.swift */; };
@@ -31,19 +39,27 @@
 
 /* Begin PBXFileReference section */
 		23A7AA2F8A7B65779318EF9E /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
+		3E029DA3298661900091DF6E /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		3E24915A2972F1A50091DB28 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		3E24915C2972F2070091DB28 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		3E24915E297329E90091DB28 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		3E7BD5CA29A89C8B00BACC3E /* SetPriorityVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPriorityVeiwController.swift; sourceTree = "<group>"; };
+		3E7BD5CC29A8A99400BACC3E /* PriorityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityTableViewCell.swift; sourceTree = "<group>"; };
 		3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegisterVeiwController.swift; sourceTree = "<group>"; };
-		3E837950297AE53B00508E92 /* TodoMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMainViewController.swift; sourceTree = "<group>"; };
+		3EAC412D29A285B800207440 /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
 		3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeForSignUpViewController.swift; sourceTree = "<group>"; };
+		3EC2FB732989050B002DA822 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3ECE8F5E297E9D8C006CD0D1 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		3ECE8F62297EA527006CD0D1 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EDDDFD9296BFBB80048D941 /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		3EDDDFDB296C68AE0048D941 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		3EEEDAB929966EC200634B13 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		3EEEDAC32998D38900634B13 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		3EEEDAC62998E26300634B13 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3EFD261D297EF1B200019AB9 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
+		3EFE4F0F2990EF5700DB9A53 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		50146E538FCC5E4309E504E0 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75043B30467E99A993A57F25 /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
 		7EC154992965BEF3001290C2 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +95,7 @@
 		3E2491602974015D0091DB28 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3EFE4F0F2990EF5700DB9A53 /* ProfileService.swift */,
 				3EFD261D297EF1B200019AB9 /* TodoService.swift */,
 				3E24915C2972F2070091DB28 /* Server.swift */,
 				3E24915A2972F1A50091DB28 /* RegisterService.swift */,
@@ -103,6 +120,7 @@
 				3E249163297401F80091DB28 /* SignUp */,
 				3EFC4114297C0F69005551CE /* Todo */,
 				7EC154A02965BEF3001290C2 /* ViewController.swift */,
+				3EC2FB732989050B002DA822 /* EditProfileViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -118,12 +136,25 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		3EEEDAC52998E25100634B13 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				3EEEDAC62998E26300634B13 /* Color.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
 		3EFC4114297C0F69005551CE /* Todo */ = {
 			isa = PBXGroup;
 			children = (
 				3ECE8F5E297E9D8C006CD0D1 /* TodoList.swift */,
 				3ECE8F62297EA527006CD0D1 /* TodoTableViewCell.swift */,
-				3E837950297AE53B00508E92 /* TodoMainViewController.swift */,
+				3E029DA3298661900091DF6E /* TodoViewController.swift */,
+				3EEEDAC32998D38900634B13 /* BottomSheetViewController.swift */,
+				3EEEDAB929966EC200634B13 /* DrawerViewController.swift */,
+				3EAC412D29A285B800207440 /* SelectColorViewController.swift */,
+				3E7BD5CA29A89C8B00BACC3E /* SetPriorityVeiwController.swift */,
+				3E7BD5CC29A8A99400BACC3E /* PriorityTableViewCell.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -149,6 +180,7 @@
 		7EC1549B2965BEF3001290C2 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				3EEEDAC52998E25100634B13 /* Color */,
 				3E249162297401CC0091DB28 /* ViewController */,
 				3E2491602974015D0091DB28 /* Network */,
 				7EC1549C2965BEF3001290C2 /* AppDelegate.swift */,
@@ -292,13 +324,21 @@
 				3ECE8F63297EA527006CD0D1 /* TodoTableViewCell.swift in Sources */,
 				3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */,
 				3E24915F297329E90091DB28 /* NetworkResult.swift in Sources */,
-				3E837951297AE53B00508E92 /* TodoMainViewController.swift in Sources */,
+				3EC2FB742989050B002DA822 /* EditProfileViewController.swift in Sources */,
 				7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */,
 				3E24915B2972F1A50091DB28 /* RegisterService.swift in Sources */,
+				3E7BD5CB29A89C8B00BACC3E /* SetPriorityVeiwController.swift in Sources */,
 				3EDDDFD8296BED370048D941 /* ProfileSettingForSignUpViewController.swift in Sources */,
 				7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */,
+				3EAC412E29A285B800207440 /* SelectColorViewController.swift in Sources */,
 				3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */,
+				3EEEDAC42998D38900634B13 /* BottomSheetViewController.swift in Sources */,
+				3EFE4F102990EF5700DB9A53 /* ProfileService.swift in Sources */,
+				3EEEDAC72998E26300634B13 /* Color.swift in Sources */,
+				3E029DA4298661900091DF6E /* TodoViewController.swift in Sources */,
+				3E7BD5CD29A8A99400BACC3E /* PriorityTableViewCell.swift in Sources */,
 				3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */,
+				3EEEDABA29966EC200634B13 /* DrawerViewController.swift in Sources */,
 				3E24915D2972F2070091DB28 /* Server.swift in Sources */,
 				3EDDDFDC296C68AE0048D941 /* RequestData.swift in Sources */,
 			);
@@ -448,9 +488,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KUT97W5PSB;
+				DEVELOPMENT_TEAM = ZB5THX64N4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라로 사진 찍기";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앨범에서 사진 선택";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -461,7 +503,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = OI.ToDo;
+				PRODUCT_BUNDLE_IDENTIFIER = OI.ToDoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -477,9 +519,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KUT97W5PSB;
+				DEVELOPMENT_TEAM = ZB5THX64N4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDo/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라로 사진 찍기";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앨범에서 사진 선택";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -490,7 +534,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = OI.ToDo;
+				PRODUCT_BUNDLE_IDENTIFIER = OI.ToDoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

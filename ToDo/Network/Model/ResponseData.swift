@@ -22,19 +22,71 @@ struct Account:Codable{
 
 struct LoginResponseData:Codable{
     let resultCode:Int
-    let token:String
+    let token:String?
+    let nickname:String?
+    let email:String?
+    let image:String?
+}
+
+struct TodoWriteResponseData:Codable{
+    let resultCode:Int
+    let data:TodoResonseData
 }
 
 struct TodoSearchResponseData:Codable{
     let resultCode:Int
-    let data:[SearchData]
+    let data:[TodoResonseData]
 }
-struct SearchData:Codable{
+
+struct TodoResonseData:Codable{
+    let title:String
+    let year:Int
+    let month:Int
+    let day:Int
+    let writer:String
+    let done:Bool
+    let color:Int
+    let time:String
+    let description:String
     let id:Int
+}
+struct TodoEditResponseData:Codable{
+    let resultCode:Int
+    let data : TodoEditResonseDataList
+}
+
+struct TodoEditResonseDataList:Codable{
     let title:String
     let year:Int
     let month:Int
     let day:Int
     let done:Bool
-    let writer:String
+    let color:Int
+    let time:String
+    let description:String
+    let id:Int
 }
+
+struct EditImageAndNicknameResonseData:Codable{
+    let resultCode:Int
+    let data : ImageAndNickname
+}
+struct ImageAndNickname:Codable{
+    let nickname:String
+    let image:String
+}
+
+struct PriorityResponseData:Codable{
+    let resultCode:Int
+    let data:String
+}
+
+struct SearchColorArrayResponseData:Codable{
+    let resultCode:Int
+    let data:[ColorNumberPair]
+}
+
+struct ColorNumberPair:Codable{
+    let num:[Int]
+}
+    

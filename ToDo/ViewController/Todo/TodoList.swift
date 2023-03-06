@@ -10,4 +10,9 @@ import Foundation
 struct TodoList{
     var title:String
     var done:Bool
+    var isNew:Bool
+    var writer:String
+    var color:Int
+    var id:Int
+    var description:String
 }

@@ -18,7 +18,9 @@ class EmailForSignUpViewController : UIViewController{
     }
     
     @IBAction func tapNextButton(_ sender: Any) {
-        checkEmail()
+        if emailTextField.text != ""{
+            checkEmail()
+        }
     }
     
     @IBAction func tapPreButton(_ sender: Any) {
@@ -55,8 +57,15 @@ class EmailForSignUpViewController : UIViewController{
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view?.endEditing(true)
+        print("touch")
     }
 }
 
