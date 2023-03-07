@@ -10,12 +10,25 @@ import PhotosUI
 
 class MainViewController: UIViewController {
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var profileView: UIImageView!
+    @IBOutlet weak var nickNameTextField: UITextField!
+    var tmpImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.backgroundColor = UIColor.gray
+        
+        self.profileView.backgroundColor = UIColor.gray
+        self.profileView.contentMode = .scaleAspectFill
 
+        profileView.layer.cornerRadius = 75
+        
+        print(UserDefaults.standard.string(forKey: "myToken")!)
+        
+//        let rect: CGRect = .init(x: 0, y: 0, width: 150, height: 150)
+//        let myView: UIView = .init(frame: rect)
+//        
+//        myView.backgroundColor = .yellow
+//        self.view.addSubview(myView)
     }
     
     @IBAction func tapAddButton(_ sender: Any) {
@@ -28,34 +41,41 @@ class MainViewController: UIViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
+    @IBAction func tapEditButton(_ sender: Any) {
+        let nickname = nickNameTextField.text ?? ""
+        self.editCheck(nickname: nickname, image: tmpImage)
+    }
+    
     func editCheck(nickname: String, image: UIImage?) {
-        UserService.shared.editProfile(nickname: <#T##String#>, image: <#T##UIImage?#>) {
+        UserService.shared.editProfile(nickname: nickname, image: image) {
             response in
-            print("response : \(response)")
             switch response {
             case .success(let data):
-                guard let data = data as? ToDoResponse else { return }
-                
+                guard let data = data as? EditProfileResponse else { return }
                 if data.resultCode == 200 {
-                    self.alertTitle(message: "작성 성공")
+                    self.alertTitle(message: "프로필 수정 성공")
+                    if let data = Data(base64Encoded: data.data.image, options: .ignoreUnknownCharacters) {
+                        let decodedImg = UIImage(data: data)
+                        self.profileView.image = decodedImg
+                    }
                 } else if data.resultCode == 500 {
-                    self.alertTitle(message: "작성 실패")
+                    self.alertTitle(message: "프로필 수정 실패")
+                    self.profileView.backgroundColor = .red
                 }
             case .requestErr(let err):
                 print(err)
-                self.alertTitle(message: "작성 실패")
             case .pathErr:
                 print("pathErr")
-                self.alertTitle(message: "작성 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertTitle(message: "작성 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertTitle(message: "작성 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }
+    
     func alertTitle(message:String) {
         let alertVC = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: nil)
@@ -74,13 +94,12 @@ extension MainViewController: PHPickerViewControllerDelegate {
            itemProvider.canLoadObject(ofClass: UIImage.self) { // 3
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in // 4
                 DispatchQueue.main.async {
-                    self.imageView.image = image as? UIImage // 5
+                    self.profileView.image = image as? UIImage
+                    self.tmpImage = image as? UIImage
                 }
             }
         } else {
             // TODO: Handle empty results or item provider not being able load UIImage
         }
-        
     }
-    
 }

@@ -42,16 +42,14 @@ extension EnterCodeViewController {
                 
             case .requestErr(let err):
                 print(err)
-                self.alertLoginFail(message: "코드체크 실패")
             case .pathErr:
                 print("pathErr")
-                self.alertLoginFail(message: "코드체크 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertLoginFail(message: "코드체크 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertLoginFail(message: "코드체크 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }

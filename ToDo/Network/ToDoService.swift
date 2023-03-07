@@ -14,15 +14,18 @@ class ToDoService {
     
     private init() {}
     
-    func writeToDo(year: String, month: String, day: String, title: String, completion: @escaping(NetworkResult<Any>) -> Void)
+    func writeToDo(year: String, month: String, day: String, title: String, color: Int, description: String, time: String, completion: @escaping(NetworkResult<Any>) -> Void)
     {
         let url = APIConstants.toDoURL
         let header: HTTPHeaders = ["Authorization" : "Token " + UserDefaults.standard.string(forKey: "myToken")!]
         let body: Parameters = [
-            "year" : year,
-            "month" : month,
-            "day" : day,
-            "title" : title
+            "year": year,
+            "month": month,
+            "day": day,
+            "title": title,
+            "color": color,
+            "description": description,
+            "time": time
         ]
         let dataRequest = AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header)
         
@@ -92,7 +95,7 @@ class ToDoService {
             }
         }
     }
-    
+
     func deleteToDo(id: Int, completion: @escaping(NetworkResult<Any>) -> Void)
     {
         let url = APIConstants.toDoURL + "\(id)/"
@@ -114,7 +117,7 @@ class ToDoService {
         }
     }
     
-    private func judgeStatus(by statusCode: Int, _ data: Data, _ form: API) -> NetworkResult<Any> {
+    private func judgeStatus(by statusCode: Int, _ data: Data, _ form: ToDoAPI) -> NetworkResult<Any> {
         switch statusCode {
         case ..<300 : return isVaildData(data: data, form: form)
         case 400..<500 : return .pathErr
@@ -123,7 +126,7 @@ class ToDoService {
         }
     }
     
-    private func isVaildData(data: Data, form: API) -> NetworkResult<Any> {
+    private func isVaildData(data: Data, form: ToDoAPI) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
         switch form {

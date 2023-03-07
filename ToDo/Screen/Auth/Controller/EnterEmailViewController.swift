@@ -14,6 +14,29 @@ class EnterEmailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.emailTextField.borderStyle = .none
+        let bottomLayer = CALayer()
+        bottomLayer.frame = CGRect(x: 0, y: emailTextField.frame.height, width: emailTextField.frame.width, height: 0.8)
+        bottomLayer.backgroundColor = UIColor.gray.cgColor
+        emailTextField.layer.addSublayer(bottomLayer)
+//        self.view.addSubview(self.emailTextField)
+//        self.emailTextField.translatesAutoresizingMaskIntoConstraints = false
+//        self.emailTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 25).isActive = true
+//        self.emailTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -25).isActive = true
+//        self.emailTextField.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -522).isActive = true
+        
+        self.nextButton.layer.masksToBounds = true
+        self.nextButton.layer.cornerRadius = 18
+        self.view.addSubview(self.nextButton)
+        self.nextButton.translatesAutoresizingMaskIntoConstraints = false
+        self.nextButton.widthAnchor.constraint(equalToConstant: 77).isActive = true
+        self.nextButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        self.nextButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -21).isActive = true
+        self.nextButton.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
+        
+        self.navigationItem.hidesBackButton = true
+        
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
@@ -41,16 +64,14 @@ extension EnterEmailViewController {
                 }
             case .requestErr(let err):
                 print(err)
-                self.alertLoginFail(message: "이메일체크 실패")
             case .pathErr:
                 print("pathErr")
-                self.alertLoginFail(message: "이메일체크 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertLoginFail(message: "이메일체크 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertLoginFail(message: "이메일체크 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }

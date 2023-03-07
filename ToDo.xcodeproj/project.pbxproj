@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51357751340D01C223FCDC37 /* Pods_ToDo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC2F451BA96252F9EFDE9D9 /* Pods_ToDo.framework */; };
+		7E171F782997936000850A04 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E171F772997936000850A04 /* DrawerViewController.swift */; };
 		7E18230F29753621002B0D4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E18230E29753621002B0D4A /* AppDelegate.swift */; };
 		7E18231129753621002B0D4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E18231029753621002B0D4A /* SceneDelegate.swift */; };
 		7E18231329753621002B0D4A /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E18231229753621002B0D4A /* LogInViewController.swift */; };
@@ -21,10 +22,12 @@
 		7E443B6E29780ACF00749291 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E443B6D29780ACF00749291 /* ListViewController.swift */; };
 		7E4AD934297670A400066846 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4AD933297670A400066846 /* APIConstants.swift */; };
 		7E4DBF882976724700F124F9 /* NetwokResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF872976724700F124F9 /* NetwokResult.swift */; };
-		7E4DBF8B2976887900F124F9 /* LogInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF8A2976887900F124F9 /* LogInModel.swift */; };
-		7E4DBF8D2976888100F124F9 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF8C2976888100F124F9 /* SignUpModel.swift */; };
+		7E4DBF8B2976887900F124F9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DBF8A2976887900F124F9 /* UserModel.swift */; };
 		7E55EB8829758292008C6689 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55EB8729758292008C6689 /* SignUpViewController.swift */; };
 		7E6090AA2976C7C700B12882 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6090A92976C7C700B12882 /* ResultViewController.swift */; };
+		7E74B92B2999181400DD2CEC /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E74B92A2999181400DD2CEC /* PassThroughView.swift */; };
+		7E8DC415298B902F004A77A2 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8DC414298B902F004A77A2 /* CustomSegmentControl.swift */; };
+		7EC3A99A299C7A1A00B32A11 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC3A999299C7A1A00B32A11 /* MyPageViewController.swift */; };
 		7EC9BEDB297ECA4400C84D84 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC9BEDA297ECA4400C84D84 /* MainViewController.swift */; };
 		7EE726D92975A5A200AD6FBD /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE726D82975A5A200AD6FBD /* EnterEmailViewController.swift */; };
 		7EE726DB2975A5B100AD6FBD /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE726DA2975A5B100AD6FBD /* EnterCodeViewController.swift */; };
@@ -33,6 +36,7 @@
 /* Begin PBXFileReference section */
 		2CC2F451BA96252F9EFDE9D9 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61D322F0DC220F69EC3B6DFC /* Pods-ToDo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.release.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.release.xcconfig"; sourceTree = "<group>"; };
+		7E171F772997936000850A04 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		7E18230B29753621002B0D4A /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E18230E29753621002B0D4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E18231029753621002B0D4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,10 +52,12 @@
 		7E443B6D29780ACF00749291 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		7E4AD933297670A400066846 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		7E4DBF872976724700F124F9 /* NetwokResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokResult.swift; sourceTree = "<group>"; };
-		7E4DBF8A2976887900F124F9 /* LogInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInModel.swift; sourceTree = "<group>"; };
-		7E4DBF8C2976888100F124F9 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
+		7E4DBF8A2976887900F124F9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		7E55EB8729758292008C6689 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		7E6090A92976C7C700B12882 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		7E74B92A2999181400DD2CEC /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
+		7E8DC414298B902F004A77A2 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
+		7EC3A999299C7A1A00B32A11 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		7EC9BEDA297ECA4400C84D84 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ToDo/MainViewController.swift; sourceTree = SOURCE_ROOT; };
 		7EE726D82975A5A200AD6FBD /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
 		7EE726DA2975A5B100AD6FBD /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
@@ -114,9 +120,13 @@
 				7EF2D82B297EADB30010EA5A /* Resource */,
 				7E09929A29766FCF0070BD5F /* Network */,
 				7E443B6D29780ACF00749291 /* ListViewController.swift */,
+				7E8DC414298B902F004A77A2 /* CustomSegmentControl.swift */,
 				7E1E2F8829781D6E00BB12BC /* Task.swift */,
 				7EC9BEDA297ECA4400C84D84 /* MainViewController.swift */,
 				7E18231C29753621002B0D4A /* Info.plist */,
+				7E171F772997936000850A04 /* DrawerViewController.swift */,
+				7E74B92A2999181400DD2CEC /* PassThroughView.swift */,
+				7EC3A999299C7A1A00B32A11 /* MyPageViewController.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -132,8 +142,7 @@
 		7E4DBF892976883800F124F9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7E4DBF8A2976887900F124F9 /* LogInModel.swift */,
-				7E4DBF8C2976888100F124F9 /* SignUpModel.swift */,
+				7E4DBF8A2976887900F124F9 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -354,9 +363,11 @@
 			files = (
 				7E43514229766E6C00EF0DDF /* UserService.swift in Sources */,
 				7E259221297FA67800DB8B44 /* ToDoModel.swift in Sources */,
-				7E4DBF8B2976887900F124F9 /* LogInModel.swift in Sources */,
+				7E4DBF8B2976887900F124F9 /* UserModel.swift in Sources */,
+				7E8DC415298B902F004A77A2 /* CustomSegmentControl.swift in Sources */,
 				7EE726DB2975A5B100AD6FBD /* EnterCodeViewController.swift in Sources */,
 				7E6090AA2976C7C700B12882 /* ResultViewController.swift in Sources */,
+				7E74B92B2999181400DD2CEC /* PassThroughView.swift in Sources */,
 				7E55EB8829758292008C6689 /* SignUpViewController.swift in Sources */,
 				7E18231329753621002B0D4A /* LogInViewController.swift in Sources */,
 				7E4AD934297670A400066846 /* APIConstants.swift in Sources */,
@@ -364,11 +375,12 @@
 				7E259223297FA80A00DB8B44 /* ToDoService.swift in Sources */,
 				7EE726D92975A5A200AD6FBD /* EnterEmailViewController.swift in Sources */,
 				7EC9BEDB297ECA4400C84D84 /* MainViewController.swift in Sources */,
-				7E4DBF8D2976888100F124F9 /* SignUpModel.swift in Sources */,
 				7E4DBF882976724700F124F9 /* NetwokResult.swift in Sources */,
+				7EC3A99A299C7A1A00B32A11 /* MyPageViewController.swift in Sources */,
 				7E443B6E29780ACF00749291 /* ListViewController.swift in Sources */,
 				7E1E2F8929781D6E00BB12BC /* Task.swift in Sources */,
 				7E18231129753621002B0D4A /* SceneDelegate.swift in Sources */,
+				7E171F782997936000850A04 /* DrawerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

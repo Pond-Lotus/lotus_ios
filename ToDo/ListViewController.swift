@@ -7,16 +7,27 @@
 
 import UIKit
 import FSCalendar
+import SnapKit
 
 class ListViewController: UIViewController {
     
-    @IBOutlet weak var calendarView: FSCalendar!
-    @IBOutlet weak var calendarSwitch: UISwitch!
-    @IBOutlet weak var tableView: UITableView!
-    // weak로 하면 버튼을 눌렀을 때 done으로 바뀌면서 메모리에서 해제가 되어 재사용할 수 없게 됨
-    @IBOutlet var editButton: UIBarButtonItem!
     
-    var doneButton: UIBarButtonItem?
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var calendarSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var calendarView: FSCalendar!
+    // weak로 하면 버튼을 눌렀을 때 done으로 바뀌면서 메모리에서 해제가 되어 재사용할 수 없게 됨
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var floatingButton: UIButton!
+    
+    private lazy var dateFormatter: DateFormatter = { // lazy?
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ko_KR")
+        df.dateFormat = "yyyy. MM"
+        return df
+    }()
     
     var tasks = [Task]() {
         didSet {
@@ -24,32 +35,95 @@ class ListViewController: UIViewController {
         }
     }
     
+    var events = [Date]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        calendarView.allowsMultipleSelection = true
-        
-        self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTap))
-        
+
         calendarView.dataSource = self
         calendarView.delegate = self
         self.tableView.dataSource = self
         self.tableView.delegate = self
+
+        self.calendarView.calendarHeaderView.isHidden = true
+        self.monthLabel.text = self.dateFormatter.string(from: calendarView.currentPage)
+        self.monthLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        self.dateLabel.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        self.dateLabel.text = ""
+        
+        calendarView.appearance.weekdayTextColor = .black
+        calendarView.appearance.titleWeekendColor = .red
+        calendarView.appearance.todayColor = .none
+        calendarView.appearance.titleTodayColor = .black
+        calendarView.appearance.selectionColor = UIColor(red: 1, green: 0.784, blue: 0.592, alpha: 1)
+        calendarView.appearance.titleSelectionColor = .black
+        calendarView.appearance.titleFont = .systemFont(ofSize: 13, weight: .semibold)
+        calendarView.appearance.weekdayFont = .systemFont(ofSize: 13, weight: .regular)
+
+        self.view.addSubview(calendarView)
+        self.calendarView.translatesAutoresizingMaskIntoConstraints = false // AutoLayout 적용
+        calendarView.widthAnchor.constraint(equalToConstant: 329).isActive = true
+        calendarView.heightAnchor.constraint(equalToConstant: 264).isActive = true
+        calendarView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 110).isActive = true
+        calendarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 31).isActive = true
+        calendarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -31).isActive = true
+
+        calendarView.appearance.eventDefaultColor = UIColor(red: 1, green: 0.704, blue: 0.704, alpha: 1)
+        calendarView.appearance.eventSelectionColor = UIColor(red: 1, green: 0.704, blue: 0.704, alpha: 1)
+
+        
+        setEvents()
+
+//        topView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+//        topView.layer.cornerRadius = 20
+        
+//        topView.layer.shadowOpacity = 1
+//        topView.layer.shadowColor = UIColor.black.cgColor
+//        topView.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        topView.layer.shadowRadius = 10
+//        topView.layer.masksToBounds = false
+        
+        self.view.addSubview(segmentedControl)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.widthAnchor.constraint(equalToConstant: 114).isActive = true
+        segmentedControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        segmentedControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60).isActive = true
+        
+        
+        self.view.addSubview(floatingButton)
+        floatingButton.translatesAutoresizingMaskIntoConstraints = false
+        floatingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -23).isActive = true
+        floatingButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -37).isActive = true
+        
+        self.view.addSubview(floatingButton2)
         
         print(UserDefaults.standard.string(forKey: "myToken")!)
     }
     
-    @objc func doneButtonTap() {
-        self.navigationItem.leftBarButtonItem = self.editButton
-        self.tableView.setEditing(false, animated: true)
-    }
-    
-    @IBAction func tapEditButton(_ sender: UIBarButtonItem) {
-        guard !self.tasks.isEmpty else {return}
-        
-        self.navigationItem.leftBarButtonItem = self.doneButton
-        self.tableView.setEditing(true, animated: true)
-    }
+//    private func rotateFloatingButton() {
+//        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+//        let fromValue = isActive ? 0 : CGFloat.pi / 4
+//        let toValue = isActive ? CGFloat.pi / 4 : 0
+//        animation.fromValue = fromValue
+//        animation.toValue = toValue
+//        animation.duration = 0.3
+//        animation.fillMode = .forwards
+//        animation.isRemovedOnCompletion = false
+//        floatingButton.layer.add(animation, forKey: nil)
+//    }
+    private lazy var floatingButton2: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .systemPink
+        config.cornerStyle = .capsule
+//        config.image = UIImage(systemName: "plus")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))
+//        config.image = UIImage(named: "logo1")
+        button.configuration = config
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.3
+//        button.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
+        return button
+    }()
     
     @IBAction func tapAddButton(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "할 일 등록", message: nil, preferredStyle: .alert)
@@ -64,8 +138,13 @@ class ListViewController: UIViewController {
             let month = date.string(from: Date())
             date.dateFormat = "D"
             let day = date.string(from: Date())
+            date.dateFormat = "HHMM"
+            let time = date.string(from: Date())
             
-            self?.writeCheck(year: year, month: month, day: day, title: title) // 요청에 필요한 키를 매개변수로 받음
+            let description: String = " "
+            let color: Int = 1
+
+            self?.writeCheck(year: year, month: month, day: day, title: title, color: color, description: description, time: time)
         })
         let cancelButton = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
@@ -78,30 +157,23 @@ class ListViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func tapSearchButton(_ sender: Any) {
-        let date = DateFormatter()
-        date.dateFormat = "Y"
-        let year = date.string(from: Date())
-        date.dateFormat = "M"
-        let month = date.string(from: Date())
-        date.dateFormat = "D"
-        let day = date.string(from: Date())
+    func setEvents() {
+        let dfMatter = DateFormatter()
+        dfMatter.locale = Locale(identifier: "ko_KR")
+        dfMatter.dateFormat = "yyyy-MM-dd"
         
-        self.inquireCheck(year: year, month: month, day: day)
-    }
-    
-    @IBAction func tapCalendarButton(_ sender: Any) {
-        if self.calendarSwitch.isOn == true {
-            self.calendarView.scope = .month
-        } else {
-            self.calendarView.scope = .week
-        }
+        // events
+        let myFirstEvent = dfMatter.date(from: "2023-03-01")
+        let mySecondEvent = dfMatter.date(from: "2023-03-20")
+        let myThirdEvent = dfMatter.date(from: "2023-03-20")
+        
+        events = [myFirstEvent!, mySecondEvent!, myThirdEvent! , myThirdEvent!, myThirdEvent!]
     }
 }
 
 extension ListViewController {
-    func writeCheck(year: String, month: String, day: String, title: String) {
-        ToDoService.shared.writeToDo(year: year, month: month, day: day, title: title) {
+    func writeCheck(year: String, month: String, day: String, title: String, color: Int, description: String, time: String) {
+        ToDoService.shared.writeToDo(year: year, month: month, day: day, title: title, color: color, description: description, time: time) {
             response in
             print("response : \(response)")
             switch response {
@@ -116,17 +188,15 @@ extension ListViewController {
                     self.alertTitle(message: "작성 실패")
                 }
             case .requestErr(let err):
-                print(err)
-                self.alertTitle(message: "작성 실패")
+                print("requestErr : \(err)")
             case .pathErr:
                 print("pathErr")
-                self.alertTitle(message: "작성 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertTitle(message: "작성 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertTitle(message: "작성 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }
@@ -157,17 +227,15 @@ extension ListViewController {
                     }
                 }
             case .requestErr(let err):
-                print(err)
-                self.alertTitle(message: "조회 실패")
+                print("requestErr : \(err)")
             case .pathErr:
                 print("pathErr")
-                self.alertTitle(message: "조회 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertTitle(message: "조회 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertTitle(message: "조회 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }
@@ -186,17 +254,15 @@ extension ListViewController {
                     self.alertTitle(message: "수정 실패")
                 }
             case .requestErr(let err):
-                print(err)
-                self.alertTitle(message: "수정 실패")
+                print("requestErr : \(err)")
             case .pathErr:
                 print("pathErr")
-                self.alertTitle(message: "수정 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertTitle(message: "수정 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertTitle(message: "수정 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }
@@ -216,17 +282,15 @@ extension ListViewController {
                     self.alertTitle(message: String(data.resultCode))
                 }
             case .requestErr(let err):
-                print(err)
-                self.alertTitle(message: "삭제 실패")
+                print("requestErr : \(err)")
             case .pathErr:
                 print("pathErr")
-                self.alertTitle(message: "삭제 실패")
             case .serverErr:
                 print("serverErr")
-                self.alertTitle(message: "삭제 실패")
             case .networkFail:
                 print("networkFail")
-                self.alertTitle(message: "삭제 실패")
+            case .decodeErr:
+                print("decodeErr")
             }
         }
     }
@@ -245,6 +309,7 @@ extension ListViewController: FSCalendarDataSource {
 
 extension ListViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+    
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
     
@@ -255,13 +320,30 @@ extension ListViewController: FSCalendarDelegate {
         dateFormatter.dateFormat = "D"
         let day = dateFormatter.string(from: date)
         self.inquireCheck(year: year, month: month, day: day)
+        
+        dateFormatter.dateFormat = "EEEEEE"
+        let tmp = dateFormatter.string(from: date)
+    
+        self.dateLabel.text = tmp
     }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        self.monthLabel.text = self.dateFormatter.string(from: calendar.currentPage)
 
-    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        print(dateFormatter.string(from: date) + " 날짜가 선택 해제 되었습니다.")
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        if self.events.contains(date) {
+            var count = 0
+            for e in self.events {
+                if e == date {
+                    count += 1
+                }
+            }
+            return count
+        } else {
+            return 0
+        }
     }
 }
 
@@ -290,10 +372,6 @@ extension ListViewController: UITableViewDataSource {
         let task = self.tasks[indexPath.row]
         deleteCheck(id: task.id)
         self.tasks.remove(at: indexPath.row)
-        
-        if self.tasks.isEmpty {
-            self.doneButtonTap()
-        }
     }
 
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -312,8 +390,7 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        var task = self.tasks[indexPath.row]
+        let task = self.tasks[indexPath.row]
 //        task.done = !task.done
 //        self.tasks[indexPath.row] = task
 //        self.tableView.reloadRows(at: [indexPath], with: .automatic)

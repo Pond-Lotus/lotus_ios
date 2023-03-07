@@ -20,9 +20,18 @@ struct APIConstants {
     static let editprofileURL = baseURL + "/account/edit"
 }
 
-enum API: Int {
+enum ToDoAPI {
     case add
     case edit
     case inquire
     case delete
 }
+
+enum UserAPI {
+    case emailcodecheck
+    case signup
+    case login
+    case editprofile
+}
+
+
