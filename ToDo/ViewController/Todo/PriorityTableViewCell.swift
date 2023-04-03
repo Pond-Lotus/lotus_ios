@@ -10,7 +10,7 @@ import UIKit
 class PriorityTableViewCell:UITableViewCell{
     
     @IBOutlet weak var colorRoundView: UIView!
-    
+    @IBOutlet weak var categoryNameTextField: UITextField!
     override class func awakeFromNib() {
         super.awakeFromNib()
     }

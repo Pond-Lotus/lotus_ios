@@ -13,10 +13,7 @@ class TodoTableViewCell: UITableViewCell {
     @IBOutlet weak var checkbox: UIButton!
     @IBOutlet weak var cellBackgroundView: UIView!
     
-    var todo:TodoList = .init(title: "", done: false, isNew: false, writer: "", color: 0, id: 0, description: "")
-    var year = ""
-    var month = ""
-    var day = ""
+    var todo:TodoList = .init(title: "", done: false, isNew: false, writer: "", color: 0, id: 0, description: "", year: "", month: "", day: "")
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +22,7 @@ class TodoTableViewCell: UITableViewCell {
         
         titleTextField.addTarget(self, action: #selector(writeTodo), for: .editingDidEnd)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("date"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("date"), object: nil)
         
         titleTextField.becomeFirstResponder()
     }
@@ -85,7 +82,7 @@ class TodoTableViewCell: UITableViewCell {
     
     @objc func writeTodo(){
         print("finish writing")
-        TodoService.shared.writeTodo(year: year, month: month, day: day, title: titleTextField.text ?? "", color: todo.color) { (response) in
+        TodoService.shared.writeTodo(year: todo.year, month: todo.month, day: todo.day, title: titleTextField.text ?? "", color: todo.color) { (response) in
             switch (response){
             case .success(let resultData):
                 if let data = resultData as? TodoWriteResponseData{
@@ -111,17 +108,17 @@ class TodoTableViewCell: UITableViewCell {
         }
     }
     
-    @objc func getData(_ notification:NSNotification){
-        if let y = notification.userInfo?["year"] as? String{
-            year = y
-        }
-        if let m = notification.userInfo?["month"] as? String{
-            month = m
-        }
-        if let d = notification.userInfo?["day"] as? String{
-            day = d
-        }
-    }
+//    @objc func getData(_ notification:NSNotification){
+//        if let y = notification.userInfo?["year"] as? String{
+//            year = y
+//        }
+//        if let m = notification.userInfo?["month"] as? String{
+//            month = m
+//        }
+//        if let d = notification.userInfo?["day"] as? String{
+//            day = d
+//        }
+//    }
     
     private func setCheckBox(color:Int, checkbox:UIButton){
         switch (color){

@@ -15,4 +15,7 @@ struct TodoList{
     var color:Int
     var id:Int
     var description:String
+    var year:String
+    var month:String
+    var day:String
 }

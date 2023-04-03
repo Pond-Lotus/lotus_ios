@@ -283,9 +283,48 @@ class TodoService{
         }
     }
     
+    func getCategoryName(completion:@escaping(NetworkResult<Any>)->Void){
+        let url = Server.serverURL + Server.category
+        
+        let userDefault = UserDefaults.standard
+        guard let token = userDefault.string(forKey: "token") else {return}
+
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let request = AF.request(url,
+                                 method: .get,
+                                 encoding: JSONEncoding.default,
+                                 headers: header)
+        
+        request.responseData { dataResponse in
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                let networkResult = self.judgeGetCategoryNameStatus(by: statusCode, value)
+                
+                completion(networkResult)
+                
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+ 
     private func judgeGetColorArrayStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode{
         case ..<300: return isGetColorArrayValidData(data: data)
+        case ..<500: return .pathErr
+        case ..<600 : return .serverErr
+        default: return .networkFail
+        }
+    }
+    
+    private func judgeGetCategoryNameStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
+        switch statusCode{
+        case ..<300: return isGetCategoryNameValidData(data: data)
         case ..<500: return .pathErr
         case ..<600 : return .serverErr
         default: return .networkFail
@@ -377,6 +416,11 @@ class TodoService{
     }
     private func isGetColorArrayValidData(data:Data) -> NetworkResult<Any>{
         guard let decodedData = try? JSONDecoder().decode(PriorityResponseData.self, from: data) else {return .decodeErr}
+        
+        return .success(decodedData)
+    }
+    private func isGetCategoryNameValidData(data:Data) -> NetworkResult<Any>{
+        guard let decodedData = try? JSONDecoder().decode(CategoryResponseData.self, from: data) else {return .decodeErr}
         
         return .success(decodedData)
     }

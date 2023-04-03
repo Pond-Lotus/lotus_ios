@@ -15,12 +15,14 @@ class TodoViewController:UIViewController{
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var weekdayLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var calendarHeight: NSLayoutConstraint!
     @IBOutlet weak var calendarOuterView: UIView!
+    
+    @IBOutlet weak var calendarHeaderLabel: UILabel!
     var exampleDate:[Date] = []
     
     var count = 0
     
+    var categoryDictionary:[Character:String] = ["1":"","2":"","3":"","4":"","5":"","6":""]
     var titleOfSection:[String] = ["Red","Yellow","Green", "Blue","Pink","Purple"]
     var priorityArray:[Character] = ["1","2","3","4","5","6"]
     var existPriorityArray:[Character] = []
@@ -70,6 +72,7 @@ class TodoViewController:UIViewController{
     var blackView : UIView = {
         var view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        print("create black view")
         return view
     }()
     
@@ -91,6 +94,8 @@ class TodoViewController:UIViewController{
         
         calendarSetting()
         calendarOuterViewSetting()
+        
+        calendarView.select(calendarView.today)
         
         xOfFloatingButton = view.frame.width * 0.73
         yOfFloatingButton = view.frame.height * 0.7
@@ -121,6 +126,10 @@ class TodoViewController:UIViewController{
         dateArray = dateFormatter.string(from: today).components(separatedBy: " ")
         searchDayTodo(year: dateArray[0], month: dateArray[1], day: dateArray[2])
         
+        dateFormatter.dateFormat = "yyyy.MM"
+        calendarHeaderLabel.text = dateFormatter.string(from: calendarView.currentPage)
+        
+        //color dot test
         print("today: \(calendarView.today)")
         var day = 1
         var dateString = "\(dateArray[0])-0\(dateArray[1])-0\(String(day))"
@@ -134,13 +143,11 @@ class TodoViewController:UIViewController{
         
         self.tableView.addSubview(floatingButton)
         
+        //제스처 추가 - 두개라서 일단 하나 지우기
         tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         
         calendarView.appearance.eventDefaultColor = Color.red
-        
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,12 +160,57 @@ class TodoViewController:UIViewController{
         calendarOuterView.clipsToBounds = true
         calendarOuterView.layer.cornerRadius = 30
         calendarOuterView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-
+        
         calendarOuterView.layer.masksToBounds = false
         calendarOuterView.layer.shadowColor = UIColor.lightGray.cgColor
         calendarOuterView.layer.shadowOpacity = 0.2
         calendarOuterView.layer.shadowRadius = 5
         calendarOuterView.layer.shadowOffset = CGSize(width: 0, height: 5)
+    }
+    
+    private func getCategoryName(){
+        TodoService.shared.getCategoryName { (response) in
+            switch (response){
+            case .success(let resultData):
+                if let data = resultData as? CategoryResponseData{
+                    if data.resultCode == 200{
+                        for i in self.priorityArray{
+                            switch(i){
+                            case "1":
+                                let name = data.data._1
+                                self.categoryDictionary["1"] = name
+                            case "2":
+                                let name = data.data._2
+                                self.categoryDictionary["2"] = name
+                            case "3":
+                                let name = data.data._3
+                                self.categoryDictionary["3"] = name
+                            case "4":
+                                let name = data.data._4
+                                self.categoryDictionary["4"] = name
+                            case "5":
+                                let name = data.data._5
+                                self.categoryDictionary["5"] = name
+                            case "6":
+                                let name = data.data._6
+                                self.categoryDictionary["6"] = name
+                            default: break
+                            }
+                        }
+                    }
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .decodeErr:
+                print("decodeErr")
+            }
+        }
     }
     
     private func sectionSetting(){
@@ -169,32 +221,32 @@ class TodoViewController:UIViewController{
             switch (i){
             case "1" :
                 if self.redArray.count != 0 {
-                    self.titleOfSection.append("red")
+                    self.titleOfSection.append(categoryDictionary[i]!)
                     self.existPriorityArray.append(i)
                 }
             case "2" :
                 if self.yellowArray.count != 0 {
-                    self.titleOfSection.append("yellow")
+                    self.titleOfSection.append(categoryDictionary[i]!)
                     self.existPriorityArray.append(i)
                 }
             case "3" :
                 if self.greenArray.count != 0 {
-                    self.titleOfSection.append("green")
+                    self.titleOfSection.append(categoryDictionary[i]!)
                     self.existPriorityArray.append(i)
                 }
             case "4" :
                 if self.blueArray.count != 0 {
-                    self.titleOfSection.append("blue")
+                    self.titleOfSection.append(categoryDictionary[i]!)
                     self.existPriorityArray.append(i)
                 }
             case "5" :
                 if self.pinkArray.count != 0 {
-                    self.titleOfSection.append("pink")
+                    self.titleOfSection.append(categoryDictionary[i]!)
                     self.existPriorityArray.append(i)
                 }
             case "6" :
                 if self.purpleArray.count != 0 {
-                    self.titleOfSection.append("purple")
+                    self.titleOfSection.append(categoryDictionary[i]!)
                     self.existPriorityArray.append(i)
                 }
             default:
@@ -205,11 +257,11 @@ class TodoViewController:UIViewController{
     }
     
     private func getColorArray(year:String,month:String){
-    
+        
         TodoService.shared.getColorNumArray(year: year, month: month) { (response) in
             switch (response){
             case .success(let resultData): break
-//                guard let data = resultData else {return}
+                //                guard let data = resultData else {return}
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -262,24 +314,31 @@ class TodoViewController:UIViewController{
     @objc func selectColor(_ notification:Notification){
         if let color = notification.object as? Int{
             tapFloatingButton()
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier:"ko_KR")
+            dateFormatter.dateFormat = "yyyy MM dd"
+            let todayDateArray = dateFormatter.string(from: calendarView.selectedDate!).components(separatedBy: " ")
+            let year = todayDateArray[0]
+            let month = todayDateArray[1]
+            let day = todayDateArray[2]
             switch(color){
             case 1:
-                redArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 1, id: 0, description: ""))
+                redArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 1, id: 0, description: "", year: year, month: month, day: day))
                 break
             case 2:
-                yellowArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 2, id: 0, description: ""))
+                yellowArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 2, id: 0, description: "", year: year, month: month, day: day))
                 break
             case 3:
-                greenArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 3, id: 0, description: ""))
+                greenArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 3, id: 0, description: "", year: year, month: month, day: day))
                 break
             case 4:
-                blueArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 4, id: 0, description: ""))
+                blueArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 4, id: 0, description: "", year: year, month: month, day: day))
                 break
             case 5:
-                pinkArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 5, id: 0, description: ""))
+                pinkArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 5, id: 0, description: "", year: year, month: month, day: day))
                 break
             case 6:
-                purpleArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 6, id: 0, description: ""))
+                purpleArray.append(TodoList(title: "", done: false, isNew: true, writer: "", color: 6, id: 0, description: "", year: year, month: month, day: day))
                 break
             default:
                 break
@@ -353,11 +412,12 @@ class TodoViewController:UIViewController{
         
         guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return} // 윈도우가 뭔지 모르겟음. 근데 해당 코드는 deprecated된 걸 사용해서 수정해야함
         self.window = window.frame
+        self.blackView.frame = window.frame
         
         drawerView.layer.fs_width = 0
         drawerView.layer.fs_height = window.fs_height
         drawerView.frame.origin.x = window.fs_width //오른쪽에 붙이기 위해서 x 수정
-                
+        
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
             drawerView.layer.fs_width = window.fs_width * 0.8
             drawerView.frame.origin.x = window.fs_width - (window.fs_width * 0.8)
@@ -367,7 +427,7 @@ class TodoViewController:UIViewController{
     
     //bottom sheet, drawer 없어질 때 실행(black view 클릭 했을때), 사라지는 애니메이션
     @objc func handleDismiss(){
-        
+        print("delete black view")
         self.blackView.removeFromSuperview()
         
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
@@ -405,28 +465,52 @@ class TodoViewController:UIViewController{
             
             showColorPicker = !showColorPicker
             
-            self.view.addSubview((selectColorController?.view!)!)
-            self.addChild(selectColorController!)
+            //뷰 크기, 그림자, 알파값 설정
             selectColorController?.view.layer.shadowColor = UIColor.lightGray.cgColor
             selectColorController?.view.layer.shadowOpacity = 0.4
             selectColorController?.view.layer.shadowRadius = 5.0
             selectColorController?.view.layer.shadowOffset = CGSize(width: -1, height: 3)
-            
             selectColorController?.view.alpha = 0
-            selectColorController?.view.frame = CGRect(x: floatingButton.frame.origin.x + floatingButton.fs_width - 150, y: self.floatingButton.frame.origin.y + (floatingButton.fs_height/4), width: 150, height: 100)
+//            selectColorController?.view.fs_width = 150
+//            selectColorController?.view.fs_height = 100
             selectColorController?.view.layer.cornerRadius = 15
+//            selectColorController?.view.frame.origin.x = floatingButton.frame.origin.x - floatingButton.fs_width + 150
+//            selectColorController?.view.frame.origin.y = floatingButton.frame.origin.y
+
             
-            UIView.animate(withDuration: 0.5, delay: 0) {
+            self.view.addSubview((selectColorController?.view!)!)
+            self.addChild(selectColorController!)
+            
+            self.selectColorController?.view.translatesAutoresizingMaskIntoConstraints = false
+            self.selectColorController?.view.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            self.selectColorController?.view.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            
+            self.selectColorController?.view.bottomAnchor.constraint(equalTo: self.floatingButton.topAnchor, constant: 20).isActive = true
+            self.selectColorController?.view.trailingAnchor.constraint(equalTo: floatingButton.trailingAnchor).isActive = true
+            
+
+            
+
+            
+            
+            
+            UIView.animate(withDuration: 0.5, delay: 0, animations: {
                 self.selectColorController?.view.alpha = 1
-                self.selectColorController?.view.frame = CGRect(x: self.floatingButton.frame.origin.x + self.floatingButton.fs_width - 150, y: self.floatingButton.frame.origin.y, width: 150, height: 100)
+                //                self.selectColorController?.view.frame = CGRect(x: self.floatingButton.frame.origin.x + self.floatingButton.fs_width - 150, y: self.floatingButton.frame.origin.y, width: 150, height: 100)
+                self.selectColorController?.view.bottomAnchor.constraint(equalTo: self.floatingButton.topAnchor, constant: 0).isActive = true
                 self.floatingButton.transform = CGAffineTransform(rotationAngle: .pi*0.25)
-            }
+//                self.view.layoutIfNeeded()
+
+            })
         }else{
             showColorPicker = !showColorPicker
             UIView.animate(withDuration: 0.5, delay: 0, animations:{
                 self.selectColorController?.view.alpha = 0
-                self.selectColorController?.view.frame.origin.y = self.floatingButton.frame.origin.y + (self.floatingButton.fs_height/4)
+                //                self.selectColorController?.view.frame.origin.y = self.floatingButton.frame.origin.y + (self.floatingButton.fs_height/4)
+                self.selectColorController?.view.bottomAnchor.constraint(equalTo: self.floatingButton.topAnchor, constant: 20).isActive = true
                 self.floatingButton.transform = CGAffineTransform(rotationAngle: .pi*0)
+//                self.view.layoutIfNeeded()
+
             }, completion: { finished in
                 self.selectColorController?.view.removeFromSuperview()
             })
@@ -435,11 +519,11 @@ class TodoViewController:UIViewController{
         
     }
     
-    //tableview 클릭했을 때 실행(이게 왜 두개나?? 이것 때문에 문제되는건가)
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.tableView?.endEditing(true)
-    }
+    //tableview 클릭했을 때 실행(이게 왜 두개나?? 이것 때문에 문제되는건가) - 일단 지워봄
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesBegan(touches, with: event)
+//        self.tableView?.endEditing(true)
+//    }
     
     //캘린더 기본 정보 초기 셋팅
     private func calendarSetting(){
@@ -470,27 +554,28 @@ class TodoViewController:UIViewController{
                     self.blueArray.removeAll()
                     self.pinkArray.removeAll()
                     self.purpleArray.removeAll()
+                   
                     
                     for i in todoData{
                         print(i)
                         switch (i.color){
                         case 1:
-                            self.redArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.redArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description, year: String(i.year), month: String(i.month), day: String(i.day)))
                         case 2:
-                            self.yellowArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.yellowArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description, year: String(i.year), month: String(i.month), day: String(i.day)))
                         case 3:
-                            self.greenArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.greenArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description, year: String(i.year), month: String(i.month), day: String(i.day)))
                         case 4:
-                            self.blueArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.blueArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description, year: String(i.year), month: String(i.month), day: String(i.day)))
                         case 5:
-                            self.pinkArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.pinkArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description, year: String(i.year), month: String(i.month), day: String(i.day)))
                         case 6:
-                            self.purpleArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.purpleArray.append(TodoList(title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description, year: String(i.year), month: String(i.month), day: String(i.day)))
                         default:
                             break
                         }
                     }
-                    
+                    self.getCategoryName()
                     self.sectionSetting()
                     
                 }
@@ -515,6 +600,15 @@ extension TodoViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
+
+    
+    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "headerViewController") as! HeaderViewController
+    ////        viewController.roundView.layer.cornerRadius = viewController.roundView.fs_width/2
+    //
+    //
+    //        return viewController.view
+    //    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
@@ -529,7 +623,7 @@ extension TodoViewController:UITableViewDelegate{
         bottomSheetController = self.storyboard?.instantiateViewController(withIdentifier: "bottomSheetViewController") as? BottomSheetViewController
         guard let bottomView = bottomSheetController?.view else {return}
         var todo:[TodoList] = []
-        switch (priorityArray[indexPath.section]){
+        switch (existPriorityArray[indexPath.section]){
         case "1": todo = redArray
         case "2": todo = yellowArray
         case "3": todo = greenArray
@@ -580,7 +674,7 @@ extension TodoViewController:UITableViewDelegate{
         if editingStyle == .delete{
             var id = 0
             let index = self.existPriorityArray[indexPath.section]
-
+            
             switch (index){
             case "1": id = redArray[indexPath.row].id
             case "2": id = yellowArray[indexPath.row].id
@@ -638,10 +732,7 @@ extension TodoViewController:UITableViewDataSource{
         default: return 0
         }
     }
-//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        guard let header = view as? UITableViewHeaderFooterView else{return}
-//        header.contentView.b = .gray
-//    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return titleOfSection.count
@@ -651,83 +742,50 @@ extension TodoViewController:UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoTableViewCell
         
         let index = existPriorityArray[indexPath.section]
+        var colorArray:[TodoList] = []
+        var checkboxImage:UIImage?
         
-        if index == "1" {
-            let todo = redArray[indexPath.row]
-            cell.todo = todo
-            cell.titleTextField.text = todo.title
-            
-            if todo.done{
-                cell.checkbox.setImage(UIImage(named: "checkbox_red"), for: .normal)
-            }else{
-                cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-            }
-        }else if index == "2"{
-            let todo = yellowArray[indexPath.row]
-            cell.todo = todo
-            cell.titleTextField.text = todo.title
-            
-            if todo.done{
-                cell.checkbox.setImage(UIImage(named: "checkbox_yellow"), for: .normal)
-            }else{
-                cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-            }
-        }else if index == "3"{
-            let todo = greenArray[indexPath.row]
-            cell.todo = todo
-            cell.titleTextField.text = todo.title
-            
-            if todo.done{
-                cell.checkbox.setImage(UIImage(named: "checkbox_green"), for: .normal)
-            }else{
-                cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-            }
-        }else if index == "4"{
-            let todo = blueArray[indexPath.row]
-            cell.todo = todo
-            cell.titleTextField.text = todo.title
-            
-            if todo.done{
-                cell.checkbox.setImage(UIImage(named: "checkbox_blue"), for: .normal)
-            }else{
-                cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-            }
-        }else if index == "5"{
-            let todo = pinkArray[indexPath.row]
-            cell.todo = todo
-            cell.titleTextField.text = todo.title
-            
-            if todo.done{
-                cell.checkbox.setImage(UIImage(named: "checkbox_pink"), for: .normal)
-            }else{
-                cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-            }
-        }else if index == "6"{
-            let todo = purpleArray[indexPath.row]
-            cell.todo = todo
-            cell.titleTextField.text = todo.title
-            
-            if todo.done{
-                cell.checkbox.setImage(UIImage(named: "checkbox_purple"), for: .normal)
-            }else{
-                cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-            }
+        switch(index){
+        case "1":
+            colorArray = redArray
+            checkboxImage = UIImage(named: "checkbox_red")
+        case "2":
+            colorArray = yellowArray
+            checkboxImage = UIImage(named: "checkbox_yellow")
+        case "3":
+            colorArray = greenArray
+            checkboxImage = UIImage(named: "checkbox_green")
+        case "4":
+            colorArray = blueArray
+            checkboxImage = UIImage(named: "checkbox_blue")
+        case "5":
+            colorArray = pinkArray
+            checkboxImage = UIImage(named: "checkbox_pink")
+        case "6":
+            colorArray = purpleArray
+            checkboxImage = UIImage(named: "checkbox_purple")
+        default: break
+        }
+        
+        let todo = colorArray[indexPath.row]
+        cell.todo = todo
+        cell.titleTextField.text = todo.title
+        
+        if todo.done{
+            cell.checkbox.setImage(checkboxImage, for: .normal)
+        }else{
+            cell.checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
         }
         
         let background = UIView()
         background.backgroundColor = .clear
         cell.selectedBackgroundView = background
-      
+        
         return cell
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        //여기에 작성 완료를 할까??
-        
-    }
-    
 }
 extension TodoViewController:FSCalendarDelegate{
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -744,37 +802,30 @@ extension TodoViewController:FSCalendarDelegate{
         
         self.dayLabel.text = day
         self.weekdayLabel.text = weekday
-        
-        NotificationCenter.default.post(name: NSNotification.Name("date"),
-                                        object: nil,
-                                        userInfo:
-                                            ["year" : year,
-                                             "month":month,
-                                             "day":day])
-        
-        
+
         searchDayTodo(year: year, month: month, day: day)
     }
     
-    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        viewCalendarContainted.fs_height = viewCalendarContainted.fs_height - ( calendarHeight.constant - bounds.height)
-        calendarHeight.constant = bounds.height
-        print("bound.height:\(bounds.height)")
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier:"ko_KR")
+        dateFormatter.dateFormat = "yyyy.MM"
+        let dateString = dateFormatter.string(from: calendarView.currentPage)
         
-        tableView.reloadData()
+        self.calendarHeaderLabel.text = dateString
+    }
+    
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        
+        viewCalendarContainted.fs_height = viewCalendarContainted.fs_height - ( calendarView.fs_height - bounds.height)
+        calendarOuterView.fs_height = calendarOuterView.fs_height - (calendarView.fs_height - bounds.height)
+        calendarView.fs_height = bounds.height
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            self.tableView.reloadData()
+        }
     }
 }
 extension TodoViewController:FSCalendarDataSource{
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier:"ko_KR")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        var count = 0
-        if self.exampleDate.contains(date){
-            return 2
-        }
-        return 0
-    }
     
 }
 

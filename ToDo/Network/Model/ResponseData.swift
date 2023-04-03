@@ -90,3 +90,25 @@ struct ColorNumberPair:Codable{
     let num:[Int]
 }
     
+struct CategoryResponseData:Codable{
+    let resultCode:Int
+    let data:Category
+}
+
+struct Category:Codable{
+    let _1:String
+    let _2:String
+    let _3:String
+    let _4:String
+    let _5:String
+    let _6:String
+    
+    enum CodingKeys:String, CodingKey{
+        case _1 = "1"
+        case _2 = "2"
+        case _3 = "3"
+        case _4 = "4"
+        case _5 = "5"
+        case _6 = "6"
+    }
+}

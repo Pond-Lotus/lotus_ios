@@ -62,26 +62,12 @@ class BottomSheetViewController : UIViewController {
             }
         }
     }
-    @IBAction func tapRedButton(_ sender: Any) {
-        color = 1
-    }
-    @IBAction func tapYellowButton(_ sender: Any) {
-        color = 2
-    }
-    @IBAction func tapGreenButton(_ sender: Any) {
-        color = 3
+    
+    @IBAction func tapColorButton(_ sender: UIButton) {
+        color = sender.tag
     }
     
-    @IBAction func tapBlueButton(_ sender: Any) {
-        color = 4
-    }
-    @IBAction func tapPinkButton(_ sender: Any) {
-        color = 5
-    }
-    @IBAction func tapPurpleButton(_ sender: Any) {
-        color = 6
-    }
-    
+   
     func colorSetting(colorNum:Int){
         switch(colorNum){
         case 1:

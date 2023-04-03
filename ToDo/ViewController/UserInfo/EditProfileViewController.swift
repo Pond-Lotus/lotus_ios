@@ -62,7 +62,9 @@ class EditProfileViewController : UIViewController{
             
             self.present(picker, animated: true)
         }
-        let destructiveAction = UIAlertAction(title: "기본 이미지로 변경", style: UIAlertAction.Style.destructive)
+        let destructiveAction = UIAlertAction(title: "기본 이미지로 변경", style: UIAlertAction.Style.destructive) { (_) in
+            self.profileImageView.image = UIImage(named: "profileImage")
+        }
         
         alert.addAction(cancleAction)
         alert.addAction(defaultAction)
@@ -89,7 +91,7 @@ class EditProfileViewController : UIViewController{
         guard let profileImage = self.profileImageView.image else {return}
         
         
-        ProfileService.shared.editImageAndNickname(image: profileImage, nickname: nicknameTextField.text ?? "") { (response) in
+        UserInfoService.shared.editImageAndNickname(image: profileImage, nickname: nicknameTextField.text ?? "") { (response) in
             switch response{
             case .success(let resultData):
                 if let data = resultData as? EditImageAndNicknameResonseData{
@@ -122,6 +124,9 @@ class EditProfileViewController : UIViewController{
     }
     
     @IBAction func tapEditPWButton(_ sender: Any) {
+        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "EditPWViewController") as? EditPWViewController else {return}
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: false)
     }
 }
 extension EditProfileViewController : PHPickerViewControllerDelegate{

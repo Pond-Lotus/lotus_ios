@@ -12,6 +12,7 @@
 		3E24915B2972F1A50091DB28 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915A2972F1A50091DB28 /* RegisterService.swift */; };
 		3E24915D2972F2070091DB28 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915C2972F2070091DB28 /* Server.swift */; };
 		3E24915F297329E90091DB28 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24915E297329E90091DB28 /* NetworkResult.swift */; };
+		3E5975D029B7324E00F0B208 /* tableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5975CF29B7324E00F0B208 /* tableViewHeader.xib */; };
 		3E7BD5CB29A89C8B00BACC3E /* SetPriorityVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BD5CA29A89C8B00BACC3E /* SetPriorityVeiwController.swift */; };
 		3E7BD5CD29A8A99400BACC3E /* PriorityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BD5CC29A8A99400BACC3E /* PriorityTableViewCell.swift */; };
 		3E7DAE92296DBEDE00B85F75 /* FinishRegisterVeiwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */; };
@@ -21,14 +22,16 @@
 		3EC2FB742989050B002DA822 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2FB732989050B002DA822 /* EditProfileViewController.swift */; };
 		3ECE8F5F297E9D8C006CD0D1 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE8F5E297E9D8C006CD0D1 /* TodoList.swift */; };
 		3ECE8F63297EA527006CD0D1 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE8F62297EA527006CD0D1 /* TodoTableViewCell.swift */; };
+		3ECFA5F329B825D10088A17C /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECFA5F229B825D10088A17C /* HeaderViewController.swift */; };
 		3EDDDFD8296BED370048D941 /* ProfileSettingForSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */; };
 		3EDDDFDA296BFBB80048D941 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFD9296BFBB80048D941 /* ResponseData.swift */; };
 		3EDDDFDC296C68AE0048D941 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDDDFDB296C68AE0048D941 /* RequestData.swift */; };
 		3EEEDABA29966EC200634B13 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEDAB929966EC200634B13 /* DrawerViewController.swift */; };
 		3EEEDAC42998D38900634B13 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEDAC32998D38900634B13 /* BottomSheetViewController.swift */; };
 		3EEEDAC72998E26300634B13 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEDAC62998E26300634B13 /* Color.swift */; };
+		3EF6E49329B64F7F0065E6C2 /* EditPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6E49229B64F7F0065E6C2 /* EditPWViewController.swift */; };
 		3EFD261E297EF1B200019AB9 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFD261D297EF1B200019AB9 /* TodoService.swift */; };
-		3EFE4F102990EF5700DB9A53 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE4F0F2990EF5700DB9A53 /* ProfileService.swift */; };
+		3EFE4F102990EF5700DB9A53 /* UserInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFE4F0F2990EF5700DB9A53 /* UserInfoService.swift */; };
 		7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549C2965BEF3001290C2 /* AppDelegate.swift */; };
 		7EC1549F2965BEF3001290C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1549E2965BEF3001290C2 /* SceneDelegate.swift */; };
 		7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC154A02965BEF3001290C2 /* ViewController.swift */; };
@@ -43,6 +46,7 @@
 		3E24915A2972F1A50091DB28 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		3E24915C2972F2070091DB28 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		3E24915E297329E90091DB28 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		3E5975CF29B7324E00F0B208 /* tableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = tableViewHeader.xib; sourceTree = "<group>"; };
 		3E7BD5CA29A89C8B00BACC3E /* SetPriorityVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPriorityVeiwController.swift; sourceTree = "<group>"; };
 		3E7BD5CC29A8A99400BACC3E /* PriorityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityTableViewCell.swift; sourceTree = "<group>"; };
 		3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRegisterVeiwController.swift; sourceTree = "<group>"; };
@@ -52,14 +56,16 @@
 		3EC2FB732989050B002DA822 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3ECE8F5E297E9D8C006CD0D1 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		3ECE8F62297EA527006CD0D1 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		3ECFA5F229B825D10088A17C /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingForSignUpViewController.swift; sourceTree = "<group>"; };
 		3EDDDFD9296BFBB80048D941 /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
 		3EDDDFDB296C68AE0048D941 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		3EEEDAB929966EC200634B13 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		3EEEDAC32998D38900634B13 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3EEEDAC62998E26300634B13 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		3EF6E49229B64F7F0065E6C2 /* EditPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPWViewController.swift; sourceTree = "<group>"; };
 		3EFD261D297EF1B200019AB9 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
-		3EFE4F0F2990EF5700DB9A53 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		3EFE4F0F2990EF5700DB9A53 /* UserInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoService.swift; sourceTree = "<group>"; };
 		50146E538FCC5E4309E504E0 /* Pods_ToDo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75043B30467E99A993A57F25 /* Pods-ToDo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo.debug.xcconfig"; path = "Target Support Files/Pods-ToDo/Pods-ToDo.debug.xcconfig"; sourceTree = "<group>"; };
 		7EC154992965BEF3001290C2 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +101,7 @@
 		3E2491602974015D0091DB28 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3EFE4F0F2990EF5700DB9A53 /* ProfileService.swift */,
+				3EFE4F0F2990EF5700DB9A53 /* UserInfoService.swift */,
 				3EFD261D297EF1B200019AB9 /* TodoService.swift */,
 				3E24915C2972F2070091DB28 /* Server.swift */,
 				3E24915A2972F1A50091DB28 /* RegisterService.swift */,
@@ -117,23 +123,23 @@
 		3E249162297401CC0091DB28 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				3E249163297401F80091DB28 /* SignUp */,
+				3EF6E49129B64F5E0065E6C2 /* UserInfo */,
+				3E249163297401F80091DB28 /* LoginAndSignUp */,
 				3EFC4114297C0F69005551CE /* Todo */,
-				7EC154A02965BEF3001290C2 /* ViewController.swift */,
-				3EC2FB732989050B002DA822 /* EditProfileViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		3E249163297401F80091DB28 /* SignUp */ = {
+		3E249163297401F80091DB28 /* LoginAndSignUp */ = {
 			isa = PBXGroup;
 			children = (
+				7EC154A02965BEF3001290C2 /* ViewController.swift */,
 				3EC0B787296757DE00B31EC2 /* EmailForSignUpViewController.swift */,
 				3EC0B789296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift */,
 				3EDDDFD7296BED370048D941 /* ProfileSettingForSignUpViewController.swift */,
 				3E7DAE91296DBEDE00B85F75 /* FinishRegisterVeiwController.swift */,
 			);
-			path = SignUp;
+			path = LoginAndSignUp;
 			sourceTree = "<group>";
 		};
 		3EEEDAC52998E25100634B13 /* Color */ = {
@@ -142,6 +148,15 @@
 				3EEEDAC62998E26300634B13 /* Color.swift */,
 			);
 			path = Color;
+			sourceTree = "<group>";
+		};
+		3EF6E49129B64F5E0065E6C2 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				3EC2FB732989050B002DA822 /* EditProfileViewController.swift */,
+				3EF6E49229B64F7F0065E6C2 /* EditPWViewController.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		3EFC4114297C0F69005551CE /* Todo */ = {
@@ -155,6 +170,7 @@
 				3EAC412D29A285B800207440 /* SelectColorViewController.swift */,
 				3E7BD5CA29A89C8B00BACC3E /* SetPriorityVeiwController.swift */,
 				3E7BD5CC29A8A99400BACC3E /* PriorityTableViewCell.swift */,
+				3ECFA5F229B825D10088A17C /* HeaderViewController.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -189,6 +205,7 @@
 				7EC154A52965BEF3001290C2 /* Assets.xcassets */,
 				7EC154A72965BEF3001290C2 /* LaunchScreen.storyboard */,
 				7EC154AA2965BEF3001290C2 /* Info.plist */,
+				3E5975CF29B7324E00F0B208 /* tableViewHeader.xib */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -262,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E5975D029B7324E00F0B208 /* tableViewHeader.xib in Resources */,
 				7EC154A92965BEF3001290C2 /* LaunchScreen.storyboard in Resources */,
 				7EC154A62965BEF3001290C2 /* Assets.xcassets in Resources */,
 				7EC154A42965BEF3001290C2 /* Main.storyboard in Resources */,
@@ -320,11 +338,13 @@
 				3ECE8F5F297E9D8C006CD0D1 /* TodoList.swift in Sources */,
 				7EC154A12965BEF3001290C2 /* ViewController.swift in Sources */,
 				3EDDDFDA296BFBB80048D941 /* ResponseData.swift in Sources */,
+				3ECFA5F329B825D10088A17C /* HeaderViewController.swift in Sources */,
 				3EFD261E297EF1B200019AB9 /* TodoService.swift in Sources */,
 				3ECE8F63297EA527006CD0D1 /* TodoTableViewCell.swift in Sources */,
 				3EC0B788296757DE00B31EC2 /* EmailForSignUpViewController.swift in Sources */,
 				3E24915F297329E90091DB28 /* NetworkResult.swift in Sources */,
 				3EC2FB742989050B002DA822 /* EditProfileViewController.swift in Sources */,
+				3EF6E49329B64F7F0065E6C2 /* EditPWViewController.swift in Sources */,
 				7EC1549D2965BEF3001290C2 /* AppDelegate.swift in Sources */,
 				3E24915B2972F1A50091DB28 /* RegisterService.swift in Sources */,
 				3E7BD5CB29A89C8B00BACC3E /* SetPriorityVeiwController.swift in Sources */,
@@ -333,7 +353,7 @@
 				3EAC412E29A285B800207440 /* SelectColorViewController.swift in Sources */,
 				3EC0B78A296B5BCE00B31EC2 /* VerificationCodeForSignUpViewController.swift in Sources */,
 				3EEEDAC42998D38900634B13 /* BottomSheetViewController.swift in Sources */,
-				3EFE4F102990EF5700DB9A53 /* ProfileService.swift in Sources */,
+				3EFE4F102990EF5700DB9A53 /* UserInfoService.swift in Sources */,
 				3EEEDAC72998E26300634B13 /* Color.swift in Sources */,
 				3E029DA4298661900091DF6E /* TodoViewController.swift in Sources */,
 				3E7BD5CD29A8A99400BACC3E /* PriorityTableViewCell.swift in Sources */,
