@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var isSecureMode = false
     var isAutoLoginMode = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         componentViewSetting()
@@ -45,11 +46,11 @@ class ViewController: UIViewController {
                 case .success(let resultData):
                     if let data = resultData as? ResponseData{
                         print(data.resultCode)
-                        if data.resultCode ==  500 {
+                        if data.resultCode ==  200 {
                             guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {return}
                             viewController.modalPresentationStyle = .fullScreen
                             self.present(viewController, animated: false)
-                        }else if data.resultCode == 200 {
+                        }else if data.resultCode == 500 {
                             userDefault.removeObject(forKey: "password")
                             let alert  = UIAlertController(title: "자동 로그인 만료", message: "자동 로그인이 해제되어 다시 로그인 합니다", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "확인", style: .default))
@@ -104,7 +105,12 @@ private func login(email:String,password:String){
                     
                     guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TodoViewController") as? TodoViewController else {return}
                     viewController.modalPresentationStyle = .fullScreen
+//                    viewController.modalTransitionStyle =
                     self.present(viewController, animated: false)
+                } else if data.resultCode == 500 {
+                    let alert = UIAlertController(title: "로그인 실패", message: "이메일 혹은 비밀 번호를 다시 확인해주세요.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: .default))
+                    self.present(alert, animated: true)
                 }
             }
         case .requestErr(let message):
@@ -145,6 +151,10 @@ private func login(email:String,password:String){
     }
     isAutoLoginMode = !isAutoLoginMode
 }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view?.endEditing(true)
+    }
 }
 
 

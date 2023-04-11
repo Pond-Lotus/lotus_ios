@@ -17,6 +17,11 @@ class BottomSheetViewController : UIViewController {
     @IBOutlet weak var redButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var alaramLabel: UILabel!
+    @IBOutlet weak var yellowButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
+    @IBOutlet weak var pinkButton: UIButton!
+    @IBOutlet weak var purpleButton: UIButton!
     
     var color:Int = 0
     var time = ""
@@ -26,6 +31,13 @@ class BottomSheetViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         firstSetting()
+        
+        let buttonArray = [redButton,yellowButton,greenButton,blueButton,pinkButton,purpleButton]
+        
+        buttonArray.forEach {
+            $0?.clipsToBounds = true
+            $0?.layer.cornerRadius = ($0?.fs_width ?? 25)/2
+        }
         
     }
     

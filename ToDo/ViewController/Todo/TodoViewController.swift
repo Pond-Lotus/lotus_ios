@@ -19,7 +19,7 @@ class TodoViewController:UIViewController{
     
     @IBOutlet weak var calendarHeaderLabel: UILabel!
     var exampleDate:[Date] = []
-    
+    var isShowingButtonSheet = false
     var count = 0
     
     var categoryDictionary:[Character:String] = ["1":"","2":"","3":"","4":"","5":"","6":""]
@@ -60,7 +60,7 @@ class TodoViewController:UIViewController{
     
     var yOfFloatingButton:CGFloat = 0
     var xOfFloatingButton:CGFloat = 0
-    var keyboardHeight:CGFloat = 0
+    var keyboardHeight:CGFloat?
     var window = CGRect(x: 0, y: 0, width: 0, height: 0)
     
     var showColorPicker = false
@@ -386,7 +386,10 @@ class TodoViewController:UIViewController{
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
-            self.bottomSheetController?.view.frame.origin.y = (self.bottomSheetController?.view.frame.origin.y)! - keyboardHeight
+            if self.keyboardHeight == nil {
+                self.keyboardHeight = keyboardHeight
+                self.bottomSheetController?.view.frame.origin.y = (self.bottomSheetController?.view.frame.origin.y)! - keyboardHeight
+            }
         }
     }
     
@@ -395,7 +398,7 @@ class TodoViewController:UIViewController{
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            self.keyboardHeight = 0
+//            self.keyboardHeight = 0
         }
     }
     
@@ -600,15 +603,6 @@ extension TodoViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
-
-    
-    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "headerViewController") as! HeaderViewController
-    ////        viewController.roundView.layer.cornerRadius = viewController.roundView.fs_width/2
-    //
-    //
-    //        return viewController.view
-    //    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
@@ -649,6 +643,7 @@ extension TodoViewController:UITableViewDelegate{
         view.addSubview(self.blackView)
         view.addSubview(bottomView)
         self.addChild(bottomSheetController!)
+        isShowingButtonSheet = true
         
         
         guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return} // 윈도우가 뭔지 모르겟음. 근데 해당 코드는 deprecated된 걸 사용해서 수정해야함
@@ -662,9 +657,14 @@ extension TodoViewController:UITableViewDelegate{
         bottomView.fs_height = 0
         bottomView.frame.origin.y = window.fs_height
         
+        
         UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
             bottomView.fs_height = window.fs_height * 0.4
-            bottomView.frame.origin.y = window.fs_height - (window.fs_height * 0.4)
+            bottomView.frame.origin.y = window.fs_height - (window.fs_height * 0.4) - self.keyboardHeight!
+
+//            if self.keyboardHeight != nil {
+//                bottomView.frame.origin.y = window.fs_height - (window.fs_height * 0.4) - self.keyboardHeight!
+//            }
         }
     }
     

@@ -8,8 +8,24 @@
 import UIKit
 
 class SelectColorViewController:UIViewController{
+    
+    
+    @IBOutlet weak var redButton: UIButton!
+    @IBOutlet weak var yellowButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
+    @IBOutlet weak var pinkButton: UIButton!
+    @IBOutlet weak var purpleButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let buttonArray = [redButton,yellowButton,greenButton,blueButton,pinkButton,purpleButton]
+        buttonArray.forEach {
+            $0?.clipsToBounds = true
+            $0?.layer.cornerRadius = ($0?.fs_width ?? 25)/2
+        }
+
         
     }
     
