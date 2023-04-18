@@ -38,7 +38,14 @@ class MainViewController: UIViewController {
     
     @objc func buttonTapped() {
         print("Button tapped!")
-        self.dismiss(animated: true, completion: nil)
+        
+//        self.dismiss(animated: true, completion: nil)
+        
+            // 첫 번째 뷰 컨트롤러에서 두 번째 뷰 컨트롤러로 전환
+            let secondViewController = ViewController()
+            secondViewController.modalPresentationStyle = .fullScreen
+            self.present(secondViewController, animated: true, completion: nil)
+        
     }
 
 }
