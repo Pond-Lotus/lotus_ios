@@ -40,5 +40,6 @@ class ViewController: UIViewController {
         emailTextfield.topAnchor.constraint(equalTo: self.logoTextImageView.bottomAnchor, constant: 67).isActive = true
     }
 //수정
+//다솔
 }
 
