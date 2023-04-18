@@ -21,7 +21,9 @@ class VerificationCodeForSignUpViewController :UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         numberPadSetting()
+        
         numberPad1.becomeFirstResponder()
         numberPad1.addTarget(self, action: #selector(numberPad1DidChange), for: .editingChanged)
         numberPad2.addTarget(self, action: #selector(numberPad2DidChange), for: .editingChanged)
@@ -29,9 +31,6 @@ class VerificationCodeForSignUpViewController :UIViewController {
         numberPad4.addTarget(self, action: #selector(numberPad4DidChange), for: .editingChanged)
         numberPad5.addTarget(self, action: #selector(numberPad5DidChange), for: .editingChanged)
         numberPad6.addTarget(self, action: #selector(numberPad6DidChange), for: .editingChanged)
-        
-        
-        
     }
     
     @IBAction func tapNextButton(_ sender: Any) {

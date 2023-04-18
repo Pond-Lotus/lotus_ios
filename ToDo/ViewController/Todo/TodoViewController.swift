@@ -20,12 +20,12 @@ class TodoViewController:UIViewController{
     @IBOutlet weak var calendarHeaderLabel: UILabel!
     var exampleDate:[Date] = []
     var isShowingButtonSheet = false
-    var count = 0
-    
+
     var categoryDictionary:[Character:String] = ["1":"","2":"","3":"","4":"","5":"","6":""]
     var titleOfSection:[String] = ["Red","Yellow","Green", "Blue","Pink","Purple"]
     var priorityArray:[Character] = ["1","2","3","4","5","6"]
     var existPriorityArray:[Character] = []
+    
     var redArray:[TodoList] = []{
         didSet{
             tableView.reloadData()
@@ -57,6 +57,8 @@ class TodoViewController:UIViewController{
         }
     }
     
+    var wholeColorArray:[[TodoList]] = []
+    
     
     var yOfFloatingButton:CGFloat = 0
     var xOfFloatingButton:CGFloat = 0
@@ -72,7 +74,6 @@ class TodoViewController:UIViewController{
     var blackView : UIView = {
         var view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        print("create black view")
         return view
     }()
     
@@ -92,6 +93,8 @@ class TodoViewController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        wholeColorArray = [redArray,yellowArray,greenArray,blueArray,pinkArray,purpleArray]
+        
         calendarSetting()
         calendarOuterViewSetting()
         
@@ -108,7 +111,7 @@ class TodoViewController:UIViewController{
         tableView.dataSource = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleFinishEditing(_:)), name: NSNotification.Name("finishEditing"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectColor(_:)), name: NSNotification.Name("selectColor"), object: nil)
         
@@ -129,25 +132,13 @@ class TodoViewController:UIViewController{
         dateFormatter.dateFormat = "yyyy.MM"
         calendarHeaderLabel.text = dateFormatter.string(from: calendarView.currentPage)
         
-        //color dot test
-        print("today: \(calendarView.today)")
-        var day = 1
-        var dateString = "\(dateArray[0])-0\(dateArray[1])-0\(String(day))"
-        print("string date: \(dateString)")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let realDate = dateFormatter.date(from: dateString)
-        exampleDate.append(realDate!)
-        print("real date: \(realDate)")
-        
-        
         
         self.tableView.addSubview(floatingButton)
         
-        //제스처 추가 - 두개라서 일단 하나 지우기
-        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
+//        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:))))
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         
-        calendarView.appearance.eventDefaultColor = Color.red
+//        calendarView.appearance.eventDefaultColor = Color.red
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -218,6 +209,7 @@ class TodoViewController:UIViewController{
         self.existPriorityArray.removeAll()
         
         for i in priorityArray{
+            let color = Color.shared.getColor(colorNum: i)
             switch (i){
             case "1" :
                 if self.redArray.count != 0 {
@@ -371,13 +363,13 @@ class TodoViewController:UIViewController{
         view.endEditing(true)
     }
     
-    //table view tap 할 때 실행되는 것
-    @objc func handleTap(sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            tableView.endEditing(true)
-        }
-        sender.cancelsTouchesInView = false //이거 뭔지 다시 확인해보기
-    }
+    //table view tap 할 때 실행되는 것 - 해당 기능 코드가 두개라서 일단 지워놓음 동작 안 하면 다시 추가하기
+//    @objc func handleTap(sender: UITapGestureRecognizer) {
+//        if sender.state == .ended {
+//            tableView.endEditing(true)
+//        }
+//        sender.cancelsTouchesInView = false //이거 뭔지 다시 확인해보기
+//    }
     
     
     //키보드 나타날 때 실행(notification center)
@@ -386,6 +378,7 @@ class TodoViewController:UIViewController{
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
+            //keyboardheight변수가 nil이면 실행
             if self.keyboardHeight == nil {
                 self.keyboardHeight = keyboardHeight
                 self.bottomSheetController?.view.frame.origin.y = (self.bottomSheetController?.view.frame.origin.y)! - keyboardHeight
@@ -394,13 +387,13 @@ class TodoViewController:UIViewController{
     }
     
     //키보드 없어질 때 실행(notification center)
-    @objc func keyboardWillHide(_ notification:NSNotification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-//            self.keyboardHeight = 0
-        }
-    }
+//    @objc func keyboardWillHide(_ notification:NSNotification) {
+//        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+//            let keyboardRectangle = keyboardFrame.cgRectValue
+//            let keyboardHeight = keyboardRectangle.height
+////            self.keyboardHeight = 0
+//        }
+//    }
     
     //drawer 햄버거바 클릭했을 때 실행
     @IBAction func tapDrawerButton(_ sender: Any) {
@@ -522,11 +515,11 @@ class TodoViewController:UIViewController{
         
     }
     
-    //tableview 클릭했을 때 실행(이게 왜 두개나?? 이것 때문에 문제되는건가) - 일단 지워봄
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super.touchesBegan(touches, with: event)
-//        self.tableView?.endEditing(true)
-//    }
+    //tableview 클릭했을 때 실행 - 투두 작성 완료를 위해서
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.tableView?.endEditing(true)
+    }
     
     //캘린더 기본 정보 초기 셋팅
     private func calendarSetting(){
@@ -674,6 +667,8 @@ extension TodoViewController:UITableViewDelegate{
         if editingStyle == .delete{
             var id = 0
             let index = self.existPriorityArray[indexPath.section]
+            
+//            id = wholeColorArray[index][indexPath.row].id
             
             switch (index){
             case "1": id = redArray[indexPath.row].id

@@ -80,29 +80,29 @@ class BottomSheetViewController : UIViewController {
     }
     
    
-    func colorSetting(colorNum:Int){
-        switch(colorNum){
-        case 1:
-            colorBarView.backgroundColor = Color.red
-            dateLabel.textColor = Color.red
-        case 2:
-            colorBarView.backgroundColor = Color.yellow
-            dateLabel.textColor = Color.yellow
-        case 3:
-            colorBarView.backgroundColor = Color.green
-            dateLabel.textColor = Color.green
-        case 4:
-            colorBarView.backgroundColor = Color.blue
-            dateLabel.textColor = Color.blue
-        case 5:
-            colorBarView.backgroundColor = Color.pink
-            dateLabel.textColor = Color.pink
-        case 6:
-            colorBarView.backgroundColor = Color.purple
-            dateLabel.textColor = Color.purple
-        default:
-            colorBarView.backgroundColor = Color.gray
-            dateLabel.textColor = Color.gray
-        }
-    }
+//    func colorSetting(colorNum:Int){
+//        switch(colorNum){
+//        case 1:
+//            colorBarView.backgroundColor = Color.red
+//            dateLabel.textColor = Color.red
+//        case 2:
+//            colorBarView.backgroundColor = Color.yellow
+//            dateLabel.textColor = Color.yellow
+//        case 3:
+//            colorBarView.backgroundColor = Color.green
+//            dateLabel.textColor = Color.green
+//        case 4:
+//            colorBarView.backgroundColor = Color.blue
+//            dateLabel.textColor = Color.blue
+//        case 5:
+//            colorBarView.backgroundColor = Color.pink
+//            dateLabel.textColor = Color.pink
+//        case 6:
+//            colorBarView.backgroundColor = Color.purple
+//            dateLabel.textColor = Color.purple
+//        default:
+//            colorBarView.backgroundColor = Color.gray
+//            dateLabel.textColor = Color.gray
+//        }
+//    }
 }

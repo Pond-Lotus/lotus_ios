@@ -8,8 +8,6 @@
 import UIKit
 
 class SelectColorViewController:UIViewController{
-    
-    
     @IBOutlet weak var redButton: UIButton!
     @IBOutlet weak var yellowButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!

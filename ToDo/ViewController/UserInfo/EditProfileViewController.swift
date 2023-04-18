@@ -76,7 +76,7 @@ class EditProfileViewController : UIViewController{
     
     private func editPWButtonSetting(){
         editPWButton.layer.borderWidth = 1
-        editPWButton.layer.borderColor = UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1).cgColor
+        editPWButton.layer.borderColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1).cgColor
         editPWButton.layer.cornerRadius = 8
         editPWButton.layer.masksToBounds = false
     }
@@ -128,6 +128,16 @@ class EditProfileViewController : UIViewController{
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: false)
     }
+    
+    @IBAction func tapWithdrwalButton(_ sender: Any) {
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view?.endEditing(true)
+    }
+    
 }
 extension EditProfileViewController : PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {

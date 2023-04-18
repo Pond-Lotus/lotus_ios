@@ -22,7 +22,6 @@ class TodoTableViewCell: UITableViewCell {
         
         titleTextField.addTarget(self, action: #selector(writeTodo), for: .editingDidEnd)
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("date"), object: nil)
         
         titleTextField.becomeFirstResponder()
     }
@@ -107,18 +106,6 @@ class TodoTableViewCell: UITableViewCell {
             }
         }
     }
-    
-//    @objc func getData(_ notification:NSNotification){
-//        if let y = notification.userInfo?["year"] as? String{
-//            year = y
-//        }
-//        if let m = notification.userInfo?["month"] as? String{
-//            month = m
-//        }
-//        if let d = notification.userInfo?["day"] as? String{
-//            day = d
-//        }
-//    }
     
     private func setCheckBox(color:Int, checkbox:UIButton){
         switch (color){
