@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainViewController: UIViewController {
     
@@ -34,6 +35,15 @@ class MainViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 40)
         ])
         
+        let label = UILabel()
+        label.text = "FUCK"
+        label.textAlignment = .center
+        label.backgroundColor = .purple
+        view.addSubview(label)
+        label.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().offset(20)
+            $0.bottom.trailing.equalToSuperview().offset(-20)
+        }
     }
     
     @objc func buttonTapped() {

@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoTextImageView.translatesAutoresizingMaskIntoConstraints = false
         emailTextfield.translatesAutoresizingMaskIntoConstraints = false
