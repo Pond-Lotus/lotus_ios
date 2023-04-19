@@ -8,15 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA213929EE922E0068EB53 /* ViewController.swift */; };
-<<<<<<< HEAD
 		7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0BF87D29EF8221003291B9 /* SnapKit */; };
 		7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */; };
-=======
-		3EAA214229EEABD90068EB53 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA214129EEABD90068EB53 /* TodoService.swift */; };
-		3EAA214429EEABE70068EB53 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA214329EEABE70068EB53 /* APIConstants.swift */; };
-		3EAA214629EEABF70068EB53 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA214529EEABF70068EB53 /* UserService.swift */; };
-		3EAA214A29EEAD860068EB53 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA214929EEAD860068EB53 /* Color.swift */; };
->>>>>>> 974aa811c5d997cc391e7e3a0b927bac8a6924e5
 		7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0ED2C129EE87FF0097DDEF /* AppDelegate.swift */; };
 		7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0ED2C329EE87FF0097DDEF /* SceneDelegate.swift */; };
 		7E0ED2CB29EE87FF0097DDEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */; };
@@ -25,14 +18,7 @@
 
 /* Begin PBXFileReference section */
 		3EAA213929EE922E0068EB53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
-=======
-		3EAA214129EEABD90068EB53 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
-		3EAA214329EEABE70068EB53 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
-		3EAA214529EEABF70068EB53 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
-		3EAA214929EEAD860068EB53 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = TODORI/Support/Color.swift; sourceTree = SOURCE_ROOT; };
->>>>>>> 974aa811c5d997cc391e7e3a0b927bac8a6924e5
 		7E0ED2BE29EE87FF0097DDEF /* TODORI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODORI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E0ED2C129EE87FF0097DDEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E0ED2C329EE87FF0097DDEF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +73,6 @@
 		7E0ED2D729EE8A9A0097DDEF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3EAA214929EEAD860068EB53 /* Color.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -112,9 +97,6 @@
 		7E0ED2DA29EE8AC90097DDEF /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3EAA214129EEABD90068EB53 /* TodoService.swift */,
-				3EAA214329EEABE70068EB53 /* APIConstants.swift */,
-				3EAA214529EEABF70068EB53 /* UserService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -218,17 +200,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EAA214629EEABF70068EB53 /* UserService.swift in Sources */,
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
-				3EAA214429EEABE70068EB53 /* APIConstants.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
-<<<<<<< HEAD
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
-=======
-				3EAA214A29EEAD860068EB53 /* Color.swift in Sources */,
-				3EAA214229EEABD90068EB53 /* TodoService.swift in Sources */,
->>>>>>> 974aa811c5d997cc391e7e3a0b927bac8a6924e5
 				7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
