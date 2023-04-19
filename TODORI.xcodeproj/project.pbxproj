@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E697E3529EFBEF200E3ABBD /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3E697E3429EFBEF200E3ABBD /* FSCalendar */; };
+		3E697E3829EFBF0B00E3ABBD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3729EFBF0B00E3ABBD /* Color.swift */; };
+		3E697E3A29EFBF1800E3ABBD /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3929EFBF1800E3ABBD /* ResponseData.swift */; };
+		3E697E3C29EFBF2600E3ABBD /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3B29EFBF2600E3ABBD /* RequestData.swift */; };
+		3E697E3F29EFBF4200E3ABBD /* TodoAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */; };
+		3E697E4129EFBF4D00E3ABBD /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */; };
 		3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA213929EE922E0068EB53 /* ViewController.swift */; };
 		7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0BF87D29EF8221003291B9 /* SnapKit */; };
 		7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */; };
@@ -17,6 +23,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E697E3729EFBF0B00E3ABBD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		3E697E3929EFBF1800E3ABBD /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
+		3E697E3B29EFBF2600E3ABBD /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAPIConstant.swift; sourceTree = "<group>"; };
+		3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIConstant.swift; sourceTree = "<group>"; };
 		3EAA213929EE922E0068EB53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		7E0ED2BE29EE87FF0097DDEF /* TODORI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODORI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,12 +44,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */,
+				3E697E3529EFBEF200E3ABBD /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E697E3629EFBEFE00E3ABBD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E697E3729EFBF0B00E3ABBD /* Color.swift */,
+				3E697E3929EFBF1800E3ABBD /* ResponseData.swift */,
+				3E697E3B29EFBF2600E3ABBD /* RequestData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3E697E3D29EFBF2D00E3ABBD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */,
+				3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		7E0ED2B529EE87FF0097DDEF = {
 			isa = PBXGroup;
 			children = (
@@ -59,22 +90,15 @@
 		7E0ED2C029EE87FF0097DDEF /* TODORI */ = {
 			isa = PBXGroup;
 			children = (
+				3E697E3D29EFBF2D00E3ABBD /* Network */,
+				3E697E3629EFBEFE00E3ABBD /* Model */,
 				7E0ED2DC29EE8AE10097DDEF /* Support */,
 				7E0ED2DB29EE8AD70097DDEF /* Utility */,
-				7E0ED2DA29EE8AC90097DDEF /* Network */,
 				7E0ED2D929EE8ABF0097DDEF /* ViewController */,
 				7E0ED2D829EE8AB50097DDEF /* View */,
-				7E0ED2D729EE8A9A0097DDEF /* Model */,
 				7E0ED2CF29EE87FF0097DDEF /* Info.plist */,
 			);
 			path = TODORI;
-			sourceTree = "<group>";
-		};
-		7E0ED2D729EE8A9A0097DDEF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		7E0ED2D829EE8AB50097DDEF /* View */ = {
@@ -92,13 +116,6 @@
 				7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		7E0ED2DA29EE8AC90097DDEF /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		7E0ED2DB29EE8AD70097DDEF /* Utility */ = {
@@ -143,6 +160,7 @@
 			name = TODORI;
 			packageProductDependencies = (
 				7E0BF87D29EF8221003291B9 /* SnapKit */,
+				3E697E3429EFBEF200E3ABBD /* FSCalendar */,
 			);
 			productName = TODORI;
 			productReference = 7E0ED2BE29EE87FF0097DDEF /* TODORI.app */;
@@ -174,6 +192,7 @@
 			mainGroup = 7E0ED2B529EE87FF0097DDEF;
 			packageReferences = (
 				7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -201,10 +220,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
+				3E697E4129EFBF4D00E3ABBD /* UserAPIConstant.swift in Sources */,
+				3E697E3A29EFBF1800E3ABBD /* ResponseData.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
 				7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */,
+				3E697E3F29EFBF4200E3ABBD /* TodoAPIConstant.swift in Sources */,
+				3E697E3829EFBF0B00E3ABBD /* Color.swift in Sources */,
+				3E697E3C29EFBF2600E3ABBD /* RequestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +425,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -412,6 +444,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E697E3429EFBEF200E3ABBD /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
 		7E0BF87D29EF8221003291B9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */;
