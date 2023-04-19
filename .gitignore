@@ -1,3 +1,2 @@
 .DS_Store
-*.xcuserdatad/
-TODORI.xcodeproj/project.xcworkspace/xcuserdata/solda.xcuserdatad/UserInterfaceState.xcuserstate
+*.xcuserstate
