@@ -11,7 +11,7 @@ import FSCalendar
 
 class TodoMainViewController : UIViewController{
     
-    var calendarView:FSCalendar = FSCalendar()
+    var calendarView:FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
     var segmentedControl:UISegmentedControl = UISegmentedControl()
     var tableView:UITableView = UITableView()
     var topBarView:UIView = UIView()
@@ -19,20 +19,23 @@ class TodoMainViewController : UIViewController{
     var calendarImageView:UIImageView = UIImageView(image: UIImage(named: "calendar"))
     var dateLabel:UILabel = UILabel()
     var stackViewOfDateLabel:UIStackView = UIStackView()
+    var dateFormatter = DateFormatter()
+    var calendarBackgroundView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        dateFormatter.locale = Locale(identifier: "ko")
+ 
         self.view.addSubview(topBarView)
         topBarView.addSubview(segmentedControl)
         topBarView.addSubview(hambuergerButton)
         
         self.view.addSubview(tableView)
-        tableView.addSubview(stackViewOfDateLabel)
-        stackViewOfDateLabel.addSubview(calendarImageView)
-        stackViewOfDateLabel.addSubview(dateLabel)
-        tableView.addSubview(calendarView)
+        tableView.addSubview(calendarBackgroundView)
+        calendarBackgroundView.addSubview(calendarImageView)
+        calendarBackgroundView.addSubview(dateLabel)
+        calendarBackgroundView.addSubview(calendarView)
                 
         setComponentAppearence() //컴포넌트 외형 설정
         setAutoLayout() //오토 레이아웃 설정
@@ -48,14 +51,20 @@ class TodoMainViewController : UIViewController{
         hambuergerButton.setImage(UIImage(named: "hamburger-button"), for: .normal)
         
         //캘린더 상단 날짜 라벨
-        stackViewOfDateLabel.axis = .horizontal
-        stackViewOfDateLabel.spacing = 4
         dateLabel.textColor = UIColor.black
         dateLabel.font.withSize(15)
-        dateLabel.text = "2222 22 22"
+        dateLabel.text = DateFormat.shared.getdateLabelString(date: calendarView.currentPage)
+        dateLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         
         //캘린더뷰 외형 설정
         calendarView.headerHeight = 0
+        calendarView.select(calendarView.today)
+        calendarView.calendarWeekdayView.weekdayLabels.forEach({
+            $0.textColor = .black
+        })
+        
+        //캘린더 백그라운드 뷰 외형 설정
+        calendarBackgroundView.backgroundColor = .red
 
     }
     
@@ -83,26 +92,26 @@ class TodoMainViewController : UIViewController{
             make.top.equalTo(topBarView.snp.bottom)
         }
         
-        calendarView.snp.makeConstraints { make in
-            make.top.equalTo(stackViewOfDateLabel)
-            make.topMargin.equalTo(10)
-            make.leftMargin.equalTo(30)
-            make.rightMargin.equalTo(-30)
-            make.height.equalTo(300)
-        }
-        
-        stackViewOfDateLabel.snp.makeConstraints { make in
-            make.left.equalTo(calendarView)
+        calendarBackgroundView.snp.makeConstraints { make in
+            make.left.right.top.equalToSuperview()
+            make.height.equalTo(500)
         }
         
         calendarImageView.snp.makeConstraints { make in
             make.width.height.equalTo(21)
+            make.topMargin.equalTo(15)
+            make.leftMargin.equalTo(38)
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.left.equalTo(calendarImageView.snp.right)
-            make.leftMargin.equalTo(<#T##other: ConstraintRelatableTarget##ConstraintRelatableTarget#>)
+            make.left.equalTo(calendarImageView.snp.right).offset(5)
+            make.centerY.equalTo(calendarImageView)
         }
         
+        calendarView.snp.makeConstraints { make in
+            make.top.equalTo(calendarImageView.snp.bottom).offset(20)
+//            make.centerX.equalToSuperview()
+            //center이 안 잡힘 왜지?
+        }
     }
 }
