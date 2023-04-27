@@ -20,25 +20,41 @@ class TodoMainViewController : UIViewController{
     var dateLabel:UILabel = UILabel()
     var stackViewOfDateLabel:UIStackView = UIStackView()
     var dateFormatter = DateFormatter()
-    var calendarBackgroundView = UIView()
+    var calendarBackgroundView:UIView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        //기본 뷰 색상 설정
         view.backgroundColor = .white
+        
+        //데이트 포멧터 설정
         dateFormatter.locale = Locale(identifier: "ko")
- 
+        
+        addComponent() //컴포넌트 및 뷰 추가
+        setAutoLayout() //오토 레이아웃 설정
+        setComponentAppearence() //컴포넌트 외형 설정
+    }
+    
+    private func addComponent(){
+        //기본 뷰에 세그먼티트 컨트롤, 햄버거바를 담을 뷰 추가
         self.view.addSubview(topBarView)
+        
+        //상위 뷰에 새그먼티트 컨트롤, 햄버거바 추가
         topBarView.addSubview(segmentedControl)
         topBarView.addSubview(hambuergerButton)
         
+        //기본 뷰에 테이블뷰 추가
         self.view.addSubview(tableView)
-        tableView.addSubview(calendarBackgroundView)
-        calendarBackgroundView.addSubview(calendarImageView)
-        calendarBackgroundView.addSubview(dateLabel)
-        calendarBackgroundView.addSubview(calendarView)
-                
-        setComponentAppearence() //컴포넌트 외형 설정
-        setAutoLayout() //오토 레이아웃 설정
+        
+        //        calendarBackgroundView.addSubview(calendarImageView)
+        //        calendarBackgroundView.addSubview(dateLabel)
+        //        calendarBackgroundView.addSubview(calendarView)
+        tableView.tableHeaderView = calendarBackgroundView
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 400)
     }
     
     private func setComponentAppearence(){
@@ -65,7 +81,12 @@ class TodoMainViewController : UIViewController{
         
         //캘린더 백그라운드 뷰 외형 설정
         calendarBackgroundView.backgroundColor = .red
-
+        
+        //테이블뷰 설정 - 디버깅
+        tableView.backgroundColor = .yellow
+        print("height: \(tableView.tableHeaderView?.fs_height), width:\(tableView.tableHeaderView?.fs_width) ")
+        
+        
     }
     
     private func setAutoLayout(){
@@ -93,25 +114,40 @@ class TodoMainViewController : UIViewController{
         }
         
         calendarBackgroundView.snp.makeConstraints { make in
-            make.left.right.top.equalToSuperview()
-            make.height.equalTo(500)
+            make.left.right.top.equalTo(tableView)
+            make.height.equalTo(200)
         }
         
-        calendarImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(21)
-            make.topMargin.equalTo(15)
-            make.leftMargin.equalTo(38)
-        }
-        
-        dateLabel.snp.makeConstraints { make in
-            make.left.equalTo(calendarImageView.snp.right).offset(5)
-            make.centerY.equalTo(calendarImageView)
-        }
-        
-        calendarView.snp.makeConstraints { make in
-            make.top.equalTo(calendarImageView.snp.bottom).offset(20)
-//            make.centerX.equalToSuperview()
-            //center이 안 잡힘 왜지?
-        }
+//        calendarImageView.snp.makeConstraints { make in
+//            make.width.height.equalTo(21)
+//            make.top.equalTo(calendarBackgroundView.snp.top).offset(16)
+//            make.leftMargin.equalTo(calendarBackgroundView.snp.left).offset(38)
+//        }
+//
+//        dateLabel.snp.makeConstraints { make in
+//            make.left.equalTo(calendarImageView.snp.right).offset(5)
+//            make.centerY.equalTo(calendarImageView)
+//        }
+//
+//        calendarView.snp.makeConstraints { make in
+//            make.top.equalTo(calendarImageView.snp.bottom).offset(20)
+//        }
     }
+}
+
+extension TodoMainViewController:UITableViewDelegate{
+    
+}
+extension TodoMainViewController:UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.backgroundColor = .gray
+        return cell
+    }
+    
+    
 }
