@@ -14,6 +14,9 @@
 		7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0ED2C329EE87FF0097DDEF /* SceneDelegate.swift */; };
 		7E0ED2CB29EE87FF0097DDEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */; };
 		7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0ED2D529EE88230097DDEF /* MainViewController.swift */; };
+		7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1A5AD92A00BDEF00008C2C /* EnterCodeViewController.swift */; };
+		7E1A5ADC2A00BE0800008C2C /* EnterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1A5ADB2A00BE0800008C2C /* EnterProfileViewController.swift */; };
+		7E1A5ADE2A00BE1600008C2C /* FinishSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1A5ADD2A00BE1600008C2C /* FinishSignUpViewController.swift */; };
 		7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391129FF659A002012E6 /* LogInViewController.swift */; };
 		7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391329FF66FE002012E6 /* APIConstant.swift */; };
 		7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */; };
@@ -28,6 +31,9 @@
 		7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E0ED2CF29EE87FF0097DDEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E0ED2D529EE88230097DDEF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		7E1A5AD92A00BDEF00008C2C /* EnterCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
+		7E1A5ADB2A00BE0800008C2C /* EnterProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterProfileViewController.swift; sourceTree = "<group>"; };
+		7E1A5ADD2A00BE1600008C2C /* FinishSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishSignUpViewController.swift; sourceTree = "<group>"; };
 		7E44391129FF659A002012E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		7E44391329FF66FE002012E6 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIConstant.swift; path = TODORI/ViewController/APIConstant.swift; sourceTree = SOURCE_ROOT; };
 		7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +104,9 @@
 				7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */,
 				7E44391129FF659A002012E6 /* LogInViewController.swift */,
 				7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */,
+				7E1A5AD92A00BDEF00008C2C /* EnterCodeViewController.swift */,
+				7E1A5ADB2A00BE0800008C2C /* EnterProfileViewController.swift */,
+				7E1A5ADD2A00BE1600008C2C /* FinishSignUpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -212,8 +221,11 @@
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
 				7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */,
+				7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
+				7E1A5ADC2A00BE0800008C2C /* EnterProfileViewController.swift in Sources */,
+				7E1A5ADE2A00BE1600008C2C /* FinishSignUpViewController.swift in Sources */,
 				7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */,
 				7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */,
 				7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */,

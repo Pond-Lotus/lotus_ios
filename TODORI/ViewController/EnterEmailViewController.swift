@@ -47,15 +47,9 @@ class EnterEmailViewController: UIViewController {
             .font: UIFont.systemFont(ofSize: 16, weight: .medium),
             .foregroundColor: UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1)
         ]
-        let attributedPlaceholder = NSAttributedString(string: "이메일 입력", attributes: attributes)
+        let attributedPlaceholder = NSAttributedString(string: "ex) todori@example.com", attributes: attributes)
         textField.attributedPlaceholder = attributedPlaceholder
-
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
         
-        textField.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
-        textField.layer.cornerRadius = 18
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.clearButtonMode = .whileEditing
@@ -70,11 +64,26 @@ class EnterEmailViewController: UIViewController {
             underlineView.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             underlineView.trailingAnchor.constraint(equalTo: textField.trailingAnchor)
         ])
-
-        underlineView.backgroundColor = .gray
+        underlineView.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "email-check")?.resize(to: CGSize(width: 28, height: 28))
+        imageView.contentMode = .scaleAspectFit
+        textField.rightView = imageView
+        textField.rightViewMode = .always
         
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    private let errorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이미 존재하는 이메일입니다."
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        label.textColor = UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     
@@ -101,8 +110,6 @@ class EnterEmailViewController: UIViewController {
         return button
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -110,6 +117,7 @@ class EnterEmailViewController: UIViewController {
         setupUI()
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
 
@@ -117,6 +125,8 @@ class EnterEmailViewController: UIViewController {
         view.addSubview(numberLabel)
         view.addSubview(titleLabel)
         view.addSubview(subTitleLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(errorLabel)
         view.addSubview(backButton)
         view.addSubview(nextButton)
         
@@ -127,6 +137,22 @@ class EnterEmailViewController: UIViewController {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(numberLabel.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(25)
+        }
+        
+        subTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(40)
+            make.leading.equalToSuperview().offset(25)
+        }
+        
+        emailTextField.snp.makeConstraints { make in
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(25)
+            make.trailing.equalToSuperview().offset(-25)
+        }
+        
+        errorLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(15)
             make.leading.equalToSuperview().offset(25)
         }
         
@@ -146,8 +172,15 @@ class EnterEmailViewController: UIViewController {
     }
     
     @objc func backButtonTapped() {
-        print("Button tapped!")
         dismiss(animated: true, completion: nil) // 이전 뷰 컨트롤러로 이동
+    }
+    
+    @objc func nextButtonTapped() {
+        let viewControllerToPresent = EnterCodeViewController() // 이동할 뷰 컨트롤러 인스턴스 생성
+        viewControllerToPresent.modalPresentationStyle = .fullScreen // 화면 전체를 차지하도록 설정
+        viewControllerToPresent.modalTransitionStyle = .coverVertical // coverHorizontal 스타일 적용
+
+        present(viewControllerToPresent, animated: true, completion: nil) // 뷰 컨트롤러 이동
     }
     
     func isValidEmail(_ email: String) -> Bool {

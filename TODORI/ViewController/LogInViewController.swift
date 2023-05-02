@@ -133,8 +133,8 @@ class LogInViewController: UIViewController {
         setupUI()
         
 //        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
-        signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
-        autoLoginButton.addTarget(self, action: #selector(autoLogin), for: .touchUpInside)
+        signupButton.addTarget(self, action: #selector(signupTapped), for: .touchUpInside)
+        autoLoginButton.addTarget(self, action: #selector(autoLoginTapped), for: .touchUpInside)
         
     }
     
@@ -202,16 +202,16 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @objc private func signup() {
+    @objc private func signupTapped() {
         let viewControllerToPresent = EnterEmailViewController() // 이동할 뷰 컨트롤러 인스턴스 생성
         viewControllerToPresent.modalPresentationStyle = .fullScreen // 화면 전체를 차지하도록 설정
-        viewControllerToPresent.modalTransitionStyle = .coverVertical // coverHorizontal 스타일 적용
+//        viewControllerToPresent.modalTransitionStyle = .coverVertical // coverHorizontal 스타일 적용
 
         present(viewControllerToPresent, animated: true, completion: nil) // 뷰 컨트롤러 이동
 
     }
     
-    @objc func autoLogin(_ sender: UIButton) {
+    @objc func autoLoginTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
     
