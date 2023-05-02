@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Logo_text.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "TODORI@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "TODORI@3x.png",
+      "filename" : "hamburger_icon.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
