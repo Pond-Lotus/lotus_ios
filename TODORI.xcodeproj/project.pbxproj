@@ -20,6 +20,9 @@
 		7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391129FF659A002012E6 /* LogInViewController.swift */; };
 		7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391329FF66FE002012E6 /* APIConstant.swift */; };
 		7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */; };
+		7ED6990A2A011644008C2374 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED699092A011644008C2374 /* AccountService.swift */; };
+		7ED6990E2A0116B9008C2374 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7ED6990D2A0116B9008C2374 /* Alamofire */; };
+		7ED699102A011934008C2374 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED6990F2A011934008C2374 /* NetworkResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,8 @@
 		7E44391129FF659A002012E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		7E44391329FF66FE002012E6 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIConstant.swift; path = TODORI/ViewController/APIConstant.swift; sourceTree = SOURCE_ROOT; };
 		7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
+		7ED699092A011644008C2374 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AccountService.swift; path = TODORI/AccountService.swift; sourceTree = SOURCE_ROOT; };
+		7ED6990F2A011934008C2374 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */,
+				7ED6990E2A0116B9008C2374 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +120,9 @@
 		7E0ED2DA29EE8AC90097DDEF /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7ED699092A011644008C2374 /* AccountService.swift */,
 				7E44391329FF66FE002012E6 /* APIConstant.swift */,
+				7ED6990F2A011934008C2374 /* NetworkResult.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -161,6 +169,7 @@
 			name = TODORI;
 			packageProductDependencies = (
 				7E0BF87D29EF8221003291B9 /* SnapKit */,
+				7ED6990D2A0116B9008C2374 /* Alamofire */,
 			);
 			productName = TODORI;
 			productReference = 7E0ED2BE29EE87FF0097DDEF /* TODORI.app */;
@@ -192,6 +201,7 @@
 			mainGroup = 7E0ED2B529EE87FF0097DDEF;
 			packageReferences = (
 				7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -221,8 +231,10 @@
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
 				7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */,
+				7ED6990A2A011644008C2374 /* AccountService.swift in Sources */,
 				7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
+				7ED699102A011934008C2374 /* NetworkResult.swift in Sources */,
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
 				7E1A5ADC2A00BE0800008C2C /* EnterProfileViewController.swift in Sources */,
 				7E1A5ADE2A00BE1600008C2C /* FinishSignUpViewController.swift in Sources */,
@@ -425,6 +437,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -440,6 +460,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		7ED6990D2A0116B9008C2374 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
