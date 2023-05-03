@@ -171,6 +171,11 @@ class EnterEmailViewController: UIViewController {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            self.view.endEditing(true)
+        }
+    
     @objc func backButtonTapped() {
         dismiss(animated: true, completion: nil) // 이전 뷰 컨트롤러로 이동
     }

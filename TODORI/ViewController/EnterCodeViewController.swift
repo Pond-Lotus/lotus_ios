@@ -42,7 +42,6 @@ class EnterCodeViewController: UIViewController {
     
     private let codeTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .orange
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .numberPad
@@ -145,7 +144,7 @@ class EnterCodeViewController: UIViewController {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalSpacing
-        stack.spacing = 18.8
+//        stack.spacing = 1
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -190,12 +189,13 @@ class EnterCodeViewController: UIViewController {
         
         setUI()
         
-        let inputlabels = [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixthLabel]
-        inputlabels.forEach { label in
-            label.isUserInteractionEnabled = true
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped)) // 모든 라벨에 대해 제스처를 추가하기 위해서는 tapGesture 객체를 라벨마다 새로 생성해야 합니다.
-            label.addGestureRecognizer(tapGesture)
-        }
+        codeTextField.becomeFirstResponder()
+//        let inputlabels = [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixthLabel]
+//        inputlabels.forEach { label in
+//            label.isUserInteractionEnabled = true
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped)) // 모든 라벨에 대해 제스처를 추가하기 위해서는 tapGesture 객체를 라벨마다 새로 생성해야 합니다.
+//            label.addGestureRecognizer(tapGesture)
+//        }
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
@@ -234,7 +234,7 @@ class EnterCodeViewController: UIViewController {
         }
         
         codeTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(50)
+            make.top.equalToSuperview().offset(-100)
             make.leading.equalToSuperview().offset(25)
             make.trailing.equalToSuperview().offset(-25)
         }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "email-check 2.png",
+      "filename" : "Logo_text.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "email-check 1.png",
+      "filename" : "TODORI@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "email-check.png",
+      "filename" : "TODORI@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

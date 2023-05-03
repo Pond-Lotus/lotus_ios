@@ -21,10 +21,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene) // SceneDelegate의 프로퍼티에 설정해줌
 <<<<<<< HEAD
+<<<<<<< HEAD
         let mainViewController = FinishSignUpViewController() // 맨 처음 보여줄 ViewController
 =======
         let mainViewController = TodoMainViewController() // 맨 처음 보여줄 ViewController
 >>>>>>> feature-todo-main
+=======
+        let mainViewController = LogInViewController() // 맨 처음 보여줄 ViewController
+>>>>>>> origin/feature/login-view
 
         window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
