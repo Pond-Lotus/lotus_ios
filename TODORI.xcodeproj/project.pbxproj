@@ -20,6 +20,18 @@
 		7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391129FF659A002012E6 /* LogInViewController.swift */; };
 		7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391329FF66FE002012E6 /* APIConstant.swift */; };
 		7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */; };
+		7E4B66502A0234D600156651 /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B664E2A0234D600156651 /* UserAPIConstant.swift */; };
+		7E4B66512A0234D600156651 /* TodoAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B664F2A0234D600156651 /* TodoAPIConstant.swift */; };
+		7E4B666F2A02354D00156651 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B66682A02354D00156651 /* DateFormat.swift */; };
+		7E4B66702A02354D00156651 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B66692A02354D00156651 /* ResponseData.swift */; };
+		7E4B66712A02354D00156651 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B666A2A02354D00156651 /* Server.swift */; };
+		7E4B66732A02354D00156651 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B666C2A02354D00156651 /* Color.swift */; };
+		7E4B66742A02354D00156651 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B666D2A02354D00156651 /* Todo.swift */; };
+		7E4B66752A02354D00156651 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B666E2A02354D00156651 /* RequestData.swift */; };
+		7E4B66792A02359F00156651 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B66762A02359F00156651 /* ColorCollectionViewCell.swift */; };
+		7E4B667A2A02359F00156651 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B66772A02359F00156651 /* TodoTableViewCell.swift */; };
+		7E4B667B2A02359F00156651 /* TodoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B66782A02359F00156651 /* TodoMainViewController.swift */; };
+		7E4B667E2A02364000156651 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 7E4B667D2A02364000156651 /* FSCalendar */; };
 		7ED6990A2A011644008C2374 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED699092A011644008C2374 /* AccountService.swift */; };
 		7ED6990E2A0116B9008C2374 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7ED6990D2A0116B9008C2374 /* Alamofire */; };
 		7ED699102A011934008C2374 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED6990F2A011934008C2374 /* NetworkResult.swift */; };
@@ -40,6 +52,17 @@
 		7E44391129FF659A002012E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		7E44391329FF66FE002012E6 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIConstant.swift; path = TODORI/ViewController/APIConstant.swift; sourceTree = SOURCE_ROOT; };
 		7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
+		7E4B664E2A0234D600156651 /* UserAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAPIConstant.swift; path = ../../../lotus4/TODORI/Network/UserAPIConstant.swift; sourceTree = "<group>"; };
+		7E4B664F2A0234D600156651 /* TodoAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoAPIConstant.swift; path = ../../../lotus4/TODORI/Network/TodoAPIConstant.swift; sourceTree = "<group>"; };
+		7E4B66682A02354D00156651 /* DateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateFormat.swift; path = ../../../lotus4/TODORI/Model/DateFormat.swift; sourceTree = "<group>"; };
+		7E4B66692A02354D00156651 /* ResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseData.swift; path = ../../../lotus4/TODORI/Model/ResponseData.swift; sourceTree = "<group>"; };
+		7E4B666A2A02354D00156651 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Server.swift; path = ../../../lotus4/TODORI/Model/Server.swift; sourceTree = "<group>"; };
+		7E4B666C2A02354D00156651 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = ../../../lotus4/TODORI/Model/Color.swift; sourceTree = "<group>"; };
+		7E4B666D2A02354D00156651 /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Todo.swift; path = ../../../lotus4/TODORI/Model/Todo.swift; sourceTree = "<group>"; };
+		7E4B666E2A02354D00156651 /* RequestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestData.swift; path = ../../../lotus4/TODORI/Model/RequestData.swift; sourceTree = "<group>"; };
+		7E4B66762A02359F00156651 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorCollectionViewCell.swift; path = ../../../lotus4/TODORI/ViewController/ColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		7E4B66772A02359F00156651 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoTableViewCell.swift; path = ../../../lotus4/TODORI/ViewController/TodoTableViewCell.swift; sourceTree = "<group>"; };
+		7E4B66782A02359F00156651 /* TodoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoMainViewController.swift; path = ../../../lotus4/TODORI/ViewController/TodoMainViewController.swift; sourceTree = "<group>"; };
 		7ED699092A011644008C2374 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AccountService.swift; path = TODORI/AccountService.swift; sourceTree = SOURCE_ROOT; };
 		7ED6990F2A011934008C2374 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */,
+				7E4B667E2A02364000156651 /* FSCalendar in Frameworks */,
 				7ED6990E2A0116B9008C2374 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,22 +101,15 @@
 		7E0ED2C029EE87FF0097DDEF /* TODORI */ = {
 			isa = PBXGroup;
 			children = (
+				7E4B66602A02353700156651 /* Model */,
 				7E0ED2DC29EE8AE10097DDEF /* Support */,
 				7E0ED2DB29EE8AD70097DDEF /* Utility */,
 				7E0ED2DA29EE8AC90097DDEF /* Network */,
 				7E0ED2D929EE8ABF0097DDEF /* ViewController */,
 				7E0ED2D829EE8AB50097DDEF /* View */,
-				7E0ED2D729EE8A9A0097DDEF /* Model */,
 				7E0ED2CF29EE87FF0097DDEF /* Info.plist */,
 			);
 			path = TODORI;
-			sourceTree = "<group>";
-		};
-		7E0ED2D729EE8A9A0097DDEF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		7E0ED2D829EE8AB50097DDEF /* View */ = {
@@ -105,6 +122,9 @@
 		7E0ED2D929EE8ABF0097DDEF /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7E4B66762A02359F00156651 /* ColorCollectionViewCell.swift */,
+				7E4B66782A02359F00156651 /* TodoMainViewController.swift */,
+				7E4B66772A02359F00156651 /* TodoTableViewCell.swift */,
 				7E0ED2D529EE88230097DDEF /* MainViewController.swift */,
 				3EAA213929EE922E0068EB53 /* ViewController.swift */,
 				7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */,
@@ -120,6 +140,8 @@
 		7E0ED2DA29EE8AC90097DDEF /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7E4B664F2A0234D600156651 /* TodoAPIConstant.swift */,
+				7E4B664E2A0234D600156651 /* UserAPIConstant.swift */,
 				7ED699092A011644008C2374 /* AccountService.swift */,
 				7E44391329FF66FE002012E6 /* APIConstant.swift */,
 				7ED6990F2A011934008C2374 /* NetworkResult.swift */,
@@ -142,6 +164,19 @@
 				7E0ED2C329EE87FF0097DDEF /* SceneDelegate.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		7E4B66602A02353700156651 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7E4B666C2A02354D00156651 /* Color.swift */,
+				7E4B66682A02354D00156651 /* DateFormat.swift */,
+				7E4B666E2A02354D00156651 /* RequestData.swift */,
+				7E4B66692A02354D00156651 /* ResponseData.swift */,
+				7E4B666A2A02354D00156651 /* Server.swift */,
+				7E4B666D2A02354D00156651 /* Todo.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7EE627F229EF7E20000C8C46 /* Frameworks */ = {
@@ -170,6 +205,7 @@
 			packageProductDependencies = (
 				7E0BF87D29EF8221003291B9 /* SnapKit */,
 				7ED6990D2A0116B9008C2374 /* Alamofire */,
+				7E4B667D2A02364000156651 /* FSCalendar */,
 			);
 			productName = TODORI;
 			productReference = 7E0ED2BE29EE87FF0097DDEF /* TODORI.app */;
@@ -202,6 +238,7 @@
 			packageReferences = (
 				7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7E4B667C2A02364000156651 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -229,18 +266,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
+				7E4B66752A02354D00156651 /* RequestData.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
+				7E4B667A2A02359F00156651 /* TodoTableViewCell.swift in Sources */,
+				7E4B666F2A02354D00156651 /* DateFormat.swift in Sources */,
 				7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */,
 				7ED6990A2A011644008C2374 /* AccountService.swift in Sources */,
 				7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
+				7E4B66742A02354D00156651 /* Todo.swift in Sources */,
+				7E4B667B2A02359F00156651 /* TodoMainViewController.swift in Sources */,
 				7ED699102A011934008C2374 /* NetworkResult.swift in Sources */,
+				7E4B66702A02354D00156651 /* ResponseData.swift in Sources */,
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
 				7E1A5ADC2A00BE0800008C2C /* EnterProfileViewController.swift in Sources */,
+				7E4B66512A0234D600156651 /* TodoAPIConstant.swift in Sources */,
 				7E1A5ADE2A00BE1600008C2C /* FinishSignUpViewController.swift in Sources */,
+				7E4B66732A02354D00156651 /* Color.swift in Sources */,
 				7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */,
 				7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */,
 				7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */,
+				7E4B66712A02354D00156651 /* Server.swift in Sources */,
+				7E4B66502A0234D600156651 /* UserAPIConstant.swift in Sources */,
+				7E4B66792A02359F00156651 /* ColorCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +416,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KUT97W5PSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TODORI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -379,7 +428,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = solda.TODORI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.solda.TODORI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -394,6 +443,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KUT97W5PSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TODORI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -405,7 +455,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = solda.TODORI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.solda.TODORI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -437,6 +487,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7E4B667C2A02364000156651 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -460,6 +518,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		7E4B667D2A02364000156651 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E4B667C2A02364000156651 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		7ED6990D2A0116B9008C2374 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
