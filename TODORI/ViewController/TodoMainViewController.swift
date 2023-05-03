@@ -24,7 +24,7 @@ class TodoMainViewController : UIViewController{
     var headerView:UIView = UIView()
     var weekdayLabel:UILabel = UILabel()
     var dayLabel:UILabel = UILabel()
-    var floatingButton:UIButton = UIButton()
+    var floatingButton:UIImageView = UIImageView()
     var collectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 151, height: 107), collectionViewLayout: UICollectionViewFlowLayout.init())
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     var bottomSheetView:UIView = UIView()
@@ -79,7 +79,10 @@ class TodoMainViewController : UIViewController{
     
     private func addFunctionToComponent(){
         segmentedControl.addTarget(self, action: #selector(tapSegmentedControl), for: .valueChanged)
-        floatingButton.addTarget(self, action: #selector(tapFloatingButton), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapFloatingButton))
+        floatingButton.isUserInteractionEnabled = true
+        floatingButton.addGestureRecognizer(tapGesture)
+//        floatingButton.addTarget(self, action: #selector(tapFloatingButton), for: .touchUpInside)
     }
     
     private func addComponent(){
@@ -169,7 +172,7 @@ class TodoMainViewController : UIViewController{
         //Floating Button 외형 설정
         floatingButton_y = self.view.fs_height*(7/10)
         floatingButton.frame = CGRect(x: self.view.fs_width*(7/10), y:  floatingButton_y,width:76 , height: 76)
-        floatingButton.setImage(UIImage(named: "floating-button"), for: .normal)
+        floatingButton.image = UIImage(named: "floating-button")
         floatingButton.layer.shadowColor = UIColor.lightGray.cgColor
         floatingButton.layer.shadowOpacity = 0.3
         floatingButton.layer.shadowRadius = 5.0
