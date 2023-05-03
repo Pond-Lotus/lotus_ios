@@ -19,6 +19,24 @@ class DateFormat{
         return dateFormatter.string(from: date)
     }
     
+    func getWeekdayInKorean(date:Date) -> String{
+        dateFormatter.locale = Locale(identifier: "ko")
+        dateFormatter.dateFormat = "E요일"
+        return dateFormatter.string(from: date)
+    }
+    
+    func getDay(date:Date) -> String{
+        dateFormatter.locale = Locale(identifier: "ko")
+        dateFormatter.dateFormat = "MM"
+        return dateFormatter.string(from: date)
+    }
+    
+    func getYearMonthDay(date:Date) -> [String] {
+        dateFormatter.locale = Locale(identifier: "ko")
+        dateFormatter.dateFormat = "yyyy MM dd"
+        let arr = dateFormatter.string(from: date).components(separatedBy: " ")
+        return arr
+    }
     
 }
 
