@@ -7,7 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E4A2B3429F6731300BC27CD /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A2B3329F6731300BC27CD /* DateFormat.swift */; };
+		3E697E3529EFBEF200E3ABBD /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3E697E3429EFBEF200E3ABBD /* FSCalendar */; };
+		3E697E3829EFBF0B00E3ABBD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3729EFBF0B00E3ABBD /* Color.swift */; };
+		3E697E3A29EFBF1800E3ABBD /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3929EFBF1800E3ABBD /* ResponseData.swift */; };
+		3E697E3C29EFBF2600E3ABBD /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3B29EFBF2600E3ABBD /* RequestData.swift */; };
+		3E697E3F29EFBF4200E3ABBD /* TodoAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */; };
+		3E697E4129EFBF4D00E3ABBD /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */; };
+		3E697E4329EFE58700E3ABBD /* TodoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E4229EFE58700E3ABBD /* TodoMainViewController.swift */; };
 		3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAA213929EE922E0068EB53 /* ViewController.swift */; };
+		3EC0AD3B29FD283100D6F4D0 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD3A29FD283100D6F4D0 /* TodoTableViewCell.swift */; };
+		3EC0AD3D29FEE86E00D6F4D0 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD3C29FEE86E00D6F4D0 /* ColorCollectionViewCell.swift */; };
+		3EC0AD3F29FF741C00D6F4D0 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD3E29FF741C00D6F4D0 /* Server.swift */; };
+		3EC0AD4229FF76F400D6F4D0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3EC0AD4129FF76F400D6F4D0 /* Alamofire */; };
+		3EC0AD4429FF771B00D6F4D0 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */; };
+		3EC0AD4629FF785A00D6F4D0 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD4529FF785A00D6F4D0 /* Todo.swift */; };
 		7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0BF87D29EF8221003291B9 /* SnapKit */; };
 		7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */; };
 		7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0ED2C129EE87FF0097DDEF /* AppDelegate.swift */; };
@@ -30,7 +44,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E4A2B3329F6731300BC27CD /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		3E697E3729EFBF0B00E3ABBD /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		3E697E3929EFBF1800E3ABBD /* ResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
+		3E697E3B29EFBF2600E3ABBD /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAPIConstant.swift; sourceTree = "<group>"; };
+		3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIConstant.swift; sourceTree = "<group>"; };
+		3E697E4229EFE58700E3ABBD /* TodoMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMainViewController.swift; sourceTree = "<group>"; };
 		3EAA213929EE922E0068EB53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3EC0AD3A29FD283100D6F4D0 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		3EC0AD3C29FEE86E00D6F4D0 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		3EC0AD3E29FF741C00D6F4D0 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		3EC0AD4529FF785A00D6F4D0 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		7E0ED2BE29EE87FF0097DDEF /* TODORI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODORI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E0ED2C129EE87FF0097DDEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,15 +82,43 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EC0AD4229FF76F400D6F4D0 /* Alamofire in Frameworks */,
 				7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */,
+<<<<<<< HEAD
 				7E4B667E2A02364000156651 /* FSCalendar in Frameworks */,
 				7ED6990E2A0116B9008C2374 /* Alamofire in Frameworks */,
+=======
+				3E697E3529EFBEF200E3ABBD /* FSCalendar in Frameworks */,
+>>>>>>> origin/feature-todo-main
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E697E3629EFBEFE00E3ABBD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E697E3729EFBF0B00E3ABBD /* Color.swift */,
+				3E697E3929EFBF1800E3ABBD /* ResponseData.swift */,
+				3E697E3B29EFBF2600E3ABBD /* RequestData.swift */,
+				3E4A2B3329F6731300BC27CD /* DateFormat.swift */,
+				3EC0AD3E29FF741C00D6F4D0 /* Server.swift */,
+				3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */,
+				3EC0AD4529FF785A00D6F4D0 /* Todo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3E697E3D29EFBF2D00E3ABBD /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */,
+				3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		7E0ED2B529EE87FF0097DDEF = {
 			isa = PBXGroup;
 			children = (
@@ -85,10 +139,14 @@
 		7E0ED2C029EE87FF0097DDEF /* TODORI */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				7EBBFD912A04E22600F118F1 /* Model */,
+=======
+				3E697E3D29EFBF2D00E3ABBD /* Network */,
+				3E697E3629EFBEFE00E3ABBD /* Model */,
+>>>>>>> origin/feature-todo-main
 				7E0ED2DC29EE8AE10097DDEF /* Support */,
 				7E0ED2DB29EE8AD70097DDEF /* Utility */,
-				7E0ED2DA29EE8AC90097DDEF /* Network */,
 				7E0ED2D929EE8ABF0097DDEF /* ViewController */,
 				7E0ED2D829EE8AB50097DDEF /* View */,
 				7E0ED2CF29EE87FF0097DDEF /* Info.plist */,
@@ -109,15 +167,22 @@
 				7E0ED2D529EE88230097DDEF /* MainViewController.swift */,
 				3EAA213929EE922E0068EB53 /* ViewController.swift */,
 				7E0BF87F29EF857A003291B9 /* LaunchScreenViewController.swift */,
+<<<<<<< HEAD
 				7E44391129FF659A002012E6 /* LogInViewController.swift */,
 				7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */,
 				7E1A5AD92A00BDEF00008C2C /* EnterCodeViewController.swift */,
 				7E1A5ADB2A00BE0800008C2C /* EnterProfileViewController.swift */,
 				7E1A5ADD2A00BE1600008C2C /* FinishSignUpViewController.swift */,
+=======
+				3E697E4229EFE58700E3ABBD /* TodoMainViewController.swift */,
+				3EC0AD3A29FD283100D6F4D0 /* TodoTableViewCell.swift */,
+				3EC0AD3C29FEE86E00D6F4D0 /* ColorCollectionViewCell.swift */,
+>>>>>>> origin/feature-todo-main
 			);
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		7E0ED2DA29EE8AC90097DDEF /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +196,8 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> origin/feature-todo-main
 		7E0ED2DB29EE8AD70097DDEF /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,8 +247,13 @@
 			name = TODORI;
 			packageProductDependencies = (
 				7E0BF87D29EF8221003291B9 /* SnapKit */,
+<<<<<<< HEAD
 				7ED6990D2A0116B9008C2374 /* Alamofire */,
 				7E4B667D2A02364000156651 /* FSCalendar */,
+=======
+				3E697E3429EFBEF200E3ABBD /* FSCalendar */,
+				3EC0AD4129FF76F400D6F4D0 /* Alamofire */,
+>>>>>>> origin/feature-todo-main
 			);
 			productName = TODORI;
 			productReference = 7E0ED2BE29EE87FF0097DDEF /* TODORI.app */;
@@ -213,8 +285,13 @@
 			mainGroup = 7E0ED2B529EE87FF0097DDEF;
 			packageReferences = (
 				7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */,
+<<<<<<< HEAD
 				7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				7E4B667C2A02364000156651 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+=======
+				3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				3EC0AD4029FF76F400D6F4D0 /* XCRemoteSwiftPackageReference "Alamofire" */,
+>>>>>>> origin/feature-todo-main
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -243,11 +320,15 @@
 			files = (
 				7EC7F8A42A0BA5E800285BA7 /* UserAPIConstant.swift in Sources */,
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
+				3E697E4129EFBF4D00E3ABBD /* UserAPIConstant.swift in Sources */,
+				3E4A2B3429F6731300BC27CD /* DateFormat.swift in Sources */,
+				3E697E3A29EFBF1800E3ABBD /* ResponseData.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
 				7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */,
 				7ED6990A2A011644008C2374 /* AccountService.swift in Sources */,
 				7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
+<<<<<<< HEAD
 				7ED699102A011934008C2374 /* NetworkResult.swift in Sources */,
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
 				7E1A5ADC2A00BE0800008C2C /* EnterProfileViewController.swift in Sources */,
@@ -257,6 +338,19 @@
 				7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */,
 				7EC7F8A62A0BA5EC00285BA7 /* Server.swift in Sources */,
 				7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */,
+=======
+				3EC0AD3B29FD283100D6F4D0 /* TodoTableViewCell.swift in Sources */,
+				3EC0AD4429FF771B00D6F4D0 /* NetworkResult.swift in Sources */,
+				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
+				3EC0AD3D29FEE86E00D6F4D0 /* ColorCollectionViewCell.swift in Sources */,
+				7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */,
+				3EC0AD3F29FF741C00D6F4D0 /* Server.swift in Sources */,
+				3E697E4329EFE58700E3ABBD /* TodoMainViewController.swift in Sources */,
+				3E697E3F29EFBF4200E3ABBD /* TodoAPIConstant.swift in Sources */,
+				3E697E3829EFBF0B00E3ABBD /* Color.swift in Sources */,
+				3EC0AD4629FF785A00D6F4D0 /* Todo.swift in Sources */,
+				3E697E3C29EFBF2600E3ABBD /* RequestData.swift in Sources */,
+>>>>>>> origin/feature-todo-main
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,17 +549,29 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+<<<<<<< HEAD
 		7E4B667C2A02364000156651 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+=======
+		3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+>>>>>>> origin/feature-todo-main
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.0;
 			};
 		};
+<<<<<<< HEAD
 		7ED6990C2A0116B9008C2374 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+=======
+		3EC0AD4029FF76F400D6F4D0 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+>>>>>>> origin/feature-todo-main
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.0.0;
@@ -482,6 +588,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E697E3429EFBEF200E3ABBD /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		3EC0AD4129FF76F400D6F4D0 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3EC0AD4029FF76F400D6F4D0 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		7E0BF87D29EF8221003291B9 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7EE627F329EF8157000C8C46 /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -19,8 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
+<<<<<<< HEAD
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = LaunchScreenViewController()
+=======
+        window = UIWindow(windowScene: windowScene) // SceneDelegate의 프로퍼티에 설정해줌
+        let mainViewController = TodoMainViewController() // 맨 처음 보여줄 ViewController
+
+        window?.rootViewController = mainViewController
+>>>>>>> origin/feature-todo-main
         window?.makeKeyAndVisible()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

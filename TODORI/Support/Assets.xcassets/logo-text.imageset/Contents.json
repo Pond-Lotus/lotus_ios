@@ -1,17 +1,29 @@
 {
   "images" : [
     {
+<<<<<<< HEAD
       "filename" : "TODORI.png",
+=======
+      "filename" : "Logo_text.png",
+>>>>>>> origin/feature-todo-main
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+<<<<<<< HEAD
       "filename" : "TODORI-2.png",
+=======
+      "filename" : "TODORI@2x.png",
+>>>>>>> origin/feature-todo-main
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+<<<<<<< HEAD
       "filename" : "TODORI-2 1.png",
+=======
+      "filename" : "TODORI@3x.png",
+>>>>>>> origin/feature-todo-main
       "idiom" : "universal",
       "scale" : "3x"
     }
