@@ -21,14 +21,6 @@
 		7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391329FF66FE002012E6 /* APIConstant.swift */; };
 		7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */; };
 		7E4B667E2A02364000156651 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 7E4B667D2A02364000156651 /* FSCalendar */; };
-		7EBBFD992A04E23400F118F1 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFD922A04E23400F118F1 /* DateFormat.swift */; };
-		7EBBFD9A2A04E23400F118F1 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFD932A04E23400F118F1 /* Color.swift */; };
-		7EBBFD9C2A04E23400F118F1 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFD952A04E23400F118F1 /* Todo.swift */; };
-		7EBBFD9E2A04E23400F118F1 /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFD972A04E23400F118F1 /* ResponseData.swift */; };
-		7EBBFD9F2A04E23400F118F1 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFD982A04E23400F118F1 /* RequestData.swift */; };
-		7EBBFDA32A04E24D00F118F1 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFDA02A04E24D00F118F1 /* ColorCollectionViewCell.swift */; };
-		7EBBFDA42A04E24D00F118F1 /* TodoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFDA12A04E24D00F118F1 /* TodoMainViewController.swift */; };
-		7EBBFDA52A04E24D00F118F1 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFDA22A04E24D00F118F1 /* TodoTableViewCell.swift */; };
 		7EC7F8A22A0BA5E000285BA7 /* TodoAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7F8A12A0BA5E000285BA7 /* TodoAPIConstant.swift */; };
 		7EC7F8A42A0BA5E800285BA7 /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7F8A32A0BA5E800285BA7 /* UserAPIConstant.swift */; };
 		7EC7F8A62A0BA5EC00285BA7 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7F8A52A0BA5EC00285BA7 /* Server.swift */; };
@@ -52,14 +44,6 @@
 		7E44391129FF659A002012E6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		7E44391329FF66FE002012E6 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIConstant.swift; path = TODORI/ViewController/APIConstant.swift; sourceTree = SOURCE_ROOT; };
 		7E44391529FFC2B2002012E6 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
-		7EBBFD922A04E23400F118F1 /* DateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateFormat.swift; path = ../../../lotus1/TODORI/Model/DateFormat.swift; sourceTree = "<group>"; };
-		7EBBFD932A04E23400F118F1 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = ../../../lotus1/TODORI/Model/Color.swift; sourceTree = "<group>"; };
-		7EBBFD952A04E23400F118F1 /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Todo.swift; path = ../../../lotus1/TODORI/Model/Todo.swift; sourceTree = "<group>"; };
-		7EBBFD972A04E23400F118F1 /* ResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseData.swift; path = ../../../lotus1/TODORI/Model/ResponseData.swift; sourceTree = "<group>"; };
-		7EBBFD982A04E23400F118F1 /* RequestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RequestData.swift; path = ../../../lotus1/TODORI/Model/RequestData.swift; sourceTree = "<group>"; };
-		7EBBFDA02A04E24D00F118F1 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorCollectionViewCell.swift; path = ../../../lotus1/TODORI/ViewController/ColorCollectionViewCell.swift; sourceTree = "<group>"; };
-		7EBBFDA12A04E24D00F118F1 /* TodoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoMainViewController.swift; path = ../../../lotus1/TODORI/ViewController/TodoMainViewController.swift; sourceTree = "<group>"; };
-		7EBBFDA22A04E24D00F118F1 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TodoTableViewCell.swift; path = ../../../lotus1/TODORI/ViewController/TodoTableViewCell.swift; sourceTree = "<group>"; };
 		7EC7F8A12A0BA5E000285BA7 /* TodoAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoAPIConstant.swift; sourceTree = "<group>"; };
 		7EC7F8A32A0BA5E800285BA7 /* UserAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIConstant.swift; sourceTree = "<group>"; };
 		7EC7F8A52A0BA5EC00285BA7 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
@@ -130,9 +114,6 @@
 				7E1A5AD92A00BDEF00008C2C /* EnterCodeViewController.swift */,
 				7E1A5ADB2A00BE0800008C2C /* EnterProfileViewController.swift */,
 				7E1A5ADD2A00BE1600008C2C /* FinishSignUpViewController.swift */,
-				7EBBFDA02A04E24D00F118F1 /* ColorCollectionViewCell.swift */,
-				7EBBFDA12A04E24D00F118F1 /* TodoMainViewController.swift */,
-				7EBBFDA22A04E24D00F118F1 /* TodoTableViewCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -170,11 +151,6 @@
 		7EBBFD912A04E22600F118F1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7EBBFD932A04E23400F118F1 /* Color.swift */,
-				7EBBFD922A04E23400F118F1 /* DateFormat.swift */,
-				7EBBFD982A04E23400F118F1 /* RequestData.swift */,
-				7EBBFD972A04E23400F118F1 /* ResponseData.swift */,
-				7EBBFD952A04E23400F118F1 /* Todo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -269,24 +245,16 @@
 				7E0ED2C229EE87FF0097DDEF /* AppDelegate.swift in Sources */,
 				7E0ED2C429EE87FF0097DDEF /* SceneDelegate.swift in Sources */,
 				7E44391229FF659A002012E6 /* LogInViewController.swift in Sources */,
-				7EBBFDA52A04E24D00F118F1 /* TodoTableViewCell.swift in Sources */,
 				7ED6990A2A011644008C2374 /* AccountService.swift in Sources */,
 				7E1A5ADA2A00BDEF00008C2C /* EnterCodeViewController.swift in Sources */,
-				7EBBFD9E2A04E23400F118F1 /* ResponseData.swift in Sources */,
-				7EBBFDA42A04E24D00F118F1 /* TodoMainViewController.swift in Sources */,
 				3EAA213A29EE922E0068EB53 /* ViewController.swift in Sources */,
-				7EBBFD992A04E23400F118F1 /* DateFormat.swift in Sources */,
 				7ED699102A011934008C2374 /* NetworkResult.swift in Sources */,
-				7EBBFD9A2A04E23400F118F1 /* Color.swift in Sources */,
-				7EBBFD9F2A04E23400F118F1 /* RequestData.swift in Sources */,
 				7E0BF88029EF857A003291B9 /* LaunchScreenViewController.swift in Sources */,
 				7E1A5ADC2A00BE0800008C2C /* EnterProfileViewController.swift in Sources */,
 				7E1A5ADE2A00BE1600008C2C /* FinishSignUpViewController.swift in Sources */,
-				7EBBFDA32A04E24D00F118F1 /* ColorCollectionViewCell.swift in Sources */,
 				7E0ED2D629EE88230097DDEF /* MainViewController.swift in Sources */,
 				7EC7F8A22A0BA5E000285BA7 /* TodoAPIConstant.swift in Sources */,
 				7E44391629FFC2B2002012E6 /* EnterEmailViewController.swift in Sources */,
-				7EBBFD9C2A04E23400F118F1 /* Todo.swift in Sources */,
 				7EC7F8A62A0BA5EC00285BA7 /* Server.swift in Sources */,
 				7E44391429FF66FE002012E6 /* APIConstant.swift in Sources */,
 			);
