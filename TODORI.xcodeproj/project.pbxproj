@@ -74,8 +74,6 @@
 				3E697E3929EFBF1800E3ABBD /* ResponseData.swift */,
 				3E697E3B29EFBF2600E3ABBD /* RequestData.swift */,
 				3E4A2B3329F6731300BC27CD /* DateFormat.swift */,
-				3EC0AD3E29FF741C00D6F4D0 /* Server.swift */,
-				3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */,
 				3EC0AD4529FF785A00D6F4D0 /* Todo.swift */,
 			);
 			path = Model;
@@ -84,6 +82,8 @@
 		3E697E3D29EFBF2D00E3ABBD /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */,
+				3EC0AD3E29FF741C00D6F4D0 /* Server.swift */,
 				3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */,
 				3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */,
 			);
