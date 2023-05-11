@@ -23,10 +23,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = LaunchScreenViewController()
         window?.makeKeyAndVisible()
 
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            let mainViewController = LogInViewController()
-//            self.window?.rootViewController = mainViewController
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            let mainViewController = LogInViewController()
+            self.window?.rootViewController = mainViewController
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
