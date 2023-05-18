@@ -78,7 +78,7 @@ struct ImageAndNickname:Codable{
 
 struct PriorityResponseData:Codable{
     let resultCode:Int
-    let data:String
+    let data:Category
 }
 
 struct SearchColorArrayResponseData:Codable{

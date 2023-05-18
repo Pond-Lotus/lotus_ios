@@ -28,6 +28,22 @@ class TodoMainViewController : UIViewController{
     var collectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 151, height: 107), collectionViewLayout: UICollectionViewFlowLayout.init())
     let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     var bottomSheetView:UIView = UIView()
+    var colorBarViewInBottomsheet:UIView = UIView()
+    var titleTextFieldInBottomSheet:UITextField = UITextField()
+    var dateLabelInBottomSheet:UILabel = UILabel()
+    var descriptionBackgroundView:UIView = UIView()
+    var descriptionTextView:UITextView = UITextView()
+    var blackViewOfBottomSheet:UIView = UIView()
+    var clockImageView:UIImageView = UIImageView(image: UIImage(named: "clock"))
+    var timeLiterallyLabel:UILabel = UILabel()
+    var timeButton:UIButton = UIButton()
+    var datePickerBackgroundView:UIView = UIView()
+    var datePicker:UIDatePicker = UIDatePicker()
+    var cancelButtonInDatePicker:UIButton = UIButton()
+    var finishButtonInDatePicker:UIButton = UIButton()
+    
+    let textviewPlaceholder:String = "+ 메모하고 싶은 내용이 있나요?"
+    var todoTableViewCell:TodoTableViewCell!
     
     var redArray:[Todo] = []
     var yellowArray:[Todo] = []
@@ -36,18 +52,23 @@ class TodoMainViewController : UIViewController{
     var pinkArray:[Todo] = []
     var purpleArray:[Todo] = []
     var todoArrayList:[[Todo]] = []
-    
+    var titleOfSectionArray:[String] = ["","","","","",""]
+    var existingColorArray:[Int] = []
     var isCollectionViewShowing = false
     var floatingButton_y:CGFloat = 0
     var collectionView_y:CGFloat = 0
+    var nowId:Int = 0
+    var nowSection:Int = 0
+    var nowRow:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //test code
         let userDefaults = UserDefaults.standard
-        userDefaults.set("c2f648d8faa70aae0e0eb74086bf907c61aeaf02", forKey: "token")
+        userDefaults.set("05add65f6ffd1e79ac17e4dc58f15c6f61aff9f8", forKey: "token")
         
         todoArrayList = [redArray, yellowArray, greenArray, blueArray, pinkArray, purpleArray]
+        getPriorityName()
         
         //투두 테이블 뷰 설정
         tableView.delegate = self
@@ -56,12 +77,20 @@ class TodoMainViewController : UIViewController{
         //색깔 선택 컬렉션 뷰 설정
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         //캘린더 설정
         calendarView.delegate = self
         calendarView.dataSource = self
         
+        //cell-tableview delegate
+        todoTableViewCell = TodoTableViewCell()
+        todoTableViewCell.delegate = self
+        
         //기본 뷰 색상 설정
         view.backgroundColor = .white
+        
+        //description text view delegate 설정
+        descriptionTextView.delegate = self
         
         //데이트 포멧터 설정
         dateFormatter.locale = Locale(identifier: "ko")
@@ -82,7 +111,9 @@ class TodoMainViewController : UIViewController{
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapFloatingButton))
         floatingButton.isUserInteractionEnabled = true
         floatingButton.addGestureRecognizer(tapGesture)
-//        floatingButton.addTarget(self, action: #selector(tapFloatingButton), for: .touchUpInside)
+        blackViewOfBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBottomSheetBlackViewDismiss)))
+        //        floatingButton.addTarget(self, action: #selector(tapFloatingButton), for: .touchUpInside)
+        timeButton.addTarget(self, action: #selector(showDatePicker), for: .touchDown)
     }
     
     private func addComponent(){
@@ -112,6 +143,16 @@ class TodoMainViewController : UIViewController{
         
         //floating button 추가
         tableView.addSubview(floatingButton)
+        
+        //bottom sheet view 내부 component추가
+        bottomSheetView.addSubview(colorBarViewInBottomsheet)
+        bottomSheetView.addSubview(titleTextFieldInBottomSheet)
+        bottomSheetView.addSubview(dateLabelInBottomSheet)
+        bottomSheetView.addSubview(descriptionTextView)
+        bottomSheetView.addSubview(clockImageView)
+        bottomSheetView.addSubview(timeLiterallyLabel)
+        bottomSheetView.addSubview(timeButton)
+        
     }
     
     private func setComponentAppearence(){
@@ -187,6 +228,55 @@ class TodoMainViewController : UIViewController{
         collectionView.layer.shadowOffset = CGSize(width: -1, height: 3)
         collectionView.layer.cornerRadius = 15
         
+        //bottom sheet
+        bottomSheetView.backgroundColor = .white
+        bottomSheetView.layer.cornerRadius = 20
+        bottomSheetView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
+        
+        //black view 설정
+        self.blackViewOfBottomSheet.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        blackViewOfBottomSheet.frame = self.view.frame
+        
+        colorBarViewInBottomsheet.clipsToBounds = true
+        colorBarViewInBottomsheet.layer.cornerRadius = 4.5
+        colorBarViewInBottomsheet.backgroundColor = .systemPink
+        
+        
+        //bottom sheet 내부에 있는 날짜 label 외형 설정
+        dateLabelInBottomSheet.text = DateFormat.shared.getYearMonthDayAndWeekday(date: calendarView.selectedDate!)
+        dateLabelInBottomSheet.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        dateLabelInBottomSheet.textColor = .black
+        
+        //bottom sheet 내부 title label 외형 설정
+        titleTextFieldInBottomSheet.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        titleTextFieldInBottomSheet.textColor = .black
+        titleTextFieldInBottomSheet.placeholder = "토도리스트 입력"
+        
+        //bottom sheet 내부 description text view 외부 background 외형 설정
+        descriptionTextView.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
+        descriptionTextView.clipsToBounds = true
+        descriptionTextView.layer.cornerRadius = 10
+        
+        //bottom sheet 내부 desctription text view 외형 설정
+        descriptionTextView.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        descriptionTextView.backgroundColor = .clear
+        descriptionTextView.textContainer.maximumNumberOfLines = 3
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 12, left: 18, bottom: 12, right: 18)
+        descriptionTextView.clipsToBounds = true
+        descriptionTextView.layer.cornerRadius = 10
+        descriptionTextView.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
+        
+        //bottom sheet 내부 '시간' 라벨
+        timeLiterallyLabel.text = "시간"
+        timeLiterallyLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        timeLiterallyLabel.textColor = .black
+        
+        //bottom sheet 내부 시간 선택하는 부분
+        timeButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        timeButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        timeButton.setTitleColor(.black, for: .normal)
+        timeButton.titleLabel?.textAlignment = .left
+        
     }
     
     private func setAutoLayout(){
@@ -231,13 +321,113 @@ class TodoMainViewController : UIViewController{
             make.bottom.equalTo(headerView)
             make.left.equalTo(headerView).offset(20)
         }
+        
         weekdayLabel.snp.makeConstraints { make in
             make.centerY.equalTo(dayLabel)
             make.left.equalTo(dayLabel.snp.right).offset(6)
         }
+        
+
     }
     
-    @objc func tapSegmentedControl(){
+    private func setBottomSheetAutoLayout(){
+        bottomSheetView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.keyboardLayoutGuide.snp.top)
+            make.width.equalToSuperview()
+            make.height.equalTo(300)
+        }
+        
+        dateLabelInBottomSheet.snp.makeConstraints { make in
+            make.top.equalTo(colorBarViewInBottomsheet.snp.top)
+            make.left.equalTo(colorBarViewInBottomsheet.snp.right).offset(8)
+        }
+        
+        titleTextFieldInBottomSheet.snp.makeConstraints { make in
+            make.left.equalTo(dateLabelInBottomSheet)
+            make.top.equalTo(dateLabelInBottomSheet.snp.bottom).offset(3)
+        }
+        
+        colorBarViewInBottomsheet.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(25)
+            make.top.equalToSuperview().offset(40)
+            make.width.equalTo(9)
+            make.bottom.equalTo(titleTextFieldInBottomSheet)
+        }
+        
+        descriptionTextView.snp.makeConstraints { make in
+            make.top.equalTo(titleTextFieldInBottomSheet.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.rightMargin.leftMargin.equalTo(25)
+            make.height.equalTo(70)
+        }
+        
+        clockImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(18)
+            make.left.equalTo(descriptionTextView)
+            make.top.equalTo(descriptionTextView.snp.bottom).offset(22)
+        }
+        
+        timeLiterallyLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(clockImageView)
+            make.left.equalTo(clockImageView.snp.right).offset(6)
+        }
+        
+        timeButton.snp.makeConstraints { make in
+            make.centerY.equalTo(clockImageView)
+            make.left.equalTo(timeLiterallyLabel.snp.right).offset(6)
+            make.width.equalTo(100)
+            make.height.equalTo(20)
+        }
+    }
+    
+    private func getPriorityName(){
+        TodoAPIConstant.shared.getPriorityName { (response) in
+            switch(response){
+            case .success(let resultData):
+                if let data = resultData as? PriorityResponseData{
+                    if data.resultCode == 200 {
+                        self.titleOfSectionArray[0] = data.data._1
+                        self.titleOfSectionArray[1] = data.data._2
+                        self.titleOfSectionArray[2] = data.data._3
+                        self.titleOfSectionArray[3] = data.data._4
+                        self.titleOfSectionArray[4] = data.data._5
+                        self.titleOfSectionArray[5] = data.data._6
+                    }
+                }
+            case .failure(let meassage):
+                print("failure", meassage)
+                
+            }
+        }
+    }
+    
+    
+    @objc private func handleBottomSheetBlackViewDismiss(){
+        TodoAPIConstant.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description: descriptionTextView.text ?? "", id: nowId) { (response) in
+            switch(response){
+            case .success(let resultData):
+                if let data = resultData as? TodoEditResponseData{
+                    print(data.resultCode)
+                    if data.resultCode == 200 {
+                        self.todoArrayList[self.nowSection][self.nowRow].title = self.titleTextFieldInBottomSheet.text ?? ""
+                        self.todoArrayList[self.nowSection][self.nowRow].description = self.descriptionTextView.text ?? ""
+                        self.tableView.reloadData()
+                    }
+                }
+            case .failure(let meassage):
+                print("failure", meassage)
+                
+            }
+        }
+        self.blackViewOfBottomSheet.removeFromSuperview()
+        self.bottomSheetView.removeFromSuperview()
+
+        view.endEditing(true)
+        
+    }
+
+    
+    @objc private func tapSegmentedControl(){
         if segmentedControl.selectedSegmentIndex == 0{
             self.calendarView.setScope(.month, animated: true)
         }else{
@@ -245,7 +435,7 @@ class TodoMainViewController : UIViewController{
         }
     }
     
-    @objc func tapFloatingButton(){
+    @objc private func tapFloatingButton(){
         if isCollectionViewShowing{
             collectionView.removeFromSuperview()
         }else {
@@ -258,16 +448,24 @@ class TodoMainViewController : UIViewController{
             collectionView_y = collectionView.frame.origin.y
         }
         isCollectionViewShowing = !isCollectionViewShowing
-        print(isCollectionViewShowing)
 
     }
     
-
+    @objc private func tapCancleButton(){
+        bottomSheetView.removeFromSuperview()
+        blackViewOfBottomSheet.removeFromSuperview()
+    }
+    
+    @objc private func showDatePicker(){
+        
+    }
+    
+    
     
     private func searchTodo(date:Date){
         let dateArr = DateFormat.shared.getYearMonthDay(date: date)
-        TodoAPIConstant.shared.searchTodo(year: dateArr[0], month: dateArr[1], day: dateArr[2]) { (response) in
-            switch (response){
+        TodoAPIConstant.shared.searchTodo(year: dateArr[0], month: dateArr[1], day: dateArr[2]) {(response) in
+            switch(response){
             case .success(let resultData):
                 if let data = resultData as? TodoSearchResponseData{
                     if data.resultCode == 200 {
@@ -277,37 +475,35 @@ class TodoMainViewController : UIViewController{
                         self.todoArrayList[3].removeAll()
                         self.todoArrayList[4].removeAll()
                         self.todoArrayList[5].removeAll()
-
+                        self.existingColorArray.removeAll()
+                        
                         for i in data.data{
-                            self.todoArrayList[i.color - 1].append(Todo(year: String(i.year), month: String(i.month), day: String(i.day), title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, description: i.description))
+                            self.todoArrayList[i.color - 1].append(Todo(year: String(i.year), month: String(i.month), day: String(i.day), title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, time: i.time, description: i.description))
+                        }
+                        
+                        for i in 0 ..< 6{
+                            if !self.todoArrayList[i].isEmpty{
+                                self.existingColorArray.append(i)
+                            }
                         }
                         
                         self.tableView.reloadData()
                     }
                 }
-            case .requestErr(let message):
-                print("requestErr", message)
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            case .decodeErr:
-                print("decodeErr")
+            case .failure(let meassage):
+                print("failure", meassage)
+                
             }
         }
-    }
-    
-    @objc private func editEndTodo(){
-        print("edit")
     }
     
     //table view 터치하면 키보드 내려가기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.tableView.endEditing(true)
+        self.view.endEditing(true)
     }
+    
     
 }
 
@@ -334,9 +530,9 @@ extension TodoMainViewController:UITableViewDelegate{
         
         colorRoundView.clipsToBounds = true
         colorRoundView.layer.cornerRadius = 4.5
-        colorRoundView.backgroundColor = Color.shared.UIColorArray[section]
+        colorRoundView.backgroundColor = Color.shared.UIColorArray[existingColorArray[section]]
         
-        titleLabel.text = "section title"
+        titleLabel.text = titleOfSectionArray[existingColorArray[section]]
         titleLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         titleLabel.textColor = .black
         
@@ -347,9 +543,8 @@ extension TodoMainViewController:UITableViewDelegate{
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return existingColorArray.count
     }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         floatingButton.frame = CGRect(x: floatingButton.frame.origin.x, y: floatingButton_y + offset, width: 76, height: 76)
@@ -357,66 +552,87 @@ extension TodoMainViewController:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete{
-                TodoAPIConstant.shared.deleteTodo(id: todoArrayList[indexPath.section][indexPath.row].id) { (response) in
-                    switch (response){
-                    case .success(let resultData):
-                        if let data = resultData as? ResponseData{
-                            if data.resultCode == 200 {
-                                self.todoArrayList[indexPath.section].remove(at: indexPath.row)
-                                tableView.reloadData()
-                            }
+        if editingStyle == .delete{
+            TodoAPIConstant.shared.deleteTodo(id: todoArrayList[indexPath.section][indexPath.row].id) { (resonse) in
+                switch(resonse){
+                case .success(let resultData):
+                    if let data = resultData as? ResponseData{
+                        if data.resultCode == 200 {
+                            self.todoArrayList[indexPath.section].remove(at: indexPath.row)
+                            tableView.reloadData()
                         }
-                    case .requestErr(let message):
-                        print("requestErr", message)
-                    case .pathErr:
-                        print("pathErr")
-                    case .serverErr:
-                        print("serverErr")
-                    case .networkFail:
-                        print("networkFail")
-                    case .decodeErr:
-                        print("decodeErr")
                     }
+                case .failure(let message):
+                    print("failure", message)
                 }
             }
         }
+    }
     
     
 }
 extension TodoMainViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoArrayList[section].count
+        return todoArrayList[existingColorArray[section]].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = TodoTableViewCell()
-        var titleTextField = UITextField()
-        var checkbox = UIButton()
-        
-        cell.cellBackgroundView.addSubview(titleTextField)
-        cell.cellBackgroundView.addSubview(checkbox)
-        
-        checkbox.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(13)
-            make.centerY.equalToSuperview()
-        }
-        titleTextField.snp.makeConstraints { make in
-            make.left.equalTo(checkbox.snp.right).offset(7)
-            make.centerY.equalToSuperview()
-        }
-        
-        titleTextField.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
-        
-        titleTextField.addTarget(self, action: #selector(editEndTodo), for: .valueChanged)
-
-        titleTextField.text = todoArrayList[indexPath.section][indexPath.row].title
+        cell.todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
+        cell.titleTextField.text = todoArrayList[existingColorArray[indexPath.section]][indexPath.row].title
+        cell.section = indexPath.section
+        cell.row = indexPath.row
         return cell
     }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         49
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.addSubview(blackViewOfBottomSheet)
+        self.view.addSubview(bottomSheetView)
+        
+        let todo:Todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
+        
+        //bottom sheet 내부 컬러바 색상 설정
+        colorBarViewInBottomsheet.backgroundColor = Color.shared.UIColorArray[todo.color-1]
+        //날짜 라벨 텍스트 색상 설정
+        dateLabelInBottomSheet.textColor = Color.shared.UIColorArray[todo.color-1]
+        //title text field에 해당 title로 설정
+        titleTextFieldInBottomSheet.text = todo.title
+        
+        //desctiption이 있을때, 없을 때 설정
+        if todo.description.count != 0{
+            descriptionTextView.text = todo.description
+            descriptionTextView.textColor = .black
+            descriptionTextView.sizeToFit()
+        }else{
+            descriptionTextView.text = textviewPlaceholder
+            descriptionTextView.textColor = .gray
+            descriptionTextView.sizeToFit()
+        }
+        
+        //설정된 시간이 있을 때, 없을 때 설정
+        if todo.time == "0000"{
+            timeButton.setTitle("미지정", for: .normal)
+            timeButton.setTitleColor(UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1), for: .normal)
+        }else{
+            if let time = Int(todoArrayList[indexPath.section][indexPath.row].time){
+                if time >= 1200 {
+                    timeButton.setTitle("오후 \(todo.time)", for: .normal)
+                }else {
+                    timeButton.setTitle("오전 \(todo.time)", for: .normal)
+                }
+            }
+            timeButton.setTitleColor(.black, for: .normal)
+
+        }
+        nowId = todo.id
+        nowSection = existingColorArray[indexPath.section]
+        nowRow = indexPath.row
+        titleTextFieldInBottomSheet.becomeFirstResponder()
+        setBottomSheetAutoLayout()
     }
 }
 
@@ -439,14 +655,18 @@ extension TodoMainViewController:FSCalendarDelegate{
     
 }
 extension TodoMainViewController:FSCalendarDataSource{
-
+    
 }
 
 //collection view delegate, datasource
 extension TodoMainViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = DateFormat.shared.getYearMonthDay(date: calendarView.selectedDate!)
-        todoArrayList[indexPath.row].insert(Todo(year: date[0] , month: date[1], day: date[2], title: "", done: false, isNew: true, writer: "", color: indexPath.row + 1, id: 0, description: ""), at: 0)
+        todoArrayList[indexPath.row].insert(Todo(year: date[0] , month: date[1], day: date[2], title: "", done: false, isNew: true, writer: "", color: indexPath.row + 1, id: 0, time: "0000", description: ""), at: 0)
+        if !existingColorArray.contains(indexPath.row){
+            existingColorArray.append(indexPath.row)
+        }
+        existingColorArray.sort()
         tableView.reloadData()
         collectionView.removeFromSuperview()
         isCollectionViewShowing = false
@@ -484,3 +704,35 @@ extension TodoMainViewController:UICollectionViewDelegateFlowLayout{
         return inset
     }
 }
+
+extension TodoMainViewController:TodoTableViewCellDelegate{
+    func sendData(section: Int, row: Int, todo: Todo) {
+        print("in delegate")
+        self.todoArrayList[section][row] = todo
+        tableView.reloadData()
+    }
+}
+
+extension TodoMainViewController:UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == textviewPlaceholder{
+            textView.text = ""
+            textView.textColor = .black
+            textView.sizeToFit()
+        }
+        
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == ""{
+            textView.textColor = .gray
+            textView.text = textviewPlaceholder
+            textView.sizeToFit()
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        textView.sizeToFit()
+    }
+}
+

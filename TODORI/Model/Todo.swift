@@ -17,5 +17,6 @@ struct Todo{
     var writer:String
     var color:Int
     var id:Int
+    var time:String
     var description:String
 }

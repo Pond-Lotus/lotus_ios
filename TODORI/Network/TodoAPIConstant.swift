@@ -11,44 +11,44 @@ import Alamofire
 class TodoAPIConstant {
     static let shared = TodoAPIConstant()
     
-    func searchTodo(year:String, month:String, day:String, completion:@escaping(NetworkResult<Any>)->Void){
-         let url = Server.serverURL + Server.todo
-         let userDefault = UserDefaults.standard
-         guard let token = userDefault.string(forKey: "token") else {return}
-         let header : HTTPHeaders = ["Content-Type" : "application/json",
-                                     "Authorization": "Token \(token)"]
-         
-         let parameter:Parameters = [
-             "year":year,
-             "month": month,
-             "day":day
-         ]
-         
-         
-         let request = AF.request(url,
-                                  method: .get,
-                                  parameters: parameter,
-                                  encoding: URLEncoding.queryString,
-                                  headers: header)
-         
-         request.responseData { dataResponse in
-             switch dataResponse.result {
-             case .success:
-                 guard let statusCode = dataResponse.response?.statusCode else {return}
-                 guard let value = dataResponse.value else {return}
-                 let networkResult = self.judgeSearchStatus(by: statusCode, value)
-                 
-                 completion(networkResult)
-                 
-             case .failure:
-                 completion(.pathErr)
-             }
-         }
-         
-     }
+    func searchTodo(year:String, month:String, day:String, completion:@escaping(AFResult<Any>)->Void){
+        let url = Server.serverURL + Server.todo
+        let userDefault = UserDefaults.standard
+        guard let token = userDefault.string(forKey: "token") else {return}
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        let parameter:Parameters = [
+            "year":year,
+            "month": month,
+            "day":day
+        ]
+        AF.request(url, method: .get,parameters: parameter, headers: header)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String:Any] {
+                        do{
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                            let decodedData = try JSONDecoder().decode(TodoSearchResponseData.self, from: data)
+                            completion(.success(decodedData))
+                        }catch{
+                            completion(.failure("decode error"))
+                        }
+                        
+                    } else {
+                        completion(.failure("data error"))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        
+        
+    }
     
-    func deleteTodo(id:Int, completion:@escaping(NetworkResult<Any>)->Void){
-        let url = Server.serverURL + Server.todo + "\(id)/" //이런식으로 해도되나 ㅜㅜ
+    func deleteTodo(id:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = Server.serverURL + Server.todo + "\(id)/"
         
         let userDefault = UserDefaults.standard
         guard let token = userDefault.string(forKey: "token") else {return}
@@ -56,53 +56,149 @@ class TodoAPIConstant {
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
         
-        let request = AF.request(url,
-                                 method: .delete,
-                                 headers: header)
+
         
-        request.responseData { dataResponse in
-            switch dataResponse.result {
-            case .success:
-                guard let statusCode = dataResponse.response?.statusCode else {return}
-                guard let value = dataResponse.value else {return}
-                let networkResult = self.judgeDeleteStatus(by: statusCode, value)
-                
-                completion(networkResult)
-                
-            case .failure:
-                completion(.pathErr)
+        AF.request(url, method: .delete,headers: header)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String:Any] {
+                        do{
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                            let decodedData = try JSONDecoder().decode(ResponseData.self, from: data)
+                            completion(.success(decodedData))
+                        }catch{
+                            completion(.failure("decode error"))
+                        }
+                        
+                    } else {
+                        completion(.failure("data error"))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
-        }
     }
     
-    private func judgeSearchStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        switch statusCode{
-        case ..<300: return isSearchValidData(data: data)
-        case ..<500: return .pathErr
-        case ..<600 : return .serverErr
-        default: return .networkFail
-        }
-    }
-    
-    private func judgeDeleteStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        switch statusCode{
-        case ..<300: return isDeleteValidData(data: data)
-        case ..<500: return .pathErr
-        case ..<600 : return .serverErr
-        default: return .networkFail
-        }
-    }
-    
-    
-    private func isSearchValidData(data:Data) -> NetworkResult<Any> {
-         guard let decodedData = try? JSONDecoder().decode(TodoSearchResponseData.self, from: data) else {return .decodeErr}
-         
-         return .success(decodedData)
-     }
-    
-    private func isDeleteValidData(data:Data) -> NetworkResult<Any>{
-        guard let decodedData = try? JSONDecoder().decode(ResponseData.self, from: data) else {return .decodeErr}
+    func writeTodo(year:String, month:String, day:String, title:String, color:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = Server.serverURL + Server.todo
         
-        return .success(decodedData)
+        let userDefault = UserDefaults.standard
+        guard let token = userDefault.string(forKey: "token") else {return}
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameter:Parameters = [
+            "year":year,
+            "month": month,
+            "day":day,
+            "title":title,
+            "color":color
+        ]
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String:Any] {
+                        do{
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                            let decodedData = try JSONDecoder().decode(TodoWriteResponseData.self, from: data)
+                            completion(.success(decodedData))
+                        }catch{
+                            completion(.failure("decode error"))
+                        }
+                        
+                    } else {
+                        completion(.failure("data error"))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
     }
+    
+    func editTodo(title:String, description:String,id:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = Server.serverURL + Server.todo + "\(id)/"
+        
+        let userDefault = UserDefaults.standard
+        guard let token = userDefault.string(forKey: "token") else {return}
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameter:Parameters = [
+            "title":title,
+            "description":description
+        ]
+        AF.request(url,
+                   method: .put,
+                   parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String:Any] {
+                        do{
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                            let decodedData = try JSONDecoder().decode(TodoEditResponseData.self, from: data)
+                            completion(.success(decodedData))
+                        }catch{
+                            completion(.failure("decode error"))
+                        }
+                        
+                    } else {
+                        completion(.failure("data error"))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        
+    }
+    
+    func getPriorityName(completion:@escaping(AFResult<Any>)->Void){
+        let url = Server.serverURL + Server.category
+        
+        let userDefault = UserDefaults.standard
+        guard let token = userDefault.string(forKey: "token") else {return}
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        AF.request(url,
+                   method: .get,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String:Any] {
+                        do{
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                            let decodedData = try JSONDecoder().decode(PriorityResponseData.self, from: data)
+                            completion(.success(decodedData))
+                        }catch{
+                            completion(.failure("decode error"))
+                        }
+                        
+                    } else {
+                        completion(.failure("data error"))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
 }
