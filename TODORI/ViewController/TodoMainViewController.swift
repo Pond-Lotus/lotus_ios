@@ -34,6 +34,7 @@ class TodoMainViewController : UIViewController{
     var descriptionBackgroundView:UIView = UIView()
     var descriptionTextView:UITextView = UITextView()
     var blackViewOfBottomSheet:UIView = UIView()
+    var blackViewOfDrawer:UIView = UIView()
     var clockImageView:UIImageView = UIImageView(image: UIImage(named: "clock"))
     var timeLiterallyLabel:UILabel = UILabel()
     var timeButton:UIButton = UIButton()
@@ -41,6 +42,7 @@ class TodoMainViewController : UIViewController{
     var datePicker:UIDatePicker = UIDatePicker()
     var cancelButtonInDatePicker:UIButton = UIButton()
     var finishButtonInDatePicker:UIButton = UIButton()
+    var drawerViewController:DrawerViewController?
     
     let textviewPlaceholder:String = "+ 메모하고 싶은 내용이 있나요?"
     var todoTableViewCell:TodoTableViewCell!
@@ -112,8 +114,9 @@ class TodoMainViewController : UIViewController{
         floatingButton.isUserInteractionEnabled = true
         floatingButton.addGestureRecognizer(tapGesture)
         blackViewOfBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBottomSheetBlackViewDismiss)))
-        //        floatingButton.addTarget(self, action: #selector(tapFloatingButton), for: .touchUpInside)
         timeButton.addTarget(self, action: #selector(showDatePicker), for: .touchDown)
+        hambuergerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
+        blackViewOfDrawer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDrawerBlackViewDismiss)))
     }
     
     private func addComponent(){
@@ -451,16 +454,43 @@ class TodoMainViewController : UIViewController{
 
     }
     
-    @objc private func tapCancleButton(){
-        bottomSheetView.removeFromSuperview()
-        blackViewOfBottomSheet.removeFromSuperview()
-    }
-    
     @objc private func showDatePicker(){
         
     }
     
+    @objc private func tapHamburgerButton(){
+        drawerViewController = DrawerViewController()
+        guard let drawerView = drawerViewController?.view else {return}
+        
+        self.blackViewOfDrawer.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        view.addSubview(self.blackViewOfDrawer)
+        self.addChild(drawerViewController!)
+        view.addSubview(drawerView)
+        
+        blackViewOfDrawer.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        blackViewOfDrawer.frame = self.view.frame
+        
+        drawerView.layer.fs_width = 0
+        drawerView.layer.fs_height = self.view.fs_height
+        drawerView.frame.origin.x = self.view.fs_width
+        
+        UIView.animate(withDuration: 0.3) {
+            drawerView.layer.fs_width = self.view.fs_width * 0.8
+            drawerView.frame.origin.x = self.view.fs_width - (self.view.fs_width * 0.8)
+        }
+    }
     
+    @objc private func handleDrawerBlackViewDismiss(){
+        blackViewOfDrawer.removeFromSuperview()
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
+            self.drawerViewController?.view.frame.origin.x = self.view.fs_width
+            self.drawerViewController?.view.fs_width = 0
+            
+        }, completion: { finished in
+            self.drawerViewController?.view.removeFromSuperview()
+        })
+    }
     
     private func searchTodo(date:Date){
         let dateArr = DateFormat.shared.getYearMonthDay(date: date)
