@@ -200,5 +200,45 @@ class TodoAPIConstant {
                 }
             }
     }
+    
+    func editDoneTodo(done:Bool, id:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = Server.serverURL + Server.todo + "\(id)/"
+        
+        let userDefault = UserDefaults.standard
+        guard let token = userDefault.string(forKey: "token") else {return}
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameter:Parameters = [
+            "done":done
+        ]
+        AF.request(url,
+                   method: .put,
+                   parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String:Any] {
+                        do{
+                            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                            let decodedData = try JSONDecoder().decode(TodoEditResponseData.self, from: data)
+                            completion(.success(decodedData))
+                        }catch{
+                            completion(.failure("decode error"))
+                        }
+                        
+                    } else {
+                        completion(.failure("data error"))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        
+    }
 
 }

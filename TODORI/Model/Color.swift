@@ -25,4 +25,18 @@ class Color{
         }
         return color
     }
+    
+    func getCheckBoxImage(colorNum:Int) -> UIImage {
+        var image = UIImage(named: "checkbox")
+        switch(colorNum){
+        case 1: image = UIImage(named: "checkbox-red")
+        case 2: image = UIImage(named: "checkbox-yellow")
+        case 3: image = UIImage(named: "checkbox-green")
+        case 4: image = UIImage(named: "checkbox-blue")
+        case 5: image = UIImage(named: "checkbox-pink")
+        case 6: image = UIImage(named: "checkbox-purple")
+        default:break
+        }
+        return image!
+    }
 }

@@ -9,18 +9,18 @@ import UIKit
 import SnapKit
 
 protocol TodoTableViewCellDelegate:AnyObject{
-    func sendData(section:Int, row:Int, todo:Todo)
+    func sendTodoData(section:Int, row:Int, todo:Todo)
+    func editDone(section:Int,row:Int,todo:Todo)
 }
-class TodoTableViewCell:UITableViewCell{
 
-    
+class TodoTableViewCell:UITableViewCell{
     var checkbox:UIButton = UIButton()
     var titleTextField:UITextField = UITextField()
     var cellBackgroundView:UIView = UIView()
     var todo:Todo = .init(year: "", month: "", day: "", title: "", done: false, isNew: false, writer: "", color: 0, id: 0, time: "0000", description: "")
     var section:Int = 0
     var row:Int = 0
-    weak var delegate:TodoTableViewCellDelegate?
+    var delegate:TodoTableViewCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "TodoCell")
@@ -43,10 +43,8 @@ class TodoTableViewCell:UITableViewCell{
     }
     
     private func addTarget(){
-//        titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEnd)
-        //return키 눌렀을 때
         titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEndOnExit)
-
+        checkbox.addTarget(self, action: #selector(tapCheckbox), for: .touchDown)
     }
     
     private func setAutoLayout(){
@@ -88,6 +86,24 @@ class TodoTableViewCell:UITableViewCell{
         }
     }
     
+    @objc private func tapCheckbox(){
+        TodoAPIConstant.shared.editDoneTodo(done: !todo.done, id: todo.id) { (response) in
+            switch(response){
+            case .success(let resultData):
+                if let data = resultData as? TodoEditResponseData{
+                    print(data.resultCode)
+                    if data.resultCode == 200 {
+                        self.todo.done = data.data.done
+                        self.checkbox.setImage(self.todo.done ? Color.shared.getCheckBoxImage(colorNum: self.todo.color):UIImage(named: "checkbox"), for: .normal)
+                        self.delegate?.editDone(section: self.section, row: self.row, todo: self.todo)
+                    }
+                }
+            case .failure(let message):
+                print("failure", message)
+            }
+        }
+    }
+    
     @objc private func textFieldEndEdit(){
         TodoAPIConstant.shared.writeTodo(year: todo.year, month: todo.month, day: todo.day, title: titleTextField.text ?? "", color: todo.color) { [self] (response) in
             switch(response){
@@ -98,10 +114,10 @@ class TodoTableViewCell:UITableViewCell{
                         self.titleTextField.isEnabled = false
                         self.todo.id = data.data.id
                         self.todo.title = data.data.title
-                        self.todo.description = data.data.title
+                        self.todo.description = data.data.description
                         self.todo.time = data.data.time
                         self.todo.writer = data.data.writer
-                        self.delegate?.sendData(section: self.section, row: self.row, todo: self.todo)
+                        self.delegate?.sendTodoData(section: section, row: row, todo: todo)
                         self.reloadInputViews() //isnew = false로 변경하고 cell reload
                     }
                 }

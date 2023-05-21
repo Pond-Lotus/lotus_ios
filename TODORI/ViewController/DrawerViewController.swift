@@ -22,6 +22,19 @@ class DrawerViewController:UIViewController{
     var passwordSettingImage:UIImageView = UIImageView()
     var nicknameEditStackView:UIStackView = UIStackView()
     var passwordEditStackView:UIStackView = UIStackView()
+    var grayLine2:UIView = UIView()
+    var grayLine3:UIView = UIView()
+    var circleView1:UIView = UIView()
+    var circleView2:UIView = UIView()
+    var circleView3:UIView = UIView()
+    var circleView4:UIView = UIView()
+    var circleView5:UIView = UIView()
+    var circleView6:UIView = UIView()
+    var circleViewStackView:UIStackView = UIStackView()
+    var groupSettingLabel:UILabel = UILabel()
+    var groupSettingButton:UIButton = UIButton()
+    
+
 
     
     override func viewDidLoad() {
@@ -36,18 +49,36 @@ class DrawerViewController:UIViewController{
     
     private func addComponent(){
         self.view.addSubview(profileImageView)
+        
         stackViewOfNicknameEmailLabel.addArrangedSubview(nickNameLabel)
         stackViewOfNicknameEmailLabel.addArrangedSubview(emailLabel)
         self.view.addSubview(stackViewOfNicknameEmailLabel)
+        
         self.view.addSubview(profileEditButton)
         self.view.addSubview(grayLine1)
+        self.view.addSubview(grayLine2)
+        self.view.addSubview(grayLine3)
         self.view.addSubview(settingLabel)
+        
         nicknameEditStackView.addArrangedSubview(nicknameSettingImage)
         nicknameEditStackView.addArrangedSubview(nicknameEditButton)
         self.view.addSubview(nicknameEditStackView)
+        
         passwordEditStackView.addArrangedSubview(passwordSettingImage)
         passwordEditStackView.addArrangedSubview(passwordEditButton)
         self.view.addSubview(passwordEditStackView)
+        
+        circleViewStackView.addArrangedSubview(circleView1)
+        circleViewStackView.addArrangedSubview(circleView2)
+        circleViewStackView.addArrangedSubview(circleView3)
+        circleViewStackView.addArrangedSubview(circleView4)
+        circleViewStackView.addArrangedSubview(circleView5)
+        circleViewStackView.addArrangedSubview(circleView6)
+        self.view.addSubview(circleViewStackView)
+        
+        self.view.addSubview(groupSettingLabel)
+        self.view.addSubview(groupSettingButton)
+        
     }
     private func setComponentAppearence(){
         self.view.backgroundColor = .white
@@ -67,6 +98,9 @@ class DrawerViewController:UIViewController{
         profileEditButton.setImage(UIImage(named: "profile-edit"), for: .normal)
         
         grayLine1.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
+        grayLine2.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
+        grayLine3.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
+
         
         settingLabel.text = "환경설정"
         settingLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
@@ -88,6 +122,38 @@ class DrawerViewController:UIViewController{
         passwordEditButton.setTitle("비밀번호 변경", for: .normal)
         passwordEditButton.setTitleColor(.black, for: .normal) //titlelabel.textcolor로 변경하니 변경되지 않음
         passwordEditButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        
+        circleViewStackView.axis = .horizontal
+        circleViewStackView.distribution = .equalSpacing
+        
+        circleView1.clipsToBounds = true
+        circleView1.layer.cornerRadius = 25/2
+        circleView1.backgroundColor = Color.shared.UIColorArray[0]
+        
+        circleView2.clipsToBounds = true
+        circleView2.layer.cornerRadius = 25/2
+        circleView2.backgroundColor = Color.shared.UIColorArray[1]
+        
+        circleView3.clipsToBounds = true
+        circleView3.layer.cornerRadius = 25/2
+        circleView3.backgroundColor = Color.shared.UIColorArray[2]
+        
+        circleView4.clipsToBounds = true
+        circleView4.layer.cornerRadius = 25/2
+        circleView4.backgroundColor = Color.shared.UIColorArray[3]
+        
+        circleView5.clipsToBounds = true
+        circleView5.layer.cornerRadius = 25/2
+        circleView5.backgroundColor = Color.shared.UIColorArray[4]
+        
+        circleView6.clipsToBounds = true
+        circleView6.layer.cornerRadius = 25/2
+        circleView6.backgroundColor = Color.shared.UIColorArray[5]
+        
+        groupSettingLabel.text = "그룹 설정"
+        groupSettingLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        
+        groupSettingButton.setImage(UIImage(named: "group-setting-button"), for: .normal)
     }
     private func setAutoLayout(){
         profileImageView.snp.makeConstraints { make in
@@ -138,7 +204,60 @@ class DrawerViewController:UIViewController{
             make.left.equalToSuperview().offset(23)
             
         }
+        
+        grayLine2.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.left.equalToSuperview().offset(17)
+            make.right.equalToSuperview().offset(-17)
+            make.top.equalTo(passwordEditStackView.snp.bottom).offset(28)
+        }
+        
+        circleView1.snp.makeConstraints { make in
+            make.width.height.equalTo(25)
+        }
     
+        circleView2.snp.makeConstraints { make in
+            make.width.height.equalTo(25)
+        }
+        
+        circleView3.snp.makeConstraints { make in
+            make.width.height.equalTo(25)
+        }
+        
+        circleView4.snp.makeConstraints { make in
+            make.width.height.equalTo(25)
+        }
+        
+        circleView5.snp.makeConstraints { make in
+            make.width.height.equalTo(25)
+        }
+        
+        circleView6.snp.makeConstraints { make in
+            make.width.height.equalTo(25)
+        }
+        
+        groupSettingLabel.snp.makeConstraints { make in
+            make.top.equalTo(grayLine2).offset(21)
+            make.left.equalToSuperview().offset(23)
+        }
+        
+        circleViewStackView.snp.makeConstraints { make in
+            make.top.equalTo(groupSettingLabel.snp.bottom).offset(19)
+            make.left.equalToSuperview().offset(24)
+            make.right.equalToSuperview().offset(-24)
+        }
+        
+        groupSettingButton.snp.makeConstraints { make in
+            make.width.height.equalTo(14)
+            make.centerY.equalTo(groupSettingLabel)
+            make.right.equalToSuperview().offset(-22)
+        }
+        
+        grayLine3.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.left.equalToSuperview().offset(17)
+            make.right.equalToSuperview().offset(-17)
+            make.top.equalTo(circleViewStackView.snp.bottom).offset(28)        }
     
     }
     private func addFunctionToComponent(){
