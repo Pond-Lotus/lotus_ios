@@ -42,6 +42,44 @@ class TodoMainViewController : UIViewController{
     var datePicker:UIDatePicker = UIDatePicker()
     var cancelButtonInDatePicker:UIButton = UIButton()
     var finishButtonInDatePicker:UIButton = UIButton()
+    var redCircleButton:UIButton = {
+        var button:UIButton = UIButton()
+        button.tag = 1
+        button.setImage(UIImage(named: "red-circle"), for: .normal)
+        return button
+    }()
+    var yellowCircleButton:UIButton = {
+        var button:UIButton = UIButton()
+        button.tag = 2
+        button.setImage(UIImage(named: "yellow-circle"), for: .normal)
+        return button
+    }()
+    var greenCircleButton:UIButton = {
+        var button:UIButton = UIButton()
+        button.tag = 3
+        button.setImage(UIImage(named: "green-circle"), for: .normal)
+        return button
+    }()
+    var blueCircleButton:UIButton = {
+        var button:UIButton = UIButton()
+        button.tag = 4
+        button.setImage(UIImage(named: "blue-circle"), for: .normal)
+        return button
+    }()
+    var pinkCircleButton:UIButton = {
+        var button:UIButton = UIButton()
+        button.tag = 5
+        button.setImage(UIImage(named: "pink-circle"), for: .normal)
+        return button
+    }()
+    var purpleCircleButton:UIButton = {
+        var button:UIButton = UIButton()
+        button.tag = 6
+        button.setImage(UIImage(named: "purple-circle"), for: .normal)
+        return button
+    }()
+    var colorCircleButtonStackView:UIStackView = UIStackView()
+    var grayLineInBottomSheet:UIView = UIView()
     
     var drawerViewController:DrawerViewController?
     
@@ -62,6 +100,7 @@ class TodoMainViewController : UIViewController{
     var nowId:Int = 0
     var nowSection:Int = 0
     var nowRow:Int = 0
+    var nowColor:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -114,7 +153,13 @@ class TodoMainViewController : UIViewController{
         hambuergerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
         blackViewOfDrawer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDrawerBlackViewDismiss)))
         timeButton.addTarget(self, action: #selector(tapTimeButton), for: .touchDown)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        redCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
+        yellowCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
+        greenCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
+        blueCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
+        pinkCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
+        purpleCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
+
 
     }
     
@@ -154,7 +199,17 @@ class TodoMainViewController : UIViewController{
         bottomSheetView.addSubview(clockImageView)
         bottomSheetView.addSubview(timeLiterallyLabel)
         bottomSheetView.addSubview(timeButton)
-
+        bottomSheetView.addSubview(grayLineInBottomSheet)
+        
+        colorCircleButtonStackView.addArrangedSubview(redCircleButton)
+        colorCircleButtonStackView.addArrangedSubview(yellowCircleButton)
+        colorCircleButtonStackView.addArrangedSubview(greenCircleButton)
+        colorCircleButtonStackView.addArrangedSubview(blueCircleButton)
+        colorCircleButtonStackView.addArrangedSubview(pinkCircleButton)
+        colorCircleButtonStackView.addArrangedSubview(purpleCircleButton)
+        
+        bottomSheetView.addSubview(colorCircleButtonStackView)
+        
         
     }
     
@@ -281,6 +336,11 @@ class TodoMainViewController : UIViewController{
         timeButton.titleLabel?.textAlignment = .left
         
         datePickerBackgroundView.backgroundColor = .gray
+        
+        colorCircleButtonStackView.axis = .horizontal
+        colorCircleButtonStackView.distribution = .equalSpacing
+        
+        grayLineInBottomSheet.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
     }
     
     private func setAutoLayout(){
@@ -338,7 +398,7 @@ class TodoMainViewController : UIViewController{
         bottomSheetView.snp.makeConstraints { make in
             make.bottom.equalTo(self.view.keyboardLayoutGuide.snp.top)
             make.width.equalToSuperview()
-            make.height.equalTo(300)
+            make.height.equalTo(310)
         }
         
         dateLabelInBottomSheet.snp.makeConstraints { make in
@@ -383,6 +443,39 @@ class TodoMainViewController : UIViewController{
             make.height.equalTo(20)
         }
         
+        grayLineInBottomSheet.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-42)
+            make.left.equalToSuperview().offset(42)
+            make.top.equalTo(timeLiterallyLabel.snp.bottom).offset(26)
+            make.height.equalTo(1)
+        }
+        
+        redCircleButton.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+        }
+        yellowCircleButton.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+        }
+        greenCircleButton.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+        }
+        blueCircleButton.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+        }
+        pinkCircleButton.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+        }
+        purpleCircleButton.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+        }
+        
+        colorCircleButtonStackView.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-42)
+            make.left.equalToSuperview().offset(42)
+            make.bottom.equalToSuperview().offset(-16)
+        }
+        
+       
 
     }
     
@@ -408,22 +501,40 @@ class TodoMainViewController : UIViewController{
             }
         }
     }
-    
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        // 키보드가 생성될 때
+
+    @objc private func tapColorCircleButton(_ sender: UIButton){
+        redCircleButton.setImage(UIImage(named: "red-circle"), for: .normal)
+        yellowCircleButton.setImage(UIImage(named: "yellow-circle"), for: .normal)
+        greenCircleButton.setImage(UIImage(named: "green-circle"), for: .normal)
+        blueCircleButton.setImage(UIImage(named: "blue-circle"), for: .normal)
+        pinkCircleButton.setImage(UIImage(named: "pink-circle"), for: .normal)
+        purpleCircleButton.setImage(UIImage(named: "purple-circle"), for: .normal)
+
+        nowColor = sender.tag
+        sender.setImage(Color.shared.getSeletedCircleImage(colorNum: nowColor), for: .normal)
+        colorBarViewInBottomsheet.backgroundColor = Color.shared.getColor(colorNum: nowColor)
+        dateLabelInBottomSheet.textColor = Color.shared.getColor(colorNum: nowColor)
     }
     
     
     @objc private func handleBottomSheetBlackViewDismiss(){
         let description = descriptionTextView.text.replacingOccurrences(of: textviewPlaceholder, with: "")
         print("description:\(description)/")
-        TodoAPIConstant.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, id: nowId) { (response) in
+        TodoAPIConstant.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, colorNum:nowColor, id: nowId) { (response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? TodoEditResponseData{
                     if data.resultCode == 200 {
+                        print(data.resultCode)
                         self.todoArrayList[self.nowSection][self.nowRow].title = data.data.title
                         self.todoArrayList[self.nowSection][self.nowRow].description = data.data.description
+                        self.todoArrayList[self.nowSection][self.nowRow].color = data.data.color
+                        self.todoArrayList[self.nowSection][self.nowRow].id = data.data.id
+                        self.todoArrayList[self.nowColor-1].append(self.todoArrayList[self.nowSection][self.nowRow])
+                        self.todoArrayList[self.nowSection].remove(at: self.nowRow)
+                        self.setExistArray()
+                        self.todoSortById(section: self.nowColor-1)
+                        self.todoSortByDone(section: self.nowColor-1)
                         self.tableView.reloadData()
                     }
                 }
@@ -524,6 +635,15 @@ class TodoMainViewController : UIViewController{
         }
     }
     
+    private func setExistArray(){
+        existingColorArray.removeAll()
+        for i in 0 ..< 6 {
+            if todoArrayList[i].count > 0 {
+                existingColorArray.append(i)
+            }
+        }
+    }
+    
     private func searchTodo(date:Date){
         let dateArr = DateFormat.shared.getYearMonthDay(date: date)
         TodoAPIConstant.shared.searchTodo(year: dateArr[0], month: dateArr[1], day: dateArr[2]) {(response) in
@@ -544,31 +664,14 @@ class TodoMainViewController : UIViewController{
                         }
                         
                         for i in 0 ..< 6{
+                            self.todoArrayList[i].sort { todo1, todo2 in
+                                return !todo1.done && todo2.done
+                            }
                             if !self.todoArrayList[i].isEmpty{
                                 self.existingColorArray.append(i)
                             }
                         }
-                        
-                        self.todoArrayList[0].sort { todo1, todo2 in
-                            return !todo1.done && todo2.done
-                        }
-                        self.todoArrayList[1].sort { todo1, todo2 in
-                            return !todo1.done && todo2.done
-                        }
-                        self.todoArrayList[2].sort { todo1, todo2 in
-                            return !todo1.done && todo2.done
-                        }
-                        self.todoArrayList[3].sort { todo1, todo2 in
-                            return !todo1.done && todo2.done
-                        }
-                        self.todoArrayList[4].sort { todo1, todo2 in
-                            return !todo1.done && todo2.done
-                        }
-                        self.todoArrayList[5].sort { todo1, todo2 in
-                            return !todo1.done && todo2.done
-                        }
-                        
-                        
+
                         self.tableView.reloadData()
                     }
                 }
@@ -635,12 +738,14 @@ extension TodoMainViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            TodoAPIConstant.shared.deleteTodo(id: todoArrayList[indexPath.section][indexPath.row].id) { (resonse) in
+            print(indexPath.section)
+            TodoAPIConstant.shared.deleteTodo(id: todoArrayList[existingColorArray[indexPath.section]][indexPath.row].id) { (resonse) in
                 switch(resonse){
                 case .success(let resultData):
                     if let data = resultData as? ResponseData{
                         if data.resultCode == 200 {
-                            self.todoArrayList[indexPath.section].remove(at: indexPath.row)
+                            self.todoArrayList[self.existingColorArray[indexPath.section]].remove(at: indexPath.row)
+                            self.setExistArray()
                             tableView.reloadData()
                         }
                     }
@@ -650,6 +755,7 @@ extension TodoMainViewController:UITableViewDelegate{
             }
         }
     }
+    
     
     
 }
@@ -679,6 +785,7 @@ extension TodoMainViewController:UITableViewDataSource{
         self.view.addSubview(bottomSheetView)
         
         let todo:Todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
+        print("id: \(todo.id)")
         
         //bottom sheet 내부 컬러바 색상 설정
         colorBarViewInBottomsheet.backgroundColor = Color.shared.UIColorArray[todo.color-1]
@@ -711,11 +818,22 @@ extension TodoMainViewController:UITableViewDataSource{
                 }
             }
             timeButton.setTitleColor(.black, for: .normal)
-
         }
         nowId = todo.id
         nowSection = existingColorArray[indexPath.section]
         nowRow = indexPath.row
+        nowColor = todo.color
+        
+        switch(todo.color){
+        case 1: redCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
+        case 2: yellowCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
+        case 3: greenCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
+        case 4: blueCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
+        case 5: pinkCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
+        case 6: purpleCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
+        default: break
+        }
+        
         titleTextFieldInBottomSheet.becomeFirstResponder()
         setBottomSheetAutoLayout()
     }
@@ -748,10 +866,7 @@ extension TodoMainViewController:UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = DateFormat.shared.getYearMonthDay(date: calendarView.selectedDate!)
         todoArrayList[indexPath.row].insert(Todo(year: date[0] , month: date[1], day: date[2], title: "", done: false, isNew: true, writer: "", color: indexPath.row + 1, id: 0, time: "0000", description: ""), at: 0)
-        if !existingColorArray.contains(indexPath.row){
-            existingColorArray.append(indexPath.row)
-        }
-        existingColorArray.sort()
+        setExistArray()
         tableView.reloadData()
         collectionView.removeFromSuperview()
         isCollectionViewShowing = false
@@ -814,14 +929,14 @@ extension TodoMainViewController:UITextViewDelegate{
 }
 extension TodoMainViewController:TodoTableViewCellDelegate{
     func sendTodoData(section: Int, row: Int, todo: Todo) {
-        todoArrayList[section][row] = todo
+        todoArrayList[todo.color-1][row] = todo
         todoSortById(section: section)
         todoSortByDone(section: section)
         tableView.reloadData()
     }
     
     func editDone(section: Int, row: Int, todo: Todo) {
-        todoArrayList[section][row] = todo
+        todoArrayList[todo.color-1][row] = todo
         todoSortById(section: section)
         todoSortByDone(section: section)
         tableView.reloadData()
