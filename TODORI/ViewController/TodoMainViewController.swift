@@ -11,75 +11,81 @@ import FSCalendar
 
 class TodoMainViewController : UIViewController{
     
-    var calendarView:FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
-    var segmentedControl:UISegmentedControl = UISegmentedControl()
-    var tableView:UITableView = UITableView()
-    var topBarView:UIView = UIView()
-    var hambuergerButton:UIButton = UIButton()
-    var calendarImageView:UIImageView = UIImageView(image: UIImage(named: "calendar"))
-    var dateLabel:UILabel = UILabel()
+    var calendarView: FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
+    var segmentedControl: UISegmentedControl = UISegmentedControl()
+    var tableView: UITableView = UITableView()
+    var topBarView: UIView = UIView()
+    var hambuergerButton: UIButton = UIButton()
+    var calendarImageView: UIImageView = UIImageView(image: UIImage(named: "calendar"))
+    var dateLabel: UILabel = UILabel()
     var stackViewOfDateLabel:UIStackView = UIStackView()
     var dateFormatter = DateFormatter()
-    var calendarBackgroundView:UIView = UIView()
-    var headerView:UIView = UIView()
-    var weekdayLabel:UILabel = UILabel()
-    var dayLabel:UILabel = UILabel()
-    var floatingButton:UIImageView = UIImageView()
-    var collectionView:UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 151, height: 107), collectionViewLayout: UICollectionViewFlowLayout.init())
-    let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-    var bottomSheetView:UIView = UIView()
-    var colorBarViewInBottomsheet:UIView = UIView()
-    var titleTextFieldInBottomSheet:UITextField = UITextField()
-    var dateLabelInBottomSheet:UILabel = UILabel()
-    var descriptionBackgroundView:UIView = UIView()
-    var descriptionTextView:UITextView = UITextView()
-    var blackViewOfBottomSheet:UIView = UIView()
-    var blackViewOfDrawer:UIView = UIView()
-    var clockImageView:UIImageView = UIImageView(image: UIImage(named: "clock"))
-    var timeLiterallyLabel:UILabel = UILabel()
-    var timeButton:UIButton = UIButton()
-    var datePickerBackgroundView:UIView = UIView()
-    var datePicker:UIDatePicker = UIDatePicker()
-    var cancelButtonInDatePicker:UIButton = UIButton()
-    var finishButtonInDatePicker:UIButton = UIButton()
-    var redCircleButton:UIButton = {
-        var button:UIButton = UIButton()
+    var calendarBackgroundView: UIView = UIView()
+    var headerView: UIView = UIView()
+    var weekdayLabel: UILabel = UILabel()
+    var dayLabel: UILabel = UILabel()
+    var floatingButton: UIImageView = UIImageView()
+    var collectionView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 151, height: 107), collectionViewLayout: UICollectionViewFlowLayout.init())
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+    var bottomSheetView: UIView = UIView()
+    var colorBarViewInBottomsheet: UIView = UIView()
+    var titleTextFieldInBottomSheet: UITextField = UITextField()
+    var dateLabelInBottomSheet: UILabel = UILabel()
+    var descriptionBackgroundView: UIView = UIView()
+    var descriptionTextView: UITextView = UITextView()
+    var blackViewOfBottomSheet: UIView = UIView()
+    var blackViewOfDrawer: UIView = UIView()
+    var clockImageView: UIImageView = UIImageView(image: UIImage(named: "clock"))
+    var timeLiterallyLabel: UILabel = UILabel()
+    var timeLabel: UILabel = UILabel()
+    var datePickerBackgroundView: UIView = UIView()
+    var datePicker: UIDatePicker = UIDatePicker()
+    var cancelButtonInDatePicker: UIButton = UIButton()
+    var finishButtonInDatePicker: UIButton = UIButton()
+    var grayLineNextDateLabel: UIView = UIView()
+    var grayBackgroundView: UIView = UIView() //키보드레이아웃에 맞춘 테이블 뷰 밑에 빈 공간을 채우기 위한 뷰
+    var whiteBackgroundView: UIView = UIView() //캘린더뷰를 내렸을 때 비는 공간을 채우기 위한 뷰
+    var blackViewOfDatePicker: UIView = UIView()
+    var redCircleButton: UIButton = {
+        var button: UIButton = UIButton()
         button.tag = 1
         button.setImage(UIImage(named: "red-circle"), for: .normal)
         return button
     }()
     var yellowCircleButton:UIButton = {
-        var button:UIButton = UIButton()
+        var button: UIButton = UIButton()
         button.tag = 2
         button.setImage(UIImage(named: "yellow-circle"), for: .normal)
         return button
     }()
     var greenCircleButton:UIButton = {
-        var button:UIButton = UIButton()
+        var button: UIButton = UIButton()
         button.tag = 3
         button.setImage(UIImage(named: "green-circle"), for: .normal)
         return button
     }()
     var blueCircleButton:UIButton = {
-        var button:UIButton = UIButton()
+        var button: UIButton = UIButton()
         button.tag = 4
         button.setImage(UIImage(named: "blue-circle"), for: .normal)
         return button
     }()
     var pinkCircleButton:UIButton = {
-        var button:UIButton = UIButton()
+        var button: UIButton = UIButton()
         button.tag = 5
         button.setImage(UIImage(named: "pink-circle"), for: .normal)
         return button
     }()
     var purpleCircleButton:UIButton = {
-        var button:UIButton = UIButton()
+        var button: UIButton = UIButton()
         button.tag = 6
         button.setImage(UIImage(named: "purple-circle"), for: .normal)
         return button
     }()
     var colorCircleButtonStackView:UIStackView = UIStackView()
     var grayLineInBottomSheet:UIView = UIView()
+    var nothingExistingView: UIView = UIView()
+    var nothingExistingLabel: UILabel = UILabel()
     
     var drawerViewController:DrawerViewController?
     
@@ -101,9 +107,10 @@ class TodoMainViewController : UIViewController{
     var nowSection:Int = 0
     var nowRow:Int = 0
     var nowColor:Int = 0
+    var nowHour: String = "00"
+    var nowMin: String = "00"
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //test code
         let userDefaults = UserDefaults.standard
         userDefaults.set("05add65f6ffd1e79ac17e4dc58f15c6f61aff9f8", forKey: "token")
@@ -149,18 +156,17 @@ class TodoMainViewController : UIViewController{
         floatingButton.isUserInteractionEnabled = true
         floatingButton.addGestureRecognizer(tapGesture)
         blackViewOfBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBottomSheetBlackViewDismiss)))
-        timeButton.addTarget(self, action: #selector(showDatePicker), for: .touchDown)
         hambuergerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
         blackViewOfDrawer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDrawerBlackViewDismiss)))
-        timeButton.addTarget(self, action: #selector(tapTimeButton), for: .touchDown)
         redCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
         yellowCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
         greenCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
         blueCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
         pinkCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
         purpleCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
-
-
+        timeLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapTimeLabel)))
+        cancelButtonInDatePicker.addTarget(self, action: #selector(tapCancelButtonInDatePicker), for: .touchDown)
+        finishButtonInDatePicker.addTarget(self, action: #selector(tapFinishButtonInDatePicker), for: .touchDown)
     }
     
     private func addComponent(){
@@ -173,6 +179,7 @@ class TodoMainViewController : UIViewController{
         
         //기본 뷰에 테이블뷰 추가
         self.view.addSubview(tableView)
+        self.view.addSubview(grayBackgroundView)
         tableView.separatorStyle = .none
         
         //calendar background view에 컴포넌트 추가
@@ -184,6 +191,7 @@ class TodoMainViewController : UIViewController{
         headerView.addSubview(calendarBackgroundView)
         headerView.addSubview(weekdayLabel)
         headerView.addSubview(dayLabel)
+        headerView.addSubview(grayLineNextDateLabel)
         
         //tableview header view 지정
         tableView.tableHeaderView = headerView
@@ -198,7 +206,7 @@ class TodoMainViewController : UIViewController{
         bottomSheetView.addSubview(descriptionTextView)
         bottomSheetView.addSubview(clockImageView)
         bottomSheetView.addSubview(timeLiterallyLabel)
-        bottomSheetView.addSubview(timeButton)
+        bottomSheetView.addSubview(timeLabel)
         bottomSheetView.addSubview(grayLineInBottomSheet)
         
         colorCircleButtonStackView.addArrangedSubview(redCircleButton)
@@ -210,6 +218,12 @@ class TodoMainViewController : UIViewController{
         
         bottomSheetView.addSubview(colorCircleButtonStackView)
         
+//        nothingExistingView.addSubview(nothingExistingLabel)
+//        tableView.addSubview(nothingExistingView)
+        
+        datePickerBackgroundView.addSubview(datePicker)
+        datePickerBackgroundView.addSubview(cancelButtonInDatePicker)
+        datePickerBackgroundView.addSubview(finishButtonInDatePicker)
         
     }
     
@@ -240,6 +254,7 @@ class TodoMainViewController : UIViewController{
         calendarView.appearance.titleTodayColor = UIColor(red: 0.246, green: 0.246, blue: 0.246, alpha: 1)
         calendarView.appearance.titleSelectionColor = .black
         calendarView.appearance.weekdayTextColor = .black
+        calendarView.calendarWeekdayView.weekdayLabels[6].textColor = .red
         
         //캘린더 백그라운드 뷰 외형 설정
         calendarBackgroundView.backgroundColor = .white
@@ -292,7 +307,7 @@ class TodoMainViewController : UIViewController{
         bottomSheetView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
         
         //black view 설정
-        self.blackViewOfBottomSheet.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        blackViewOfBottomSheet.backgroundColor = UIColor(white: 0, alpha: 0.5)
         blackViewOfBottomSheet.frame = self.view.frame
         
         colorBarViewInBottomsheet.clipsToBounds = true
@@ -314,6 +329,7 @@ class TodoMainViewController : UIViewController{
         descriptionTextView.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
         descriptionTextView.clipsToBounds = true
         descriptionTextView.layer.cornerRadius = 10
+        descriptionTextView.textContainer.maximumNumberOfLines = 3
         
         //bottom sheet 내부 desctription text view 외형 설정
         descriptionTextView.font = UIFont.systemFont(ofSize: 14, weight: .light)
@@ -330,17 +346,63 @@ class TodoMainViewController : UIViewController{
         timeLiterallyLabel.textColor = .black
         
         //bottom sheet 내부 시간 선택하는 부분
-        timeButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        timeButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        timeButton.setTitleColor(.black, for: .normal)
-        timeButton.titleLabel?.textAlignment = .left
+        timeLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        timeLabel.textColor = .black
+        timeLabel.isUserInteractionEnabled = true
         
-        datePickerBackgroundView.backgroundColor = .gray
+        datePickerBackgroundView.backgroundColor = .white
         
         colorCircleButtonStackView.axis = .horizontal
         colorCircleButtonStackView.distribution = .equalSpacing
         
         grayLineInBottomSheet.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        
+        nothingExistingView.backgroundColor = UIColor.clear
+
+        // 테두리 설정
+        nothingExistingView.layer.borderWidth = 1.0
+        nothingExistingView.layer.borderColor = UIColor.gray.cgColor
+
+        // 점선 스타일 설정
+        let dashPattern: [NSNumber] = [10, 10]
+        let borderLayer = CAShapeLayer()
+        borderLayer.strokeColor = UIColor.gray.cgColor
+        borderLayer.lineDashPattern = dashPattern
+        borderLayer.lineCap = .round // 점선의 끝 부분을 둥글게 처리
+        borderLayer.frame = nothingExistingView.bounds
+        borderLayer.fillColor = nil
+        borderLayer.path = UIBezierPath(rect: nothingExistingView.bounds).cgPath
+        nothingExistingView.layer.masksToBounds = true
+        nothingExistingView.layer.addSublayer(borderLayer)
+
+        
+        nothingExistingLabel.text = "등록된 토도리스트가 없습니다."
+        
+        grayLineNextDateLabel.backgroundColor = UIColor(red: 0.846, green: 0.846, blue: 0.846, alpha: 1)
+        
+        grayBackgroundView.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        
+        whiteBackgroundView.backgroundColor = .white
+        
+        blackViewOfDatePicker.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        blackViewOfDatePicker.frame = self.view.frame
+        
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .time
+        datePicker.locale = Locale(identifier: "ko_KR")
+        datePicker.minuteInterval = 5
+        
+        cancelButtonInDatePicker.setTitle("취소", for: .normal)
+        cancelButtonInDatePicker.setTitleColor(.black, for: .normal)
+        cancelButtonInDatePicker.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        
+        finishButtonInDatePicker.setTitle("확인", for: .normal)
+        finishButtonInDatePicker.setTitleColor(.black, for: .normal)
+        finishButtonInDatePicker.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        
+        datePickerBackgroundView.layer.cornerRadius = 20
+        datePickerBackgroundView.clipsToBounds = true
+
     }
     
     private func setAutoLayout(){
@@ -367,6 +429,12 @@ class TodoMainViewController : UIViewController{
             make.top.equalTo(topBarView.snp.bottom)
         }
         
+        grayBackgroundView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(200)
+            make.top.equalTo(tableView.snp.bottom)
+        }
+        
         //캘린더 뷰 설정
         calendarView.frame = CGRect(x: (self.view.fs_width - calendarView.fs_width)/2, y: dateLabel.frame.origin.y + 60, width: 330, height: 270)
         
@@ -391,6 +459,23 @@ class TodoMainViewController : UIViewController{
             make.left.equalTo(dayLabel.snp.right).offset(6)
         }
         
+        grayLineNextDateLabel.snp.makeConstraints { make in
+            make.left.equalTo(weekdayLabel.snp.right).offset(6)
+            make.right.equalToSuperview().offset(-21)
+            make.height.equalTo(1)
+            make.centerY.equalTo(dayLabel)
+        }
+        
+//        nothingExistingView.snp.makeConstraints { make in
+//            make.height.equalTo(43)
+//            make.width.equalTo(self.view.fs_width-42)
+//            make.centerX.equalToSuperview()
+//            make.top.equalTo(tableView.tableHeaderView!.snp.bottom).offset(15)
+//        }
+//
+//        nothingExistingLabel.snp.makeConstraints { make in
+//            make.centerX.centerY.equalToSuperview()
+//        }
 
     }
     
@@ -436,7 +521,7 @@ class TodoMainViewController : UIViewController{
             make.left.equalTo(clockImageView.snp.right).offset(6)
         }
         
-        timeButton.snp.makeConstraints { make in
+        timeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(clockImageView)
             make.left.equalTo(timeLiterallyLabel.snp.right).offset(6)
             make.width.equalTo(100)
@@ -474,9 +559,32 @@ class TodoMainViewController : UIViewController{
             make.left.equalToSuperview().offset(42)
             make.bottom.equalToSuperview().offset(-16)
         }
+    }
+    
+    private func setDatePickerViewAutoLayout(){
+        datePickerBackgroundView.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-28)
+            make.left.equalToSuperview().offset(28)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(260)
+        }
         
-       
-
+        finishButtonInDatePicker.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-24)
+            make.top.equalToSuperview().offset(23)
+        }
+        
+        cancelButtonInDatePicker.snp.makeConstraints { make in
+            make.right.equalTo(finishButtonInDatePicker.snp.left).offset(-32)
+            make.centerY.equalTo(finishButtonInDatePicker)
+        }
+        
+        datePicker.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-18)
+            make.left.equalToSuperview().offset(18)
+            make.top.equalTo(finishButtonInDatePicker.snp.bottom)
+            make.bottom.equalToSuperview().offset(-17)
+        }
     }
     
    
@@ -519,8 +627,7 @@ class TodoMainViewController : UIViewController{
     
     @objc private func handleBottomSheetBlackViewDismiss(){
         let description = descriptionTextView.text.replacingOccurrences(of: textviewPlaceholder, with: "")
-        print("description:\(description)/")
-        TodoAPIConstant.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, colorNum:nowColor, id: nowId) { (response) in
+        TodoAPIConstant.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, colorNum:nowColor, time: nowHour+nowMin,id: nowId) { (response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? TodoEditResponseData{
@@ -530,6 +637,7 @@ class TodoMainViewController : UIViewController{
                         self.todoArrayList[self.nowSection][self.nowRow].description = data.data.description
                         self.todoArrayList[self.nowSection][self.nowRow].color = data.data.color
                         self.todoArrayList[self.nowSection][self.nowRow].id = data.data.id
+                        self.todoArrayList[self.nowSection][self.nowRow].time = data.data.time
                         self.todoArrayList[self.nowColor-1].append(self.todoArrayList[self.nowSection][self.nowRow])
                         self.todoArrayList[self.nowSection].remove(at: self.nowRow)
                         self.setExistArray()
@@ -548,6 +656,20 @@ class TodoMainViewController : UIViewController{
 
         view.endEditing(true)
         
+    }
+    
+    @objc private func tapCancelButtonInDatePicker(){
+        blackViewOfDatePicker.removeFromSuperview()
+        datePickerBackgroundView.removeFromSuperview()
+    }
+    
+    @objc private func tapFinishButtonInDatePicker(){
+        nowHour = DateFormat.shared.getHour(date: datePicker.date)
+        nowMin = DateFormat.shared.getMinute(date: datePicker.date)
+        timeLabel.text =  "\(nowHour):\(nowMin)"
+        timeLabel.textColor = .black
+        blackViewOfDatePicker.removeFromSuperview()
+        datePickerBackgroundView.removeFromSuperview()
     }
 
     
@@ -573,10 +695,6 @@ class TodoMainViewController : UIViewController{
         }
         isCollectionViewShowing = !isCollectionViewShowing
 
-    }
-    
-    @objc private func showDatePicker(){
-        
     }
     
     private func todoSortByDone(section:Int){
@@ -625,14 +743,10 @@ class TodoMainViewController : UIViewController{
         })
     }
     
-    @objc private func tapTimeButton(){
-        datePickerBackgroundView.addSubview(datePicker)
+    @objc private func tapTimeLabel(){
+        self.view.addSubview(blackViewOfDatePicker)
         self.view.addSubview(datePickerBackgroundView)
-        
-        datePickerBackgroundView.snp.makeConstraints { make in
-            make.right.left.bottom.equalToSuperview()
-            make.height.equalTo(200)
-        }
+        setDatePickerViewAutoLayout()
     }
     
     private func setExistArray(){
@@ -642,6 +756,16 @@ class TodoMainViewController : UIViewController{
                 existingColorArray.append(i)
             }
         }
+    }
+    
+    private func setCircleButtonImage(){
+        redCircleButton.setImage(UIImage(named: "red-circle"), for: .normal)
+        yellowCircleButton.setImage(UIImage(named: "yellow-circle"), for: .normal)
+        greenCircleButton.setImage(UIImage(named: "green-circle"), for: .normal)
+        blueCircleButton.setImage(UIImage(named: "blue-circle"), for: .normal)
+        pinkCircleButton.setImage(UIImage(named: "pink-circle"), for: .normal)
+        purpleCircleButton.setImage(UIImage(named: "purple-circle"), for: .normal)
+
     }
     
     private func searchTodo(date:Date){
@@ -785,7 +909,6 @@ extension TodoMainViewController:UITableViewDataSource{
         self.view.addSubview(bottomSheetView)
         
         let todo:Todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
-        print("id: \(todo.id)")
         
         //bottom sheet 내부 컬러바 색상 설정
         colorBarViewInBottomsheet.backgroundColor = Color.shared.UIColorArray[todo.color-1]
@@ -807,23 +930,27 @@ extension TodoMainViewController:UITableViewDataSource{
         
         //설정된 시간이 있을 때, 없을 때 설정
         if todo.time == "0000"{
-            timeButton.setTitle("미지정", for: .normal)
-            timeButton.setTitleColor(UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1), for: .normal)
+            timeLabel.text = "미지정"
+            timeLabel.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
         }else{
-            if let time = Int(todoArrayList[indexPath.section][indexPath.row].time){
+            let time = todo.time
+            let hour = time.prefix(2)
+            let min = time.suffix(2)
+            if let time = Int(time){
                 if time >= 1200 {
-                    timeButton.setTitle("오후 \(todo.time)", for: .normal)
+                    timeLabel.text = "오후 \(hour):\(min)"
                 }else {
-                    timeButton.setTitle("오전 \(todo.time)", for: .normal)
+                    timeLabel.text = "오전 \(hour):\(min)"
                 }
             }
-            timeButton.setTitleColor(.black, for: .normal)
+            timeLabel.textColor = .black
         }
         nowId = todo.id
         nowSection = existingColorArray[indexPath.section]
         nowRow = indexPath.row
         nowColor = todo.color
         
+        setCircleButtonImage()
         switch(todo.color){
         case 1: redCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
         case 2: yellowCircleButton.setImage(Color.shared.getSeletedCircleImage(colorNum: todo.color), for: .normal)
@@ -846,6 +973,15 @@ extension TodoMainViewController:FSCalendarDelegate{
     }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         searchTodo(date: date)
+        let weekday = Calendar.current.component(.weekday, from: date)
+        if weekday == 1 || weekday == 7{
+            calendarView.appearance.titleSelectionColor = UIColor(red: 1, green: 0.338, blue: 0.338, alpha: 1)
+        }else{
+            calendarView.appearance.titleSelectionColor = .black
+        }
+        
+        dayLabel.text = DateFormat.shared.getDay(date: date)
+        weekdayLabel.text = DateFormat.shared.getWeekdayInKorean(date: date)
     }
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendarBackgroundView.fs_height = calendarBackgroundView.fs_height - (calendarView.fs_height - bounds.height)
@@ -855,10 +991,10 @@ extension TodoMainViewController:FSCalendarDelegate{
             self.tableView.reloadData()
         }
     }
-    
+        
+        
 }
 extension TodoMainViewController:FSCalendarDataSource{
-    
 }
 
 //collection view delegate, datasource
@@ -937,8 +1073,8 @@ extension TodoMainViewController:TodoTableViewCellDelegate{
     
     func editDone(section: Int, row: Int, todo: Todo) {
         todoArrayList[todo.color-1][row] = todo
-        todoSortById(section: section)
-        todoSortByDone(section: section)
+        todoSortById(section: todo.color-1)
+        todoSortByDone(section: todo.color-1)
         tableView.reloadData()
     }
 }

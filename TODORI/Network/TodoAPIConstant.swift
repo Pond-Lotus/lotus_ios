@@ -125,7 +125,7 @@ class TodoAPIConstant {
             }
     }
     
-    func editTodo(title:String, description:String,colorNum:Int, id:Int, completion:@escaping(AFResult<Any>)->Void){
+    func editTodo(title:String, description:String,colorNum:Int, time:String, id:Int, completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.todo + "\(id)/"
         
         let userDefault = UserDefaults.standard
@@ -135,9 +135,10 @@ class TodoAPIConstant {
                                     "Authorization": "Token \(token)"]
         
         let parameter:Parameters = [
-            "title":title,
-            "description":description,
-            "color" : colorNum
+            "title" : title,
+            "description": description,
+            "color" : colorNum,
+            "time" : time
         ]
         AF.request(url,
                    method: .put,
