@@ -11,6 +11,7 @@ import SnapKit
 protocol TodoTableViewCellDelegate:AnyObject{
     func sendTodoData(section:Int, row:Int, todo:Todo)
     func editDone(section:Int,row:Int,todo:Todo)
+    func writeNothing(section:Int, row:Int)
 }
 
 class TodoTableViewCell:UITableViewCell{
@@ -25,6 +26,7 @@ class TodoTableViewCell:UITableViewCell{
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "TodoCell")
         
+        titleTextField.delegate = self
         self.addComponent()
         self.setAutoLayout()
         self.setAppearence()
@@ -43,7 +45,7 @@ class TodoTableViewCell:UITableViewCell{
     }
     
     private func addTarget(){
-        titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEndOnExit)
+        titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEnd)
         checkbox.addTarget(self, action: #selector(tapCheckbox), for: .touchDown)
     }
     
@@ -105,27 +107,38 @@ class TodoTableViewCell:UITableViewCell{
     }
     
     @objc private func textFieldEndEdit(){
-        TodoAPIConstant.shared.writeTodo(year: todo.year, month: todo.month, day: todo.day, title: titleTextField.text ?? "", color: todo.color) { [self] (response) in
-            switch(response){
-            case .success(let resultData):
-                if let data = resultData as? TodoWriteResponseData{
-                    if data.resultCode == 200 {
-                        self.todo.isNew = false
-                        self.titleTextField.isEnabled = false
-                        self.todo.id = data.data.id
-                        self.todo.title = data.data.title
-                        self.todo.description = data.data.description
-                        self.todo.time = data.data.time
-                        self.todo.writer = data.data.writer
-                        self.delegate?.sendTodoData(section: section, row: row, todo: todo)
-                        self.reloadInputViews() //isnew = false로 변경하고 cell reload
+        guard let input = titleTextField.text?.replacing(" ", with: "") else {return}
+        if input.count == 0 {
+            delegate?.writeNothing(section: todo.color-1, row: row)
+        }else{
+            TodoAPIConstant.shared.writeTodo(year: todo.year, month: todo.month, day: todo.day, title: titleTextField.text ?? "", color: todo.color) { [self] (response) in
+                switch(response){
+                case .success(let resultData):
+                    if let data = resultData as? TodoWriteResponseData{
+                        if data.resultCode == 200 {
+                            self.todo.isNew = false
+                            self.titleTextField.isEnabled = false
+                            self.todo.id = data.data.id
+                            self.todo.title = data.data.title
+                            self.todo.description = data.data.description
+                            self.todo.time = data.data.time
+                            self.todo.writer = data.data.writer
+                            self.delegate?.sendTodoData(section: section, row: row, todo: todo)
+                            self.reloadInputViews() //isnew = false로 변경하고 cell reload
+                        }
                     }
+                case .failure(let message):
+                    print("failure", message)
                 }
-            case .failure(let message):
-                print("failure", message)
             }
         }
+
     }
 }
-
+extension TodoTableViewCell:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+}
 
