@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct ResponseData : Codable{
+struct ResponseData: Codable{
     let resultCode:Int
 }
 
-struct RegisterResponseData :Codable{
+struct RegisterResponseData: Codable{
     let account : Account
     let resultCode : Int
 }
-struct Account:Codable{
+struct Account: Codable{
     let nickname:String
     let email:String
 }
 
-struct LoginResponseData:Codable{
+struct LoginResponseData: Codable{
     let resultCode:Int
     let token:String?
     let nickname:String?
@@ -28,20 +28,20 @@ struct LoginResponseData:Codable{
     let image:String?
 }
 
-struct TodoWriteResponseData:Codable{
+struct TodoWriteResponseData: Codable{
     let resultCode:Int
     let data:TodoResonseData
 }
 
-struct TodoSearchResponseData:Codable{
+struct TodoSearchResponseData: Codable{
     let resultCode:Int
     let data:[TodoResonseData]
 }
 
-struct TodoResonseData:Codable{
-    let title:String
-    let year:Int
-    let month:Int
+struct TodoResonseData: Codable{
+    let title: String
+    let year: Int
+    let month: Int
     let day:Int
     let writer:String
     let done:Bool
@@ -50,12 +50,12 @@ struct TodoResonseData:Codable{
     let description:String
     let id:Int
 }
-struct TodoEditResponseData:Codable{
+struct TodoEditResponseData: Codable{
     let resultCode:Int
     let data : TodoEditResonseDataList
 }
 
-struct TodoEditResonseDataList:Codable{
+struct TodoEditResonseDataList: Codable{
     let title:String
     let year:Int
     let month:Int
@@ -67,35 +67,35 @@ struct TodoEditResonseDataList:Codable{
     let id:Int
 }
 
-struct EditImageAndNicknameResonseData:Codable{
+struct EditImageAndNicknameResonseData: Codable{
     let resultCode:Int
     let data : ImageAndNickname
 }
-struct ImageAndNickname:Codable{
+struct ImageAndNickname: Codable{
     let nickname:String
     let image:String
 }
 
-struct PriorityResponseData:Codable{
+struct PriorityResponseData: Codable{
     let resultCode:Int
     let data:Category
 }
 
-struct SearchColorArrayResponseData:Codable{
+struct SearchColorArrayResponseData: Codable{
     let resultCode:Int
     let data:[ColorNumberPair]
 }
 
-struct ColorNumberPair:Codable{
+struct ColorNumberPair: Codable{
     let num:[Int]
 }
     
-struct CategoryResponseData:Codable{
+struct CategoryResponseData: Codable{
     let resultCode:Int
     let data:Category
 }
 
-struct Category:Codable{
+struct Category: Codable{
     let _1:String
     let _2:String
     let _3:String

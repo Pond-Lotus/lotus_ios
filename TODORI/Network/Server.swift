@@ -8,7 +8,7 @@
 import Foundation
 
 struct Server{
-    static let serverURL:String = "https://plotustodo-ctzhc.run.goorm.io"
+    static let serverURL:String = "http://34.22.73.14:8000"
     static let getEmailCode:String = "/account/emailcode/"
     static let postEmailCode:String = "/account/emailcode/"
     static let register:String = "/account/register/"

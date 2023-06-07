@@ -40,7 +40,7 @@ class DateFormat{
     
     func getYearMonthDayAndWeekday(date:Date) -> String {
         dateFormatter.locale = Locale(identifier: "ko")
-        dateFormatter.dateFormat = "MM월 dd E요일"
+        dateFormatter.dateFormat = "MM월 dd일 E요일"
         let date = dateFormatter.string(from: date)
         return date
     }

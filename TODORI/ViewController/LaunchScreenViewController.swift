@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LaunchScreenViewController: UIViewController {
 
@@ -30,7 +31,7 @@ class LaunchScreenViewController: UIViewController {
         layer0.position = view.center
         view.layer.addSublayer(layer0)
         
-        let logo = UIImage(named: "logo-white")
+        let logo = UIImage(named: "logo-image-white")
         let logoView = UIImageView(image: logo)
         logoView.contentMode = .scaleAspectFit
         self.view.addSubview(logoView)
@@ -49,7 +50,5 @@ class LaunchScreenViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(37)
         }
-        
-        
     }
 }

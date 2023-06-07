@@ -13,8 +13,10 @@ class TodoAPIConstant {
     
     func searchTodo(year:String, month:String, day:String, completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.todo
-        let userDefault = UserDefaults.standard
-        guard let token = userDefault.string(forKey: "token") else {return}
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
         let parameter:Parameters = [
@@ -50,8 +52,10 @@ class TodoAPIConstant {
     func deleteTodo(id:Int, completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.todo + "\(id)/"
         
-        let userDefault = UserDefaults.standard
-        guard let token = userDefault.string(forKey: "token") else {return}
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
         
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
@@ -84,8 +88,10 @@ class TodoAPIConstant {
     func writeTodo(year:String, month:String, day:String, title:String, color:Int, completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.todo
         
-        let userDefault = UserDefaults.standard
-        guard let token = userDefault.string(forKey: "token") else {return}
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
         
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
@@ -128,8 +134,10 @@ class TodoAPIConstant {
     func editTodo(title:String, description:String,colorNum:Int, time:String, id:Int, completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.todo + "\(id)/"
         
-        let userDefault = UserDefaults.standard
-        guard let token = userDefault.string(forKey: "token") else {return}
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
         
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
@@ -171,8 +179,10 @@ class TodoAPIConstant {
     func getPriorityName(completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.category
         
-        let userDefault = UserDefaults.standard
-        guard let token = userDefault.string(forKey: "token") else {return}
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
         
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
@@ -206,8 +216,10 @@ class TodoAPIConstant {
     func editDoneTodo(done:Bool, id:Int, completion:@escaping(AFResult<Any>)->Void){
         let url = Server.serverURL + Server.todo + "\(id)/"
         
-        let userDefault = UserDefaults.standard
-        guard let token = userDefault.string(forKey: "token") else {return}
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
         
         let header : HTTPHeaders = ["Content-Type" : "application/json",
                                     "Authorization": "Token \(token)"]
