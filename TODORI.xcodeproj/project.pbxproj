@@ -7,42 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2299972A326B6300011E8F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2299962A326B6300011E8F /* Lottie */; };
+		3E2299992A326C7F00011E8F /* lottieFile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E2299982A326C7F00011E8F /* lottieFile.json */; };
 		3E4A2B3429F6731300BC27CD /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4A2B3329F6731300BC27CD /* DateFormat.swift */; };
 		3E697E3529EFBEF200E3ABBD /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3E697E3429EFBEF200E3ABBD /* FSCalendar */; };
 		3E697E3F29EFBF4200E3ABBD /* TodoAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */; };
-		3E697E4129EFBF4D00E3ABBD /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */; };
+		3E7B6E212A307F39002C9A46 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E1C2A307F38002C9A46 /* MainViewController.swift */; };
+		3E7B6E242A307F39002C9A46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E1F2A307F39002C9A46 /* ViewController.swift */; };
+		3E7B6E252A307F39002C9A46 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E202A307F39002C9A46 /* MyPageViewController.swift */; };
+		3E7B6E272A307F4A002C9A46 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E262A307F4A002C9A46 /* ChangePasswordViewController.swift */; };
+		3E7B6E332A307F58002C9A46 /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E282A307F57002C9A46 /* EnterEmailViewController.swift */; };
+		3E7B6E342A307F58002C9A46 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E292A307F57002C9A46 /* LaunchScreenViewController.swift */; };
+		3E7B6E352A307F58002C9A46 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E2A2A307F57002C9A46 /* LogInViewController.swift */; };
+		3E7B6E362A307F58002C9A46 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E2B2A307F57002C9A46 /* DeleteAccountViewController.swift */; };
+		3E7B6E372A307F58002C9A46 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E2C2A307F57002C9A46 /* EditProfileViewController.swift */; };
+		3E7B6E382A307F58002C9A46 /* EnterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E2D2A307F57002C9A46 /* EnterProfileViewController.swift */; };
+		3E7B6E392A307F58002C9A46 /* EditGroupSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E2E2A307F58002C9A46 /* EditGroupSettingViewController.swift */; };
+		3E7B6E3A2A307F58002C9A46 /* FinishSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E2F2A307F58002C9A46 /* FinishSignUpViewController.swift */; };
+		3E7B6E3B2A307F58002C9A46 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E302A307F58002C9A46 /* FindPasswordViewController.swift */; };
+		3E7B6E3C2A307F58002C9A46 /* GroupSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E312A307F58002C9A46 /* GroupSettingViewController.swift */; };
+		3E7B6E3D2A307F58002C9A46 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E322A307F58002C9A46 /* EnterCodeViewController.swift */; };
+		3E7B6E472A30812E002C9A46 /* ButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E422A30812E002C9A46 /* ButtonManager.swift */; };
+		3E7B6E492A30812E002C9A46 /* LogoutPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E442A30812E002C9A46 /* LogoutPopupView.swift */; };
+		3E7B6E4A2A30812E002C9A46 /* NavigationBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E452A30812E002C9A46 /* NavigationBarManager.swift */; };
+		3E7B6E4B2A30812E002C9A46 /* CustomPopupView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E462A30812E002C9A46 /* CustomPopupView2.swift */; };
+		3E7B6E4D2A308181002C9A46 /* CustomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */; };
+		3E7B6E542A30825D002C9A46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E522A30825D002C9A46 /* AppDelegate.swift */; };
+		3E7B6E552A30825D002C9A46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E532A30825D002C9A46 /* SceneDelegate.swift */; };
+		3E7B6E572A30828E002C9A46 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E562A30828E002C9A46 /* ResponseModel.swift */; };
+		3E7B6E5D2A30CF85002C9A46 /* ToDoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E582A30CF85002C9A46 /* ToDoService.swift */; };
+		3E7B6E5E2A30CF85002C9A46 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E592A30CF85002C9A46 /* APIConstant.swift */; };
+		3E7B6E5F2A30CF85002C9A46 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E5A2A30CF85002C9A46 /* AccountService.swift */; };
+		3E7B6E602A30CF85002C9A46 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E5B2A30CF85002C9A46 /* NetworkResult.swift */; };
+		3E7B6E612A30CF85002C9A46 /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E5C2A30CF85002C9A46 /* UserAPIConstant.swift */; };
 		3EC0AD3F29FF741C00D6F4D0 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD3E29FF741C00D6F4D0 /* Server.swift */; };
 		3EC0AD4229FF76F400D6F4D0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3EC0AD4129FF76F400D6F4D0 /* Alamofire */; };
-		3EC0AD4429FF771B00D6F4D0 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */; };
 		3EC3379C2A250A7D0005001B /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337932A250A7C0005001B /* Todo.swift */; };
 		3EC3379D2A250A7D0005001B /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337942A250A7D0005001B /* ResponseData.swift */; };
 		3EC3379E2A250A7D0005001B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337952A250A7D0005001B /* Color.swift */; };
-		3EC3379F2A250A7D0005001B /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337962A250A7D0005001B /* ResponseModel.swift */; };
 		3EC337A02A250A7D0005001B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337972A250A7D0005001B /* AccountModel.swift */; };
-		3EC337A52A250B460005001B /* ToDoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337A42A250B460005001B /* ToDoService.swift */; };
-		3EC337A72A250B540005001B /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337A62A250B540005001B /* AccountService.swift */; };
-		3EC337A92A250B740005001B /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337A82A250B740005001B /* APIConstant.swift */; };
-		3EC337AE2A250BFA0005001B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337AC2A250BFA0005001B /* AppDelegate.swift */; };
-		3EC337AF2A250BFA0005001B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337AD2A250BFA0005001B /* SceneDelegate.swift */; };
-		3EC337B42A250C7B0005001B /* CustomPopupView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337B12A250C7B0005001B /* CustomPopupView2.swift */; };
 		3EC337B52A250C7B0005001B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337B22A250C7B0005001B /* CustomTableViewCell.swift */; };
-		3EC337B62A250C7B0005001B /* LogoutPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337B32A250C7B0005001B /* LogoutPopupView.swift */; };
-		3EC337C72A250D040005001B /* EnterEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337B92A250D020005001B /* EnterEmailViewController.swift */; };
-		3EC337C82A250D040005001B /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337BA2A250D020005001B /* FindPasswordViewController.swift */; };
-		3EC337C92A250D040005001B /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337BB2A250D020005001B /* DeleteAccountViewController.swift */; };
-		3EC337CA2A250D040005001B /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337BC2A250D020005001B /* EditProfileViewController.swift */; };
-		3EC337CB2A250D040005001B /* EditGroupSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337BD2A250D020005001B /* EditGroupSettingViewController.swift */; };
-		3EC337CD2A250D040005001B /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337BF2A250D030005001B /* ChangePasswordViewController.swift */; };
-		3EC337CE2A250D040005001B /* GroupSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337C02A250D030005001B /* GroupSettingViewController.swift */; };
-		3EC337CF2A250D040005001B /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337C12A250D030005001B /* LaunchScreenViewController.swift */; };
-		3EC337D02A250D040005001B /* EnterProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337C22A250D030005001B /* EnterProfileViewController.swift */; };
-		3EC337D12A250D040005001B /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337C32A250D030005001B /* EnterCodeViewController.swift */; };
-		3EC337D32A250D040005001B /* FinishSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337C52A250D030005001B /* FinishSignUpViewController.swift */; };
-		3EC337D42A250D040005001B /* CustomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337C62A250D040005001B /* CustomPopupView.swift */; };
-		3EC337D62A250D0A0005001B /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337D52A250D0A0005001B /* LogInViewController.swift */; };
-		3EC337DC2A250D140005001B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337D72A250D130005001B /* MyPageViewController.swift */; };
-		3EC337DD2A250D140005001B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337D82A250D130005001B /* ViewController.swift */; };
-		3EC337E02A250D140005001B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337DB2A250D140005001B /* MainViewController.swift */; };
 		3EC337E52A250D220005001B /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E22A250D220005001B /* ColorCollectionViewCell.swift */; };
 		3EC337E62A250D220005001B /* TodoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E32A250D220005001B /* TodoMainViewController.swift */; };
 		3EC337E72A250D220005001B /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E42A250D220005001B /* TodoTableViewCell.swift */; };
@@ -57,40 +61,43 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2299982A326C7F00011E8F /* lottieFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieFile.json; sourceTree = "<group>"; };
 		3E4A2B3329F6731300BC27CD /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAPIConstant.swift; sourceTree = "<group>"; };
-		3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIConstant.swift; sourceTree = "<group>"; };
+		3E7B6E1C2A307F38002C9A46 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/MainViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E1F2A307F39002C9A46 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/ViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E202A307F39002C9A46 /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyPageViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/MyPageViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E262A307F4A002C9A46 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChangePasswordViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/ChangePasswordViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E282A307F57002C9A46 /* EnterEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnterEmailViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/EnterEmailViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E292A307F57002C9A46 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchScreenViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/LaunchScreenViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E2A2A307F57002C9A46 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogInViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/LogInViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E2B2A307F57002C9A46 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeleteAccountViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/DeleteAccountViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E2C2A307F57002C9A46 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/EditProfileViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E2D2A307F57002C9A46 /* EnterProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnterProfileViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/EnterProfileViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E2E2A307F58002C9A46 /* EditGroupSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditGroupSettingViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/EditGroupSettingViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E2F2A307F58002C9A46 /* FinishSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinishSignUpViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/FinishSignUpViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E302A307F58002C9A46 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FindPasswordViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/FindPasswordViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E312A307F58002C9A46 /* GroupSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupSettingViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/GroupSettingViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E322A307F58002C9A46 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnterCodeViewController.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/ViewController/EnterCodeViewController.swift"; sourceTree = "<group>"; };
+		3E7B6E422A30812E002C9A46 /* ButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonManager.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/View/ButtonManager.swift"; sourceTree = "<group>"; };
+		3E7B6E442A30812E002C9A46 /* LogoutPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogoutPopupView.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/View/LogoutPopupView.swift"; sourceTree = "<group>"; };
+		3E7B6E452A30812E002C9A46 /* NavigationBarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationBarManager.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/View/NavigationBarManager.swift"; sourceTree = "<group>"; };
+		3E7B6E462A30812E002C9A46 /* CustomPopupView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPopupView2.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/View/CustomPopupView2.swift"; sourceTree = "<group>"; };
+		3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupView.swift; sourceTree = "<group>"; };
+		3E7B6E522A30825D002C9A46 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Support/AppDelegate.swift"; sourceTree = "<group>"; };
+		3E7B6E532A30825D002C9A46 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Support/SceneDelegate.swift"; sourceTree = "<group>"; };
+		3E7B6E562A30828E002C9A46 /* ResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseModel.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Model/ResponseModel.swift"; sourceTree = "<group>"; };
+		3E7B6E582A30CF85002C9A46 /* ToDoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToDoService.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Network/ToDoService.swift"; sourceTree = "<group>"; };
+		3E7B6E592A30CF85002C9A46 /* APIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIConstant.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Network/APIConstant.swift"; sourceTree = "<group>"; };
+		3E7B6E5A2A30CF85002C9A46 /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountService.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Network/AccountService.swift"; sourceTree = "<group>"; };
+		3E7B6E5B2A30CF85002C9A46 /* NetworkResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkResult.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Network/NetworkResult.swift"; sourceTree = "<group>"; };
+		3E7B6E5C2A30CF85002C9A46 /* UserAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAPIConstant.swift; path = "../../../Downloads/lotus-ios-2-develop/TODORI/Network/UserAPIConstant.swift"; sourceTree = "<group>"; };
 		3EC0AD3E29FF741C00D6F4D0 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
-		3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		3EC337932A250A7C0005001B /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Todo.swift; path = "../../../lotus-ios-2/TODORI/Model/Todo.swift"; sourceTree = "<group>"; };
 		3EC337942A250A7D0005001B /* ResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseData.swift; path = "../../../lotus-ios-2/TODORI/Model/ResponseData.swift"; sourceTree = "<group>"; };
 		3EC337952A250A7D0005001B /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = "../../../lotus-ios-2/TODORI/Model/Color.swift"; sourceTree = "<group>"; };
-		3EC337962A250A7D0005001B /* ResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		3EC337972A250A7D0005001B /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
-		3EC337A42A250B460005001B /* ToDoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoService.swift; sourceTree = "<group>"; };
-		3EC337A62A250B540005001B /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
-		3EC337A82A250B740005001B /* APIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
-		3EC337AC2A250BFA0005001B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../../../lotus-ios-2/TODORI/Support/AppDelegate.swift"; sourceTree = "<group>"; };
-		3EC337AD2A250BFA0005001B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = "../../../lotus-ios-2/TODORI/Support/SceneDelegate.swift"; sourceTree = "<group>"; };
-		3EC337B12A250C7B0005001B /* CustomPopupView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupView2.swift; sourceTree = "<group>"; };
 		3EC337B22A250C7B0005001B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		3EC337B32A250C7B0005001B /* LogoutPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutPopupView.swift; sourceTree = "<group>"; };
-		3EC337B92A250D020005001B /* EnterEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterEmailViewController.swift; sourceTree = "<group>"; };
-		3EC337BA2A250D020005001B /* FindPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
-		3EC337BB2A250D020005001B /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
-		3EC337BC2A250D020005001B /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		3EC337BD2A250D020005001B /* EditGroupSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGroupSettingViewController.swift; sourceTree = "<group>"; };
-		3EC337BF2A250D030005001B /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
-		3EC337C02A250D030005001B /* GroupSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupSettingViewController.swift; sourceTree = "<group>"; };
-		3EC337C12A250D030005001B /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
-		3EC337C22A250D030005001B /* EnterProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterProfileViewController.swift; sourceTree = "<group>"; };
-		3EC337C32A250D030005001B /* EnterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterCodeViewController.swift; sourceTree = "<group>"; };
-		3EC337C52A250D030005001B /* FinishSignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishSignUpViewController.swift; sourceTree = "<group>"; };
-		3EC337C62A250D040005001B /* CustomPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupView.swift; sourceTree = "<group>"; };
-		3EC337D52A250D0A0005001B /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		3EC337D72A250D130005001B /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		3EC337D82A250D130005001B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3EC337DB2A250D140005001B /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3EC337E22A250D220005001B /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EC337E32A250D220005001B /* TodoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainViewController.swift; sourceTree = "<group>"; };
 		3EC337E42A250D220005001B /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -109,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E2299972A326B6300011E8F /* Lottie in Frameworks */,
 				3EC337F32A250E200005001B /* KeychainAccess in Frameworks */,
 				3EC0AD4229FF76F400D6F4D0 /* Alamofire in Frameworks */,
 				7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */,
@@ -122,10 +130,10 @@
 		3E697E3629EFBEFE00E3ABBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3E7B6E562A30828E002C9A46 /* ResponseModel.swift */,
 				3EC337972A250A7D0005001B /* AccountModel.swift */,
 				3EC337952A250A7D0005001B /* Color.swift */,
 				3EC337942A250A7D0005001B /* ResponseData.swift */,
-				3EC337962A250A7D0005001B /* ResponseModel.swift */,
 				3EC337932A250A7C0005001B /* Todo.swift */,
 				3E4A2B3329F6731300BC27CD /* DateFormat.swift */,
 			);
@@ -135,13 +143,13 @@
 		3E697E3D29EFBF2D00E3ABBD /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3EC337A82A250B740005001B /* APIConstant.swift */,
-				3EC337A62A250B540005001B /* AccountService.swift */,
-				3EC337A42A250B460005001B /* ToDoService.swift */,
-				3EC0AD4329FF771B00D6F4D0 /* NetworkResult.swift */,
+				3E7B6E5A2A30CF85002C9A46 /* AccountService.swift */,
+				3E7B6E592A30CF85002C9A46 /* APIConstant.swift */,
+				3E7B6E5B2A30CF85002C9A46 /* NetworkResult.swift */,
+				3E7B6E582A30CF85002C9A46 /* ToDoService.swift */,
+				3E7B6E5C2A30CF85002C9A46 /* UserAPIConstant.swift */,
 				3EC0AD3E29FF741C00D6F4D0 /* Server.swift */,
 				3E697E3E29EFBF4200E3ABBD /* TodoAPIConstant.swift */,
-				3E697E4029EFBF4D00E3ABBD /* UserAPIConstant.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -149,9 +157,12 @@
 		3EC337B02A250C710005001B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3EC337B12A250C7B0005001B /* CustomPopupView2.swift */,
+				3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */,
+				3E7B6E422A30812E002C9A46 /* ButtonManager.swift */,
+				3E7B6E462A30812E002C9A46 /* CustomPopupView2.swift */,
+				3E7B6E442A30812E002C9A46 /* LogoutPopupView.swift */,
+				3E7B6E452A30812E002C9A46 /* NavigationBarManager.swift */,
 				3EC337B22A250C7B0005001B /* CustomTableViewCell.swift */,
-				3EC337B32A250C7B0005001B /* LogoutPopupView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,23 +170,22 @@
 		3EC337B82A250CE00005001B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				3E7B6E2B2A307F57002C9A46 /* DeleteAccountViewController.swift */,
+				3E7B6E2E2A307F58002C9A46 /* EditGroupSettingViewController.swift */,
+				3E7B6E2C2A307F57002C9A46 /* EditProfileViewController.swift */,
+				3E7B6E322A307F58002C9A46 /* EnterCodeViewController.swift */,
+				3E7B6E282A307F57002C9A46 /* EnterEmailViewController.swift */,
+				3E7B6E2D2A307F57002C9A46 /* EnterProfileViewController.swift */,
+				3E7B6E302A307F58002C9A46 /* FindPasswordViewController.swift */,
+				3E7B6E2F2A307F58002C9A46 /* FinishSignUpViewController.swift */,
+				3E7B6E312A307F58002C9A46 /* GroupSettingViewController.swift */,
+				3E7B6E292A307F57002C9A46 /* LaunchScreenViewController.swift */,
+				3E7B6E2A2A307F57002C9A46 /* LogInViewController.swift */,
+				3E7B6E262A307F4A002C9A46 /* ChangePasswordViewController.swift */,
+				3E7B6E1C2A307F38002C9A46 /* MainViewController.swift */,
+				3E7B6E202A307F39002C9A46 /* MyPageViewController.swift */,
+				3E7B6E1F2A307F39002C9A46 /* ViewController.swift */,
 				3EC337E12A250D170005001B /* Main */,
-				3EC337DB2A250D140005001B /* MainViewController.swift */,
-				3EC337D72A250D130005001B /* MyPageViewController.swift */,
-				3EC337D82A250D130005001B /* ViewController.swift */,
-				3EC337D52A250D0A0005001B /* LogInViewController.swift */,
-				3EC337BF2A250D030005001B /* ChangePasswordViewController.swift */,
-				3EC337C62A250D040005001B /* CustomPopupView.swift */,
-				3EC337BB2A250D020005001B /* DeleteAccountViewController.swift */,
-				3EC337BD2A250D020005001B /* EditGroupSettingViewController.swift */,
-				3EC337BC2A250D020005001B /* EditProfileViewController.swift */,
-				3EC337C32A250D030005001B /* EnterCodeViewController.swift */,
-				3EC337B92A250D020005001B /* EnterEmailViewController.swift */,
-				3EC337C22A250D030005001B /* EnterProfileViewController.swift */,
-				3EC337BA2A250D020005001B /* FindPasswordViewController.swift */,
-				3EC337C52A250D030005001B /* FinishSignUpViewController.swift */,
-				3EC337C02A250D030005001B /* GroupSettingViewController.swift */,
-				3EC337C12A250D030005001B /* LaunchScreenViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -193,6 +203,7 @@
 		3EC337E82A250D4A0005001B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				3E2299982A326C7F00011E8F /* lottieFile.json */,
 				3EC337E92A250D560005001B /* LeftToRightTransition.swift */,
 				3EC337EB2A250D560005001B /* TokenManager.swift */,
 				3EC337EC2A250D560005001B /* UIButton+ColorAnimation.swift */,
@@ -244,8 +255,8 @@
 		7E0ED2DC29EE8AE10097DDEF /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				3EC337AC2A250BFA0005001B /* AppDelegate.swift */,
-				3EC337AD2A250BFA0005001B /* SceneDelegate.swift */,
+				3E7B6E522A30825D002C9A46 /* AppDelegate.swift */,
+				3E7B6E532A30825D002C9A46 /* SceneDelegate.swift */,
 				7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */,
 			);
 			path = Support;
@@ -279,6 +290,7 @@
 				3E697E3429EFBEF200E3ABBD /* FSCalendar */,
 				3EC0AD4129FF76F400D6F4D0 /* Alamofire */,
 				3EC337F22A250E200005001B /* KeychainAccess */,
+				3E2299962A326B6300011E8F /* Lottie */,
 			);
 			productName = TODORI;
 			productReference = 7E0ED2BE29EE87FF0097DDEF /* TODORI.app */;
@@ -313,6 +325,7 @@
 				3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				3EC0AD4029FF76F400D6F4D0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3EC337F12A250E200005001B /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				3E2299952A326B6300011E8F /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -328,6 +341,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E2299992A326C7F00011E8F /* lottieFile.json in Resources */,
 				7E0ED2CB29EE87FF0097DDEF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,48 +353,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EC337CA2A250D040005001B /* EditProfileViewController.swift in Sources */,
+				3E7B6E602A30CF85002C9A46 /* NetworkResult.swift in Sources */,
+				3E7B6E242A307F39002C9A46 /* ViewController.swift in Sources */,
 				3EC337F02A250D560005001B /* UIButton+ColorAnimation.swift in Sources */,
-				3E697E4129EFBF4D00E3ABBD /* UserAPIConstant.swift in Sources */,
-				3EC337D62A250D0A0005001B /* LogInViewController.swift in Sources */,
-				3EC337CE2A250D040005001B /* GroupSettingViewController.swift in Sources */,
+				3E7B6E352A307F58002C9A46 /* LogInViewController.swift in Sources */,
 				3EC3379E2A250A7D0005001B /* Color.swift in Sources */,
-				3EC337E02A250D140005001B /* MainViewController.swift in Sources */,
-				3EC337C72A250D040005001B /* EnterEmailViewController.swift in Sources */,
+				3E7B6E342A307F58002C9A46 /* LaunchScreenViewController.swift in Sources */,
 				3EC337ED2A250D560005001B /* LeftToRightTransition.swift in Sources */,
+				3E7B6E552A30825D002C9A46 /* SceneDelegate.swift in Sources */,
 				3E4A2B3429F6731300BC27CD /* DateFormat.swift in Sources */,
-				3EC337AE2A250BFA0005001B /* AppDelegate.swift in Sources */,
-				3EC337CF2A250D040005001B /* LaunchScreenViewController.swift in Sources */,
-				3EC337A72A250B540005001B /* AccountService.swift in Sources */,
+				3E7B6E4B2A30812E002C9A46 /* CustomPopupView2.swift in Sources */,
+				3E7B6E4A2A30812E002C9A46 /* NavigationBarManager.swift in Sources */,
+				3E7B6E272A307F4A002C9A46 /* ChangePasswordViewController.swift in Sources */,
+				3E7B6E382A307F58002C9A46 /* EnterProfileViewController.swift in Sources */,
 				3EC337F62A2513270005001B /* Extensions.swift in Sources */,
 				3EC337EE2A250D560005001B /* UserSession.swift in Sources */,
-				3EC337B62A250C7B0005001B /* LogoutPopupView.swift in Sources */,
-				3EC337CB2A250D040005001B /* EditGroupSettingViewController.swift in Sources */,
 				3EC3379D2A250A7D0005001B /* ResponseData.swift in Sources */,
-				3EC337C92A250D040005001B /* DeleteAccountViewController.swift in Sources */,
-				3EC337A92A250B740005001B /* APIConstant.swift in Sources */,
-				3EC337D32A250D040005001B /* FinishSignUpViewController.swift in Sources */,
-				3EC337D12A250D040005001B /* EnterCodeViewController.swift in Sources */,
-				3EC337AF2A250BFA0005001B /* SceneDelegate.swift in Sources */,
+				3E7B6E3C2A307F58002C9A46 /* GroupSettingViewController.swift in Sources */,
+				3E7B6E362A307F58002C9A46 /* DeleteAccountViewController.swift in Sources */,
+				3E7B6E332A307F58002C9A46 /* EnterEmailViewController.swift in Sources */,
+				3E7B6E612A30CF85002C9A46 /* UserAPIConstant.swift in Sources */,
+				3E7B6E392A307F58002C9A46 /* EditGroupSettingViewController.swift in Sources */,
+				3E7B6E472A30812E002C9A46 /* ButtonManager.swift in Sources */,
 				3EC3379C2A250A7D0005001B /* Todo.swift in Sources */,
 				3EC337B52A250C7B0005001B /* CustomTableViewCell.swift in Sources */,
-				3EC0AD4429FF771B00D6F4D0 /* NetworkResult.swift in Sources */,
+				3E7B6E252A307F39002C9A46 /* MyPageViewController.swift in Sources */,
 				3EC337E62A250D220005001B /* TodoMainViewController.swift in Sources */,
+				3E7B6E572A30828E002C9A46 /* ResponseModel.swift in Sources */,
+				3E7B6E3D2A307F58002C9A46 /* EnterCodeViewController.swift in Sources */,
 				3EC0AD3F29FF741C00D6F4D0 /* Server.swift in Sources */,
-				3EC337CD2A250D040005001B /* ChangePasswordViewController.swift in Sources */,
+				3E7B6E5D2A30CF85002C9A46 /* ToDoService.swift in Sources */,
 				3EC337E52A250D220005001B /* ColorCollectionViewCell.swift in Sources */,
-				3EC337DD2A250D140005001B /* ViewController.swift in Sources */,
+				3E7B6E372A307F58002C9A46 /* EditProfileViewController.swift in Sources */,
+				3E7B6E542A30825D002C9A46 /* AppDelegate.swift in Sources */,
+				3E7B6E5E2A30CF85002C9A46 /* APIConstant.swift in Sources */,
 				3E697E3F29EFBF4200E3ABBD /* TodoAPIConstant.swift in Sources */,
 				3EC337EF2A250D560005001B /* TokenManager.swift in Sources */,
 				3EC337A02A250A7D0005001B /* AccountModel.swift in Sources */,
+				3E7B6E492A30812E002C9A46 /* LogoutPopupView.swift in Sources */,
+				3E7B6E3A2A307F58002C9A46 /* FinishSignUpViewController.swift in Sources */,
+				3E7B6E4D2A308181002C9A46 /* CustomPopupView.swift in Sources */,
 				3EC337E72A250D220005001B /* TodoTableViewCell.swift in Sources */,
-				3EC337DC2A250D140005001B /* MyPageViewController.swift in Sources */,
-				3EC337D42A250D040005001B /* CustomPopupView.swift in Sources */,
-				3EC337C82A250D040005001B /* FindPasswordViewController.swift in Sources */,
-				3EC337B42A250C7B0005001B /* CustomPopupView2.swift in Sources */,
-				3EC337A52A250B460005001B /* ToDoService.swift in Sources */,
-				3EC337D02A250D040005001B /* EnterProfileViewController.swift in Sources */,
-				3EC3379F2A250A7D0005001B /* ResponseModel.swift in Sources */,
+				3E7B6E5F2A30CF85002C9A46 /* AccountService.swift in Sources */,
+				3E7B6E212A307F39002C9A46 /* MainViewController.swift in Sources */,
+				3E7B6E3B2A307F58002C9A46 /* FindPasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +595,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E2299952A326B6300011E8F /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
@@ -614,6 +638,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E2299962A326B6300011E8F /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E2299952A326B6300011E8F /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		3E697E3429EFBEF200E3ABBD /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */;

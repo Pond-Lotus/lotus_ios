@@ -14,6 +14,8 @@ class MyPageViewController: UIViewController {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 41/2
         return imageView
     }()
     

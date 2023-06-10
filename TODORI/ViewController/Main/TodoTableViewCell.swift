@@ -10,7 +10,7 @@ import SnapKit
 
 class TodoTableViewCell:UITableViewCell {
     
-    var checkbox:UIButton = UIButton()
+    var checkbox:UIImageView = UIImageView()
     var titleTextField:UITextField = UITextField()
     var cellBackgroundView:UIView = UIView()
     var todo:Todo = .init(year: "", month: "", day: "", title: "", done: false, isNew: false, writer: "", color: 0, id: 0, time: "0000", description: "")
@@ -41,7 +41,9 @@ class TodoTableViewCell:UITableViewCell {
     
     private func addTarget(){
         titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEnd)
-        checkbox.addTarget(self, action: #selector(tapCheckbox), for: .touchDown)
+        checkbox.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCheckbox)))
+        checkbox.isUserInteractionEnabled = true
+
     }
     
     private func setAutoLayout(){
@@ -49,13 +51,13 @@ class TodoTableViewCell:UITableViewCell {
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
             make.centerY.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(3)
-            make.bottom.equalToSuperview().inset(3)
+            make.top.equalToSuperview().offset(4)
+            make.bottom.equalToSuperview().inset(4)
         }
         checkbox.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(12)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(16)
+            make.width.height.equalTo(20)
         }
 
         titleTextField.snp.makeConstraints { make in
@@ -70,8 +72,8 @@ class TodoTableViewCell:UITableViewCell {
         cellBackgroundView.clipsToBounds = true
         self.backgroundColor = .clear
         
-        titleTextField.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        checkbox.setImage(UIImage(named: "checkbox"), for: .normal)
+        titleTextField.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        checkbox.image = UIImage(named: "checkbox")
         
     }
     
@@ -92,7 +94,7 @@ class TodoTableViewCell:UITableViewCell {
                     print(data.resultCode)
                     if data.resultCode == 200 {
                         self.todo.done = data.data.done
-                        self.checkbox.setImage(self.todo.done ? Color.shared.getCheckBoxImage(colorNum: self.todo.color):UIImage(named: "checkbox"), for: .normal)
+                        self.checkbox.image = self.todo.done ? Color.shared.getCheckBoxImage(colorNum: self.todo.color):UIImage(named: "checkbox")
                         self.delegate?.editDone(section: self.section, row: self.row, todo: self.todo)
                     }
                 }

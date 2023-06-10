@@ -54,7 +54,8 @@ class TodoMainViewController : UIViewController {
     var datePickerBackgroundViewHeightConstraint: ConstraintMakerEditable?
     var descriptionTextViewHeightConstraint: ConstraintMakerEditable?
     var bottomSheetHeight: CGFloat = 0
-    var blackViewOfFloatingButton: UIView = UIView()
+    var clearViewOfFloatingButton: UIView = UIView()
+    var clearViewForWritingTodo: UIView = UIView()
     var redCircleButton: UIButton = {
         var button: UIButton = UIButton()
         button.tag = 1
@@ -156,9 +157,6 @@ class TodoMainViewController : UIViewController {
         searchTodo(date: calendarView.selectedDate!) //투두 조회
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        getPriorityName()
-    }
     
     private func addFunctionToComponent(){
         let tapTableViewGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -168,7 +166,8 @@ class TodoMainViewController : UIViewController {
         floatingButton.isUserInteractionEnabled = true
         floatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapFloatingButton)))
         blackViewOfBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBottomSheetBlackViewDismiss)))
-        blackViewOfFloatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFloatingButtonBlackViewDismiss)))
+        clearViewForWritingTodo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWritingTodoClearViewDissmiss)))
+        clearViewOfFloatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFloatingButtonClearViewDismiss)))
         dimmingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:))))
         dimmingView.isUserInteractionEnabled = true
         hambuergerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
@@ -183,6 +182,7 @@ class TodoMainViewController : UIViewController {
         finishButtonInDatePicker.addTarget(self, action: #selector(tapFinishButtonInDatePicker), for: .touchDown)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)),name: UIResponder.keyboardWillShowNotification, object: nil)
         deleteButtonInDatePicker.addTarget(self, action: #selector(tapDeleteButton), for: .touchDown)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveEndEditGroupName), name: NSNotification.Name("EndEditGroupName"), object: nil)
     }
     
     private func addComponent(){
@@ -275,7 +275,7 @@ class TodoMainViewController : UIViewController {
         calendarView.calendarWeekdayView.weekdayLabels[6].textColor = .red
         calendarView.locale = Locale(identifier: "ko_KR")
         calendarView.fs_width = self.view.fs_width * 0.9
-        calendarView.frame = CGRect(x: (self.view.fs_width - calendarView.fs_width)/2, y: dateLabel.frame.origin.y + 60, width: self.view.fs_width*0.9, height: calendarView.fs_width*0.8)
+        calendarView.frame = CGRect(x: (self.view.fs_width - calendarView.fs_width)/2, y: dateLabel.frame.origin.y + 55, width: self.view.fs_width*0.9, height: calendarView.fs_width*0.8)
 
         
         //캘린더 백그라운드 뷰 외형 설정
@@ -419,9 +419,9 @@ class TodoMainViewController : UIViewController {
         grayFooterView.fs_width = self.view.fs_width
         grayFooterView.fs_height = self.view.fs_height*0.3
         
-        blackViewOfFloatingButton.backgroundColor = UIColor(white: 0, alpha: 0)
-        blackViewOfFloatingButton.frame = self.view.frame
+        clearViewOfFloatingButton.backgroundColor = .clear
         
+        clearViewForWritingTodo.backgroundColor = .clear
     }
     
     private func setAutoLayout(){
@@ -658,6 +658,11 @@ class TodoMainViewController : UIViewController {
         dateLabelInBottomSheet.textColor = Color.shared.getColor(colorNum: nowColor)
     }
     
+    @objc private func handleWritingTodoClearViewDissmiss(){
+        tableView.endEditing(true)
+        clearViewForWritingTodo.removeFromSuperview()
+    }
+    
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -723,14 +728,14 @@ class TodoMainViewController : UIViewController {
         
     }
     
-    @objc private func handleFloatingButtonBlackViewDismiss(){
+    @objc private func handleFloatingButtonClearViewDismiss(){
         self.floatingButton.image = UIImage(named: "floating-button")
         UIView.animate(withDuration: 0.5, animations: {
             self.collectionView.frame.origin.y = self.floatingButton.frame.origin.y - 10 - self.collectionView.fs_height + 20
             self.collectionView.alpha = 0
         }, completion: { finished in
             self.collectionView.removeFromSuperview()
-            self.blackViewOfFloatingButton.removeFromSuperview()
+            self.clearViewOfFloatingButton.removeFromSuperview()
         })
         isCollectionViewShowing = !isCollectionViewShowing
     }
@@ -769,16 +774,20 @@ class TodoMainViewController : UIViewController {
                 self.collectionView.alpha = 0
             }, completion: { finished in
                 self.collectionView.removeFromSuperview()
-                self.blackViewOfFloatingButton.removeFromSuperview()
+                self.clearViewOfFloatingButton.removeFromSuperview()
             })
         }else {
             //컬렉션 뷰 추가
-            self.tableView.addSubview(blackViewOfFloatingButton)
+            self.tableView.addSubview(clearViewOfFloatingButton)
             self.tableView.addSubview(collectionView)
             self.tableView.bringSubviewToFront(floatingButton)
             //컬렉션 뷰 위치 지정
             collectionView.frame.origin.x = floatingButton.frame.origin.x - (collectionView.fs_width-floatingButton.fs_width)
             collectionView.frame.origin.y = floatingButton.frame.origin.y - 10 - collectionView.fs_height + 15
+            
+            clearViewOfFloatingButton.snp.makeConstraints { make in
+                make.left.right.top.bottom.equalTo(self.view)
+            }
 
             collectionView.alpha = 0
             self.floatingButton.image = UIImage(named: "floating-button-touched")
@@ -830,6 +839,9 @@ class TodoMainViewController : UIViewController {
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        if isCollectionViewShowing{
+            tapFloatingButton()
+        }
         tableView.endEditing(true)
     }
     
@@ -904,6 +916,11 @@ class TodoMainViewController : UIViewController {
         titleTextFieldInBottomSheet.becomeFirstResponder()
     }
     
+    @objc private func didRecieveEndEditGroupName(){
+        getPriorityName()
+        tableView.reloadData()
+    }
+    
     private func searchTodo(date:Date) {
         let dateArr = DateFormat.shared.getYearMonthDay(date: date)
         TodoAPIConstant.shared.searchTodo(year: dateArr[0], month: dateArr[1], day: dateArr[2]) {(response) in
@@ -964,7 +981,7 @@ extension TodoMainViewController:UITableViewDelegate{
         colorRoundView.backgroundColor = Color.shared.UIColorArray[existingColorArray[section]]
         
         titleLabel.text = titleOfSectionArray[existingColorArray[section]]
-        titleLabel.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         titleLabel.textColor = .black
         return view
     }
@@ -1017,13 +1034,13 @@ extension TodoMainViewController:UITableViewDataSource{
         cell.section = indexPath.section
         cell.row = indexPath.row
         cell.delegate = self
-        cell.checkbox.setImage(todo.done ? Color.shared.getCheckBoxImage(colorNum: todo.color):UIImage(named: "checkbox"), for: .normal)
+        cell.checkbox.image = todo.done ? Color.shared.getCheckBoxImage(colorNum: todo.color):UIImage(named: "checkbox")
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        49
+        54
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1194,6 +1211,13 @@ extension TodoMainViewController:UICollectionViewDelegate{
         todoArrayList[indexPath.row].insert(Todo(year: date[0] , month: date[1], day: date[2], title: "", done: false, isNew: true, writer: "", color: indexPath.row + 1, id: 0, time: "0000", description: ""), at: index)
         setExistArray()
         tableView.reloadData()
+        
+        //todo 작성 시에 뒤에 깔리는 투명한 뷰. 작성 도중에 셀이 눌리지 않고 다른 투두 완료가 불가하도록 만듦
+        tableView.addSubview(clearViewForWritingTodo)
+        clearViewForWritingTodo.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalTo(self.view)
+        }
+        
         tapFloatingButton()
     }
 }
