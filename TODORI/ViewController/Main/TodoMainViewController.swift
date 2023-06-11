@@ -182,7 +182,7 @@ class TodoMainViewController : UIViewController {
         finishButtonInDatePicker.addTarget(self, action: #selector(tapFinishButtonInDatePicker), for: .touchDown)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow(_:)),name: UIResponder.keyboardWillShowNotification, object: nil)
         deleteButtonInDatePicker.addTarget(self, action: #selector(tapDeleteButton), for: .touchDown)
-        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveEndEditGroupName), name: NSNotification.Name("EndEditGroupName"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRecieveEndEditGroupName), name: NSNotification.Name("endEditGroupName"), object: nil)
     }
     
     private func addComponent(){
@@ -917,6 +917,7 @@ class TodoMainViewController : UIViewController {
     }
     
     @objc private func didRecieveEndEditGroupName(){
+        
         getPriorityName()
         tableView.reloadData()
     }

@@ -8,9 +8,6 @@
 import UIKit
 
 class GroupSettingViewController: UIViewController {
-    
-    private var separatorView: UIView?
-    
     var firstGroupName: String?
     var secondGroupName: String?
     var thirdGroupName: String?
@@ -20,12 +17,8 @@ class GroupSettingViewController: UIViewController {
     
     private func createStackView(image: String, text: String, tag: Int) -> UIStackView {
         let stackView = UIStackView()
-//        stackView.tag = tag
+
         stackView.axis = .horizontal
-        //        stackView.spacing = 10
-        //        stackView.distribution = .equalSpacing
-        
-//        view.addSubview(stackView)
         stackView.snp.makeConstraints() { make in
             make.width.equalTo(500)
             make.height.equalTo(60)
@@ -42,6 +35,7 @@ class GroupSettingViewController: UIViewController {
         
         let label = UILabel()
         label.text = text
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         
         let button = UIButton()
         button.setImage(UIImage(named: "edit-group")?.resize(to: CGSize(width: 19, height: 19)), for: .normal)
@@ -79,48 +73,32 @@ class GroupSettingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        separatorView = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1))
-        separatorView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-        navigationController?.navigationBar.addSubview(separatorView!)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        separatorView?.removeFromSuperview()
-        separatorView = nil
+        NavigationBarManager.shared.removeSeparatorView()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
     }
     
     private func setupUI() {
-        
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black]
-        let title = "그룹 설정"
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = title
-        
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction:  #selector(backButtonTapped), title: "그룹 설정")
         
         //        let stackView1 = UIStackView(arrangedSubviews: [changePasswordButton, notificationButton, changeThemeButton])
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
         
         if let first = firstGroupName, let second = secondGroupName, let third = thirdGroupName, let fourth = fourthGroupName, let fifth = fifthGroupName, let sixth = sixthGroupName {
-            let firstStackView = createStackView(image: "redCircle", text: first, tag: 1)
-            let secondStackView = createStackView(image: "yellowCircle", text: second, tag: 2)
-            let thirdStackView = createStackView(image: "greenCircle", text: third, tag: 3)
-            let fourthStackView = createStackView(image: "blueCircle", text: fourth, tag: 4)
-            let fifthStackView = createStackView(image: "pinkCircle", text: fifth, tag: 5)
-            let sixthStackView = createStackView(image: "purpleCircle", text: sixth, tag: 6)
+            let firstStackView = createStackView(image: "red-circle", text: first, tag: 1)
+            let secondStackView = createStackView(image: "yellow-circle", text: second, tag: 2)
+            let thirdStackView = createStackView(image: "green-circle", text: third, tag: 3)
+            let fourthStackView = createStackView(image: "blue-circle", text: fourth, tag: 4)
+            let fifthStackView = createStackView(image: "pink-circle", text: fifth, tag: 5)
+            let sixthStackView = createStackView(image: "purple-circle", text: sixth, tag: 6)
             
             for _ in 1...6 { underlineViews.append(createUnderlineView()) }
             underlineViews.forEach { view.addSubview($0) }
@@ -137,11 +115,10 @@ class GroupSettingViewController: UIViewController {
             mainStackView.addArrangedSubview(underlineViews[4])
             mainStackView.addArrangedSubview(sixthStackView)
             mainStackView.addArrangedSubview(underlineViews[5])
-    
+            
             view.addSubview(mainStackView)
             mainStackView.snp.makeConstraints { make in
-                //            make.top.equalTo(self.navigationController!.navigationBar.snp.bottom).offset(0)
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(7)
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(14)
                 make.leading.equalToSuperview().offset(28)
                 make.trailing.equalToSuperview().offset(-28)
             }
@@ -154,9 +131,9 @@ class GroupSettingViewController: UIViewController {
             }
         }
     }
-        
+    
     @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func groupTapped(_ sender: UIButton) {
@@ -165,12 +142,12 @@ class GroupSettingViewController: UIViewController {
             let color = components[0]
             let label = components[1]
             let index = components[2]
-    
+            
             let editGroupSettingVC = EditGroupSettingViewController()
             editGroupSettingVC.color = color
             editGroupSettingVC.label = label
             editGroupSettingVC.index = index
-    
+            
             editGroupSettingVC.firstGroupName = self.firstGroupName
             editGroupSettingVC.secondGroupName = self.secondGroupName
             editGroupSettingVC.thirdGroupName = self.thirdGroupName
@@ -195,37 +172,5 @@ class GroupSettingViewController: UIViewController {
 }
 
 extension GroupSettingViewController {
-//    func findPassword(email: String) {
-//        UserService.shared.findPassword(email: email) {
-//            response in
-//            switch response {
-//            case .success(let data):
-//                if let json = data as? [String: Any],
-//                   let resultCode = json["resultCode"] as? Int {
-//                    if resultCode == 200 {
-//                        print("이백")
-//                        self.errorLabel.isHidden = true
-////                        let viewControllerToPresent = EnterCodeViewController() // 이동할 뷰 컨트롤러 인스턴스 생성
-////                        viewControllerToPresent.modalPresentationStyle = .fullScreen // 화면 전체를 차지하도록 설정
-////                        viewControllerToPresent.modalTransitionStyle = .coverVertical // coverHorizontal 스타일 적용
-////                        self.present(viewControllerToPresent, animated: true, completion: nil) // 뷰 컨트롤러 이동
-//                    } else if resultCode == 500 {
-//                        print("오백")
-//                        self.errorLabel.isHidden = false
-//                    }
-//
-//                }
-//            case .requestErr(let err):
-//                print(err)
-//            case .pathErr:
-//                print("pathErr")
-//            case .serverErr:
-//                print("serverErr")
-//            case .networkFail:
-//                print("networkFail")
-//            case .decodeErr:
-//                print("decodeErr")
-//            }
-//        }
-//    }
+    
 }

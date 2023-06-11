@@ -18,7 +18,7 @@ class EnterCodeViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -56,7 +56,7 @@ class EnterCodeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
-
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
         label.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -71,7 +71,7 @@ class EnterCodeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
-
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
         label.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -86,7 +86,7 @@ class EnterCodeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
-
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
         label.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -101,7 +101,7 @@ class EnterCodeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
-
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
         label.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -116,7 +116,7 @@ class EnterCodeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
-
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
         label.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -131,7 +131,7 @@ class EnterCodeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
-
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
         label.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -144,7 +144,7 @@ class EnterCodeViewController: UIViewController {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .equalSpacing
-//        stack.spacing = 1
+        //        stack.spacing = 1
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -161,12 +161,9 @@ class EnterCodeViewController: UIViewController {
     }()
     
     private let nextButton: UIButton = {
-        let button = UIButton(type: .custom)
-        let image = UIImage(named: "next-button")?.resize(to: CGSize(width: 43, height: 43))
-        button.setImage(image, for: .normal)
-        return button
+        return ButtonManager.shared.getNextButton()
     }()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -187,19 +184,17 @@ class EnterCodeViewController: UIViewController {
             label.addGestureRecognizer(tapGesture)
         }
         
-//        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        //        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
     }
     
     private func setupUI() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "", showSeparator: false)
         
         view.addSubview(numberLabel)
         view.addSubview(titleLabel)
@@ -216,50 +211,53 @@ class EnterCodeViewController: UIViewController {
         view.addSubview(nextButton)
         
         numberLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.15)
-            make.leading.equalToSuperview().offset(25)
+            if let navigationBarHeight = navigationController?.navigationBar.frame.height {
+                make.top.equalToSuperview().offset(navigationBarHeight + 40)
+            }
+//            make.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.15)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(numberLabel.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
         
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(40)
-            make.leading.equalToSuperview().offset(25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
         
         codeTextField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(-100)
-            make.leading.equalToSuperview().offset(25)
-            make.trailing.equalToSuperview().offset(-25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.width * 0.06)
         }
         
         stackView.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(25)
-            make.trailing.equalToSuperview().offset(-25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.width * 0.06)
         }
         
         errorLabel.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(15)
-            make.leading.equalToSuperview().offset(25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-24)
-            make.trailing.equalToSuperview().offset(-21)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.width * 0.04)
+            make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height * 0.02)
         }
     }
     
     @objc func labelTapped() {
-            codeTextField.becomeFirstResponder()
-        }
+        codeTextField.becomeFirstResponder()
+    }
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-//        dismiss(animated: true, completion: nil) // 이전 뷰 컨트롤러로 이동
+        //        dismiss(animated: true, completion: nil) // 이전 뷰 컨트롤러로 이동
     }
     
     @objc func nextButtonTapped() {
@@ -274,28 +272,22 @@ class EnterCodeViewController: UIViewController {
 }
 
 extension EnterCodeViewController {
-    
     func codeCheck(email: String, code: String) {
-        UserService.shared.codeCheck(email: email, code: code) {
-            response in
-            switch response {
+        UserService.shared.codeCheck(email: email, code: code) { result in
+            switch result {
             case .success(let data):
-                if let json = data as? [String: Any],
-                   let resultCode = json["resultCode"] as? Int {
-                    if resultCode == 200 {
+                if let data = data as? ResultCodeResponse {
+                    if data.resultCode == 200 {
                         print("이백")
                         self.errorLabel.isHidden = true
-                        
-                        self.navigationController?.modalPresentationStyle = .fullScreen
                         self.navigationController?.pushViewController(EnterProfileViewController(), animated: true)
-                        
-                    } else if resultCode == 500 {
+                    } else if data.resultCode == 500 {
                         print("오백")
                         self.errorLabel.isHidden = false
                     }
                 }
-            case .failure(let error):
-                print("FUCKING fail : \(error)")
+            case .failure:
+                print("FUCKING failure")
             }
         }
     }
@@ -304,7 +296,7 @@ extension EnterCodeViewController {
 extension EnterCodeViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
-
+        
         print("updatedText : \(updatedText)")
         
         if updatedText.isEmpty {
@@ -326,7 +318,7 @@ extension EnterCodeViewController: UITextFieldDelegate {
             sixthLabel.text = ""
         } else if updatedText.count == 6 {
             sixthLabel.text = String(updatedText[updatedText.index(updatedText.startIndex, offsetBy: 5)])
-//            textField.resignFirstResponder()
+            //            textField.resignFirstResponder()
         }
         return updatedText.count <= 6
     }

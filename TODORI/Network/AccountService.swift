@@ -16,27 +16,21 @@ class UserService {
     
     func emailCheck(email: String, completion: @escaping(NetworkResult<Any>) -> Void) {
         let url = APIConstant.Account.emailCode
-        let headers: HTTPHeaders = [
-            "Accept": "application/json"
-        ]
-        let body: Parameters = [
+        let parameters: Parameters = [
             "email": email
         ]
         
-        // 500일 때는?
-        AF.request(url, method: .get, parameters: body, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+        AF.request(url, method: .get, parameters: parameters).responseDecodable(of: ResultCodeResponse.self) { response in
+            switch response.result {
+            case .success(let response):
+                print("이메일 검증 성공 in UserService")
+                completion(.success(response))
+                
+            case .failure(let error):
+                print("에러: \(error)")
+                completion(.failure(error))
             }
+        }
     }
     
     func codeCheck(email: String, code: String, completion: @escaping(NetworkResult<Any>) -> Void) {
@@ -50,15 +44,13 @@ class UserService {
         ]
         
         AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
+            .responseDecodable(of: ResultCodeResponse.self) { response in
                 switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
+                case .success(let response):
+                    print("코드 검증 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
+                    print("코드 검증 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
@@ -126,17 +118,9 @@ class UserService {
             .responseDecodable(of: LoginResponse.self) { response in
                 switch response.result {
                 case .success(let loginResponse):
-                    // 성공적으로 디코딩된 응답을 처리하는 코드
-                    if loginResponse.resultCode == 200 {
-                        // 로그인 성공
-                        print("로그인 성공 in UserService")
-                        completion(.success(loginResponse))
-                    } else {
-                        // 로그인 실패
-                        print("로그인 실패 in UserService")
-                        let error = NSError(domain: "TODORI", code: loginResponse.resultCode, userInfo: nil)
-                        completion(.failure(error))
-                    }
+                    print("로그인 성공 in UserService")
+                    completion(.success(loginResponse))
+                    
                 case .failure(let error):
                     // 요청 실패 또는 디코딩 오류 처리 코드
                     print("에러: \(error)")
@@ -163,7 +147,6 @@ class UserService {
                         completion(.success(response))
                     } else {
                         print("토큰 검증 실패 in UserService")
-                        completion(.success(response))
                         //                        let error = NSError(domain: "TODORI", code: response.resultCode, userInfo: nil)
                         //                        completion(.failure(error))
                     }

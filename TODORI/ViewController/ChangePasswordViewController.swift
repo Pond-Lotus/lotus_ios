@@ -8,9 +8,6 @@
 import UIKit
 
 class ChangePasswordViewController: UIViewController {
-    
-    private var separatorView: UIView?
-    
     private let presentPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "현재 비밀번호"
@@ -156,38 +153,27 @@ class ChangePasswordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        separatorView = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1))
-        separatorView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-        navigationController?.navigationBar.addSubview(separatorView!)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        separatorView?.removeFromSuperview()
-        separatorView = nil
+        NavigationBarManager.shared.removeSeparatorView()
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
     }
     
     private func setupUI() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black]
-        let title = "비밀번호 변경"
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = title
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction:  #selector(backButtonTapped), title: "비밀번호 변경", showSeparator: true)
         
         let stackView = UIStackView(arrangedSubviews: [presentPasswordLabel, presentPasswordTextField, presentPasswordErrorLabel, newPasswordLabel, newPasswordTextField, newPasswordErrorLabel, checkNewPasswordLabel, checkNewPasswordTextField, checkNewPasswordErrorLabel])
         stackView.axis = .vertical
         stackView.spacing = 10
+        stackView.setCustomSpacing(20, after: presentPasswordTextField)
+        stackView.setCustomSpacing(20, after: newPasswordTextField)
+        stackView.setCustomSpacing(20, after: checkNewPasswordTextField)
         
         view.addSubview(stackView)
         view.addSubview(finishButton)
@@ -210,6 +196,7 @@ class ChangePasswordViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
     
     @objc func findButtonTapped() {
@@ -241,7 +228,7 @@ class ChangePasswordViewController: UIViewController {
 extension ChangePasswordViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-                
+        
         if textField == newPasswordTextField {
             let textFieldText = (newPasswordTextField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
             
@@ -268,6 +255,7 @@ extension ChangePasswordViewController {
                    let resultCode = json["resultCode"] as? Int {
                     if resultCode == 200 {
                         print("이백")
+
                         self.presentPasswordErrorLabel.isHidden = true
                         
                         let dimmingView = UIView(frame: UIScreen.main.bounds)

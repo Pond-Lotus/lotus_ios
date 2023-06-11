@@ -8,9 +8,6 @@
 import UIKit
 
 class DeleteAccountViewController: UIViewController {
-    
-    private var separatorView: UIView?
-    
     private let titleLabel1: UILabel = {
         let label = UILabel()
         label.text = "계정 정보"
@@ -122,10 +119,6 @@ class DeleteAccountViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        separatorView = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1))
-        separatorView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-        navigationController?.navigationBar.addSubview(separatorView!)
-        
         DispatchQueue.main.async {
             if let image = UserDefaults.standard.string(forKey: "image") {
                 if let originalImage = UserSession.shared.base64StringToImage(base64String: image) {
@@ -153,26 +146,11 @@ class DeleteAccountViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        separatorView?.removeFromSuperview()
-        separatorView = nil
+        NavigationBarManager.shared.removeSeparatorView()
     }
     
     private func setupUI() {
-        // 네비게이션 바 설정
-//        let separatorView = UIView(frame: CGRect(x: 0, y: navigationController?.navigationBar.frame.maxY ?? 0 - 1, width: view.frame.width, height: 1))
-//        separatorView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-//        navigationController?.navigationBar.addSubview(separatorView)
-        
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black]
-        let title = "계정 탈퇴"
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = title
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction:  #selector(backButtonTapped), title: "계정 탈퇴", showSeparator: true)
         
         view.addSubview(titleLabel1)
         view.addSubview(accountInfo)

@@ -43,10 +43,8 @@ class LogoutPopupView: UIView {
         titleLabel.textColor = UIColor(red: 0.171, green: 0.171, blue: 0.171, alpha: 1)
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(27)
+            $0.top.equalToSuperview().offset(37)
             $0.width.equalToSuperview()
-//            $0.leading.equalToSuperview().offset(16)
-            
         }
         
         messageLabel = UILabel()
@@ -57,8 +55,6 @@ class LogoutPopupView: UIView {
         messageLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(11)
             $0.width.equalToSuperview()
-//            $0.leading.equalToSuperview().offset(16)
-//            $0.trailing.equalToSuperview().inset(16)
         }
         
         actionButton1 = UIButton(type: .system)

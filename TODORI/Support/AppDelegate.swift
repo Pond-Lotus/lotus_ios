@@ -11,21 +11,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        // Launch Screen을 코드로 작성
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = UIColor.white
-        window.rootViewController = UIViewController()
-        window.makeKeyAndVisible()
-        
-        // Launch Screen을 나타낸 후 지연 시간을 설정하여 앱이 더 오래 보여지게 함
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2000) {
-            window.rootViewController = LaunchScreenViewController() // 실제로 사용할 뷰 컨트롤러를 설정
-        }
     
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let loginViewController = LogInViewController()
+        window?.rootViewController = loginViewController
+        window?.makeKeyAndVisible()
+        
+        
+        print("여기는 AppDelegate 입니다.")
         return true
     }
 
@@ -45,4 +40,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

@@ -84,10 +84,11 @@ class EnterEmailViewController: UIViewController {
     
     private let nextButton: UIButton = {
         let button = UIButton(type: .custom)
-        let image = UIImage(named: "next-button")?.resize(to: CGSize(width: 43, height: 43))
+        let image = UIImage(named: "next-button")?.resize(to: CGSize(width: UIScreen.main.bounds.width * 0.16, height: UIScreen.main.bounds.width * 0.16))
         button.setImage(image, for: .normal)
         button.isEnabled = false
         button.alpha = 0.5
+        
         return button
     }()
     
@@ -102,10 +103,6 @@ class EnterEmailViewController: UIViewController {
         emailTextField.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
@@ -113,10 +110,7 @@ class EnterEmailViewController: UIViewController {
 
     
     private func setupUI() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "", showSeparator: false)
 
         view.addSubview(numberLabel)
         view.addSubview(titleLabel)
@@ -124,36 +118,40 @@ class EnterEmailViewController: UIViewController {
         view.addSubview(emailTextField)
         view.addSubview(errorLabel)
         view.addSubview(nextButton)
-        
+
+        navigationController?.navigationBar.backgroundColor = .blue
         numberLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.15)
-            make.leading.equalToSuperview().offset(25)
+            if let navigationBarHeight = navigationController?.navigationBar.frame.height {
+//                make.top.equalToSuperview().offset(navigationBarHeight + 40)
+            }
+            make.top.equalToSuperview().offset(0)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(numberLabel.snp.bottom).offset(16)
-            make.leading.equalToSuperview().offset(25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
 
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(40)
-            make.leading.equalToSuperview().offset(25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
 
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(25)
-            make.trailing.equalToSuperview().offset(-25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.width * 0.06)
         }
 
         errorLabel.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.bottom).offset(15)
-            make.leading.equalToSuperview().offset(25)
+            make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
 
         nextButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-24)
-            make.trailing.equalToSuperview().offset(-21)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.width * 0.04)
+            make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height * 0.02)
         }
     }
     
@@ -176,41 +174,35 @@ class EnterEmailViewController: UIViewController {
 
 extension EnterEmailViewController {
     func emailCheck(email: String) {
-        UserService.shared.emailCheck(email: email) {
-            response in
-            switch response {
-            case .success(let data):
-                if let json = data as? [String: Any],
-                   let resultCode = json["resultCode"] as? Int {
+        UserService.shared.emailCheck(email: email) { result in
+            switch result {
+            case .success(let data as ResultCodeResponse):
+                if data.resultCode == 200 {
+                    print("이백")
+                    self.errorLabel.isHidden = true
                     
-                    if resultCode == 200 {
-                        print("이백")
-                        self.errorLabel.isHidden = true
-                        
-                        if let email = self.emailTextField.text {
-                            UserSession.shared.signUpEmail = email
-                            print("UserSession(signUpEmail): 이메일 저장 완료")
-                        } else {
-                            print("UserSession(signUpEmail): 이메일 저장 오류")
-                        }
-                        
-                        self.navigationController?.modalPresentationStyle = .fullScreen
-                        self.navigationController?.pushViewController(EnterCodeViewController(), animated: true)
-                        
-                    } else if resultCode == 500 {
-                        print("오백")
-                        self.errorLabel.isHidden = false
+                    if let email = self.emailTextField.text {
+                        UserSession.shared.signUpEmail = email
+                        print("UserSession(signUpEmail): 이메일 저장 완료")
+                    } else {
+                        print("UserSession(signUpEmail): 이메일 저장 오류")
                     }
+                    self.navigationController?.pushViewController(EnterCodeViewController(), animated: true)
+                }
+                else if data.resultCode == 500 {
+                    print("오백")
+                    self.errorLabel.isHidden = false
                 }
             case .failure:
-                print("FUCKING fail")
+                print("FUCKING failure: 유효하지 않은 이메일")
+            case .success(_):
+                print("Nothing")
             }
         }
     }
 }
 
 extension EnterEmailViewController: UITextFieldDelegate {
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)

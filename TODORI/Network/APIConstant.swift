@@ -9,6 +9,7 @@ import Foundation
 
 enum APIConstant {
     
+//    static let baseURL = "https://plotustodo-ctzhc.run.goorm.io"
     static let baseURL = "http://34.22.73.14:8000"
     
     enum Account {

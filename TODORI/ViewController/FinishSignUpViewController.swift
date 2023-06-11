@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class FinishSignUpViewController: UIViewController {
     
@@ -42,6 +43,13 @@ class FinishSignUpViewController: UIViewController {
         return button
     }()
     
+    private let animationView: LottieAnimationView = {
+        let animationView = LottieAnimationView(name: "lottieFile")
+        animationView.loopMode = .loop
+        animationView.play()
+        return animationView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -57,6 +65,13 @@ class FinishSignUpViewController: UIViewController {
         view.addSubview(finishLabel)
         view.addSubview(welcomeLabel)
         view.addSubview(loginButton)
+        view.addSubview(animationView)
+        
+        animationView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(200)
+            make.width.height.equalTo(100)
+        }
         
         finishLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.53)

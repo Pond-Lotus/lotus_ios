@@ -8,9 +8,6 @@
 import UIKit
 
 class EditGroupSettingViewController: UIViewController {
-    
-    private var separatorView: UIView?
-    
     var color: String?
     var label: String?
     var index: String?
@@ -30,7 +27,7 @@ class EditGroupSettingViewController: UIViewController {
         
         stackView.snp.makeConstraints() { make in
             make.width.equalTo(500)
-            make.height.equalTo(60)
+            make.height.equalTo(41)
         }
         
         let imageView = UIImageView(image: UIImage(named: image))
@@ -50,14 +47,12 @@ class EditGroupSettingViewController: UIViewController {
         stackView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-//            make.leading.equalTo(imageView.snp.trailing).offset(10)
-//            make.trailing.equalToSuperview().offset(-28)
-            make.height.equalTo(41)
+//            make.height.equalTo(31)
         }
         
         textField.delegate = self
         
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 30))
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
         textField.leftView = paddingView
         textField.leftViewMode = .always
         
@@ -91,17 +86,11 @@ class EditGroupSettingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        separatorView = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1))
-        separatorView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-        navigationController?.navigationBar.addSubview(separatorView!)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        separatorView?.removeFromSuperview()
-        separatorView = nil
+        NavigationBarManager.shared.removeSeparatorView()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -109,19 +98,11 @@ class EditGroupSettingViewController: UIViewController {
             self.view.endEditing(true)
     }
 
+    var completeButton: UIBarButtonItem!
+    
     private func setupUI() {
-        
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black]
-        let title = "그룹 설정"
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = title
-        
-        let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonTapped))
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "그룹 설정")
+        completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonTapped))
 //        if 조건 {
 //            let attributes: [NSAttributedString.Key: Any] = [
 //                .foregroundColor: UIColor.red, // 원하는 폰트 컬러로 설정
@@ -162,10 +143,12 @@ class EditGroupSettingViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+//        dismiss(animated: true, completion: nil)
     }
     
     @objc func completeButtonTapped() {
-        print("TAPPED")
+        
+        completeButton.isEnabled = false
         
         guard let first = firstGroupName,
               let second = secondGroupName,
@@ -175,19 +158,26 @@ class EditGroupSettingViewController: UIViewController {
               let sixth = sixthGroupName
         else { return }
 
+        let VC = GroupSettingViewController()
         if let index = index {
             switch index {
             case "1":
+                VC.firstGroupName = first
                 editGroupName(first: groupName ?? "(NONE)", second: second, third: third, fourth: fourth, fifth: fifth, sixth: sixth)
             case "2":
+                VC.secondGroupName = second
                 editGroupName(first: first, second: groupName ?? "(NONE)", third: third, fourth: fourth, fifth: fifth, sixth: sixth)
             case "3":
+                VC.thirdGroupName = third
                 editGroupName(first: first, second: second, third: groupName ?? "(NONE)", fourth: fourth, fifth: fifth, sixth: sixth)
             case "4":
+                VC.fourthGroupName = fourth
                 editGroupName(first: first, second: second, third: third, fourth: groupName ?? "(NONE)", fifth: fifth, sixth: sixth)
             case "5":
+                VC.fifthGroupName = fifth
                 editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: groupName ?? "(NONE)", sixth: sixth)
             case "6":
+                VC.sixthGroupName = sixth
                 editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: fifth, sixth: groupName ?? "(NONE)")
             default:
                 print("스위치문 오류")
@@ -214,6 +204,9 @@ extension EditGroupSettingViewController {
                     if json.resultCode == 200 {
                         print("이백")
                         
+                        let VC = GroupSettingViewController()
+                        VC.firstGroupName = first
+                        
                         let dimmingView = UIView(frame: UIScreen.main.bounds)
                         dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
                         dimmingView.alpha = 0
@@ -231,6 +224,9 @@ extension EditGroupSettingViewController {
                             popupView.alpha = 1
                             dimmingView.alpha = 1
                         }
+                        
+                        NotificationCenter.default.post(name: NSNotification.Name("endEditGroupName"), object: nil)
+
                     } else if json.resultCode == 500 {
                         print("오백")
                     }
@@ -238,6 +234,10 @@ extension EditGroupSettingViewController {
             case .failure(let err):
                 print(err)
             }
+            
+            DispatchQueue.main.async {
+                 self.completeButton.isEnabled = true
+             }
         }
     }
 }

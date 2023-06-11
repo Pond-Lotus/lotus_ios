@@ -9,8 +9,6 @@ import UIKit
 import PhotosUI
 
 class EditProfileViewController: UIViewController {
-    
-    private var separatorView: UIView?
     var tmpImage: UIImage?
     
     private let profileImageView: UIImageView = {
@@ -119,12 +117,7 @@ class EditProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
-        
-        separatorView = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1))
-        separatorView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-        navigationController?.navigationBar.addSubview(separatorView!)
 
         DispatchQueue.main.async {
             if let image = UserDefaults.standard.string(forKey: "image") {
@@ -147,9 +140,7 @@ class EditProfileViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        separatorView?.removeFromSuperview()
-        separatorView = nil
+        NavigationBarManager.shared.removeSeparatorView()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -158,11 +149,7 @@ class EditProfileViewController: UIViewController {
     }
     
     private func setupUI() {
-        
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-//        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        navigationItem.leftBarButtonItem?.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction:  #selector(backButtonTapped), title: "프로필 수정", showSeparator: true)
         
         let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonTapped))
 //        if 조건 {
@@ -178,11 +165,6 @@ class EditProfileViewController: UIViewController {
         completeButton.setTitleTextAttributes(completeButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = completeButton
         navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
-        
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black]
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = "프로필 수정"
         
         view.addSubview(profileImageView)
         view.addSubview(editProfileImageButton)
@@ -245,7 +227,7 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func completeButtonTapped() {

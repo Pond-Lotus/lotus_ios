@@ -8,11 +8,10 @@
 import UIKit
 
 class FindPasswordViewController: UIViewController {
-
-    private var separatorView: UIView?
     
     private let titleLabel: UIStackView = {
         let imageView = UIImageView(image: UIImage(named: "sms")?.resize(to: CGSize(width: 18, height: 18)))
+        
         let label = UILabel()
         label.text = "안내드려요"
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
@@ -27,7 +26,7 @@ class FindPasswordViewController: UIViewController {
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "입한 이메일 주소를 입력해주세요.\n해당 이메일로 비밀번호 재설정을 위한 링크를 보내드립니다."
+        label.text = "입력한 이메일 주소를 입력해주세요.\n해당 이메일로 비밀번호 재설정을 위한 링크를 보내드립니다."
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 14, weight: .light)
         label.textColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
@@ -60,13 +59,6 @@ class FindPasswordViewController: UIViewController {
 
     private let emailTextField: UITextField = {
         let textField = UITextField()
-        
-//        let attributes: [NSAttributedString.Key: Any] = [
-//            .font: UIFont.systemFont(ofSize: 16, weight: .medium),
-//            .foregroundColor: UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1)
-//        ]
-//        let attributedPlaceholder = NSAttributedString(string: "이메일 입력", attributes: attributes)
-//        textField.attributedPlaceholder = attributedPlaceholder
         
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 30))
         textField.leftView = paddingView
@@ -108,7 +100,7 @@ class FindPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
+
         findPasswordButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
     
         setupUI()
@@ -120,9 +112,7 @@ class FindPasswordViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        separatorView?.removeFromSuperview()
-        separatorView = nil
+        NavigationBarManager.shared.removeSeparatorView()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -131,19 +121,7 @@ class FindPasswordViewController: UIViewController {
     }
 
     private func setupUI() {
-        separatorView = UIView(frame: CGRect(x: 0, y: 50, width: view.frame.width, height: 1))
-        separatorView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
-        navigationController?.navigationBar.addSubview(separatorView!)
-        
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-        
-        let font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        let attributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black]
-        let title = "비밀번호 찾기"
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
-        self.navigationItem.title = title
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction:  #selector(backButtonTapped), title: "비밀번호 찾기", showSeparator: true)
         
         view.addSubview(titleLabel)
         view.addSubview(messageLabel)

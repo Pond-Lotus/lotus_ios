@@ -64,7 +64,7 @@ class TodoService {
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: LoginResponse.self) { response in
+            .responseDecodable(of: CheckTokenResponse.self) { response in
                 switch response.result {
                 case .success(let response):
                     // 성공적으로 디코딩된 응답을 처리하는 코드
