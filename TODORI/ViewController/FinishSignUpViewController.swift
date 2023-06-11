@@ -70,7 +70,7 @@ class FinishSignUpViewController: UIViewController {
         animationView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(200)
-            make.width.height.equalTo(100)
+            make.width.height.equalTo(200)
         }
         
         finishLabel.snp.makeConstraints { make in
