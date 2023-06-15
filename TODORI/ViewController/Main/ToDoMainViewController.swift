@@ -9,10 +9,11 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-class TodoMainViewController : UIViewController {
+class ToDoMainViewController : UIViewController {
 
     private var overlayViewController: MyPageViewController?
     var dimmingView: UIView = UIView()
+    
     var calendarView: FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
     var segmentedControl: UISegmentedControl = UISegmentedControl()
     var tableView: UITableView = UITableView()
@@ -62,65 +63,65 @@ class TodoMainViewController : UIViewController {
         button.setImage(UIImage(named: "red-circle"), for: .normal)
         return button
     }()
-    var yellowCircleButton:UIButton = {
+    var yellowCircleButton: UIButton = {
         var button: UIButton = UIButton()
         button.tag = 2
         button.setImage(UIImage(named: "yellow-circle"), for: .normal)
         return button
     }()
-    var greenCircleButton:UIButton = {
+    var greenCircleButton: UIButton = {
         var button: UIButton = UIButton()
         button.tag = 3
         button.setImage(UIImage(named: "green-circle"), for: .normal)
         return button
     }()
-    var blueCircleButton:UIButton = {
+    var blueCircleButton: UIButton = {
         var button: UIButton = UIButton()
         button.tag = 4
         button.setImage(UIImage(named: "blue-circle"), for: .normal)
         return button
     }()
-    var pinkCircleButton:UIButton = {
+    var pinkCircleButton: UIButton = {
         var button: UIButton = UIButton()
         button.tag = 5
         button.setImage(UIImage(named: "pink-circle"), for: .normal)
         return button
     }()
-    var purpleCircleButton:UIButton = {
+    var purpleCircleButton: UIButton = {
         var button: UIButton = UIButton()
         button.tag = 6
         button.setImage(UIImage(named: "purple-circle"), for: .normal)
         return button
     }()
-    var colorCircleButtonStackView:UIStackView = UIStackView()
-    var grayLineInBottomSheet:UIView = UIView()
+    var colorCircleButtonStackView: UIStackView = UIStackView()
+    var grayLineInBottomSheet: UIView = UIView()
     var nothingExistingView: UIView = UIView()
     var nothingExistingLabel: UILabel = UILabel()
     
-    let textviewPlaceholder:String = "+ 메모하고 싶은 내용이 있나요?"
+    let textviewPlaceholder: String = "+ 메모하고 싶은 내용이 있나요?"
     
-    var redArray:[Todo] = []
-    var yellowArray:[Todo] = []
-    var greenArray:[Todo] = []
-    var blueArray:[Todo] = []
-    var pinkArray:[Todo] = []
-    var purpleArray:[Todo] = []
-    var todoArrayList:[[Todo]] = []
-    var titleOfSectionArray:[String] = ["","","","","",""]
-    var existingColorArray:[Int] = []
+    var redArray: [ToDo] = []
+    var yellowArray: [ToDo] = []
+    var greenArray: [ToDo] = []
+    var blueArray: [ToDo] = []
+    var pinkArray: [ToDo] = []
+    var purpleArray: [ToDo] = []
+    var todoArrayList: [[ToDo]] = []
+    var titleOfSectionArray: [String] = ["","","","","",""]
+    var existingColorArray: [Int] = []
     var isCollectionViewShowing = false
-    var floatingButton_y:CGFloat = 0
-    var collectionView_y:CGFloat = 0
-    var nowId:Int = 0
-    var nowSection:Int = 0
-    var nowRow:Int = 0
-    var nowColor:Int = 0
+    var floatingButton_y: CGFloat = 0
+    var collectionView_y: CGFloat = 0
+    var nowId: Int = 0
+    var nowSection: Int = 0
+    var nowRow: Int = 0
+    var nowColor: Int = 0
     var nowHour: String = "99"
     var nowMin: String = "99"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         todoArrayList = [redArray, yellowArray, greenArray, blueArray, pinkArray, purpleArray]
         getPriorityName()
         
@@ -141,9 +142,7 @@ class TodoMainViewController : UIViewController {
         
         //description text view delegate 설정
         descriptionTextView.delegate = self
-        
-        titleTextFieldInBottomSheet.delegate = self
-        
+                
         //데이트 포멧터 설정
         dateFormatter.locale = Locale(identifier: "ko")
         
@@ -155,21 +154,26 @@ class TodoMainViewController : UIViewController {
         setComponentAppearence() //컴포넌트 외형 설정
         setAutoLayout() //오토 레이아웃 설정
         searchTodo(date: calendarView.selectedDate!) //투두 조회
+        
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: nil, title: "")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    //각 컴포넌트에 동작 추가
     private func addFunctionToComponent(){
-        let tapTableViewGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        tapTableViewGesture.delegate = self // delegate 설정
-        tableView.addGestureRecognizer(tapTableViewGesture)
         segmentedControl.addTarget(self, action: #selector(tapSegmentedControl), for: .valueChanged)
         floatingButton.isUserInteractionEnabled = true
         floatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapFloatingButton)))
         blackViewOfBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBottomSheetBlackViewDismiss)))
         clearViewForWritingTodo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWritingTodoClearViewDissmiss)))
         clearViewOfFloatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFloatingButtonClearViewDismiss)))
-        dimmingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:))))
-        dimmingView.isUserInteractionEnabled = true
         hambuergerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
         redCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
         yellowCircleButton.addTarget(self, action: #selector(tapColorCircleButton(_:)), for: .touchDown)
@@ -226,6 +230,7 @@ class TodoMainViewController : UIViewController {
         bottomSheetView.addSubview(timeLabel)
         bottomSheetView.addSubview(grayLineInBottomSheet)
         
+        //bottom sheet 내부 컬러 버튼들 - 스택뷰
         colorCircleButtonStackView.addArrangedSubview(redCircleButton)
         colorCircleButtonStackView.addArrangedSubview(yellowCircleButton)
         colorCircleButtonStackView.addArrangedSubview(greenCircleButton)
@@ -245,6 +250,7 @@ class TodoMainViewController : UIViewController {
         
     }
     
+    //컴포넌트 외형 설정
     private func setComponentAppearence(){
         //segmented control segment 추가 및 초기 셋팅
         segmentedControl.insertSegment(withTitle: "월간", at: 0, animated: true)
@@ -356,7 +362,6 @@ class TodoMainViewController : UIViewController {
         descriptionTextView.layer.cornerRadius = 10
         descriptionTextView.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
         descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
-//        descriptionTextView.isScrollEnabled = false
         
         //bottom sheet 내부 '시간' 라벨
         timeLiterallyLabel.text = "시간"
@@ -424,6 +429,7 @@ class TodoMainViewController : UIViewController {
         clearViewForWritingTodo.backgroundColor = .clear
     }
     
+    //bottom sheet, date picker view 제외 메인 투두 뷰 오토 레이아웃 설정
     private func setAutoLayout(){
         topBarView.snp.makeConstraints { make in
             make.right.left.top.equalTo(self.view.safeAreaLayoutGuide)
@@ -496,6 +502,7 @@ class TodoMainViewController : UIViewController {
         
     }
     
+    //bottom sheet autolayout 설정
     private func setBottomSheetAutoLayout(){
         
         bottomSheetView.snp.makeConstraints{ make in
@@ -526,11 +533,6 @@ class TodoMainViewController : UIViewController {
             make.top.equalTo(titleTextFieldInBottomSheet.snp.bottom).offset(16)
             make.centerX.equalToSuperview()
             make.rightMargin.leftMargin.equalTo(25)
-//            guard let lineHeight = descriptionTextView.font?.lineHeight else {
-//                descriptionTextViewHeightConstraint = make.height.equalTo(74)
-//                return
-//            }
-//            descriptionTextViewHeightConstraint = make.height.equalTo((lineHeight*1)+24)
         }
         
         clockImageView.snp.makeConstraints { make in
@@ -584,6 +586,7 @@ class TodoMainViewController : UIViewController {
         }
     }
     
+    //bottom sheet 내부 시간 설정 뷰 autolayout
     private func setDatePickerViewAutoLayout(){
         datePickerBackgroundView.snp.makeConstraints { make in
             make.width.equalToSuperview()
@@ -622,9 +625,9 @@ class TodoMainViewController : UIViewController {
     }
     
     
-    
+    //그룹 명 받아오는 함수
     private func getPriorityName(){
-        TodoAPIConstant.shared.getPriorityName { (response) in
+        TodoService.shared.getPriorityName { (response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? PriorityResponseData{
@@ -644,6 +647,7 @@ class TodoMainViewController : UIViewController {
         }
     }
     
+    //bottom sheet 내부 컬러 버튼 눌렀을 때 동작하는 함수
     @objc private func tapColorCircleButton(_ sender: UIButton){
         redCircleButton.setImage(UIImage(named: "red-circle"), for: .normal)
         yellowCircleButton.setImage(UIImage(named: "yellow-circle"), for: .normal)
@@ -658,11 +662,13 @@ class TodoMainViewController : UIViewController {
         dateLabelInBottomSheet.textColor = Color.shared.getColor(colorNum: nowColor)
     }
     
+    //todo 작성 중 외부 클릭시 동작하는 함수
     @objc private func handleWritingTodoClearViewDissmiss(){
         tableView.endEditing(true)
         clearViewForWritingTodo.removeFromSuperview()
     }
     
+    //키보드 나올 때 동작 - 키보드 높이에 맞춰 bottom sheet 높이 조절
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -693,10 +699,10 @@ class TodoMainViewController : UIViewController {
     }
     
     
-    
+    //bottom sheet 외부 터치시 실행되는 함수 - 변경사항 저장
     @objc private func handleBottomSheetBlackViewDismiss(){
         let description = descriptionTextView.text.replacingOccurrences(of: textviewPlaceholder, with: "")
-        TodoAPIConstant.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, colorNum:nowColor, time: nowHour+nowMin,id: nowId) { (response) in
+        TodoService.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, colorNum:nowColor, time: nowHour+nowMin,id: nowId) { (response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? TodoEditResponseData{
@@ -728,6 +734,7 @@ class TodoMainViewController : UIViewController {
         
     }
     
+    //floating button 클릭 후 외부 터치시 실행되는 함수
     @objc private func handleFloatingButtonClearViewDismiss(){
         self.floatingButton.image = UIImage(named: "floating-button")
         UIView.animate(withDuration: 0.5, animations: {
@@ -740,12 +747,14 @@ class TodoMainViewController : UIViewController {
         isCollectionViewShowing = !isCollectionViewShowing
     }
     
+    //bottom sheet 내부 시간 선택 뷰 내부 취소 버튼 클릭 동작
     @objc private func tapCancelButtonInDatePicker(){
         blackViewOfDatePicker.removeFromSuperview()
         datePickerBackgroundView.removeFromSuperview()
         titleTextFieldInBottomSheet.becomeFirstResponder()
     }
     
+    //bottom sheet 내부 시간 선택 뷰 내부 완료 버튼 클릭 동작
     @objc private func tapFinishButtonInDatePicker(){
         nowHour = DateFormat.shared.getHour(date: datePicker.date)
         nowMin = DateFormat.shared.getMinute(date: datePicker.date)
@@ -758,6 +767,7 @@ class TodoMainViewController : UIViewController {
     }
     
     
+    //segmented control 변경시 동작하는 함수 - 월간/주간 캘린더 변경
     @objc private func tapSegmentedControl(){
         if segmentedControl.selectedSegmentIndex == 0{
             self.calendarView.setScope(.month, animated: true)
@@ -766,6 +776,7 @@ class TodoMainViewController : UIViewController {
         }
     }
     
+    //floating button 터치시 동작하는 함수 - 보여지고 사라지는 애니메이션 적용
     @objc private func tapFloatingButton(){
         if isCollectionViewShowing{
             self.floatingButton.image = UIImage(named: "floating-button")
@@ -777,10 +788,11 @@ class TodoMainViewController : UIViewController {
                 self.clearViewOfFloatingButton.removeFromSuperview()
             })
         }else {
-            //컬렉션 뷰 추가
+            //컬렉션 뷰 추가 - 색깔 선택 뷰
             self.tableView.addSubview(clearViewOfFloatingButton)
             self.tableView.addSubview(collectionView)
             self.tableView.bringSubviewToFront(floatingButton)
+            
             //컬렉션 뷰 위치 지정
             collectionView.frame.origin.x = floatingButton.frame.origin.x - (collectionView.fs_width-floatingButton.fs_width)
             collectionView.frame.origin.y = floatingButton.frame.origin.y - 10 - collectionView.fs_height + 15
@@ -804,23 +816,42 @@ class TodoMainViewController : UIViewController {
         
     }
     
+    //완료한 todo를 뒤로 보내는 함수 - done 기준 정렬
     private func todoSortByDone(section:Int){
         self.todoArrayList[section].sort { todo1, todo2 in
             return !todo1.done && todo2.done
         }
     }
     
+    //id 기준 정렬 함수 - 역 최신순
     private func todoSortById(section:Int){
         self.todoArrayList[section].sort { todo1, todo2 in
             return todo1.id < todo2.id
         }
     }
     
+    //마이 페이지 drawer 외부 터치시 실행 - 사라지는 애니메이션
+    @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.overlayViewController?.view.frame = CGRect(x: self.view.frame.size.width, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            self.dimmingView.alpha = 0
+        }) { (_) in
+            self.overlayViewController?.removeFromParent()
+            self.overlayViewController?.view.removeFromSuperview()
+            self.dimmingView.removeFromSuperview()
+        }
+    }
+    
+    //햄버거바 터치시 실행되는 동작 - 마이페이지 drawer 등장
     @objc private func tapHamburgerButton(){
         dimmingView = UIView(frame: UIScreen.main.bounds)
         dimmingView.backgroundColor = UIColor.black
         dimmingView.alpha = 0
         view.addSubview(dimmingView)
+        
+        // 탭 제스처 생성
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        dimmingView.addGestureRecognizer(tapGestureRecognizer)
     
         overlayViewController = MyPageViewController()
         overlayViewController?.view.frame = CGRect(x: view.frame.size.width, y: 0, width: view.frame.size.width, height: view.frame.size.height)
@@ -838,13 +869,7 @@ class TodoMainViewController : UIViewController {
         }
     }
     
-    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        if isCollectionViewShowing{
-            tapFloatingButton()
-        }
-        tableView.endEditing(true)
-    }
-    
+    //bottom sheet 내부 시간 설정 라벨 터치시 실행되는 동작
     @objc private func tapTimeLabel(){
         self.view.endEditing(true)
         self.view.addSubview(blackViewOfDatePicker)
@@ -852,31 +877,12 @@ class TodoMainViewController : UIViewController {
         setDatePickerViewAutoLayout()
         if nowHour == "99" && nowMin == "99"{
             deleteButtonInDatePicker.isHidden = true
-        }else{
+        } else {
             deleteButtonInDatePicker.isHidden = false
         }
-        
+    }
 
-    }
-    
-    @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        print("drawer black view의 handleTapGesture")
-        UIView.animate(withDuration: 0.3, animations: {
-            self.overlayViewController?.view.frame = CGRect(x: self.view.frame.size.width, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            self.dimmingView.alpha = 0
-        }) { (_) in
-            self.overlayViewController?.removeFromParent()
-            self.overlayViewController?.view.removeFromSuperview()
-            self.dimmingView.removeFromSuperview()
-        }
-    }
-    
-    private func setBottomSheetAnimation(){
-        
- 
-    }
-    
-    
+    //현재 존재하는 todo의 color을 따로 existingColorArray에 추가 및 투두 없음을 알리는 뷰 hidden 설정
     private func setExistArray(){
         existingColorArray.removeAll()
         for i in 0 ..< 6 {
@@ -892,10 +898,8 @@ class TodoMainViewController : UIViewController {
         }
     }
     
-    @objc private func tapBottomSheet(){
-        bottomSheetView.endEditing(false)
-    }
     
+    //bottom sheet 내부 color 버튼 이미지 셋팅 함수
     private func setCircleButtonImage(){
         redCircleButton.setImage(UIImage(named: "red-circle"), for: .normal)
         yellowCircleButton.setImage(UIImage(named: "yellow-circle"), for: .normal)
@@ -906,6 +910,7 @@ class TodoMainViewController : UIViewController {
         
     }
     
+    //bottom sheet 내부 시간 설정 뷰 삭제 버튼 클릭시 실행되는 동작 - hour, minute을 디폴트로 바꾸고 리벨도 미지정으로 변경
     @objc private func tapDeleteButton(){
         nowHour = "99"
         nowMin = "99"
@@ -916,15 +921,16 @@ class TodoMainViewController : UIViewController {
         titleTextFieldInBottomSheet.becomeFirstResponder()
     }
     
+    //설정에서 그룹명을 바꾸면 notification center로 받아 서버에서 새로 그룹명을 받고 table reload
     @objc private func didRecieveEndEditGroupName(){
-        
         getPriorityName()
         tableView.reloadData()
     }
     
+    //해당 날짜 투두 조회
     private func searchTodo(date:Date) {
         let dateArr = DateFormat.shared.getYearMonthDay(date: date)
-        TodoAPIConstant.shared.searchTodo(year: dateArr[0], month: dateArr[1], day: dateArr[2]) {(response) in
+        TodoService.shared.searchTodo(year: dateArr[0], month: dateArr[1], day: dateArr[2]) {(response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? TodoSearchResponseData{
@@ -938,7 +944,7 @@ class TodoMainViewController : UIViewController {
                         self.existingColorArray.removeAll()
                         
                         for i in data.data{
-                            self.todoArrayList[i.color - 1].append(Todo(year: String(i.year), month: String(i.month), day: String(i.day), title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, time: i.time, description: i.description))
+                            self.todoArrayList[i.color - 1].append(ToDo(year: String(i.year), month: String(i.month), day: String(i.day), title: i.title, done: i.done, isNew: false, writer: i.writer, color: i.color, id: i.id, time: i.time, description: i.description))
                         }
                         
                         for i in 0 ..< 6{
@@ -956,8 +962,9 @@ class TodoMainViewController : UIViewController {
     }
 }
 
-//table view delegate, datasource
-extension TodoMainViewController:UITableViewDelegate{
+//table view delegate
+extension ToDoMainViewController:UITableViewDelegate{
+    //각 섹션 디자인 설정
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var view:UIView = UIView()
         var colorRoundView:UIView = UIView()
@@ -993,6 +1000,8 @@ extension TodoMainViewController:UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
         return existingColorArray.count
     }
+    
+    //floating 설정
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         floatingButton.frame = CGRect(x: floatingButton.frame.origin.x, y: floatingButton_y + offset, width: self.view.fs_width * 0.16, height: self.view.fs_width * 0.16)
@@ -1002,7 +1011,7 @@ extension TodoMainViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             print(indexPath.section)
-            TodoAPIConstant.shared.deleteTodo(id: todoArrayList[existingColorArray[indexPath.section]][indexPath.row].id) { (resonse) in
+            TodoService.shared.deleteTodo(id: todoArrayList[existingColorArray[indexPath.section]][indexPath.row].id) { (resonse) in
                 switch(resonse){
                 case .success(let resultData):
                     if let data = resultData as? ResponseData{
@@ -1019,16 +1028,21 @@ extension TodoMainViewController:UITableViewDelegate{
         }
     }
     
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
+    }
     
 }
 
-extension TodoMainViewController:UITableViewDataSource{
+//table view datasource
+extension ToDoMainViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //현재 존재하는 그룹의 수 만큼 return
         return todoArrayList[existingColorArray[section]].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = TodoTableViewCell()
+        let cell = ToDoTableViewCell()
         let todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
         cell.todo = todo
         cell.titleTextField.text = todo.title
@@ -1044,12 +1058,13 @@ extension TodoMainViewController:UITableViewDataSource{
         54
     }
     
+    //cell이 선택되면 bottom sheet 등장 및 디자인 설정
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.addSubview(blackViewOfBottomSheet)
         self.view.addSubview(bottomSheetView)
         setBottomSheetAutoLayout()
         
-        let todo:Todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
+        let todo:ToDo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
         
         //bottom sheet 내부 컬러바 색상 설정
         colorBarViewInBottomsheet.backgroundColor = Color.shared.UIColorArray[todo.color-1]
@@ -1058,7 +1073,7 @@ extension TodoMainViewController:UITableViewDataSource{
         //title text field에 해당 title로 설정
         titleTextFieldInBottomSheet.text = todo.title
         
-        //desctiption이 있을때, 없을 때 설정
+        //메모가 있을때, 없을 때 설정
         if todo.description.count > 0{
             descriptionTextView.text = todo.description
             descriptionTextView.textColor = .black
@@ -1072,7 +1087,6 @@ extension TodoMainViewController:UITableViewDataSource{
                 descriptionTextView.snp.makeConstraints({ make in
                     descriptionTextViewHeightConstraint = make.height.equalTo(newSize.height)
                 })
-//                self.bottomSheetHeightConstraint?.constraint.update(offset: self.bottomSheetHeight + newSize.height - (lineHeight+24))
                 print("in did select")
                 descriptionTextView.invalidateIntrinsicContentSize()
                 view.updateConstraints()
@@ -1081,8 +1095,7 @@ extension TodoMainViewController:UITableViewDataSource{
                 descriptionTextView.snp.makeConstraints { make in
                     descriptionTextViewHeightConstraint = make.height.equalTo(24 + lineHeight * 4)
                 }
-//                self.descriptionTextViewHeightConstraint?.constraint.update(offset: 24 + lineHeight * 4)
-//                self.bottomSheetHeightConstraint?.constraint.update(offset: self.bottomSheetHeight + (24 + lineHeight * 4) - (lineHeight+24))
+                
                 descriptionTextView.invalidateIntrinsicContentSize()
                 view.layoutIfNeeded()
             }
@@ -1093,6 +1106,7 @@ extension TodoMainViewController:UITableViewDataSource{
             
             descriptionTextView.snp.makeConstraints { make in
                 guard let lineHeight = descriptionTextView.font?.lineHeight else {
+                    //메모 텍스트뷰의 줄 높이를 구하는 것을 실패하면 적절한 수치로 설정
                     descriptionTextViewHeightConstraint = make.height.equalTo(41)
                     return
                 }
@@ -1104,6 +1118,7 @@ extension TodoMainViewController:UITableViewDataSource{
         let time = todo.time
         nowHour = String(time.prefix(2))
         nowMin = String(time.suffix(2))
+        
         if time == "9999"{
             timeLabel.text = "미지정"
             timeLabel.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
@@ -1117,6 +1132,7 @@ extension TodoMainViewController:UITableViewDataSource{
             }
             timeLabel.textColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
         }
+        //현재 투두의 id, section, row, color 저장 - bottom sheet 외부 클릭시 변경 사항을 저장하기 위함
         nowId = todo.id
         nowSection = existingColorArray[indexPath.section]
         nowRow = indexPath.row
@@ -1134,20 +1150,13 @@ extension TodoMainViewController:UITableViewDataSource{
         }
         
         titleTextFieldInBottomSheet.becomeFirstResponder()
-//        setBottomSheetAnimation()
     }
     
 }
 
 //calendar delegate, datasource
-extension TodoMainViewController: FSCalendarDelegate {
-    
-    func calendar(_ calendar: FSCalendar, numberOfRowsInMonth month: Int) -> Int {
-            // 원하는 줄 수를 반환합니다. 예를 들어 5 줄로 표시하려면 5를 반환합니다.
-        
-            return 5
-        }
-    
+extension ToDoMainViewController: FSCalendarDelegate {
+    //캘린더 페이지 변경시 하단 날짜 라벨 변경
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let nowDate = calendarView.currentPage
         dateLabel.text = DateFormat.shared.getdateLabelString(date: nowDate)
@@ -1156,6 +1165,8 @@ extension TodoMainViewController: FSCalendarDelegate {
         dayLabel.text = DateFormat.shared.getDay(date: nowDate)
         weekdayLabel.text = DateFormat.shared.getWeekdayInKorean(date: nowDate)
     }
+    
+    //날짜 선택시 평일, 주말 글씨 컬러 변경 및 날짜 라벨 변경
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         searchTodo(date: date)
         let weekday = Calendar.current.component(.weekday, from: date)
@@ -1168,6 +1179,8 @@ extension TodoMainViewController: FSCalendarDelegate {
         dayLabel.text = DateFormat.shared.getDay(date: date)
         weekdayLabel.text = DateFormat.shared.getWeekdayInKorean(date: date)
     }
+    
+    //월간, 주간 높이 변경
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         let diff = calendarView.fs_height - bounds.height
 
@@ -1176,6 +1189,7 @@ extension TodoMainViewController: FSCalendarDelegate {
         calendarView.fs_height = bounds.height
         self.view.layoutIfNeeded()
         
+        //하단 라벨들과 월,주간 변경 애니메이션 시간이 맞지 않아 약간의 딜레이를 줌
         if diff > 0 {
             Timer.scheduledTimer(withTimeInterval: 0.07 , repeats: false) { timer in
                 self.tableView.reloadData()
@@ -1185,31 +1199,30 @@ extension TodoMainViewController: FSCalendarDelegate {
                 self.tableView.reloadData()
             }
         }
-
-
-
-
     }
     
     
     
 }
-extension TodoMainViewController:FSCalendarDataSource{
+extension ToDoMainViewController:FSCalendarDataSource{
 }
 
 //collection view delegate, datasource
-extension TodoMainViewController:UICollectionViewDelegate{
+extension ToDoMainViewController:UICollectionViewDelegate{
+    //투두 작성을 위해 색깔 선택 뷰 에서 색깔 원을 선택했을 시 실행되는 동작
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = DateFormat.shared.getYearMonthDay(date: calendarView.selectedDate!)
         var index = 0
-        if let x = todoArrayList[indexPath.row].firstIndex { todo in
+        
+        //완료된 투두의 바로 위에 새로운 투두 추가. 완료된 투두가 없다면 맨 밑에 추가
+        if let index_x = todoArrayList[indexPath.row].firstIndex { todo in
             todo.done == true
         }{
-            index = x
+            index = index_x
         }else {
             index = todoArrayList[indexPath.row].count
         }
-        todoArrayList[indexPath.row].insert(Todo(year: date[0] , month: date[1], day: date[2], title: "", done: false, isNew: true, writer: "", color: indexPath.row + 1, id: 0, time: "0000", description: ""), at: index)
+        todoArrayList[indexPath.row].insert(ToDo(year: date[0] , month: date[1], day: date[2], title: "", done: false, isNew: true, writer: "", color: indexPath.row + 1, id: 0, time: "0000", description: ""), at: index)
         setExistArray()
         tableView.reloadData()
         
@@ -1219,10 +1232,11 @@ extension TodoMainViewController:UICollectionViewDelegate{
             make.left.right.top.bottom.equalTo(self.view)
         }
         
+        //선택이 완료되었으면 선택 뷰가 없는 원래 상태로 되돌리기 위해 해당 함수 호출
         tapFloatingButton()
     }
 }
-extension TodoMainViewController:UICollectionViewDataSource{
+extension ToDoMainViewController:UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
@@ -1238,7 +1252,7 @@ extension TodoMainViewController:UICollectionViewDataSource{
 }
 
 //collection view layout delegate
-extension TodoMainViewController:UICollectionViewDelegateFlowLayout{
+extension ToDoMainViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 14
     }
@@ -1255,8 +1269,10 @@ extension TodoMainViewController:UICollectionViewDelegateFlowLayout{
     }
 }
 
-extension TodoMainViewController:UITextViewDelegate{
+//UITextView delegate
+extension ToDoMainViewController:UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
+        //text view의 placeholder 구현
         if textView.text == textviewPlaceholder{
             textView.text = ""
             textView.textColor = .black
@@ -1264,7 +1280,6 @@ extension TodoMainViewController:UITextViewDelegate{
         }
         
     }
-    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == ""{
             textView.textColor = .gray
@@ -1273,6 +1288,7 @@ extension TodoMainViewController:UITextViewDelegate{
         }
     }
     
+    //텍스트 뷰 동적 높이 조절
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: textView.bounds.width, height: .infinity)
         let newSize = textView.sizeThatFits(size)
@@ -1288,11 +1304,9 @@ extension TodoMainViewController:UITextViewDelegate{
     
     
 }
-extension TodoMainViewController:UITextFieldDelegate{
-    
-}
 
-extension TodoMainViewController: TodoTableViewCellDelegate {
+//cell 내부에서 변경된 사항을 메인 페이지에 적용시키기 위한 프로토콜
+extension ToDoMainViewController: TodoTableViewCellDelegate {
     
     func writeNothing(section: Int, row: Int) {
         todoArrayList[section].remove(at: row)
@@ -1300,27 +1314,24 @@ extension TodoMainViewController: TodoTableViewCellDelegate {
         tableView.reloadData()
     }
     
-    func sendTodoData(section: Int, row: Int, todo: Todo) {
+    func sendTodoData(section: Int, row: Int, todo: ToDo) {
         todoArrayList[todo.color-1][row] = todo
         todoSortById(section: section)
         todoSortByDone(section: section)
         tableView.reloadData()
     }
     
-    func editDone(section: Int, row: Int, todo: Todo) {
+    func editDone(section: Int, row: Int, todo: ToDo) {
         todoArrayList[todo.color-1][row] = todo
         todoSortById(section: todo.color-1)
         todoSortByDone(section: todo.color-1)
         tableView.reloadData()
     }
 }
-extension TodoMainViewController: UIGestureRecognizerDelegate {
+
+
+extension ToDoMainViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        if touch.view == dimmingView{
-            print("dimming")
-        }
-    
         return touch.view == tableView || touch.view == tableView.tableHeaderView || touch.view == calendarBackgroundView || touch.view == tableView.tableFooterView
     }
     

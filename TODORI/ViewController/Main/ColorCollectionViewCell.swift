@@ -9,10 +9,11 @@ import UIKit
 
 class ColorCollectionViewCell: UICollectionViewCell {
     
-    var view:UIView = UIView()
+    var view: UIView = UIView()
         
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+            //원형 뷰의 외형 설정
             view.backgroundColor = .lightGray
             view.clipsToBounds = true
             view.layer.cornerRadius = view.fs_width/2

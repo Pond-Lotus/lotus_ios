@@ -9,12 +9,11 @@ import UIKit
 import Alamofire
 
 class TodoService {
-    
     static let shared = TodoService()
     
     private init() {}
     
-    func inquireGroupName(completion: @escaping(NetworkResult<Any>) -> Void) {
+    func inquireGroupName(completion: @escaping(Result<ToDoResponse, Error>) -> Void) {
         let url = APIConstant.ToDo.groupName
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -22,30 +21,20 @@ class TodoService {
         }
         let headers: HTTPHeaders = ["Authorization" : "Token " + token]
         
-        AF.request(url, method: .get, headers: headers)
-            .responseDecodable(of: ToDoResponse.self) { response in
-                switch response.result {
-                case .success(let response):
-                    // 성공적으로 디코딩된 응답을 처리하는 코드
-                    if response.resultCode == 200 {
-                        // 로그인 성공
-                        print("투두 조회 성공 in UserService")
-                        completion(.success(response))
-                    } else {
-                        // 로그인 실패
-                        print("투두 조회 실패 in UserService")
-                        let error = NSError(domain: "TODORI", code: response.resultCode, userInfo: nil)
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
-                    // 요청 실패 또는 디코딩 오류 처리 코드
-                    print("에러: \(error)")
-                    completion(.failure(error))
-                }
+        AF.request(url, method: .get, headers: headers).responseDecodable(of: ToDoResponse.self) { response in
+            switch response.result {
+            case .success(let response):
+                print("투두 조회 성공 in UserService")
+                completion(.success(response))
+                
+            case .failure(let error):
+                print("투두 조회 실패 in UserService")
+                completion(.failure(error))
             }
+        }
     }
-
-    func editGroupName(first: String, second: String, third: String, fourth: String, fifth: String, sixth: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+    
+    func editGroupName(first: String, second: String, third: String, fourth: String, fifth: String, sixth: String, completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.ToDo.groupName
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -64,25 +53,192 @@ class TodoService {
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: CheckTokenResponse.self) { response in
+            .responseDecodable(of: ResultCodeResponse.self) { response in
                 switch response.result {
                 case .success(let response):
-                    // 성공적으로 디코딩된 응답을 처리하는 코드
-                    if response.resultCode == 200 {
-                        // 로그인 성공
-                        print("투두 수정 성공 in UserService")
-                        completion(.success(response))
-                    } else {
-                        // 로그인 실패
-                        print("투두 수정 실패 in UserService")
-                        let error = NSError(domain: "TODORI", code: response.resultCode, userInfo: nil)
-                        completion(.failure(error))
-                    }
+                    print("투두 수정 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
-                    // 요청 실패 또는 디코딩 오류 처리 코드
-                    print("에러: \(error)")
+                    print("투두 수정 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
     }
+    
+    func searchTodo(year:String, month:String, day:String, completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.todo
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        let parameter:Parameters = [
+            "year":year,
+            "month": month,
+            "day":day
+        ]
+        AF.request(url, method: .get,parameters: parameter, headers: header)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: TodoSearchResponseData.self) { response in
+                switch response.result {
+                case .success(let response):
+                    completion(.success(response))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        
+        
+    }
+    
+    func deleteTodo(id:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.todo + "\(id)/"
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        
+        
+        AF.request(url, method: .delete,headers: header)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ResponseData.self) { response in
+                switch response.result {
+                case .success(let response):
+                    completion(.success(response))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    func writeTodo(year:String, month:String, day:String, title:String, color:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.todo
+        
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameter:Parameters = [
+            "year":year,
+            "month": month,
+            "day":day,
+            "title":title,
+            "color":color
+        ]
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: TodoWriteResponseData.self) { response in
+            switch response.result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func editTodo(title:String, description:String,colorNum:Int, time:String, id:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.todo + "\(id)/"
+        
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameter:Parameters = [
+            "title" : title,
+            "description": description,
+            "color" : colorNum,
+            "time" : time
+        ]
+        AF.request(url,
+                   method: .put,
+                   parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: TodoEditResponseData.self) { response in
+            switch response.result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
+    
+    func getPriorityName(completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.category
+        
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        AF.request(url,
+                   method: .get,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: PriorityResponseData.self) { response in
+            switch response.result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func editDoneTodo(done:Bool, id:Int, completion:@escaping(AFResult<Any>)->Void){
+        let url = APIConstant.baseURL + APIConstant.todo + "\(id)/"
+        
+        guard let token = TokenManager.shared.getToken() else {
+            print("No token.")
+            return
+        }
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+        
+        let parameter:Parameters = [
+            "done":done
+        ]
+        AF.request(url,
+                   method: .put,
+                   parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: header)
+        .validate(statusCode: 200..<300)
+        .responseDecodable(of: TodoEditResponseData.self) { response in
+            switch response.result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        
+    }
 }
+

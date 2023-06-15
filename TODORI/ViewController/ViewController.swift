@@ -41,9 +41,4 @@ class ViewController: UIViewController {
         emailTextfield.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -41).isActive = true
         emailTextfield.topAnchor.constraint(equalTo: self.logoTextImageView.bottomAnchor, constant: 67).isActive = true
     }
-//수정
-//혜인
-//다솔
-//merge
-//배고파
 }

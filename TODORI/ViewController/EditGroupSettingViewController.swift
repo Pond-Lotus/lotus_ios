@@ -12,21 +12,10 @@ class EditGroupSettingViewController: UIViewController {
     var label: String?
     var index: String?
     
-    var groupName: String?
-
-    var firstGroupName: String?
-    var secondGroupName: String?
-    var thirdGroupName: String?
-    var fourthGroupName: String?
-    var fifthGroupName: String?
-    var sixthGroupName: String?
-    
     private func createStackView(image: String, text: String) -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        
         stackView.snp.makeConstraints() { make in
-            make.width.equalTo(500)
             make.height.equalTo(41)
         }
         
@@ -36,18 +25,16 @@ class EditGroupSettingViewController: UIViewController {
         imageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.width.equalTo(28)
-            make.height.equalTo(28)
         }
         
         let textField = UITextField()
+        textField.becomeFirstResponder()
         textField.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
         textField.layer.cornerRadius = 8
-        textField.text = self.groupName
         
         stackView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-//            make.height.equalTo(31)
         }
         
         textField.delegate = self
@@ -63,7 +50,6 @@ class EditGroupSettingViewController: UIViewController {
         if let label = self.label {
             let attributedPlaceholder = NSAttributedString(string: label, attributes: attributes)
             textField.attributedPlaceholder = attributedPlaceholder
-                        
         }
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(textField)
@@ -82,6 +68,9 @@ class EditGroupSettingViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         setupUI()
+        
+        navigationController?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,7 +79,6 @@ class EditGroupSettingViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NavigationBarManager.shared.removeSeparatorView()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -101,159 +89,105 @@ class EditGroupSettingViewController: UIViewController {
     var completeButton: UIBarButtonItem!
     
     private func setupUI() {
-        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "그룹 설정")
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: #selector(backButtonTapped), title: "그룹 설정", showSeparator: false)
         completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonTapped))
-//        if 조건 {
-//            let attributes: [NSAttributedString.Key: Any] = [
-//                .foregroundColor: UIColor.red, // 원하는 폰트 컬러로 설정
-//                // 다른 원하는 속성들도 추가 가능
-//            ]
-//            button.setTitleTextAttributes(attributes, for: .normal)
-//        }
-
         let completeButtonAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 16, weight: .medium) ,
         ]
         completeButton.setTitleTextAttributes(completeButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = completeButton
         navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
-                
         
-        //        let stackView1 = UIStackView(arrangedSubviews: [changePasswordButton, notificationButton, changeThemeButton])
+        guard let color = color, let label = label else { return }
+        
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
+        mainStackView.addArrangedSubview(createStackView(image: color, text: label))
         
-        if let color = color, let label = label {
-            print(color)
-            print(label)
-            let firstStackView = createStackView(image: color, text: label)
-    
-            mainStackView.addArrangedSubview(firstStackView)
-            
-            view.addSubview(mainStackView)
-            mainStackView.snp.makeConstraints { make in
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(24)
-                make.leading.equalToSuperview().offset(28)
-                make.trailing.equalToSuperview().offset(-28)
-            }
-        } else {
-            print("label == nil")
+        view.addSubview(mainStackView)
+        mainStackView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(24)
+            make.leading.equalToSuperview().offset(28)
+            make.centerX.equalToSuperview()
         }
     }
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-//        dismiss(animated: true, completion: nil)
     }
     
     @objc func completeButtonTapped() {
-        
-        completeButton.isEnabled = false
-        
-        guard let first = firstGroupName,
-              let second = secondGroupName,
-              let third = thirdGroupName,
-              let fourth = fourthGroupName,
-              let fifth = fifthGroupName,
-              let sixth = sixthGroupName
+        guard let first = GroupData.shared.firstGroupName,
+              let second = GroupData.shared.secondGroupName,
+              let third = GroupData.shared.thirdGroupName,
+              let fourth = GroupData.shared.fourthGroupName,
+              let fifth = GroupData.shared.fifthGroupName,
+              let sixth = GroupData.shared.sixthGroupName
         else { return }
 
-        let VC = GroupSettingViewController()
-        if let index = index {
+        if let index = index, let label = label {
+            completeButton.isEnabled = false
             switch index {
             case "1":
-                VC.firstGroupName = first
-                editGroupName(first: groupName ?? "(NONE)", second: second, third: third, fourth: fourth, fifth: fifth, sixth: sixth)
+                GroupData.shared.firstGroupName = label
+                editGroupName(first: label, second: second, third: third, fourth: fourth, fifth: fifth, sixth: sixth)
             case "2":
-                VC.secondGroupName = second
-                editGroupName(first: first, second: groupName ?? "(NONE)", third: third, fourth: fourth, fifth: fifth, sixth: sixth)
+                GroupData.shared.secondGroupName = label
+                editGroupName(first: first, second: label, third: third, fourth: fourth, fifth: fifth, sixth: sixth)
             case "3":
-                VC.thirdGroupName = third
-                editGroupName(first: first, second: second, third: groupName ?? "(NONE)", fourth: fourth, fifth: fifth, sixth: sixth)
+                GroupData.shared.thirdGroupName = label
+                editGroupName(first: first, second: second, third: label, fourth: fourth, fifth: fifth, sixth: sixth)
             case "4":
-                VC.fourthGroupName = fourth
-                editGroupName(first: first, second: second, third: third, fourth: groupName ?? "(NONE)", fifth: fifth, sixth: sixth)
+                GroupData.shared.fourthGroupName = label
+                editGroupName(first: first, second: second, third: third, fourth: label, fifth: fifth, sixth: sixth)
             case "5":
-                VC.fifthGroupName = fifth
-                editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: groupName ?? "(NONE)", sixth: sixth)
+                GroupData.shared.fifthGroupName = label
+                editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: label, sixth: sixth)
             case "6":
-                VC.sixthGroupName = sixth
-                editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: fifth, sixth: groupName ?? "(NONE)")
+                GroupData.shared.sixthGroupName = label
+                editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: fifth, sixth: label)
             default:
-                print("스위치문 오류")
+                break
             }
         }
-    }
-    
-    private var underlineViews: [UIView] = []
-    
-    private func createUnderlineView() -> UIView {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }
 }
 
 extension EditGroupSettingViewController {
     func editGroupName(first: String, second: String, third: String, fourth: String, fifth: String, sixth: String) {
-        TodoService.shared.editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: fifth, sixth: sixth) { response in
-            switch response {
-            case .success(let data):
-                if let json = data as? CheckTokenResponse {
-                    if json.resultCode == 200 {
-                        print("이백")
-                        
-                        let VC = GroupSettingViewController()
-                        VC.firstGroupName = first
-                        
-                        let dimmingView = UIView(frame: UIScreen.main.bounds)
-                        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-                        dimmingView.alpha = 0
-                        self.view.addSubview(dimmingView)
-                        
-                        let popupView = CustomPopupView(title: "그룹 이름 변경", message: "그룹 이름 변경이 완료되었습니다.", buttonText: "확인", dimmingView: dimmingView)
-                        popupView.alpha = 0
-                        self.view.addSubview(popupView)
-                        popupView.snp.makeConstraints { make in
-                            make.center.equalToSuperview()
-                            make.width.equalTo(264)
-                            make.height.equalTo(167)
-                        }
-                        UIView.animate(withDuration: 0.3) {
-                            popupView.alpha = 1
-                            dimmingView.alpha = 1
-                        }
-                        
-                        NotificationCenter.default.post(name: NSNotification.Name("endEditGroupName"), object: nil)
-
-                    } else if json.resultCode == 500 {
-                        print("오백")
-                    }
+        TodoService.shared.editGroupName(first: first, second: second, third: third, fourth: fourth, fifth: fifth, sixth: sixth) { result in
+            switch result {
+            case .success(let response):
+                self.completeButton.isEnabled = true
+                if response.resultCode == 200 {
+                    print("이백")
+                    NotificationCenter.default.post(name: NSNotification.Name("endEditGroupName"), object: nil)
+                    self.navigationController?.popViewController(animated: true)
+                } else if response.resultCode == 500 {
+                    print("오백")
                 }
             case .failure(let err):
                 print(err)
             }
-            
-            DispatchQueue.main.async {
-                 self.completeButton.isEnabled = true
-             }
         }
     }
 }
 
 extension EditGroupSettingViewController: UITextFieldDelegate {
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        let currentText = textField.text ?? ""
-//        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
-//        return true
-//    }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if let updatedText = textField.text {
+            if updatedText.count != 0 {
+                navigationItem.rightBarButtonItem?.tintColor = .black
+                label = updatedText
+            } else {
+                navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
+            }
+        }
+    }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let enteredText = textField.text {
-            print("입력된 값: \(enteredText)")
-            self.groupName = enteredText
+            label = enteredText
         }
     }
     
@@ -263,8 +197,18 @@ extension EditGroupSettingViewController: UITextFieldDelegate {
     }
 }
 
-extension EditGroupSettingViewController: UIViewControllerTransitioningDelegate {
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return LeftToRightTransition()
+extension EditGroupSettingViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController == self {
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
+        } else {
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
+        }
+    }
+}
+
+extension EditGroupSettingViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

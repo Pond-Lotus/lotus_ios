@@ -19,6 +19,7 @@ class TokenManager {
     func saveToken(_ token: String) {
         do {
             try keychain.set(token, key: "authToken")
+            print("토큰 저장 완료 : \(token)")
         } catch {
             print("Failed to save token to Keychain: \(error)")
         }

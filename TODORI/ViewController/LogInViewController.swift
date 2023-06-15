@@ -6,18 +6,23 @@
 //
 
 import UIKit
-// import SnapKit 없어도 적용이 되는 이유?
 
-class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
-
-    private var overlayViewController: MyPageViewController?
-    var dimmingView: UIView?
+class LogInViewController: UIViewController {
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.keyboardDismissMode = .interactive
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        return view
+    }()
     
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo-image")
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -25,7 +30,6 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo-text")
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -45,12 +49,9 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         
         textField.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
         textField.layer.cornerRadius = 18
-        
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none // 기본값은 .sentences로 문장의 첫 글자를 자동으로 대문자로 변환
         textField.autocorrectionType = .no // 기본값은 .default로 기본 자동 교정 동작을 사용
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
@@ -67,10 +68,10 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 30))
         textField.leftView = paddingView
         textField.leftViewMode = .always
-                    
+        
         let passwordVisionButton = UIButton(type: .custom)
         passwordVisionButton.setImage(UIImage(named: "password-invision")?.resize(to: CGSize(width: 24, height: 24)), for: .normal)
-        passwordVisionButton.addTarget(nil, action: #selector(LogInViewController.passwordVisionButtonTapped), for: .touchUpInside)
+        passwordVisionButton.addTarget(nil, action: #selector(passwordVisionButtonTapped), for: .touchUpInside)
         passwordVisionButton.setImage(UIImage(named: "password-vision")?.resize(to: CGSize(width: 24, height: 24)), for: .selected)
         passwordVisionButton.frame = CGRect(x: 0, y: (30 - 24) / 2, width: 24, height: 24)
         
@@ -78,11 +79,10 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         textField.rightView = rightPaddingView
         textField.rightViewMode = .always
         rightPaddingView.addSubview(passwordVisionButton)
-                
+        
         textField.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
         textField.layer.cornerRadius = 18
         textField.isSecureTextEntry = true
-        
         return textField
     }()
     
@@ -91,13 +91,8 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         button.setTitle(" 자동 로그인", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        
-        // 1
-        let image = UIImage(named: "tick-circle")?.resize(to: CGSize(width: 17, height: 17))
-        button.setImage(image, for: .normal)
-        // 2
+        button.setImage(UIImage(named: "tick-circle")?.resize(to: CGSize(width: 17, height: 17)), for: .normal)
         button.setImage(UIImage(named: "tick-circle2")?.resize(to: CGSize(width: 17, height: 17)), for: .selected)
-        
         return button
     }()
     
@@ -106,8 +101,8 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         button.applyColorAnimation()
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        button.backgroundColor = UIColor.mainColor
         button.layer.cornerRadius = 18
         return button
     }()
@@ -122,129 +117,92 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let signupButton: UIButton = {
         let button = UIButton()
-        button.setTitle("회원 가입", for: .normal)
+        button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return button
     }()
     
-    private let testButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("마이페이지", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
+    private let indicatorView: UIActivityIndicatorView = {
+        let indicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+        indicatorView.style = .large
+        indicatorView.isHidden = true
+        return indicatorView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+    
+        navigationController?.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
-        self.view.addGestureRecognizer(tapGesture)
-        
+        setupButton()
+        setupTapGesture()
         setupUI()
         
-        emailTextField.delegate = self
-    
-        autoLoginButton.addTarget(self, action: #selector(autoLoginTapped), for: .touchUpInside)
-        loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
-        findPasswordButton.addTarget(self, action: #selector(findPasswordTapped), for: .touchUpInside)
-        signupButton.addTarget(self, action: #selector(signupTapped), for: .touchUpInside)
-        
-        testButton.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
+        registerKeyboardNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         emailTextField.text = ""
         passwordTextField.text = ""
-
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        print("LogInViewController의 handleTapGesture")
-        UIView.animate(withDuration: 0.3, animations: {
-            self.overlayViewController?.view.frame = CGRect(x: self.view.frame.size.width, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            self.dimmingView?.alpha = 0
-        }) { (_) in
-            self.overlayViewController?.removeFromParent()
-            self.overlayViewController?.view.removeFromSuperview()
-            self.dimmingView?.removeFromSuperview()
-        }
+    private func setupButton() {
+        autoLoginButton.addTarget(self, action: #selector(autoLoginTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        findPasswordButton.addTarget(self, action: #selector(findPasswordTapped), for: .touchUpInside)
+        signupButton.addTarget(self, action: #selector(signupTapped), for: .touchUpInside)
     }
     
-    @objc func testButtonTapped() {
-        dimmingView = UIView(frame: UIScreen.main.bounds)
-        dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        dimmingView?.alpha = 0
-        if let dimmingView = dimmingView {
-            view.addSubview(dimmingView)
-        }
-        
-        overlayViewController = MyPageViewController()
-        overlayViewController?.view.frame = CGRect(x: view.frame.size.width, y: 0, width: view.frame.size.width, height: view.frame.size.height)
-        if let overlayViewController = overlayViewController {
-            addChild(overlayViewController)
-        }
-        if let x = overlayViewController?.view {
-            view.addSubview(x)
-        }
-        overlayViewController?.dimmingView = dimmingView
-        
-        UIView.animate(withDuration: 0.3) {
-            self.overlayViewController?.view.frame = CGRect(x: 70, y: 0, width: self.view.frame.size.width - 70, height: self.view.frame.size.height)
-            self.dimmingView?.alpha = 1
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.view.endEditing(true)
-        
-        // MyPageViewController를 터치한 경우에는 아무 작업도 수행하지 않습니다.
-//        guard let touch = touches.first, let view = touch.view else {
-//            return
-//        }
-//        
-//        if view == overlayViewController?.view {
-//            print("FUCK")
-//            return
-//        }
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped))
+        scrollView.addGestureRecognizer(tapGesture)
     }
     
     private func setupUI() {
-        view.addSubview(testButton)
-        testButton.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(0)
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-
-        view.addSubview(logoImageView)
-        view.addSubview(logoTextView)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordTextField)
-        view.addSubview(autoLoginButton)
-        view.addSubview(loginButton)
-        view.addSubview(findPasswordButton)
-        view.addSubview(signupButton)
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalTo(scrollView.snp.width)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                let screenHeight = UIScreen.main.bounds.height - window.safeAreaInsets.top - window.safeAreaInsets.bottom
+                make.height.equalTo(screenHeight)
+            }
+        }
+        contentView.addSubview(logoImageView)
+        contentView.addSubview(logoTextView)
+        contentView.addSubview(emailTextField)
+        contentView.addSubview(passwordTextField)
+        contentView.addSubview(autoLoginButton)
+        contentView.addSubview(loginButton)
+        contentView.addSubview(findPasswordButton)
+        contentView.addSubview(signupButton)
+        contentView.addSubview(indicatorView)
         
         logoImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.17)
             make.centerX.equalToSuperview()
-            make.width.equalTo(117)
-            make.height.equalTo(117)
+            make.width.equalTo(67)
+            make.height.equalTo(90)
         }
         
         logoTextView.snp.makeConstraints { make in
-            make.top.equalTo(logoImageView.snp.bottom).offset(-10)
+            make.top.equalTo(logoImageView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
             make.width.equalTo(103)
             make.height.equalTo(40)
@@ -255,7 +213,7 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.1)
             make.height.equalTo(54)
-        }   
+        }
         
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.bottom).offset(5)
@@ -277,27 +235,33 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         findPasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(13)
+            make.top.equalTo(loginButton.snp.bottom).offset(10)
             make.leading.equalTo(loginButton.snp.leading).offset(0)
         }
         
         signupButton.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(13)
+            make.top.equalTo(loginButton.snp.bottom).offset(10)
             make.trailing.equalTo(loginButton.snp.trailing).offset(0)
+        }
+        
+        indicatorView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
         }
     }
     
-    @objc func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+    @objc private func scrollViewTapped() {
+        scrollView.endEditing(true)
     }
     
-    @objc private func loginTapped() {
+    @objc private func loginButtonTapped() {
         if emailTextField.text != "", passwordTextField.text != "" {
             if let email = emailTextField.text, let password = passwordTextField.text {
+                loginButton.isEnabled = false
+                loginButton.alpha = 0.7
                 login(email: email, password: password)
+                indicatorView.isHidden = false
+                indicatorView.startAnimating()
             }
-        } else {
-            print("로그인 탭 에러")
         }
     }
     
@@ -314,19 +278,108 @@ class LogInViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func closeCircleButtonTapped(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
         emailTextField.text = ""
-        emailTextField.rightView?.isHidden = true
+        emailTextField.rightViewMode = .never
     }
     
     @objc private func passwordVisionButtonTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         passwordTextField.isSecureTextEntry = !sender.isSelected
     }
+    
+    // MARK: - Keyboard Handling
+    
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+}
+
+extension LogInViewController {
+    func login(email: String, password: String) {
+        UserService.shared.login(email: email, password: password) { result in
+            switch result {
+            case .success(let response):
+                self.loginButton.isEnabled = true
+                self.loginButton.alpha = 1
+                self.indicatorView.isHidden = true
+                if response.resultCode == 200 {
+                    print("이백")
+                    guard let token = response.token,
+                          let email = response.email,
+                          let nickname = response.nickname
+                    else {
+                        print("가드 오류")
+                        return
+                    }
+                    
+                    if let base64Image = response.image {
+                        let imageData = UserSession.shared.base64StringToImage(base64String: base64Image)?.pngData()
+                        UserDefaults.standard.set(imageData, forKey: "image")
+                    } else {
+                        UserDefaults.standard.set(nil, forKey: "image")
+                    }
+                    
+                    TokenManager.shared.saveToken(token)
+                    UserDefaults.standard.set(email, forKey: "email")
+                    UserDefaults.standard.set(nickname, forKey: "nickname")
+                    
+                    if self.autoLoginButton.isSelected {
+                        UserDefaults.standard.set(true, forKey: "autoLogin")
+                        print("자동로그인 O : \(UserDefaults.standard.bool(forKey: "autoLogin"))")
+                    } else {
+                        UserDefaults.standard.set(false, forKey: "autoLogin")
+                        print("자동로그인 X : \(UserDefaults.standard.bool(forKey: "autoLogin"))")
+                    }
+                    
+                    let nextVC = UINavigationController(rootViewController: ToDoMainViewController())
+                    nextVC.modalPresentationStyle = .fullScreen
+                    self.present(nextVC, animated: false)
+                    
+                } else if response.resultCode == 500 {
+                    print("오백")
+                    let dimmingView = UIView(frame: UIScreen.main.bounds)
+                    dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    dimmingView.alpha = 0
+                    self.view.addSubview(dimmingView)
+                    let popupView = CustomPopupView(title: "로그인 실패", message: "이메일 혹은 비밀번호를\n다시 확인해 주세요.", buttonText: "확인", buttonColor: UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1), dimmingView: dimmingView)
+                    popupView.alpha = 0
+                    self.view.addSubview(popupView)
+                    popupView.snp.makeConstraints { make in
+                        make.center.equalToSuperview()
+                        make.width.equalTo(264)
+                        make.height.equalTo(167)
+                    }
+                    UIView.animate(withDuration: 0.3) {
+                        popupView.alpha = 1
+                        dimmingView.alpha = 1
+                    }
+                }
+            case .failure(let err):
+                print("failure: \(err)")
+                self.loginButton.isEnabled = true
+                self.loginButton.alpha = 1
+            }
+        }
+    }
 }
 
 extension LogInViewController: UITextFieldDelegate {
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
@@ -353,146 +406,36 @@ extension LogInViewController: UITextFieldDelegate {
         case emailTextField:
             passwordTextField.becomeFirstResponder()
         case passwordTextField:
-            textField.resignFirstResponder()            
-        default:
             textField.resignFirstResponder()
+        default:
+            break
         }
         return true
     }
 }
 
-extension LogInViewController {
-    
-    func login(email: String, password: String) {
-        UserService.shared.loginUser(email: email, password: password) { result in
-            switch result {
-            case .success(let response):
-                if response.resultCode == 200 {
-                    guard let token = response.token,
-                          let email = response.email,
-                          let nickname = response.nickname
-                    else { return }
-                    
-                    if self.autoLoginButton.isSelected {
-                        UserDefaults.standard.set(true, forKey: "autoLogin")
-                        print("자동로그인 O : \(UserDefaults.standard.bool(forKey: "autoLogin"))")
-                    } else {
-                        UserDefaults.standard.set(false, forKey: "autoLogin")
-                        print("자동로그인 X : \(UserDefaults.standard.bool(forKey: "autoLogin"))")
-                    }
-                    
-                    TokenManager.shared.saveToken(token)
-                    print("토큰 저장 완료 : \(token)")
-                    UserDefaults.standard.set(email, forKey: "email")
-                    UserDefaults.standard.set(nickname, forKey: "nickname")
-                    
-                    if let image = response.image {
-                        UserDefaults.standard.set(image, forKey: "image")
-                        print("사용자 이미지")
-                    } else { // image == nil
-                        if let defaultImage = UIImage(named: "default-profile") {
-                            let image = UserSession.shared.imageToBase64String(image: defaultImage)
-                            UserDefaults.standard.set(image, forKey: "image")
-                            print("기본 이미지")
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        let nextVC = TodoMainViewController()
-                        nextVC.modalPresentationStyle = .fullScreen
-                        self.present(nextVC, animated: false, completion: nil)
-                    }
-                } else {
-                    print("로그인 실패 : \(response)")
-                }
-            case .failure(_):
-                let dimmingView = UIView(frame: UIScreen.main.bounds)
-                dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-                dimmingView.alpha = 0
-                self.view.addSubview(dimmingView)
-                
-                let popupView = CustomPopupView(title: "로그인 실패", message: "이메일 혹은 비밀번호를\n다시 확인해 주세요.", buttonText: "확인", dimmingView: dimmingView)
-                popupView.alpha = 0
-                self.view.addSubview(popupView)
-                popupView.snp.makeConstraints { make in
-                    make.center.equalToSuperview()
-                    make.width.equalTo(264)
-                    make.height.equalTo(167)
-                }
-                UIView.animate(withDuration: 0.3) {
-                    popupView.alpha = 1
-                    dimmingView.alpha = 1
-                }
-            }
-        }
+extension LogInViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let navigationBar = navigationController?.navigationBar
+
+        let maxOffsetY = UIScreen.main.bounds.height * 0.15
+        let alpha = 1 - min(1, max(0, offsetY / maxOffsetY))
+        navigationBar?.alpha = alpha
     }
-    
-//    func login2(email: String, password: String) {
-//        UserService.shared.login(email: email, password: password) {
-//            response in
-//            switch response {
-//            case .success(let data):
-//                if let json = data as? [String: Any], let resultCode = json["resultCode"] as? Int {
-//                    if resultCode == 200 {
-//                        print("이백")
-//                        guard let token = json["token"] as? String,
-//                              let nickname = json["nickname"] as? String,
-//                              let email = json["email"] as? String,
-//                              let image = json["image"] else {
-//                            print("데이터 저장 오류")
-//                            return
-//                        }
-//
-//                        TokenManager.shared.saveToken(token)
-//                        print("토큰 저장 완료 : \(token)")
-//                        
-//                        UserSession.shared.nickname = nickname
-//                        UserSession.shared.email = email
-//                        
-//                        if let myImage = image as? String {
-//                            UserSession.shared.profileImage = myImage
-//                            print("사용자 이미지 프로필 String")
-//                            
-//                            if let imageData = Data(base64Encoded: myImage, options: .ignoreUnknownCharacters) {
-//                                let image = UIImage(data: imageData)
-//                                UserSession.shared.image = image
-//                                print("사용자 이미지 프로필 UIImage")
-//                            }
-//                        } else {
-//                            print("<null>: 기본 이미지 프로필")
-//                        }
-//                        
-//                        DispatchQueue.main.async {
-//                            let myPageViewController = MyPageViewController()
-//                            self.navigationController?.pushViewController(myPageViewController, animated: true)
-//                        }
-//                    } else if resultCode == 500 {
-//                        print("오백")
-//                        
-//                        let dimmingView = UIView(frame: UIScreen.main.bounds)
-//                        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//                        dimmingView.alpha = 0
-//                        self.view.addSubview(dimmingView)
-//                        
-//                        let popupView = CustomPopupView(title: "로그인 실패", message: "이메일 혹은 비밀번호를\n다시 확인해 주세요.", buttonText: "확인", dimmingView: dimmingView)
-//                        popupView.alpha = 0
-//                        self.view.addSubview(popupView)
-//                        
-//                        UIView.animate(withDuration: 0.3) {
-//                            popupView.alpha = 1
-//                            dimmingView.alpha = 1
-//                        }
-//                        
-//                        popupView.snp.makeConstraints { make in
-//                            make.center.equalToSuperview()
-//                            make.width.equalTo(264)
-//                            make.height.equalTo(167)
-//                        }
-//                    }
-//                }
-//            case .failure:
-//                print("FUCKING fail")
-//            }
-//        }
-//        
-//    }
+}
+
+extension LogInViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        let isRootViewController = (viewController == navigationController.viewControllers.first)
+        
+        // Enable or disable the interactivePopGestureRecognizer based on the isRootViewController flag
+        navigationController.interactivePopGestureRecognizer?.isEnabled = !isRootViewController
+    }
+}
+
+extension LogInViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

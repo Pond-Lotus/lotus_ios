@@ -1,14 +1,13 @@
 //
-//  CustomPopupView2.swift
+//  LogoutPopupView.swift
 //  TODORI
 //
-//  Created by Dasol on 2023/05/25.
+//  Created by Dasol on 2023/05/22.
 //
 
 import UIKit
 
 class CustomPopupView2: UIView {
-    
     weak var delegate: CustomPopupView2Delegate?
     
     var titleLabel: UILabel!
@@ -40,13 +39,10 @@ class CustomPopupView2: UIView {
         titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
-        titleLabel.textColor = UIColor(red: 0.171, green: 0.171, blue: 0.171, alpha: 1)
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(27)
+            $0.top.equalToSuperview().offset(37)
             $0.width.equalToSuperview()
-            //            $0.leading.equalToSuperview().offset(16)
-            
         }
         
         messageLabel = UILabel()
@@ -57,8 +53,6 @@ class CustomPopupView2: UIView {
         messageLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(11)
             $0.width.equalToSuperview()
-            //            $0.leading.equalToSuperview().offset(16)
-            //            $0.trailing.equalToSuperview().inset(16)
         }
         
         actionButton1 = UIButton(type: .system)
@@ -96,14 +90,14 @@ class CustomPopupView2: UIView {
         self.dimmingView.isHidden = true
         self.removeFromSuperview()
     }
-    
+
     @objc func okButtonTapped() {
-        delegate?.okButtonTappedDelegate()
+        delegate?.buttonTappedDelegate()
         self.dimmingView.isHidden = true
         self.removeFromSuperview()
     }
 }
 
 protocol CustomPopupView2Delegate: AnyObject {
-    func okButtonTappedDelegate()
+    func buttonTappedDelegate()
 }

@@ -12,20 +12,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
         window?.overrideUserInterfaceStyle = .light // light-mode
         
-        //        guard let _ = (scene as? UIWindowScene) else { return }
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
         let mainViewController = LaunchScreenViewController()
         self.window?.rootViewController = mainViewController
         self.window?.makeKeyAndVisible()
-        UserDefaults.standard.set(false, forKey: "autoLogin")
+//        UserDefaults.standard.set(false, forKey: "autoLogin")
+//        UserDefaults.standard.removeObject(forKey: "autoLogin")
         
         if UserDefaults.standard.bool(forKey: "autoLogin") {
             print("isAutoLogin: true")
@@ -37,12 +33,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         if let token = TokenManager.shared.getToken() {
                             print("토큰: \(token)")
                         }
-
-                        self.window?.rootViewController = TodoMainViewController()
+                        let navigationController = UINavigationController(rootViewController: ToDoMainViewController())
+                        self.window?.rootViewController = navigationController
                         self.window?.makeKeyAndVisible()
-                        
-                    } else {
-                        print("토큰 유효성 검증 실패 : \(response)")
+                    } else if response.resultCode == 500 {
+                        print("오백 : 토큰 유효성 검증 실패")
                     }
                 case .failure(_):
                     print("failure")
@@ -59,14 +54,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("여기는 SceneDelegate 입니다.")
     }
     
-    static func logout() {
-        let loginViewController = LogInViewController()
+    static func reset() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        TokenManager.shared.deleteToken()
+
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
             let sceneDelegate = windowScene.delegate as? SceneDelegate
-        else {
-            return
-        }
+        else { return }
         
+        let loginViewController = UINavigationController(rootViewController: LogInViewController())
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = loginViewController
         sceneDelegate.window = window
@@ -103,3 +101,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
 }
+

@@ -27,28 +27,31 @@ class LaunchScreenViewController: UIViewController {
         layer0.startPoint = CGPoint(x: 0.25, y: 0.5)
         layer0.endPoint = CGPoint(x: 0.75, y: 0.5)
         layer0.transform = CATransform3DMakeAffineTransform(CGAffineTransform(a: 0.94, b: 0.69, c: -0.69, d: 0.2, tx: 0.35, ty: -0.09))
-        layer0.bounds = view.bounds.insetBy(dx: -1*view.bounds.size.width, dy: -1*view.bounds.size.height)
+        layer0.bounds = view.bounds.insetBy(dx: -0.9 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
         layer0.position = view.center
         view.layer.addSublayer(layer0)
+
         
         let logo = UIImage(named: "logo-image-white")
         let logoView = UIImageView(image: logo)
         logoView.contentMode = .scaleAspectFit
         self.view.addSubview(logoView)
-        
         logoView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(-37)
+            $0.width.equalTo(67)
+            $0.height.equalTo(93)
         }
         
         let logoText = UIImage(named: "logo-text-white")
         let logoTextView = UIImageView(image: logoText)
         logoTextView.contentMode = .scaleAspectFit
         self.view.addSubview(logoTextView)
-        
         logoTextView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(37)
+            $0.width.equalTo(103)
+            $0.height.equalTo(40)
         }
     }
 }

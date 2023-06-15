@@ -8,15 +8,15 @@
 import UIKit
 import SnapKit
 
-class TodoTableViewCell:UITableViewCell {
+class ToDoTableViewCell: UITableViewCell {
     
-    var checkbox:UIImageView = UIImageView()
-    var titleTextField:UITextField = UITextField()
-    var cellBackgroundView:UIView = UIView()
-    var todo:Todo = .init(year: "", month: "", day: "", title: "", done: false, isNew: false, writer: "", color: 0, id: 0, time: "0000", description: "")
-    var section:Int = 0
-    var row:Int = 0
-    var delegate:TodoTableViewCellDelegate?
+    var checkbox: UIImageView = UIImageView()
+    var titleTextField: UITextField = UITextField()
+    var cellBackgroundView: UIView = UIView()
+    var todo: ToDo = .init(year: "", month: "", day: "", title: "", done: false, isNew: false, writer: "", color: 0, id: 0, time: "0000", description: "")
+    var section: Int = 0
+    var row: Int = 0
+    var delegate: TodoTableViewCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "TodoCell")
@@ -32,6 +32,7 @@ class TodoTableViewCell:UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //view에 컴포넌트 추가
     private func addComponent(){
         cellBackgroundView.addSubview(titleTextField)
         cellBackgroundView.addSubview(checkbox)
@@ -39,13 +40,14 @@ class TodoTableViewCell:UITableViewCell {
 
     }
     
+    //컴포넌트에 기능 추가
     private func addTarget(){
         titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEnd)
         checkbox.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCheckbox)))
         checkbox.isUserInteractionEnabled = true
-
     }
     
+    //오토 레이아웃 적용
     private func setAutoLayout(){
         cellBackgroundView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20)
@@ -66,6 +68,8 @@ class TodoTableViewCell:UITableViewCell {
             make.centerY.equalToSuperview()
         }
     }
+    
+    //컴포넌트 외형 설정
     private func setAppearence(){
         cellBackgroundView.backgroundColor = .white
         cellBackgroundView.layer.cornerRadius = 10
@@ -77,6 +81,7 @@ class TodoTableViewCell:UITableViewCell {
         
     }
     
+    //새로 작성된 투두 외에는 수정 불가능 하게 하는 코드
     override func setSelected(_ selected: Bool, animated: Bool) {
         if todo.isNew{
             titleTextField.isEnabled = true
@@ -86,8 +91,9 @@ class TodoTableViewCell:UITableViewCell {
         }
     }
     
+    //체크 박스 터치 기능
     @objc private func tapCheckbox(){
-        TodoAPIConstant.shared.editDoneTodo(done: !todo.done, id: todo.id) { (response) in
+        TodoService.shared.editDoneTodo(done: !todo.done, id: todo.id) { (response) in
             switch(response){
             case .success(let resultData):
                 if let data = resultData as? TodoEditResponseData{
@@ -104,12 +110,13 @@ class TodoTableViewCell:UITableViewCell {
         }
     }
     
+    //텍스트 필드 edit 완료시 실행되는 동작
     @objc private func textFieldEndEdit(){
         guard let input = titleTextField.text?.replacing(" ", with: "") else {return}
         if input.count == 0 {
             delegate?.writeNothing(section: todo.color-1, row: row)
         }else{
-            TodoAPIConstant.shared.writeTodo(year: todo.year, month: todo.month, day: todo.day, title: titleTextField.text ?? "", color: todo.color) { [self] (response) in
+            TodoService.shared.writeTodo(year: todo.year, month: todo.month, day: todo.day, title: titleTextField.text ?? "", color: todo.color) { [self] (response) in
                 switch(response){
                 case .success(let resultData):
                     if let data = resultData as? TodoWriteResponseData{
@@ -134,15 +141,17 @@ class TodoTableViewCell:UITableViewCell {
     }
 }
 
-extension TodoTableViewCell:UITextFieldDelegate{
+extension ToDoTableViewCell:UITextFieldDelegate{
+    //리턴 버튼 눌렀을 때 실행되는 동작
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         return true
     }
 }
 
+//프로토콜 정의
 protocol TodoTableViewCellDelegate:AnyObject{
-    func sendTodoData(section:Int, row:Int, todo:Todo)
-    func editDone(section:Int,row:Int,todo:Todo)
+    func sendTodoData(section:Int, row:Int, todo:ToDo)
+    func editDone(section:Int,row:Int,todo:ToDo)
     func writeNothing(section:Int, row:Int)
 }

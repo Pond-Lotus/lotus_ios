@@ -8,12 +8,12 @@
 import UIKit
 
 class MyPageViewController: UIViewController {
-    
-    private var initialPosition: CGPoint = .zero
+//    private var initialPosition: CGPoint = .zero
     var dimmingView: UIView?
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -25,7 +25,6 @@ class MyPageViewController: UIViewController {
             label.text = "(NONE)"
         }
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -38,14 +37,15 @@ class MyPageViewController: UIViewController {
         }
         label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
         label.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let editProfileButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "edit-profile")?.resize(to: CGSize(width: 24, height: 24)), for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        var configuration = UIButton.Configuration.plain()
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        button.configuration = configuration
         return button
     }()
     
@@ -53,7 +53,6 @@ class MyPageViewController: UIViewController {
         let label = UILabel()
         label.text = "환경 설정"
         label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -65,7 +64,6 @@ class MyPageViewController: UIViewController {
         
         let image = UIImage(named: "setting")?.resize(to: CGSize(width: 18, height: 18))
         button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -77,7 +75,6 @@ class MyPageViewController: UIViewController {
         
         let image = UIImage(named: "setting")?.resize(to: CGSize(width: 18, height: 18))
         button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -85,16 +82,18 @@ class MyPageViewController: UIViewController {
         let label = UILabel()
         label.text = "그룹 설정"
         label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let settingGroupButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         let image = UIImage(systemName: "chevron.right")?.resize(to: CGSize(width: 10, height: 14))
-        button.setImage(image, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        let tintedImage = image?.withRenderingMode(.alwaysTemplate)
+        button.setImage(tintedImage, for: .normal)
+        button.tintColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
+        var configuration = UIButton.Configuration.plain()
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        button.configuration = configuration
         return button
     }()
     
@@ -103,26 +102,27 @@ class MyPageViewController: UIViewController {
         button.setTitle(" 로그아웃", for: .normal)
         button.setTitleColor(UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        
         let image = UIImage(named: "logout")?.resize(to: CGSize(width: 18, height: 18))
         button.setImage(image, for: .normal)
         return button
     }()
     
-    private var underlineViews: [UIView] = []
-    
     private func createUnderlineView() -> UIView {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(view)
+        view.snp.makeConstraints { make in
+            make.height.equalTo(1.0)
+            make.leading.equalToSuperview().offset(22)
+            make.centerX.equalToSuperview()
+        }
         return view
     }
     
     private var colorViews: [UIImageView] = []
     
     private func createColorView(_ filename: String) -> UIImageView {
-        let imageView = UIImageView(image: UIImage(named: filename))
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        let imageView = UIImageView(image: UIImage(named: filename)?.resize(to: CGSize(width: 25, height: 25)))
         return imageView
     }
     
@@ -130,12 +130,7 @@ class MyPageViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        view.addGestureRecognizer(panGesture)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
-        view.addGestureRecognizer(tapGesture)
-        
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:))))
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
         changePasswordButton.addTarget(self, action: #selector(changePasswordButtonTapped), for: .touchUpInside)
         settingGroupButton.addTarget(self, action: #selector(settingGroupButtonTapped), for: .touchUpInside)
@@ -146,27 +141,26 @@ class MyPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    
+        guard let email = UserDefaults.standard.string(forKey: "email"),
+              let nickname = UserDefaults.standard.string(forKey: "nickname")
+        else { return }
         
         DispatchQueue.main.async {
-            if let image = UserDefaults.standard.string(forKey: "image") {
-                if let originalImage = UserSession.shared.base64StringToImage(base64String: image) {
-                    let squareImage = originalImage.squareImage()
-                    let roundedImage = squareImage?.roundedImage()
-                    self.profileImageView.image = roundedImage
-                }
+            if let imageData = UserDefaults.standard.data(forKey: "image") {
+                self.profileImageView.image = UIImage(data: imageData)
             } else {
-                print("UserDefaults에 image 없음2.")
+                self.profileImageView.image = UIImage(named: "default-profile")
             }
         }
-        
-        if let email = UserDefaults.standard.string(forKey: "email")  {
-            emailLabel.text = email
-        }
-        
-        if let nickname = UserDefaults.standard.string(forKey: "nickname") {
-            nickNameLabel.text = nickname
-        }
+        emailLabel.text = email
+        nickNameLabel.text = nickname
+    }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let cornerRadius = min(self.profileImageView.bounds.width, self.profileImageView.bounds.height) / 2
+        self.profileImageView.layer.cornerRadius = cornerRadius
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -179,7 +173,6 @@ class MyPageViewController: UIViewController {
         stackView1.spacing = 22
         stackView1.alignment = .leading
         
-        //        let stackView2 = UIStackView(arrangedSubviews: [])
         let stackView2 = UIStackView()
         colorViews.append(createColorView("red-circle"))
         colorViews.append(createColorView("yellow-circle"))
@@ -204,32 +197,20 @@ class MyPageViewController: UIViewController {
         view.addSubview(settingGroupButton)
         view.addSubview(logoutButton)
         
+        var underlineViews: [UIView] = []
         for _ in 1...4 { underlineViews.append(createUnderlineView()) }
-        underlineViews.forEach { view.addSubview($0) }
         
         underlineViews[0].snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(21)
-            make.leading.equalToSuperview().offset(22)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(1.0)
         }
         underlineViews[1].snp.makeConstraints { make in
             make.top.equalTo(stackView1.snp.bottom).offset(28)
-            make.leading.equalToSuperview().offset(22)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(1.0)
         }
         underlineViews[2].snp.makeConstraints { make in
             make.top.equalTo(stackView2.snp.bottom).offset(28)
-            make.leading.equalToSuperview().offset(22)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(1.0)
         }
         underlineViews[3].snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-64)
-            make.leading.equalToSuperview().offset(22)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(1.0)
         }
         
         profileImageView.snp.makeConstraints { make in
@@ -251,7 +232,7 @@ class MyPageViewController: UIViewController {
         
         editProfileButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(84 - 10)
-            make.trailing.equalToSuperview().offset(-18 + 10)
+            make.trailing.equalToSuperview().offset(-22 + 10)
         }
         
         titleLabel1.snp.makeConstraints { make in
@@ -286,26 +267,12 @@ class MyPageViewController: UIViewController {
         }
     }
     
-    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        // MyPageViewController의 뷰를 터치한 경우에만 아래 코드가 실행됩니다.
-        // 터치 이벤트를 소비하여 상위 뷰 컨트롤러로 전달되지 않도록 합니다.
-        gesture.cancelsTouchesInView = true
-    }
-    
     @objc func editProfileButtonTapped() {
-        let nextViewController = EditProfileViewController()
-        let navigationController = UINavigationController(rootViewController: nextViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .crossDissolve
-        present(navigationController, animated: true, completion: nil)
+        navigationController?.pushViewController(EditProfileViewController(), animated: false)
     }
         
     @objc func changePasswordButtonTapped() {
-        let nextViewController = ChangePasswordViewController()
-        let navigationController = UINavigationController(rootViewController: nextViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .crossDissolve
-        present(navigationController, animated: true, completion: nil)
+        navigationController?.pushViewController(ChangePasswordViewController(), animated: false)
     }
     
     @objc func settingGroupButtonTapped() {
@@ -313,16 +280,15 @@ class MyPageViewController: UIViewController {
     }
     
     @objc func logoutButtonTapped() {
+        // MyPageViewController가 아닌 화면 전체를 기준으로 팝업뷰를 띄우기 위함
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
-            
             let dimmingView = UIView(frame: keyWindow.bounds)
             dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
             dimmingView.alpha = 0
             keyWindow.addSubview(dimmingView)
-            
-            let popupView = LogoutPopupView(title: "로그아웃", message: "로그아웃 하시겠습니까?", buttonText1: "취소", buttonText2: "로그아웃", dimmingView: dimmingView)
-            popupView.delegate = self // 중요
+            let popupView = CustomPopupView2(title: "로그아웃", message: "로그아웃 하시겠습니까?", buttonText1: "취소", buttonText2: "로그아웃", dimmingView: dimmingView)
+            popupView.delegate = self
             popupView.alpha = 0
             keyWindow.addSubview(popupView)
             popupView.snp.makeConstraints { make in
@@ -330,7 +296,6 @@ class MyPageViewController: UIViewController {
                 make.width.equalTo(264)
                 make.height.equalTo(167)
             }
-            
             UIView.animate(withDuration: 0.2) {
                 popupView.alpha = 1
                 dimmingView.alpha = 1
@@ -338,6 +303,8 @@ class MyPageViewController: UIViewController {
         }
     }
     
+    
+    private var initialPosition: CGPoint = .zero
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         
@@ -345,26 +312,22 @@ class MyPageViewController: UIViewController {
         case .began:
             initialPosition = view.center
         case .changed:
-            //            view.center = CGPoint(x: initialPosition.x + translation.x, y: initialPosition.y)
             let newX = initialPosition.x + translation.x
             if newX > initialPosition.x {
                 view.center = CGPoint(x: newX, y: initialPosition.y)
             }
         case .ended, .cancelled:
-            let screenWidth = UIScreen.main.bounds.width
-            
-            if view.center.x > screenWidth / 2 {
-                // 오른쪽으로 당겨졌으므로 다시 들어가도록 애니메이션 처리
-                UIView.animate(withDuration: 0.2) {
+            if view.frame.minX > 100 {
+                let screenWidth = UIScreen.main.bounds.width
+                UIView.animate(withDuration: 0.1) {
                     self.view.frame = CGRect(x: screenWidth, y: 0, width: screenWidth, height: self.view.frame.height)
                 } completion: { _ in
                     self.view.removeFromSuperview()
                     self.removeFromParent()
-                    self.dimmingView?.isHidden = true
+                    self.dimmingView?.removeFromSuperview()
                 }
             } else {
-                // 왼쪽으로 당겨지지 않았으므로 초기 위치로 되돌림
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.1) {
                     self.view.center = self.initialPosition
                 }
             }
@@ -376,85 +339,60 @@ class MyPageViewController: UIViewController {
 
 extension MyPageViewController {
     func logout() {
-        UserService.shared.logout() { response in
-            switch response {
-            case .success(let data):
-                if let json = data as? [String: Any], let resultCode = json["resultCode"] as? Int {
-                    if resultCode == 200 {
-                        print("로그아웃 이백")
-                        UserDefaults.standard.set(false, forKey: "autoLogin")
-                        
-                        let domain = Bundle.main.bundleIdentifier!
-                        UserDefaults.standard.removePersistentDomain(forName: domain)
-                        UserDefaults.standard.synchronize()
-                        
-                        SceneDelegate.logout()
-                    } else if resultCode == 500 {
-                        print("오백")
-                        print("로그아웃 실패")
-                    }
+        UserService.shared.logout() { result in
+            switch result {
+            case .success(let response):
+                if response.resultCode == 200 {
+                    print("이백")
+                    NavigationBarManager.shared.removeSeparatorView()
+                    SceneDelegate.reset()
+                } else if response.resultCode == 500 {
+                    print("오백")
                 }
             case .failure:
-                print("FUCKING fail")
+                print("failure")
             }
         }
     }
     
     func inquireGroup() {
-        TodoService.shared.inquireGroupName() { response in
-            switch response {
-            case .success(let data):
-                if let json = data as? ToDoResponse {
-                    if json.resultCode == 200 {
-                        print("이백")
-                        
-                        let groupSettingVC = GroupSettingViewController()
-                        if let group1 = json.data["1"] {
-                            groupSettingVC.firstGroupName = group1
-                        }
-                        if let group2 = json.data["2"] {
-                            groupSettingVC.secondGroupName = group2
-                        }
-                        if let group3 = json.data["3"] {
-                            groupSettingVC.thirdGroupName = group3
-                        }
-                        if let group4 = json.data["4"] {
-                            groupSettingVC.fourthGroupName = group4
-                        }
-                        if let group5 = json.data["5"] {
-                            groupSettingVC.fifthGroupName = group5
-                        }
-                        if let group6 = json.data["6"] {
-                            groupSettingVC.sixthGroupName = group6
-                        }
-                        
-                        let navigationController = UINavigationController(rootViewController: groupSettingVC)
-                        navigationController.modalPresentationStyle = .fullScreen
-                        navigationController.modalTransitionStyle = .crossDissolve
-                        self.present(navigationController, animated: true, completion: nil)
-                        
-                    } else if json.resultCode == 500 {
-                        print("오백")
+        TodoService.shared.inquireGroupName() { result in
+            switch result {
+            case .success(let response):
+                if response.resultCode == 200 {
+                    print("이백")
+                    if let group1 = response.data["1"] {
+                        GroupData.shared.firstGroupName = group1
                     }
+                    if let group2 = response.data["2"] {
+                        GroupData.shared.secondGroupName = group2
+                    }
+                    if let group3 = response.data["3"] {
+                        GroupData.shared.thirdGroupName = group3
+                    }
+                    if let group4 = response.data["4"] {
+                        GroupData.shared.fourthGroupName = group4
+                    }
+                    if let group5 = response.data["5"] {
+                        GroupData.shared.fifthGroupName = group5
+                    }
+                    if let group6 = response.data["6"] {
+                        GroupData.shared.sixthGroupName = group6
+                    }
+                    
+                    self.navigationController?.pushViewController(GroupSettingViewController(), animated: false)
+                } else if response.resultCode == 500 {
+                    print("오백")
                 }
-            case .failure(let err):
-                print(err)
+            case .failure:
+                print("failure")
             }
         }
     }
 }
 
-extension MyPageViewController: LogoutPopupViewDelegate {
-    func logoutButtonTappedDelegate() {
+extension MyPageViewController: CustomPopupView2Delegate {
+    func buttonTappedDelegate() {
         logout()
-    }
-}
-
-private class ExpandableButton: UIButton {
-    private let touchAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10) // 터치 영역 확장할 여백
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        let expandedBounds = bounds.inset(by: touchAreaInsets)
-        return expandedBounds.contains(point)
     }
 }

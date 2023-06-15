@@ -15,7 +15,6 @@ class EnterCodeViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -26,7 +25,6 @@ class EnterCodeViewController: UIViewController {
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -36,7 +34,6 @@ class EnterCodeViewController: UIViewController {
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
         label.textColor = UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -45,7 +42,7 @@ class EnterCodeViewController: UIViewController {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .numberPad
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.becomeFirstResponder()
         return textField
     }()
     
@@ -169,28 +166,30 @@ class EnterCodeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tap)
-        
         codeTextField.delegate = self
+        navigationController?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
-        setupUI()
-        
-        codeTextField.becomeFirstResponder()
-        let inputlabels = [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixthLabel]
-        inputlabels.forEach { label in
-            label.isUserInteractionEnabled = true
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped)) // 모든 라벨에 대해 제스처를 추가하기 위해서는 tapGesture 객체를 라벨마다 새로 생성해야 합니다.
-            label.addGestureRecognizer(tapGesture)
-        }
-        
-        //        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        setupTapGesture()
+        setupUI()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+    }
+    
+    private func setupTapGesture() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
+        let inputlabels = [firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel, sixthLabel]
+        inputlabels.forEach { label in
+            label.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+            label.addGestureRecognizer(tapGesture)
+        }
     }
     
     private func setupUI() {
@@ -211,10 +210,12 @@ class EnterCodeViewController: UIViewController {
         view.addSubview(nextButton)
         
         numberLabel.snp.makeConstraints { make in
-            if let navigationBarHeight = navigationController?.navigationBar.frame.height {
-                make.top.equalToSuperview().offset(navigationBarHeight + 40)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let topSafeAreaHeight = windowScene.windows.first?.safeAreaInsets.top,
+               let navigationBarHeight = navigationController?.navigationBar.frame.height {
+                let totalHeight = topSafeAreaHeight + navigationBarHeight
+                make.top.equalToSuperview().offset(totalHeight + 40)
             }
-//            make.top.equalToSuperview().offset(UIScreen.main.bounds.height * 0.15)
             make.leading.equalToSuperview().offset(UIScreen.main.bounds.width * 0.06)
         }
         
@@ -257,13 +258,11 @@ class EnterCodeViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-        //        dismiss(animated: true, completion: nil) // 이전 뷰 컨트롤러로 이동
     }
     
     @objc func nextButtonTapped() {
         if let code = codeTextField.text, let email = UserSession.shared.signUpEmail {
-            print("email: \(email)")
-            print("code: \(code)")
+            self.nextButton.isEnabled = false
             codeCheck(email: email, code: code)
         } else {
             print("이메일 또는 코드 값이 없습니다.")
@@ -276,18 +275,19 @@ extension EnterCodeViewController {
         UserService.shared.codeCheck(email: email, code: code) { result in
             switch result {
             case .success(let data):
-                if let data = data as? ResultCodeResponse {
-                    if data.resultCode == 200 {
-                        print("이백")
-                        self.errorLabel.isHidden = true
-                        self.navigationController?.pushViewController(EnterProfileViewController(), animated: true)
-                    } else if data.resultCode == 500 {
-                        print("오백")
-                        self.errorLabel.isHidden = false
-                    }
+                self.nextButton.isEnabled = true
+                if data.resultCode == 200 {
+                    print("이백")
+                    self.errorLabel.isHidden = true
+                    self.navigationController?.pushViewController(EnterProfileViewController(), animated: true)
+                } else if data.resultCode == 500 {
+                    print("오백")
+                    self.errorLabel.isHidden = false
                 }
             case .failure:
-                print("FUCKING failure")
+                print("failure")
+                self.nextButton.isEnabled = true
+                self.errorLabel.isHidden = false
             }
         }
     }
@@ -296,9 +296,7 @@ extension EnterCodeViewController {
 extension EnterCodeViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
-        
-        print("updatedText : \(updatedText)")
-        
+                
         if updatedText.isEmpty {
             firstLabel.text = ""
         } else if updatedText.count == 1 {
@@ -318,19 +316,24 @@ extension EnterCodeViewController: UITextFieldDelegate {
             sixthLabel.text = ""
         } else if updatedText.count == 6 {
             sixthLabel.text = String(updatedText[updatedText.index(updatedText.startIndex, offsetBy: 5)])
-            //            textField.resignFirstResponder()
+            textField.resignFirstResponder()
         }
         return updatedText.count <= 6
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if fifthLabel.text != "" {
-            print("Fifth")
+}
+
+extension EnterCodeViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController == self {
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
+        } else {
+            navigationController.interactivePopGestureRecognizer?.isEnabled = false
         }
-        if sixthLabel.text !=  "" {
-            print("Sixth")
-            textField.resignFirstResponder()
-        }
+    }
+}
+
+extension EnterCodeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }

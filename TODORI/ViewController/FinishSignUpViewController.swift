@@ -92,8 +92,6 @@ class FinishSignUpViewController: UIViewController {
     }
     
     @objc func loginTapped(_ sender: UIButton) {
-        if let navigationController = self.navigationController {
-            navigationController.popToRootViewController(animated: true)
-        }
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

@@ -13,8 +13,7 @@
 		3E1EB29B2A350B4F0060FAF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB2982A350B4F0060FAF4 /* ViewController.swift */; };
 		3E1EB29C2A350B4F0060FAF4 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB2992A350B4F0060FAF4 /* MyPageViewController.swift */; };
 		3E1EB29D2A350B4F0060FAF4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB29A2A350B4F0060FAF4 /* MainViewController.swift */; };
-		3E1EB2BC2A350C700060FAF4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB2B52A350C700060FAF4 /* Server.swift */; };
-		3E1EB2BD2A350C700060FAF4 /* TodoAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB2B62A350C700060FAF4 /* TodoAPIConstant.swift */; };
+		3E227F922A3A3604005CF5FF /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E227F912A3A3604005CF5FF /* BottomSheetViewController.swift */; };
 		3E2299972A326B6300011E8F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2299962A326B6300011E8F /* Lottie */; };
 		3E2299992A326C7F00011E8F /* lottieFile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E2299982A326C7F00011E8F /* lottieFile.json */; };
 		3E2BE0602A356CE400C1840B /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE05F2A356CE400C1840B /* DeleteAccountViewController.swift */; };
@@ -29,19 +28,14 @@
 		3E2BE0762A356E0B00C1840B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0712A356E0B00C1840B /* CustomTableViewCell.swift */; };
 		3E2BE0772A356E0B00C1840B /* ButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0722A356E0B00C1840B /* ButtonManager.swift */; };
 		3E2BE0782A356E0B00C1840B /* NavigationBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0732A356E0B00C1840B /* NavigationBarManager.swift */; };
-		3E2BE0792A356E0B00C1840B /* LogoutPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0742A356E0B00C1840B /* LogoutPopupView.swift */; };
 		3E2BE07A2A356E0B00C1840B /* CustomPopupView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0752A356E0B00C1840B /* CustomPopupView2.swift */; };
 		3E2BE0802A356ED600C1840B /* ToDoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE07B2A356ED600C1840B /* ToDoService.swift */; };
 		3E2BE0812A356ED600C1840B /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE07C2A356ED600C1840B /* APIConstant.swift */; };
 		3E2BE0822A356ED600C1840B /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE07D2A356ED600C1840B /* AccountService.swift */; };
-		3E2BE0832A356ED600C1840B /* UserAPIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE07E2A356ED600C1840B /* UserAPIConstant.swift */; };
 		3E2BE0842A356ED600C1840B /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE07F2A356ED600C1840B /* NetworkResult.swift */; };
-		3E2BE0862A356FD300C1840B /* AccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0852A356FD300C1840B /* AccountModel.swift */; };
-		3E2BE08D2A356FF800C1840B /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0872A356FF800C1840B /* RequestData.swift */; };
 		3E2BE08E2A356FF800C1840B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0882A356FF800C1840B /* Color.swift */; };
 		3E2BE08F2A356FF800C1840B /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0892A356FF800C1840B /* DateFormat.swift */; };
-		3E2BE0902A356FF800C1840B /* ResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE08A2A356FF800C1840B /* ResponseData.swift */; };
-		3E2BE0912A356FF800C1840B /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE08B2A356FF800C1840B /* Todo.swift */; };
+		3E2BE0912A356FF800C1840B /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE08B2A356FF800C1840B /* ToDo.swift */; };
 		3E2BE0922A356FF800C1840B /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE08C2A356FF800C1840B /* ResponseModel.swift */; };
 		3E2BE0952A35700E00C1840B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0932A35700E00C1840B /* AppDelegate.swift */; };
 		3E2BE0962A35700E00C1840B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0942A35700E00C1840B /* SceneDelegate.swift */; };
@@ -54,8 +48,8 @@
 		3E7B6E4D2A308181002C9A46 /* CustomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */; };
 		3EC0AD4229FF76F400D6F4D0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3EC0AD4129FF76F400D6F4D0 /* Alamofire */; };
 		3EC337E52A250D220005001B /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E22A250D220005001B /* ColorCollectionViewCell.swift */; };
-		3EC337E62A250D220005001B /* TodoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E32A250D220005001B /* TodoMainViewController.swift */; };
-		3EC337E72A250D220005001B /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E42A250D220005001B /* TodoTableViewCell.swift */; };
+		3EC337E62A250D220005001B /* ToDoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E32A250D220005001B /* ToDoMainViewController.swift */; };
+		3EC337E72A250D220005001B /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC337E42A250D220005001B /* ToDoTableViewCell.swift */; };
 		3EC337F32A250E200005001B /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 3EC337F22A250E200005001B /* KeychainAccess */; };
 		7E0BF87E29EF8221003291B9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7E0BF87D29EF8221003291B9 /* SnapKit */; };
 		7E0ED2CB29EE87FF0097DDEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */; };
@@ -68,8 +62,7 @@
 		3E1EB2982A350B4F0060FAF4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3E1EB2992A350B4F0060FAF4 /* MyPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		3E1EB29A2A350B4F0060FAF4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		3E1EB2B52A350C700060FAF4 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
-		3E1EB2B62A350C700060FAF4 /* TodoAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoAPIConstant.swift; sourceTree = "<group>"; };
+		3E227F912A3A3604005CF5FF /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3E2299982A326C7F00011E8F /* lottieFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieFile.json; sourceTree = "<group>"; };
 		3E2BE05F2A356CE400C1840B /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		3E2BE0612A356DA800C1840B /* EnterProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterProfileViewController.swift; sourceTree = "<group>"; };
@@ -83,19 +76,14 @@
 		3E2BE0712A356E0B00C1840B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		3E2BE0722A356E0B00C1840B /* ButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonManager.swift; sourceTree = "<group>"; };
 		3E2BE0732A356E0B00C1840B /* NavigationBarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarManager.swift; sourceTree = "<group>"; };
-		3E2BE0742A356E0B00C1840B /* LogoutPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutPopupView.swift; sourceTree = "<group>"; };
 		3E2BE0752A356E0B00C1840B /* CustomPopupView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupView2.swift; sourceTree = "<group>"; };
 		3E2BE07B2A356ED600C1840B /* ToDoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoService.swift; sourceTree = "<group>"; };
 		3E2BE07C2A356ED600C1840B /* APIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
 		3E2BE07D2A356ED600C1840B /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
-		3E2BE07E2A356ED600C1840B /* UserAPIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIConstant.swift; sourceTree = "<group>"; };
 		3E2BE07F2A356ED600C1840B /* NetworkResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
-		3E2BE0852A356FD300C1840B /* AccountModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModel.swift; sourceTree = "<group>"; };
-		3E2BE0872A356FF800C1840B /* RequestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		3E2BE0882A356FF800C1840B /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3E2BE0892A356FF800C1840B /* DateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
-		3E2BE08A2A356FF800C1840B /* ResponseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseData.swift; sourceTree = "<group>"; };
-		3E2BE08B2A356FF800C1840B /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		3E2BE08B2A356FF800C1840B /* ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		3E2BE08C2A356FF800C1840B /* ResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		3E2BE0932A35700E00C1840B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E2BE0942A35700E00C1840B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,8 +94,8 @@
 		3E2BE09F2A35706400C1840B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupView.swift; sourceTree = "<group>"; };
 		3EC337E22A250D220005001B /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
-		3EC337E32A250D220005001B /* TodoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoMainViewController.swift; sourceTree = "<group>"; };
-		3EC337E42A250D220005001B /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		3EC337E32A250D220005001B /* ToDoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoMainViewController.swift; sourceTree = "<group>"; };
+		3EC337E42A250D220005001B /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 		7E0ED2BE29EE87FF0097DDEF /* TODORI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODORI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E0ED2CF29EE87FF0097DDEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,11 +122,8 @@
 			children = (
 				3E2BE0882A356FF800C1840B /* Color.swift */,
 				3E2BE0892A356FF800C1840B /* DateFormat.swift */,
-				3E2BE0872A356FF800C1840B /* RequestData.swift */,
-				3E2BE08A2A356FF800C1840B /* ResponseData.swift */,
 				3E2BE08C2A356FF800C1840B /* ResponseModel.swift */,
-				3E2BE08B2A356FF800C1840B /* Todo.swift */,
-				3E2BE0852A356FD300C1840B /* AccountModel.swift */,
+				3E2BE08B2A356FF800C1840B /* ToDo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -150,9 +135,6 @@
 				3E2BE07C2A356ED600C1840B /* APIConstant.swift */,
 				3E2BE07F2A356ED600C1840B /* NetworkResult.swift */,
 				3E2BE07B2A356ED600C1840B /* ToDoService.swift */,
-				3E2BE07E2A356ED600C1840B /* UserAPIConstant.swift */,
-				3E1EB2B52A350C700060FAF4 /* Server.swift */,
-				3E1EB2B62A350C700060FAF4 /* TodoAPIConstant.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -160,11 +142,8 @@
 		3EC337B02A250C710005001B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3E2BE0722A356E0B00C1840B /* ButtonManager.swift */,
 				3E2BE0752A356E0B00C1840B /* CustomPopupView2.swift */,
-				3E2BE0742A356E0B00C1840B /* LogoutPopupView.swift */,
 				3E2BE0712A356E0B00C1840B /* CustomTableViewCell.swift */,
-				3E2BE0732A356E0B00C1840B /* NavigationBarManager.swift */,
 				3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */,
 			);
 			path = View;
@@ -197,8 +176,9 @@
 			isa = PBXGroup;
 			children = (
 				3EC337E22A250D220005001B /* ColorCollectionViewCell.swift */,
-				3EC337E32A250D220005001B /* TodoMainViewController.swift */,
-				3EC337E42A250D220005001B /* TodoTableViewCell.swift */,
+				3EC337E32A250D220005001B /* ToDoMainViewController.swift */,
+				3EC337E42A250D220005001B /* ToDoTableViewCell.swift */,
+				3E227F912A3A3604005CF5FF /* BottomSheetViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -206,6 +186,8 @@
 		3EC337E82A250D4A0005001B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				3E2BE0732A356E0B00C1840B /* NavigationBarManager.swift */,
+				3E2BE0722A356E0B00C1840B /* ButtonManager.swift */,
 				3E2BE0992A35703C00C1840B /* LeftToRightTransition.swift */,
 				3E2BE0982A35703B00C1840B /* TokenManager.swift */,
 				3E2BE0972A35703B00C1840B /* UIButton+ColorAnimation.swift */,
@@ -356,13 +338,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E2BE0902A356FF800C1840B /* ResponseData.swift in Sources */,
 				3E1EB2932A350B480060FAF4 /* ChangePasswordViewController.swift in Sources */,
 				3E2BE0802A356ED600C1840B /* ToDoService.swift in Sources */,
 				3E1EB29B2A350B4F0060FAF4 /* ViewController.swift in Sources */,
 				3E1EB28C2A350B480060FAF4 /* FinishSignUpViewController.swift in Sources */,
 				3E2BE0772A356E0B00C1840B /* ButtonManager.swift in Sources */,
-				3E2BE0912A356FF800C1840B /* Todo.swift in Sources */,
+				3E2BE0912A356FF800C1840B /* ToDo.swift in Sources */,
 				3E1EB29D2A350B4F0060FAF4 /* MainViewController.swift in Sources */,
 				3E2BE0782A356E0B00C1840B /* NavigationBarManager.swift in Sources */,
 				3E2BE09D2A35703C00C1840B /* LeftToRightTransition.swift in Sources */,
@@ -373,34 +354,29 @@
 				3E2BE0692A356DA900C1840B /* FindPasswordViewController.swift in Sources */,
 				3E2BE0682A356DA900C1840B /* EnterCodeViewController.swift in Sources */,
 				3E2BE09C2A35703C00C1840B /* TokenManager.swift in Sources */,
-				3EC337E62A250D220005001B /* TodoMainViewController.swift in Sources */,
+				3EC337E62A250D220005001B /* ToDoMainViewController.swift in Sources */,
 				3E2BE0702A356DD800C1840B /* LogInViewController.swift in Sources */,
 				3E2BE0952A35700E00C1840B /* AppDelegate.swift in Sources */,
 				3E2BE08F2A356FF800C1840B /* DateFormat.swift in Sources */,
 				3E2BE08E2A356FF800C1840B /* Color.swift in Sources */,
-				3E1EB2BD2A350C700060FAF4 /* TodoAPIConstant.swift in Sources */,
 				3E2BE0A02A35706400C1840B /* Extensions.swift in Sources */,
 				3E2BE0762A356E0B00C1840B /* CustomTableViewCell.swift in Sources */,
 				3E2BE0672A356DA900C1840B /* EnterProfileViewController.swift in Sources */,
 				3E2BE0922A356FF800C1840B /* ResponseModel.swift in Sources */,
+				3E227F922A3A3604005CF5FF /* BottomSheetViewController.swift in Sources */,
 				3E2BE07A2A356E0B00C1840B /* CustomPopupView2.swift in Sources */,
 				3EC337E52A250D220005001B /* ColorCollectionViewCell.swift in Sources */,
-				3E2BE0832A356ED600C1840B /* UserAPIConstant.swift in Sources */,
-				3E2BE0862A356FD300C1840B /* AccountModel.swift in Sources */,
 				3E2BE0812A356ED600C1840B /* APIConstant.swift in Sources */,
 				3E1EB29C2A350B4F0060FAF4 /* MyPageViewController.swift in Sources */,
-				3E2BE08D2A356FF800C1840B /* RequestData.swift in Sources */,
 				3E7B6E4D2A308181002C9A46 /* CustomPopupView.swift in Sources */,
 				3E2BE0962A35700E00C1840B /* SceneDelegate.swift in Sources */,
-				3E2BE0792A356E0B00C1840B /* LogoutPopupView.swift in Sources */,
 				3E2BE06C2A356DA900C1840B /* EditProfileViewController.swift in Sources */,
 				3E2BE0602A356CE400C1840B /* DeleteAccountViewController.swift in Sources */,
-				3EC337E72A250D220005001B /* TodoTableViewCell.swift in Sources */,
+				3EC337E72A250D220005001B /* ToDoTableViewCell.swift in Sources */,
 				3E2BE0822A356ED600C1840B /* AccountService.swift in Sources */,
 				3E2BE09E2A35703C00C1840B /* UserSession.swift in Sources */,
 				3E2BE06B2A356DA900C1840B /* EnterEmailViewController.swift in Sources */,
 				3E2BE09B2A35703C00C1840B /* UIButton+ColorAnimation.swift in Sources */,
-				3E1EB2BC2A350C700060FAF4 /* Server.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

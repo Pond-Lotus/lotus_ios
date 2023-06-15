@@ -8,8 +8,6 @@
 import Foundation
 
 enum APIConstant {
-    
-//    static let baseURL = "https://plotustodo-ctzhc.run.goorm.io"
     static let baseURL = "http://34.22.73.14:8000"
     
     enum Account {
@@ -27,4 +25,16 @@ enum APIConstant {
     enum ToDo {
         static let groupName = baseURL + "/todo/name/priority/"
     }
+    
+    static let getEmailCode:String = "/account/emailcode/"
+    static let postEmailCode:String = "/account/emailcode/"
+    static let register:String = "/account/register/"
+    static let login:String = "/account/login/"
+    static let todo:String = "/todo/todo/"
+    static let editProfile = "/account/edit1/"
+    static let priority = "/todo/color/priority/"
+    static let getColor = "/todo/color/"
+    static let editPassword = "/account/edit2/"
+    static let category = "/todo/name/priority/"
+    static let who = "/account/who/"
 }

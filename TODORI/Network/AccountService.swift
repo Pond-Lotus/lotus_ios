@@ -9,12 +9,11 @@ import UIKit
 import Alamofire
 
 class UserService {
-    
     static let shared = UserService()
     
     private init() {}
     
-    func emailCheck(email: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+    func emailCheck(email: String, completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.emailCode
         let parameters: Parameters = [
             "email": email
@@ -27,13 +26,13 @@ class UserService {
                 completion(.success(response))
                 
             case .failure(let error):
-                print("에러: \(error)")
+                print("이메일 검증 실패 in UserService: \(error)")
                 completion(.failure(error))
             }
         }
     }
     
-    func codeCheck(email: String, code: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+    func codeCheck(email: String, code: String, completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.emailCode
         let headers: HTTPHeaders = [
             "Content-Type" : "application/json"
@@ -56,7 +55,7 @@ class UserService {
             }
     }
     
-    func register(nickname: String, email: String, password: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+    func register(nickname: String, email: String, password: String, completion: @escaping(Result<RegisterResponse, Error>) -> Void) {
         let url = APIConstant.Account.register
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
         let parameters: Parameters = [
@@ -65,49 +64,20 @@ class UserService {
             "password": password
         ]
         
-        AF.request(url,
-                   method: .post,
-                   parameters: parameters,
-                   encoding: JSONEncoding.default,
-                   headers: headers)
-        .validate(statusCode: 200..<300)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let json = value as? [String: Any] {
-                    completion(.success(json))
-                } else {
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    func login(email: String, password: String, completion: @escaping(NetworkResult<Any>) -> Void) {
-        let url = APIConstant.Account.login
-        let headers: HTTPHeaders = ["Content-Type": "application/json"]
-        let parameters: Parameters = [
-            "email": email,
-            "password": password
-        ]
-        
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
+            .responseDecodable(of: RegisterResponse.self){ response in
                 switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
+                case .success(let response):
+                    print("회원가입 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
+                    print("회원가입 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
     }
     
-    func loginUser(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {
+    func login(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {
         let url = APIConstant.Account.login
         let parameters: [String: Any] = [
             "email": email,
@@ -120,16 +90,14 @@ class UserService {
                 case .success(let loginResponse):
                     print("로그인 성공 in UserService")
                     completion(.success(loginResponse))
-                    
                 case .failure(let error):
-                    // 요청 실패 또는 디코딩 오류 처리 코드
-                    print("에러: \(error)")
+                    print("로그인 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
     }
     
-    func checkToken(completion: @escaping (Result<CheckTokenResponse, Error>) -> Void) {
+    func checkToken(completion: @escaping (Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.checkToken
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -137,27 +105,19 @@ class UserService {
         }
         let headers: HTTPHeaders = ["Authorization" : "Token " + token]
         
-        AF.request(url, method: .get, headers: headers)
-            .responseDecodable(of: CheckTokenResponse.self) { response in
+        AF.request(url, method: .get, headers: headers).responseDecodable(of: ResultCodeResponse.self) { response in
                 switch response.result {
                 case .success(let response):
-                    // 성공적으로 디코딩된 응답을 처리하는 코드
-                    if response.resultCode == 200 {
-                        print("토큰 검증 성공 in UserService")
-                        completion(.success(response))
-                    } else {
-                        print("토큰 검증 실패 in UserService")
-                        //                        let error = NSError(domain: "TODORI", code: response.resultCode, userInfo: nil)
-                        //                        completion(.failure(error))
-                    }
+                    print("토큰 검증 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
-                    print("에러: \(error)")
+                    print("토큰 검증 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
     }
     
-    func logout(completion: @escaping(NetworkResult<Any>) -> Void) {
+    func logout(completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.logout
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -167,44 +127,37 @@ class UserService {
             "Authorization" : "Token " + token
         ]
         
-        AF.request(url, method: .post, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
+        AF.request(url, method: .post, headers: headers).responseDecodable(of: ResultCodeResponse.self) { response in
                 switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
+                case .success(let response):
+                    print("로그아웃 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
+                    print("로그아웃 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
     }
     
-    func findPassword(email: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+    func findPassword(email: String, completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.findPassword
-        //        let headers: HTTPHeaders = ["Authorization" : "Token " + token]
         let body: Parameters = [
             "email": email
         ]
         
-        AF.request(url, method: .get, parameters: body)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
-                case .failure(let error):
-                    completion(.failure(error))
-                }
+        AF.request(url, method: .get, parameters: body).responseDecodable(of: ResultCodeResponse.self) { response in
+            switch response.result {
+            case .success(let response):
+                print("비밀번호 찾기 성공 in UserService")
+                completion(.success(response))
+            case .failure(let error):
+                print("비밀번호 찾기 실패 in UserService: \(error)")
+                completion(.failure(error))
             }
+        }
     }
     
-    func editProfile(image: UIImage, nickname: String, imdel: Bool, completion: @escaping(NetworkResult<Any>) -> Void) {
+    func editProfile(image: UIImage?, nickname: String, imdel: Bool, completion: @escaping(Result<EditAccountResponse, Error>) -> Void) {
         let url = APIConstant.Account.editProfile
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -214,36 +167,34 @@ class UserService {
             "Content-Type" : "multipart/form-data",
             "Authorization" : "Token " + token
         ]
-        let parameters: Parameters = [
-            "image": image,
+        var parameters: Parameters = [
             "nickname": nickname,
             "imdel": imdel
         ]
-        // 이미지를 데이터로 변환
-        //        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-        //            return
-        //        }
+        if let image = image {
+            parameters["image"] = image
+        }
         
         AF.upload(multipartFormData: { MultipartFormData in
             for (key, value) in parameters {
                 MultipartFormData.append("\(value)".data(using: .utf8)!, withName: key)
             }
-            if let img = image.pngData() {
+            if let img = image?.pngData() {
                 MultipartFormData.append(img, withName: "image", fileName: "\(String(describing: nickname)).jpg", mimeType: "image/jpg")
             }
-        }, to: url, method: .post, headers: headers).validate(statusCode: 200..<300).responseJSON { response in
+        }, to: url, method: .post, headers: headers).responseDecodable(of: EditAccountResponse.self) { response in
             switch response.result {
-            case .success(let value):
-                print("썽공")
-                completion(.success(value))
+            case .success(let response):
+                print("프로필 수정 성공 in UserService")
+                completion(.success(response))
             case .failure(let error):
-                print("실빼")
+                print("프로필 수정 실패 in UserService: \(error)")
                 completion(.failure(error))
             }
         }
     }
     
-    func changePassword(originPassword: String, newPassword: String ,completion: @escaping(NetworkResult<Any>) -> Void) {
+    func changePassword(originPassword: String, newPassword: String ,completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.changePassword
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -256,21 +207,19 @@ class UserService {
         ]
         
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
+            .responseDecodable(of: ResultCodeResponse.self) { response in
                 switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
+                case .success(let response):
+                    print("비밀번호 수정 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
+                    print("비밀번호 수정 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }
     }
     
-    func deleteAccount(completion: @escaping(NetworkResult<Any>) -> Void) {
+    func deleteAccount(completion: @escaping(Result<ResultCodeResponse, Error>) -> Void) {
         let url = APIConstant.Account.withdrawal
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -278,16 +227,13 @@ class UserService {
         }
         let headers: HTTPHeaders = ["Authorization" : "Token " + token]
         
-        AF.request(url, method: .delete, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
+        AF.request(url, method: .delete, headers: headers).responseDecodable(of: ResultCodeResponse.self) { response in
                 switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any] {
-                        completion(.success(json))
-                    } else {
-                    }
+                case .success(let response):
+                    print("탈퇴 성공 in UserService")
+                    completion(.success(response))
                 case .failure(let error):
+                    print("탈퇴 실패 in UserService: \(error)")
                     completion(.failure(error))
                 }
             }

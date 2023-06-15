@@ -12,7 +12,7 @@ class NavigationBarManager {
     
     private init() {}
     
-    private var separatorView: UIView?
+    var separatorView: UIView?
     
     func setupNavigationBar(for viewController: UIViewController, backButtonAction: Selector?, title: String, showSeparator: Bool = true) {
         if showSeparator {
@@ -25,9 +25,6 @@ class NavigationBarManager {
                 make.leading.trailing.equalToSuperview()
                 make.height.equalTo(1)
             }
-        } else {
-            separatorView?.removeFromSuperview()
-            separatorView = nil
         }
         
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: viewController, action: backButtonAction)

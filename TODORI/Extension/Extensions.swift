@@ -16,6 +16,12 @@ extension UIImage {
     }
 }
 
+extension UIColor {
+    static var mainColor: UIColor {
+        return UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
+    }
+}
+
 extension UIImage {
     var circleMasked: UIImage? {
         // 이미지의 크기를 가져옵니다.
