@@ -256,6 +256,12 @@ class ToDoMainViewController : UIViewController {
         segmentedControl.insertSegment(withTitle: "월간", at: 0, animated: true)
         segmentedControl.insertSegment(withTitle: "주간", at: 1, animated: true)
         segmentedControl.selectedSegmentIndex = 0
+        let selectedAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 13, weight: .bold)]
+        
+        let normalAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 13, weight: .regular)]
+        segmentedControl.setTitleTextAttributes(selectedAttributes, for: .selected)
+        segmentedControl.setTitleTextAttributes(normalAttributes, for: .normal)
+
         
         //햄버거 바 버튼 이미지 지정
         hambuergerButton.setImage(UIImage(named: "hamburger-button"), for: .normal)

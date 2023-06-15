@@ -225,7 +225,8 @@ class EditProfileViewController: UIViewController {
         }
         
         indicatorView.snp.makeConstraints { make in
-            make.centerY.centerX.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-50)
         }
     }
     
