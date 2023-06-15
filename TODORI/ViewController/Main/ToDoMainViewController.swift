@@ -631,27 +631,7 @@ class ToDoMainViewController : UIViewController {
     }
     
     
-    //그룹 명 받아오는 함수
-    private func getPriorityName(){
-        TodoService.shared.getPriorityName { (response) in
-            switch(response){
-            case .success(let resultData):
-                if let data = resultData as? PriorityResponseData{
-                    if data.resultCode == 200 {
-                        self.titleOfSectionArray[0] = data.data._1
-                        self.titleOfSectionArray[1] = data.data._2
-                        self.titleOfSectionArray[2] = data.data._3
-                        self.titleOfSectionArray[3] = data.data._4
-                        self.titleOfSectionArray[4] = data.data._5
-                        self.titleOfSectionArray[5] = data.data._6
-                    }
-                }
-            case .failure(let meassage):
-                print("failure", meassage)
-                
-            }
-        }
-    }
+
     
     //bottom sheet 내부 컬러 버튼 눌렀을 때 동작하는 함수
     @objc private func tapColorCircleButton(_ sender: UIButton){
@@ -708,39 +688,13 @@ class ToDoMainViewController : UIViewController {
     //bottom sheet 외부 터치시 실행되는 함수 - 변경사항 저장
     @objc private func handleBottomSheetBlackViewDismiss(){
         let description = descriptionTextView.text.replacingOccurrences(of: textviewPlaceholder, with: "")
-        TodoService.shared.editTodo(title: titleTextFieldInBottomSheet.text ?? "", description:description, colorNum:nowColor, time: nowHour+nowMin,id: nowId) { (response) in
-            switch(response){
-            case .success(let resultData):
-                if let data = resultData as? TodoEditResponseData{
-                    if data.resultCode == 200 {
-                        print(data.resultCode)
-                        self.todoArrayList[self.nowSection][self.nowRow].title = data.data.title
-                        self.todoArrayList[self.nowSection][self.nowRow].description = data.data.description
-                        self.todoArrayList[self.nowSection][self.nowRow].color = data.data.color
-                        self.todoArrayList[self.nowSection][self.nowRow].id = data.data.id
-                        self.todoArrayList[self.nowSection][self.nowRow].time = data.data.time
-                        self.todoArrayList[self.nowColor-1].append(self.todoArrayList[self.nowSection][self.nowRow])
-                        self.todoArrayList[self.nowSection].remove(at: self.nowRow)
-                        self.setExistArray()
-                        self.todoSortById(section: self.nowColor-1)
-                        self.todoSortByDone(section: self.nowColor-1)
-                        self.tableView.reloadData()
-                        self.descriptionTextView.snp.removeConstraints()
-                        self.bottomSheetView.snp.removeConstraints()
-                    }
-                }
-            case .failure(let meassage):
-                print("failure", meassage)
-                
-            }
-        }
-        
+        editTodo(title: titleTextFieldInBottomSheet.text ?? "", description: description, colorNum: nowColor, time: nowHour+nowMin, id: nowId)
         self.blackViewOfBottomSheet.removeFromSuperview()
         self.bottomSheetView.removeFromSuperview()
         
     }
     
-    //floating button 클릭 후 외부 터치시 실행되는 함수
+    //floating button 클릭 후 외부 터치시 실행되는 함수 - 사라지는 애니메이션
     @objc private func handleFloatingButtonClearViewDismiss(){
         self.floatingButton.image = UIImage(named: "floating-button")
         UIView.animate(withDuration: 0.5, animations: {
@@ -881,6 +835,8 @@ class ToDoMainViewController : UIViewController {
         self.view.addSubview(blackViewOfDatePicker)
         self.view.addSubview(datePickerBackgroundView)
         setDatePickerViewAutoLayout()
+        
+        //설정된 시간이 있을 때만 삭제 버튼이 보이도록함
         if nowHour == "99" && nowMin == "99"{
             deleteButtonInDatePicker.isHidden = true
         } else {
@@ -933,6 +889,40 @@ class ToDoMainViewController : UIViewController {
         tableView.reloadData()
     }
     
+
+}
+
+extension ToDoMainViewController{
+    //bottom sheet에서 todo 수정
+    private func editTodo(title: String, description: String, colorNum: Int, time: String, id: Int){
+        TodoService.shared.editTodo(title: title, description: description, colorNum: colorNum, time: time,id: id) { (response) in
+            switch(response){
+            case .success(let resultData):
+                if let data = resultData as? TodoEditResponseData{
+                    if data.resultCode == 200 {
+                        //cell 선택 후 bottom sheet가 등장 했을 때 저장한 nowsection, nowrow 를 통해서 변경사항 반영
+                        self.todoArrayList[self.nowSection][self.nowRow].title = data.data.title
+                        self.todoArrayList[self.nowSection][self.nowRow].description = data.data.description
+                        self.todoArrayList[self.nowSection][self.nowRow].color = data.data.color
+                        self.todoArrayList[self.nowSection][self.nowRow].id = data.data.id
+                        self.todoArrayList[self.nowSection][self.nowRow].time = data.data.time
+                        self.todoArrayList[self.nowColor-1].append(self.todoArrayList[self.nowSection][self.nowRow])
+                        self.todoArrayList[self.nowSection].remove(at: self.nowRow)
+                        self.setExistArray()
+                        self.todoSortById(section: self.nowColor-1)
+                        self.todoSortByDone(section: self.nowColor-1)
+                        self.tableView.reloadData()
+                        self.descriptionTextView.snp.removeConstraints()
+                        self.bottomSheetView.snp.removeConstraints()
+                    }
+                }
+            case .failure(let meassage):
+                print("failure", meassage)
+                
+            }
+        }
+    }
+    
     //해당 날짜 투두 조회
     private func searchTodo(date:Date) {
         let dateArr = DateFormat.shared.getYearMonthDay(date: date)
@@ -966,11 +956,52 @@ class ToDoMainViewController : UIViewController {
             }
         }
     }
+    
+    //투두 삭제
+    private func deleteTodo(id:Int, section:Int, row: Int){
+        TodoService.shared.deleteTodo(id: id) { (resonse) in
+            switch(resonse){
+            case .success(let resultData):
+                if let data = resultData as? ResponseData{
+                    if data.resultCode == 200 {
+                        self.todoArrayList[self.existingColorArray[section]].remove(at: row)
+                        self.setExistArray()
+                        self.tableView.reloadData()
+                    }
+                }
+            case .failure(let message):
+                print("failure", message)
+            }
+        }
+    }
+    
+    //그룹명 조회
+    private func getPriorityName(){
+        TodoService.shared.getPriorityName { (response) in
+            switch(response){
+            case .success(let resultData):
+                if let data = resultData as? PriorityResponseData{
+                    if data.resultCode == 200 {
+                        self.titleOfSectionArray[0] = data.data._1
+                        self.titleOfSectionArray[1] = data.data._2
+                        self.titleOfSectionArray[2] = data.data._3
+                        self.titleOfSectionArray[3] = data.data._4
+                        self.titleOfSectionArray[4] = data.data._5
+                        self.titleOfSectionArray[5] = data.data._6
+                    }
+                }
+            case .failure(let meassage):
+                print("failure", meassage)
+                
+            }
+        }
+    }
 }
 
 //table view delegate
 extension ToDoMainViewController:UITableViewDelegate{
-    //각 섹션 디자인 설정
+    
+    //각 섹션 디자인 및 오토 레이아웃 적용
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var view:UIView = UIView()
         var colorRoundView:UIView = UIView()
@@ -999,6 +1030,7 @@ extension ToDoMainViewController:UITableViewDelegate{
         titleLabel.textColor = .black
         return view
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         15
     }
@@ -1016,21 +1048,7 @@ extension ToDoMainViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            print(indexPath.section)
-            TodoService.shared.deleteTodo(id: todoArrayList[existingColorArray[indexPath.section]][indexPath.row].id) { (resonse) in
-                switch(resonse){
-                case .success(let resultData):
-                    if let data = resultData as? ResponseData{
-                        if data.resultCode == 200 {
-                            self.todoArrayList[self.existingColorArray[indexPath.section]].remove(at: indexPath.row)
-                            self.setExistArray()
-                            tableView.reloadData()
-                        }
-                    }
-                case .failure(let message):
-                    print("failure", message)
-                }
-            }
+            deleteTodo(id: todoArrayList[existingColorArray[indexPath.section]][indexPath.row].id, section: indexPath.section, row: indexPath.row)
         }
     }
     
@@ -1040,6 +1058,8 @@ extension ToDoMainViewController:UITableViewDelegate{
     
 }
 
+
+
 //table view datasource
 extension ToDoMainViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1047,6 +1067,7 @@ extension ToDoMainViewController:UITableViewDataSource{
         return todoArrayList[existingColorArray[section]].count
     }
     
+    //cell 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ToDoTableViewCell()
         let todo = todoArrayList[existingColorArray[indexPath.section]][indexPath.row]
@@ -1086,14 +1107,11 @@ extension ToDoMainViewController:UITableViewDataSource{
             
             let size = CGSize(width: descriptionTextView.bounds.width, height: .infinity)
             let newSize = descriptionTextView.sizeThatFits(size)
-            print(newSize)
             guard let lineHeight = descriptionTextView.font?.lineHeight else {return}
-            print("size: \(newSize.height/lineHeight)")
             if newSize.height/lineHeight < 6 {
                 descriptionTextView.snp.makeConstraints({ make in
                     descriptionTextViewHeightConstraint = make.height.equalTo(newSize.height)
                 })
-                print("in did select")
                 descriptionTextView.invalidateIntrinsicContentSize()
                 view.updateConstraints()
                 view.layoutIfNeeded()
@@ -1299,7 +1317,6 @@ extension ToDoMainViewController:UITextViewDelegate{
         let size = CGSize(width: textView.bounds.width, height: .infinity)
         let newSize = textView.sizeThatFits(size)
         guard let lineHeight = textView.font?.lineHeight else {return}
-        print(newSize)
         if newSize.height/lineHeight < 6 {
             self.descriptionTextViewHeightConstraint?.constraint.update(offset: newSize.height)
             self.bottomSheetHeightConstraint?.constraint.update(offset: self.bottomSheetHeight + newSize.height - (lineHeight+24))
@@ -1328,6 +1345,7 @@ extension ToDoMainViewController: TodoTableViewCellDelegate {
     }
     
     func editDone(section: Int, row: Int, todo: ToDo) {
+        //파라미터의 section 대신 color(1~6)에서 1뺀 값으로 section에 접근
         todoArrayList[todo.color-1][row] = todo
         todoSortById(section: todo.color-1)
         todoSortByDone(section: todo.color-1)
