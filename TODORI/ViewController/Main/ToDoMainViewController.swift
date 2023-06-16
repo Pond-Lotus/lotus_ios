@@ -298,7 +298,9 @@ class ToDoMainViewController : UIViewController {
         
         //테이블 뷰 헤더 뷰 설정
         calendarBackgroundView.frame = CGRect(x: 0, y: 0, width: view.fs_width, height: calendarView.fs_height + 70)
-        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 50)
+//        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 50)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 50)
+
 
         
         //calendar background view 하단 라운드 및 그림자 설정
@@ -455,7 +457,7 @@ class ToDoMainViewController : UIViewController {
         }
         
         tableView.snp.makeConstraints { make in
-            make.right.left.equalTo(self.view.safeAreaLayoutGuide)
+            make.right.left.equalTo(self.view)
             make.bottom.equalTo(self.view.keyboardLayoutGuide.snp.top)
             make.top.equalTo(topBarView.snp.bottom)
         }
@@ -478,8 +480,8 @@ class ToDoMainViewController : UIViewController {
         }
         
         dayLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(headerView)
-            make.left.equalTo(headerView).offset(20)
+            make.bottom.equalToSuperview()
+            make.left.equalTo(self.view).offset(20)
         }
         
         weekdayLabel.snp.makeConstraints { make in
@@ -489,7 +491,7 @@ class ToDoMainViewController : UIViewController {
         
         grayLineNextDateLabel.snp.makeConstraints { make in
             make.left.equalTo(weekdayLabel.snp.right).offset(6)
-            make.right.equalToSuperview().offset(-21)
+            make.right.equalTo(self.view).offset(-21)
             make.height.equalTo(1)
             make.centerY.equalTo(dayLabel)
         }
@@ -513,7 +515,8 @@ class ToDoMainViewController : UIViewController {
         
         bottomSheetView.snp.makeConstraints{ make in
             make.bottom.equalToSuperview()
-            make.width.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
             bottomSheetHeightConstraint = make.height.equalTo(0)
         }
         
@@ -537,8 +540,9 @@ class ToDoMainViewController : UIViewController {
         
         descriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(titleTextFieldInBottomSheet.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.rightMargin.leftMargin.equalTo(25)
+            make.centerX.equalTo(self.view)
+            make.right.equalTo(self.view).offset(-25)
+            make.left.equalTo(self.view).offset(25)
         }
         
         clockImageView.snp.makeConstraints { make in
@@ -597,7 +601,11 @@ class ToDoMainViewController : UIViewController {
         datePickerBackgroundView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
-            datePickerBackgroundViewHeightConstraint = make.height.equalTo(0)
+            if datePickerBackgroundViewHeightConstraint == nil {
+                datePickerBackgroundViewHeightConstraint = make.height.equalTo(0)
+            }else{
+                self.datePickerBackgroundViewHeightConstraint?.constraint.update(offset: 0)
+            }
         }
         
         self.view.layoutIfNeeded()
@@ -605,8 +613,9 @@ class ToDoMainViewController : UIViewController {
         UIView.animate(withDuration: 0.25, animations: {
             self.datePickerBackgroundViewHeightConstraint?.constraint.update(offset: 380)
             self.view.layoutIfNeeded()
+        }) { _ in
             self.view.updateConstraints()
-        })
+        }
         
         finishButtonInDatePicker.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-25)
