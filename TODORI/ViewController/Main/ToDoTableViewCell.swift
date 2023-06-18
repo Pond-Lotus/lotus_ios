@@ -11,6 +11,7 @@ import SnapKit
 class ToDoTableViewCell: UITableViewCell {
     
     var checkbox: UIImageView = UIImageView()
+    var checkboxBackgroundView: UIView = UIView()
     var titleTextField: UITextField = UITextField()
     var cellBackgroundView: UIView = UIView()
     var todo: ToDo = .init(year: "", month: "", day: "", title: "", done: false, isNew: false, writer: "", color: 0, id: 0, time: "0000", description: "")
@@ -35,7 +36,8 @@ class ToDoTableViewCell: UITableViewCell {
     //view에 컴포넌트 추가
     private func addComponent(){
         cellBackgroundView.addSubview(titleTextField)
-        cellBackgroundView.addSubview(checkbox)
+        checkboxBackgroundView.addSubview(checkbox)
+        cellBackgroundView.addSubview(checkboxBackgroundView)
         self.contentView.addSubview(cellBackgroundView)
 
     }
@@ -43,7 +45,7 @@ class ToDoTableViewCell: UITableViewCell {
     //컴포넌트에 기능 추가
     private func addTarget(){
         titleTextField.addTarget(self, action: #selector(textFieldEndEdit), for: .editingDidEnd)
-        checkbox.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCheckbox)))
+        checkboxBackgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCheckbox)))
         checkbox.isUserInteractionEnabled = true
     }
     
@@ -56,14 +58,19 @@ class ToDoTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(4)
             make.bottom.equalToSuperview().inset(4)
         }
+        checkboxBackgroundView.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(35)
+        }
         checkbox.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(12)
+            make.left.equalTo(checkboxBackgroundView).offset(12)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(20)
         }
 
         titleTextField.snp.makeConstraints { make in
-            make.left.equalTo(checkbox.snp.right).offset(7)
+            make.left.equalTo(checkbox.snp.right).offset(4)
             make.right.equalToSuperview().offset(-10)
             make.centerY.equalToSuperview()
         }
@@ -79,6 +86,7 @@ class ToDoTableViewCell: UITableViewCell {
         titleTextField.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         checkbox.image = UIImage(named: "checkbox")
         
+        checkboxBackgroundView.backgroundColor = .clear
     }
     
     //새로 작성된 투두 외에는 수정 불가능 하게 하는 코드

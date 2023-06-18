@@ -44,6 +44,7 @@
 		3E2BE09D2A35703C00C1840B /* LeftToRightTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE0992A35703C00C1840B /* LeftToRightTransition.swift */; };
 		3E2BE09E2A35703C00C1840B /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE09A2A35703C00C1840B /* UserSession.swift */; };
 		3E2BE0A02A35706400C1840B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2BE09F2A35706400C1840B /* Extensions.swift */; };
+		3E4823842A3DD9FE00A0BEE5 /* TODORI_lottiesmedium.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E4823832A3DD9FE00A0BEE5 /* TODORI_lottiesmedium.gif */; };
 		3E697E3529EFBEF200E3ABBD /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3E697E3429EFBEF200E3ABBD /* FSCalendar */; };
 		3E7B6E4D2A308181002C9A46 /* CustomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */; };
 		3EC0AD4229FF76F400D6F4D0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3EC0AD4129FF76F400D6F4D0 /* Alamofire */; };
@@ -92,6 +93,7 @@
 		3E2BE0992A35703C00C1840B /* LeftToRightTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftToRightTransition.swift; sourceTree = "<group>"; };
 		3E2BE09A2A35703C00C1840B /* UserSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		3E2BE09F2A35706400C1840B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3E4823832A3DD9FE00A0BEE5 /* TODORI_lottiesmedium.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = TODORI_lottiesmedium.gif; sourceTree = "<group>"; };
 		3E7B6E4C2A308181002C9A46 /* CustomPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupView.swift; sourceTree = "<group>"; };
 		3EC337E22A250D220005001B /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		3EC337E32A250D220005001B /* ToDoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoMainViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		7E0ED2DC29EE8AE10097DDEF /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				3E4823832A3DD9FE00A0BEE5 /* TODORI_lottiesmedium.gif */,
 				3E2BE0932A35700E00C1840B /* AppDelegate.swift */,
 				3E2BE0942A35700E00C1840B /* SceneDelegate.swift */,
 				7E0ED2CA29EE87FF0097DDEF /* Assets.xcassets */,
@@ -311,6 +314,7 @@
 				3EC0AD4029FF76F400D6F4D0 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3EC337F12A250E200005001B /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				3E2299952A326B6300011E8F /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				3E4823852A3E423500A0BEE5 /* XCRemoteSwiftPackageReference "Gifu" */,
 			);
 			productRefGroup = 7E0ED2BF29EE87FF0097DDEF /* Products */;
 			projectDirPath = "";
@@ -326,6 +330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E4823842A3DD9FE00A0BEE5 /* TODORI_lottiesmedium.gif in Resources */,
 				3E2299992A326C7F00011E8F /* lottieFile.json in Resources */,
 				7E0ED2CB29EE87FF0097DDEF /* Assets.xcassets in Resources */,
 			);
@@ -581,6 +586,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
+			};
+		};
+		3E4823852A3E423500A0BEE5 /* XCRemoteSwiftPackageReference "Gifu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Gifu";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.1;
 			};
 		};
 		3E697E3329EFBEF200E3ABBD /* XCRemoteSwiftPackageReference "FSCalendar" */ = {

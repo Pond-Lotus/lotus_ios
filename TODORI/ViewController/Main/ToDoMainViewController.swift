@@ -16,7 +16,7 @@ class ToDoMainViewController : UIViewController {
     
     var calendarView: FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
     var segmentedControl: UISegmentedControl = UISegmentedControl()
-    var tableView: UITableView = UITableView()
+    var tableView: UITableView = UITableView(frame: .zero, style: .grouped)
     var topBarView: UIView = UIView()
     var hambuergerButton: UIButton = UIButton()
     var calendarImageView: UIImageView = UIImageView(image: UIImage(named: "calendar"))
@@ -298,8 +298,8 @@ class ToDoMainViewController : UIViewController {
         
         //테이블 뷰 헤더 뷰 설정
         calendarBackgroundView.frame = CGRect(x: 0, y: 0, width: view.fs_width, height: calendarView.fs_height + 70)
-//        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 50)
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 50)
+
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 70)
 
 
         
@@ -480,7 +480,7 @@ class ToDoMainViewController : UIViewController {
         }
         
         dayLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-20)
             make.left.equalTo(self.view).offset(20)
         }
         
@@ -1012,16 +1012,16 @@ extension ToDoMainViewController:UITableViewDelegate{
     
     //각 섹션 디자인 및 오토 레이아웃 적용
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var view:UIView = UIView()
-        var colorRoundView:UIView = UIView()
-        var titleLabel:UILabel = UILabel()
+        let view:UIView = UIView()
+        let colorRoundView:UIView = UIView()
+        let titleLabel:UILabel = UILabel()
         
         view.addSubview(colorRoundView)
         view.addSubview(titleLabel)
         
         colorRoundView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20)
-            make.bottom.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().offset(-10)
             make.width.height.equalTo(9)
         }
         
@@ -1041,7 +1041,7 @@ extension ToDoMainViewController:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        15
+        20
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -1248,9 +1248,9 @@ extension ToDoMainViewController:UICollectionViewDelegate{
         var index = 0
         
         //완료된 투두의 바로 위에 새로운 투두 추가. 완료된 투두가 없다면 맨 밑에 추가
-        if let index_x = todoArrayList[indexPath.row].firstIndex { todo in
+        if let index_x = todoArrayList[indexPath.row].firstIndex(where: { todo in
             todo.done == true
-        }{
+        }){
             index = index_x
         }else {
             index = todoArrayList[indexPath.row].count
