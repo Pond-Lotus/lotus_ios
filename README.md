@@ -1,5 +1,1 @@
-# lotus_ios
-
-### To do list
-- Sign up
-- Sign in
+# lotus-ios-2
