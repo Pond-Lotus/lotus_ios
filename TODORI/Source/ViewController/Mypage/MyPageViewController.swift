@@ -9,6 +9,7 @@ import UIKit
 import GoogleMobileAds
 
 class MyPageViewController: UIViewController {
+    
     var dimmingView: UIView?
     private let profileImageView: UIImageView = ImageViewManager.shared.getProileImageView()
     private let nickNameLabel: UILabel = LabelManager.shared.getNickNameLabel()
@@ -25,7 +26,7 @@ class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? .white : UIColor(red: 0.196, green: 0.192, blue: 0.204, alpha: 1)
         
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:))))
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
@@ -214,7 +215,7 @@ class MyPageViewController: UIViewController {
                 make.width.equalTo(264)
                 make.height.equalTo(167)
             }
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.1) {
                 popupView.alpha = 1
                 dimmingView.alpha = 1
             }

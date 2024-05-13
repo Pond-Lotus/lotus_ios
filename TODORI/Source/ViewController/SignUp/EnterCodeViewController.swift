@@ -10,7 +10,7 @@ import UIKit
 class EnterCodeViewController: UIViewController {
     private let numberLabel: UILabel = LabelManager.shared.createSignUpNumberLabel(text: "2/3")
     private let titleLabel: UILabel = LabelManager.createSignUpTitleLabel(text: "전송된 인증코드를\n입력해 주세요")
-    private let subTitleLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "인증코드", textColor: UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1))
+    private let subTitleLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "인증코드", textColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let firstLabel: UILabel = LabelManager.shared.createCodeLabel()
     private let secondLabel: UILabel = LabelManager.shared.createCodeLabel()
     private let thirdLabel: UILabel = LabelManager.shared.createCodeLabel()
@@ -24,7 +24,7 @@ class EnterCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.backgroundColor
             
         setupDelegate()
         setupUI()

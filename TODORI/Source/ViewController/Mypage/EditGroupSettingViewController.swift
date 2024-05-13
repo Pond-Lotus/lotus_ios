@@ -29,8 +29,11 @@ class EditGroupSettingViewController: UIViewController {
         
         let textField = UITextField()
         textField.becomeFirstResponder()
-        textField.backgroundColor = UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1)
+        textField.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.954, green: 0.954, blue: 0.954, alpha: 1) : .clear
         textField.layer.cornerRadius = 8
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor(red: 0.914, green: 0.914, blue: 0.914, alpha: 1).cgColor
+        
         
         stackView.addSubview(textField)
         textField.snp.makeConstraints { make in
@@ -44,7 +47,7 @@ class EditGroupSettingViewController: UIViewController {
         
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 16, weight: .medium),
-            .foregroundColor: UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1)
+            .foregroundColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
         ]
         if let label = self.label {
             let attributedPlaceholder = NSAttributedString(string: label, attributes: attributes)
@@ -61,7 +64,7 @@ class EditGroupSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? .white : UIColor(red: 0.196, green: 0.192, blue: 0.204, alpha: 1)
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)

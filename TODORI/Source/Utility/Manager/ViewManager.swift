@@ -14,7 +14,7 @@ class ViewManager {
     
     func getUnderlineView(for view: UIView) -> UIView {
         let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
+        underlineView.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1) : UIColor(red: 0.322, green: 0.322, blue: 0.322, alpha: 1)
         view.addSubview(underlineView)
         underlineView.snp.makeConstraints { make in
             make.height.equalTo(1.0)
@@ -26,7 +26,7 @@ class ViewManager {
     
     func getAccountInfo() -> UIView {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.958, green: 0.958, blue: 0.958, alpha: 1)
+        view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.958, green: 0.958, blue: 0.958, alpha: 1) : UIColor(red: 0.125, green: 0.125, blue: 0.125, alpha: 1)
         view.layer.cornerRadius = 10
         return view
     }

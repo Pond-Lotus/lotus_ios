@@ -10,7 +10,7 @@ import UIKit
 class EnterEmailViewController: UIViewController {
     private let numberLabel: UILabel = LabelManager.shared.createSignUpNumberLabel(text: "1/3")
     private let titleLabel: UILabel = LabelManager.createSignUpTitleLabel(text: "이메일을\n입력해 주세요")
-    private let subTitleLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "이메일", textColor: UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1))
+    private let subTitleLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "이메일", textColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.502, green: 0.502, blue: 0.502, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let emailTextField: UITextField = TextFieldManager.createSignUpEmailTextField(text: "example@todori.com")
     private let errorLabel: UILabel = LabelManager.shared.getErrorLabel(text: "이미 존재하는 이메일입니다.")
     private let nextButton: UIButton = ButtonManager.shared.getNextButton(isEnabled: false)
@@ -18,7 +18,7 @@ class EnterEmailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.backgroundColor
         
         setupDelegate()
         setupUI()
@@ -138,6 +138,7 @@ class EnterEmailViewController: UIViewController {
 }
 
 extension EnterEmailViewController: UITextFieldDelegate {
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         let newText = (currentText as NSString).replacingCharacters(in: range, with: string)

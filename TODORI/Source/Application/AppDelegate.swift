@@ -10,34 +10,40 @@ import FirebaseMessaging
 import Firebase
 import GoogleMobileAds
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     
-    
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
-        userNotificationCenterSetting()
-        FirebaseApp.configure()
-        Messaging.messaging().delegate = self
-        Messaging.messaging().isAutoInitEnabled = true
         
-        UNUserNotificationCenter.current().delegate = self
-      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in }
-        application.registerForRemoteNotifications()
-        
-        Messaging.messaging().token { token, error in
-          if let error = error {
-            print("Error fetching FCM registration token: \(error)")
-          } else if let token = token {
-            print("FCM registration token: \(token)")
-//            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
-          }
+//        UIView.appearance().backgroundColor = UIColor.backgroundColor
+        if UITraitCollection.current.userInterfaceStyle == .light {
+            UIButton.appearance().setTitleColor(.black, for: .normal)
+        } else {
+            UIButton.appearance().setTitleColor(.white, for: .normal)
         }
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["85a0cfb417fc588a284eae252a30ccdb"]
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
+//        UNUserNotificationCenter.current().delegate = self
+//        userNotificationCenterSetting()
+//        FirebaseApp.configure()
+//        Messaging.messaging().delegate = self
+//        Messaging.messaging().isAutoInitEnabled = true
+//        
+//        UNUserNotificationCenter.current().delegate = self
+//      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in }
+//        application.registerForRemoteNotifications()
+//        
+//        Messaging.messaging().token { token, error in
+//          if let error = error {
+//            print("Error fetching FCM registration token: \(error)")
+//          } else if let token = token {
+//            print("FCM registration token: \(token)")
+////            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
+//          }
+//        }
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["85a0cfb417fc588a284eae252a30ccdb"]
+//        GADMobileAds.sharedInstance().start(completionHandler: nil)
         print("여기는 AppDelegate 입니다.")
         return true
     }

@@ -16,8 +16,3 @@ extension UIImage {
     }
 }
 
-extension UIColor {
-    static var mainColor: UIColor {
-        return UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
-    }
-}

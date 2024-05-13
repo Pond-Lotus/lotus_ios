@@ -22,7 +22,8 @@ class OneButtonPopupView: UIView {
         titleLabel.text = title
         messageLabel.text = message
         actionButton.setTitle(buttonText, for: .normal)
-        actionButton.backgroundColor = buttonColor
+        actionButton.setTitleColor(.label, for: .normal)
+        actionButton.backgroundColor = UIColor.popupButtonColor
         self.dimmingView = dimmingView
     }
     
@@ -31,7 +32,7 @@ class OneButtonPopupView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        self.backgroundColor = UIColor.popupBackgroundColor
         layer.cornerRadius = 15
         layer.masksToBounds = true // 나가면 짤림
         
@@ -44,6 +45,9 @@ class OneButtonPopupView: UIView {
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         messageLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        if UITraitCollection.current.userInterfaceStyle == .dark {
+            messageLabel.textColor = UIColor(red: 0.749, green: 0.749, blue: 0.749, alpha: 1)
+        }
         addSubview(messageLabel)
         
         let stackView = UIStackView()

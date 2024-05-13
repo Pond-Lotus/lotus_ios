@@ -11,7 +11,7 @@ class LogInViewController: UIViewController {
     //        scrollView.keyboardDismissMode = .interactive
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private let logoImageView: UIImageView = ImageViewManager.shared.getUIImageViewScaleToFit(fileName: "logo-image")
+    private let logoImageView: UIImageView = ImageViewManager.shared.getUIImageViewScaleToFit(fileName: "logo-image-login")
     private let logoTextView: UIImageView = ImageViewManager.shared.getUIImageViewScaleToFit(fileName: "logo-text")
     private let emailTextField: UITextField = TextFieldManager.shared.getLogInEmailTextFiled()
     private let passwordTextField: UITextField = TextFieldManager.shared.getLogInPasswordTextFiled(selector: #selector(passwordVisionButtonTapped))
@@ -64,6 +64,7 @@ class LogInViewController: UIViewController {
     }
     
     private func setupUI() {
+        scrollView.backgroundColor = UIColor.backgroundColor
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
