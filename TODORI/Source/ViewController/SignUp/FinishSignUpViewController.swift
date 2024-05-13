@@ -23,7 +23,7 @@ class FinishSignUpViewController: UIViewController {
         label.text = "\(UserSession.shared.signUpNickname ?? "(UNKNOWN)")님, 환영합니다!"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.textColor = .black
+        label.textColor = UITraitCollection.current.userInterfaceStyle == .light ? .black : .white
         return label
     }()
 
@@ -32,7 +32,7 @@ class FinishSignUpViewController: UIViewController {
         button.setTitle("로그인 하기", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
+        button.backgroundColor = UIColor.buttonColor
         button.layer.cornerRadius = 18
         return button
     }()
@@ -46,7 +46,7 @@ class FinishSignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.backgroundColor
 
         setupUI()
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)

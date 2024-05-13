@@ -23,7 +23,7 @@ class ChangePasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? .white : UIColor(red: 0.196, green: 0.192, blue: 0.204, alpha: 1)
         
         navigationController?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -208,12 +208,12 @@ extension ChangePasswordViewController: UITextFieldDelegate {
         let arePasswordsMatching = newPasswordTextField.text == checkNewPasswordTextField.text
         if isPasswordValid && arePasswordsMatching {
             finishButton.isEnabled = true
-            finishButton.backgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
+            finishButton.backgroundColor = UIColor.buttonColor
             finishButton.setTitleColor(.black, for: .normal)
         } else {
             finishButton.isEnabled = false
-            finishButton.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
-            finishButton.setTitleColor(UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1), for: .normal)
+            finishButton.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
+            finishButton.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1): UIColor(red: 0.259, green: 0.259, blue: 0.259, alpha: 1), for: .normal)
         }
     }
     

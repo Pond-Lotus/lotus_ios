@@ -17,22 +17,22 @@ class EnterProfileViewController: UIViewController {
     private var stackView = UIStackView()
     private let numberLabel: UILabel = LabelManager.shared.createSignUpNumberLabel(text: "3/3")
     private let titleLabel: UILabel = LabelManager.createSignUpTitleLabel(text: "프로필을\n설정해 주세요")
-    private let emailLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "이메일", textColor: UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1))
+    private let emailLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "이메일", textColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let emailBoxLabel: UILabel = LabelManager.shared.getEmailBoxLabel()
-    private let nickNameLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "닉네임", textColor: UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1))
+    private let nickNameLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "닉네임", textColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let nickNameTextField: UITextField = TextFieldManager.shared.getSignUpProfileTextField(tag: 1, text: "2~6자 이하로 입력해 주세요")
     private let nickNameGenerationErrorLabel: UILabel = LabelManager.shared.getErrorLabel(text: "닉네임 생성 규칙에 맞지 않습니다.")
-    private let passwordLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "비밀번호", textColor: UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1))
+    private let passwordLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "비밀번호", textColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let passwordTextField: UITextField = TextFieldManager.shared.getSignUpProfileTextField(tag: 2, text: "8~15자 이내의 영문자, 숫자, 특수문자를 포함해 주세요", isSecureTextEntry: true)
     private let passwordGenerationErrorLabel: UILabel = LabelManager.shared.getErrorLabel(text: "비밀번호 생성 규칙에 맞지 않습니다.")
-    private let checkPasswordLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "비밀번호 확인", textColor: UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1))
+    private let checkPasswordLabel: UILabel = LabelManager.createSignUpSubtitleLabel(text: "비밀번호 확인", textColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let checkPasswordTextField: UITextField = TextFieldManager.shared.getSignUpProfileTextField(tag: 3, text: "8~15자 이내의 영문자, 숫자, 특수문자를 포함해 주세요", isSecureTextEntry: true)
     private let passwordInconsistencyErrorLabel: UILabel = LabelManager.shared.getErrorLabel(text: "비밀번호가 일치하지 않습니다.")
     private let nextButton: UIButton = ButtonManager.shared.getNextButton(isEnabled: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.backgroundColor
         
         setupDelegate()
         setupTapGesture()

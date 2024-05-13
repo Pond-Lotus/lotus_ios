@@ -28,7 +28,7 @@ class ImageViewManager {
         return imageView
     }
     
-    func getRequestProfileImageView() -> UIImageView{
+    func getRequestProfileImageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20

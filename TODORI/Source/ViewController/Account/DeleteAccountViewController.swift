@@ -14,13 +14,13 @@ class DeleteAccountViewController: UIViewController {
     private let nickNameLabel: UILabel = LabelManager.shared.getNickNameLabel()
     private let emailLabel: UILabel = LabelManager.shared.getEmailLabel()
     private let titleLabel2: UIStackView = StackViewManager.shared.getAccountTitleLabel(text: "탈퇴 전 안내드려요", color: UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1), filename: "delete-icon", resize: 16, spacing: 3)
-    private let messageLabel: UILabel = LabelManager.shared.getMessageLabel(text: "계정 탈퇴 시 모든 정보와 데이터가 삭제됩니다.\n복구 및 백업이 불가능하오니, 신중히 생각해 주세요.", weight: .regular, color: .black)
+    private let messageLabel: UILabel = LabelManager.shared.getMessageLabel(text: "계정 탈퇴 시 모든 정보와 데이터가 삭제됩니다.\n복구 및 백업이 불가능하오니, 신중히 생각해 주세요.", weight: .regular, color: UITraitCollection.current.userInterfaceStyle == .light ? .black : UIColor(red: 0.914, green: 0.914, blue: 0.914, alpha: 1))
     private let checkLabelButton: UIButton = ButtonManager.shared.getCheckLabelButton()
     private let deleteAccountButton: UIButton = ButtonManager.shared.getFinishButton(title: "계정 탈퇴하기", titleColor: UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1), false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? .white : UIColor(red: 0.196, green: 0.192, blue: 0.204, alpha: 1)
         
         navigationController?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -124,12 +124,12 @@ class DeleteAccountViewController: UIViewController {
     @objc func checkLabelTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            self.deleteAccountButton.backgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
+            self.deleteAccountButton.backgroundColor = UIColor.buttonColor
             self.deleteAccountButton.setTitleColor(.black, for: .normal)
             self.deleteAccountButton.isEnabled = true
         } else {
-            self.deleteAccountButton.setTitleColor(UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1), for: .normal)
-            self.deleteAccountButton.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+            self.deleteAccountButton.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1) : UIColor(red: 0.259, green: 0.259, blue: 0.259, alpha: 1), for: .normal)
+            self.deleteAccountButton.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
             self.deleteAccountButton.isEnabled = false
         }
     }

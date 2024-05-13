@@ -82,7 +82,12 @@ class Color {
 }
 extension UIColor {
     static let defaultColor = UIColor(named: "defaultColor")
-    static let backgroundColor = UIColor(named: "background")
+    static var mainColor: UIColor { return UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1) }
+    static let backgroundColor = UIColor(named: "backgroundColor")
+    static let popupBackgroundColor = UIColor(named: "popupBackgroundColor")
+    static let buttonColor = UIColor(named: "buttonColor")
+    static let popupButtonColor = UIColor(named: "popupButtonColor")
+    static let textFieldColor = UIColor(named: "textfieldColor")
     static let lineColor = UIColor(named: "lineColor")
     static let textColor = UIColor(named: "textColor")
     static let shadowColor = UIColor(named: "shadowColor")
