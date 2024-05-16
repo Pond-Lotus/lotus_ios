@@ -81,18 +81,27 @@ class Color {
     
 }
 extension UIColor {
-    static let defaultColor = UIColor(named: "defaultColor")
-    static let backgroundColor = UIColor(named: "background")
-    static let lineColor = UIColor(named: "lineColor")
-    static let textColor = UIColor(named: "textColor")
-    static let shadowColor = UIColor(named: "shadowColor")
-    static let calendarNotThisMonthTextColor = UIColor(named: "calendarNotThisMonthTextColor")
     static let todoriRed = UIColor(named: "todoriRed")
     static let todoriYellow = UIColor(named: "todoriYellow")
     static let todoriGreen = UIColor(named: "todoriGreen")
     static let todoriBlue = UIColor(named: "todoriBlue")
     static let todoriPink = UIColor(named: "todoriPink")
     static let todoriPurple = UIColor(named: "todoriPurple")
+    static let todoriOrange = UIColor(named: "todoriOrange")
+    static let mainBeige = UIColor(named: "mainBeige")
+    static let todoriWhite = UIColor(named: "todoriWhite")
+    static let todoriGray = UIColor(named: "todoriGray")
+    static let lightGray01 = UIColor(named: "lightGray01")
+    static let dg02 = UIColor(named: "dg02")
+    static let dg04 = UIColor(named: "dg04")
+    static let boxFill = UIColor(named: "boxFill")
+    static let boxLine = UIColor(named: "boxLine")
+    static let line = UIColor(named: "line")
+    
+    static let textColor = UIColor(named: "textColor")
+    static let shadowColor = UIColor(named: "shadowColor")
+    static let calendarNotThisMonthTextColor = UIColor(named: "calendarNotThisMonthTextColor")
+ 
     static let descriptionBackground = UIColor(named: "descriptionBackground")
     static let selectionColor = UIColor(named: "selectionColor")
     static let todaySelectionColor = UIColor(named: "todaySelectionColor")
@@ -100,4 +109,7 @@ extension UIColor {
     static let sundayDarkColor = UIColor(named: "sundayDarkColor")
     static let todayTitleColor = UIColor(named: "todayTitleColor")
     static let clearBackgroundColor = UIColor(named: "clearBackgroundColor")
+    static let rejectButtonGray = UIColor(named: "rejectButtonGray")
+    static let viewBackgroundColor = UIColor(named: "viewBackgroundColor")
 }
+

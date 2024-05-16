@@ -39,6 +39,7 @@ enum APIConstant {
     static let category = "/todo/name/priority/"
     static let who = "/account/who/"
     static let day = "/todo/day/"
+    static let startTodo = "/todo/start_todo/"
     
     enum Friend {
         static let searchRequest: String = "/account/find_req_friend/"

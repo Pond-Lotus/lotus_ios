@@ -14,11 +14,13 @@
 		3E16E6282ACFEA030001E4C0 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16E6272ACFEA030001E4C0 /* Friend.swift */; };
 		3E16E62A2ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16E6292ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift */; };
 		3E16E62C2ACFF0CB0001E4C0 /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E16E62B2ACFF0CB0001E4C0 /* FriendService.swift */; };
+		3E2389FB2BD265CB00EC8E58 /* TwoButtonPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2389FA2BD265CB00EC8E58 /* TwoButtonPopupViewController.swift */; };
 		3E28C0232B88B6740002E94E /* DeleteFriendPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C0202B88B6740002E94E /* DeleteFriendPopupViewController.swift */; };
 		3E28C0242B88B6740002E94E /* FriendToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C0212B88B6740002E94E /* FriendToDoViewController.swift */; };
 		3E28C0252B88B6740002E94E /* TestCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E28C0222B88B6740002E94E /* TestCalendarViewController.swift */; };
 		3E28C0282B88B7430002E94E /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3E28C0272B88B7430002E94E /* GoogleMobileAds */; };
 		3E45D56F2A812E1700FC262F /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45D56E2A812E1700FC262F /* BottomSheetViewController.swift */; };
+		3E96A92D2BC92BDA002D259E /* OneButtonPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E96A92C2BC92BDA002D259E /* OneButtonPopupViewController.swift */; };
 		3E9CB2222AAC8C7B00C39625 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3E9CB2212AAC8C7B00C39625 /* FSCalendar */; };
 		3E9E4D982AD85ED8004EDAB6 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E4D972AD85ED8004EDAB6 /* FriendTableViewCell.swift */; };
 		3E9E4D9A2AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E4D992AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift */; };
@@ -80,10 +82,12 @@
 		3E16E6272ACFEA030001E4C0 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		3E16E6292ACFEA7C0001E4C0 /* RecievedRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedRequestTableViewCell.swift; sourceTree = "<group>"; };
 		3E16E62B2ACFF0CB0001E4C0 /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		3E2389FA2BD265CB00EC8E58 /* TwoButtonPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoButtonPopupViewController.swift; sourceTree = "<group>"; };
 		3E28C0202B88B6740002E94E /* DeleteFriendPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteFriendPopupViewController.swift; sourceTree = "<group>"; };
 		3E28C0212B88B6740002E94E /* FriendToDoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendToDoViewController.swift; sourceTree = "<group>"; };
 		3E28C0222B88B6740002E94E /* TestCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCalendarViewController.swift; sourceTree = "<group>"; };
 		3E45D56E2A812E1700FC262F /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		3E96A92C2BC92BDA002D259E /* OneButtonPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneButtonPopupViewController.swift; sourceTree = "<group>"; };
 		3E9E4D972AD85ED8004EDAB6 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		3E9E4D992AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFriendTableViewCell.swift; sourceTree = "<group>"; };
 		3EABEBD82ABC2D9F007D27AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 			children = (
 				7E4341912A39ADE4009CBAB7 /* OneButtonPopupView.swift */,
 				7EE2C8FF2A1B462D001F2D17 /* TwoButtonPopupView.swift */,
+				3E96A92C2BC92BDA002D259E /* OneButtonPopupViewController.swift */,
+				3E2389FA2BD265CB00EC8E58 /* TwoButtonPopupViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 				3EFFEDBD2B9A339100849C1C /* FriendTodoTableViewCell.swift in Sources */,
 				7E4341922A39ADE4009CBAB7 /* OneButtonPopupView.swift in Sources */,
 				7EB85D522A144AE700AAF263 /* AccountService.swift in Sources */,
+				3E2389FB2BD265CB00EC8E58 /* TwoButtonPopupViewController.swift in Sources */,
 				3E28C0252B88B6740002E94E /* TestCalendarViewController.swift in Sources */,
 				7E3B6EA82A42D839008E49B4 /* LabelManager.swift in Sources */,
 				3E9E4D9A2AD85FA1004EDAB6 /* DeleteFriendTableViewCell.swift in Sources */,
@@ -495,6 +502,7 @@
 				7EFE8FC62A12916700369310 /* DeleteAccountViewController.swift in Sources */,
 				7EC2E0512A24D3DA00437CD6 /* ColorCollectionViewCell.swift in Sources */,
 				7EC171982A35A8470097CBD6 /* ToDoMainViewController.swift in Sources */,
+				3E96A92D2BC92BDA002D259E /* OneButtonPopupViewController.swift in Sources */,
 				7EFE8FC22A1263D700369310 /* EditProfileViewController.swift in Sources */,
 				7EE2C9002A1B462D001F2D17 /* TwoButtonPopupView.swift in Sources */,
 				3E16E6282ACFEA030001E4C0 /* Friend.swift in Sources */,
@@ -668,7 +676,6 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -704,7 +711,6 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

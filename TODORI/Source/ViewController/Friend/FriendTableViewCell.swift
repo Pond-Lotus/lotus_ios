@@ -15,25 +15,16 @@ class FriendTableViewCell: UITableViewCell {
     var nicknameLabel: UILabel = LabelManager.shared.getFriendNicknameLabel()
     var starButton: UIButton = ButtonManager.shared.getFavoriteButton()
     var background: UIView = UIView()
-    var friend: Friend?
+    var friend: Friend
     var delegate: FriendTableViewCellDelegate?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: "RequestCell")
-        
-        if let image = imageString {
-            imageData = UserSession.shared.base64StringToImage(base64String: image)
-            profileImageView.image = imageData
+    init(friend: Friend) {
+        self.friend = friend
+        super.init(style: .default, reuseIdentifier: "FriendCell")
+        nicknameLabel.text = friend.nickname
+        starButton.setImage(friend.star! ? UIImage(named: "star-on") : UIImage(named: "star-off"), for: .normal)
+        if let image = friend.image {
+            profileImageView.image = UserSession.shared.base64StringToImage(base64String: image)
         }else {
             profileImageView.image = UIImage(named: "default-profile")
         }
@@ -44,6 +35,16 @@ class FriendTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
 
     
     private func addFunction(){
@@ -51,6 +52,7 @@ class FriendTableViewCell: UITableViewCell {
     }
     
     private func setUI(){
+        background.backgroundColor = UIColor.todoriWhite
         background.addSubViews([profileImageView, nicknameLabel, starButton])
         self.contentView.addSubview(background)
 
@@ -79,18 +81,15 @@ class FriendTableViewCell: UITableViewCell {
     
     @objc private func tapFavoriteButton(){
         //옵셔널 선언되어있는 friend 변수를 person 변수에 대입시켜 언랩핑함
-        guard var person = friend else {print("no friend");return}
-        
-        FriendService.shared.setStar(friend: person) { (response) in
+        FriendService.shared.setStar(friend: self.friend) { (response) in
             switch(response){
             case .success(let data):
                 if let result = data as? ResultCodeResponse {
                     if result.resultCode == 200 {
                         print("star 200")
-                        person.star = !(person.star!)
-                        self.friend = person
-                        self.starButton.setImage(person.star! ? UIImage(named: "star-on") : UIImage(named: "star-off"), for: .normal)
-                        self.delegate?.updateStar(friend: person)
+                        self.friend.star = !(self.friend.star!)
+                        self.starButton.setImage(self.friend.star! ? UIImage(named: "star-on") : UIImage(named: "star-off"), for: .normal)
+                        self.delegate?.updateStar(friend: self.friend)
                     }else {
                         print("star 500")
                     }

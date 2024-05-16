@@ -133,14 +133,14 @@ class LabelManager {
         let label = UILabel()
         label.text = "이메일"
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textColor
         return label
     }
     
     func getFriendNicknameLabel() -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textColor
         return label
     }
     

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 class RecievedRequestTableViewCell: UITableViewCell {
+    var delegate: HandleRequestDelegate?
     var friend:Friend?
     var profileImageView: UIImageView = ImageViewManager.shared.getRequestProfileImageView()
     var emailLabel: UILabel = LabelManager.shared.getFriendEmailLabel()
@@ -31,7 +32,6 @@ class RecievedRequestTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         print("in request cell nib")
-
         // Initialization code
     }
 
@@ -43,10 +43,8 @@ class RecievedRequestTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "RequestCell")
-        print("in request cell")
-
-        setUI()
         addFunction()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
@@ -59,12 +57,13 @@ class RecievedRequestTableViewCell: UITableViewCell {
     }
     
     private func setUI(){
+        backgroundview.backgroundColor = UIColor.todoriWhite
+        profileImageView.image = UIImage(named: "default-profile")
         backgroundview.addSubViews([profileImageView, labelStackView, buttonStackView])
         labelStackView.addArrangedSubviews([nicknameLabel, emailLabel])
         buttonStackView.addArrangedSubviews([acceptButton, rejectButton])
         self.contentView.addSubview(backgroundview)
         
-        profileImageView.image = UIImage(named: "default-profile")
         
         backgroundview.snp.makeConstraints { make in
             make.left.right.bottom.top.equalToSuperview()
@@ -91,22 +90,25 @@ class RecievedRequestTableViewCell: UITableViewCell {
     }
     
     @objc private func tapAcceptButton(){
+        print("tap accept")
         guard let friendInfo = friend else {return}
         handleRequest(email: friendInfo.email, requestResult: 1)
+        
     }
     
     @objc private func tapRejectButton(){
+        print("tap reject")
         guard let friendInfo = friend else {return}
         handleRequest(email: friendInfo.email, requestResult: 0)
     }
     private func handleRequest(email: String, requestResult: Int){
-        print("email: \(email), result: \(requestResult)")
         FriendService.shared.handleRequest(email: email, requestResult: requestResult) { (response) in
             switch(response){
             case .success(let data):
                 if let result = data as? ResultCodeResponse{
                     if result.resultCode == 200 {
                         print("handle request 200")
+                        self.delegate?.handleRequest(email: email)
                     }else{
                         print("handle request 500")
                     }
@@ -118,4 +120,7 @@ class RecievedRequestTableViewCell: UITableViewCell {
         }
     }
 
+}
+protocol HandleRequestDelegate: AnyObject{
+    func handleRequest(email: String)
 }

@@ -18,17 +18,17 @@ class FriendToDoViewController: UIViewController {
     var calendarView: FSCalendar = {
         let calendarView = FSCalendar()
         calendarView.headerHeight = 0
-        calendarView.select(calendarView.today)
+        calendarView.select(Date())
         calendarView.firstWeekday = 2
         calendarView.appearance.titleFont = UIFont.systemFont(ofSize: 13, weight: .semibold)
         calendarView.appearance.weekdayFont = UIFont.systemFont(ofSize: 13, weight: .medium)
-        calendarView.appearance.selectionColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
-        calendarView.appearance.todayColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
-        calendarView.appearance.titleTodayColor = UIColor(red: 0.246, green: 0.246, blue: 0.246, alpha: 1)
+        calendarView.appearance.selectionColor = UIColor.selectionColor
+        calendarView.appearance.todayColor = UIColor.todaySelectionColor
         calendarView.appearance.titleSelectionColor = .black
-        calendarView.appearance.weekdayTextColor = .black
+        calendarView.appearance.weekdayTextColor = UIColor.textColor
         calendarView.calendarWeekdayView.weekdayLabels[6].textColor = .red
-        calendarView.locale = Locale(identifier: "ko_KR")        
+        calendarView.appearance.titleDefaultColor = UIColor.textColor
+        calendarView.locale = Locale(identifier: "ko_KR")
         return calendarView
     }()
     var calendarBackgroundView: UIView = {
@@ -37,11 +37,11 @@ class FriendToDoViewController: UIViewController {
         view.layer.cornerRadius = 30
         view.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.lightGray.cgColor
+        view.layer.shadowColor = UIColor.shadowColor?.cgColor
         view.layer.shadowOpacity = 0.2
         view.layer.shadowRadius = 5
         view.layer.shadowOffset = CGSize(width: 0, height: 5)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.todoriWhite
         return view
     }()
     var profileImageView: UIImageView = {
@@ -49,11 +49,13 @@ class FriendToDoViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: 33, height: 33)
         imageView.layer.cornerRadius = imageView.fs_width/2
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
     var nicknameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.textColor
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return label
     }()
@@ -71,6 +73,7 @@ class FriendToDoViewController: UIViewController {
     }()
     var calendarImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     var segmentedControl: UISegmentedControl = {
@@ -94,13 +97,15 @@ class FriendToDoViewController: UIViewController {
         stackView.axis = .horizontal
         let imageView = UIImageView(image: UIImage(named: "calendar"))
         imageView.frame = CGRect(x: 0, y: 0, width: 21, height: 21)
+        imageView.contentMode = .scaleAspectFit
         stackView.addArrangedSubview(imageView)
+        stackView.spacing = 3
         return stackView
     }()
     var dayLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
-        label.textColor = .black
+        label.textColor = UIColor.textColor
         return label
     }()
     private var weekdayLabel: UILabel = {
@@ -111,7 +116,6 @@ class FriendToDoViewController: UIViewController {
     }()
     var grayLineNextDateLabel: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.846, green: 0.846, blue: 0.846, alpha: 1)
         return view
     }()
     var dayLabelStackView: UIStackView = {
@@ -123,7 +127,7 @@ class FriendToDoViewController: UIViewController {
     
     var nothingExistingView: UIView = {
         let view = UIView()
-        view.backgroundColor = .defaultColor
+        view.backgroundColor = UIColor.todoriWhite
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
@@ -179,17 +183,17 @@ class FriendToDoViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(tapSegmentedControl), for: .valueChanged)
         backButton.addTarget(self, action: #selector(tapBackButton), for: .touchUpInside)
         guard let friend = friend else {print("no frirend");return}
-        if let image = profileImageView.image {
-            profileImageView.image = image
+        if let image = friend.image {
+            profileImageView.image = UserSession.shared.base64StringToImage(base64String: image)
         }else {
-            profileImageView.image = UIImage(named: "profile-image")
+            profileImageView.image = UIImage(named: "default-profile")
         }
         nicknameLabel.text = friend.nickname
-        
         dateLabel.text = DateFormat.shared.getdateLabelString(date: calendarView.currentPage)
                 
         weekdayLabel.text = DateFormat.shared.getWeekdayInKorean(date: calendarView.selectedDate!)
         dayLabel.text = DateFormat.shared.getDay(date: calendarView.selectedDate!)
+        moreButton.addTarget(self, action: #selector(tapMoreButton), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -199,8 +203,15 @@ class FriendToDoViewController: UIViewController {
     
     
     private func setUI(){
-        self.view.backgroundColor = .white
-        
+        let isDarkMode = self.traitCollection.userInterfaceStyle == .dark
+        self.view.backgroundColor = UIColor.todoriWhite
+        self.tableView.backgroundColor = UIColor.lightGray01
+        self.calendarBackgroundView.backgroundColor = UIColor.todoriWhite
+        self.topBarView.backgroundColor = UIColor.todoriWhite
+        self.segmentedControl.backgroundColor = isDarkMode ? .black : nil
+        self.segmentedControl.selectedSegmentTintColor = isDarkMode ? UIColor.todoriWhite : nil
+        self.grayLineNextDateLabel.backgroundColor = UIColor.dg04
+
         self.topBarView.addSubview(backButton)
         self.view.addSubview(topBarView)
         
@@ -214,7 +225,6 @@ class FriendToDoViewController: UIViewController {
         nothingExistingView.addSubview(nothingExistingLabel)
         tableView.addSubview(nothingExistingView)
         
-        self.view.backgroundColor = UIColor.white
         self.view.addSubview(tableView)
         
         topBarView.snp.makeConstraints { make in
@@ -309,6 +319,34 @@ class FriendToDoViewController: UIViewController {
         }else{
             self.calendarView.setScope(.week, animated: true)
         }
+    }
+    
+    @objc private func tapMoreButton(){
+
+        let deleteFriendAction = UIAlertAction(title: "친구 끊기", style: .destructive) { _ in
+            guard let deletingFriend = self.friend else {return}
+            FriendService.shared.deleteFriend(friend: deletingFriend) { response in
+                switch response {
+                case .success(let responseData):
+                    guard let data = responseData as? ResultCodeResponse else {return}
+                    if data.resultCode == 200 {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                case .failure(let error):
+                    return
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "닫기", style: .cancel)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(deleteFriendAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setUI()
+        self.calendarView.reloadData()
     }
 }
 extension FriendToDoViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{

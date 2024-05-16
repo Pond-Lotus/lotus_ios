@@ -8,15 +8,13 @@
 import UIKit
 
 class DeleteFriendTableViewCell: UITableViewCell {
-    var imageString: String?
-    var imageData: UIImage?
     var profileImageView: UIImageView = ImageViewManager.shared.getRequestProfileImageView()
     var nicknameLabel: UILabel = LabelManager.shared.getFriendNicknameLabel()
     var deleteButton: UIButton = ButtonManager.shared.getDeleteFriendButton()
     var background: UIView = UIView()
-    var friend: Friend?
+    var friend: Friend
     var delegate: DeleteFriendTableViewCellDelegate?
-    var deleteButtonFunction: () -> Void
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,17 +23,15 @@ class DeleteFriendTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
-    init(buttonFunction: @escaping () -> Void) {
-        self.deleteButtonFunction = buttonFunction
+    init(friend: Friend) {
+        self.friend = friend
         super.init(style: .default, reuseIdentifier: "RequestCell")
-
-        if let image = imageString {
-            imageData = UserSession.shared.base64StringToImage(base64String: image)
-            profileImageView.image = imageData
+        self.nicknameLabel.text = friend.nickname
+        if let image = friend.image {
+            profileImageView.image = UserSession.shared.base64StringToImage(base64String: image)
         }else {
             profileImageView.image = UIImage(named: "default-profile")
         }
@@ -48,10 +44,11 @@ class DeleteFriendTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     private func addFunction(){
-        deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchDown)
+        deleteButton.addTarget(self, action: #selector(tapDeleteButton), for: .touchUpInside)
     }
     
     private func setUI(){
+        background.backgroundColor = UIColor.todoriWhite
         background.addSubViews([profileImageView, nicknameLabel, deleteButton])
         self.contentView.addSubview(background)
 
@@ -81,27 +78,11 @@ class DeleteFriendTableViewCell: UITableViewCell {
     }
     
     @objc private func tapDeleteButton(){
-//        deleteButtonFunction()
-        guard let friend = friend else {print("no friend");return}
-        FriendService.shared.deleteFriend(friend: friend) { response in
-            switch(response){
-            case .success(let data):
-                if let result = data as? ResultCodeResponse {
-                    if result.resultCode == 200 {
-                        self.delegate?.deleteFriend(friend: friend)
-                        print("del friend 200")
-                    }else {
-                        print("del friend error")
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+        self.delegate?.tapDeleteFriend(friend: self.friend)
     }
 
 }
 
 protocol DeleteFriendTableViewCellDelegate: AnyObject {
-    func deleteFriend(friend: Friend)
+    func tapDeleteFriend(friend: Friend)
 }

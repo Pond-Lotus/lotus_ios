@@ -259,6 +259,8 @@ class MyPageViewController: UIViewController {
             case .success(let response):
                 if response.resultCode == 200 {
                     print("이백")
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    UNUserNotificationCenter.current().removeAllDeliveredNotifications()
                     NavigationBarManager.shared.removeSeparatorView()
                     SceneDelegate.reset()
                 } else if response.resultCode == 500 {

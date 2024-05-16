@@ -160,5 +160,15 @@ struct FriendResponseData: Codable{
     let data: [Friend]
 }
 
+struct StartTodoResponseData: Codable {
+    let resultCode: Int
+    let data: [StartTodo]
+}
         
-        
+struct StartTodo: Codable {
+    let id: Int
+    let year: Int
+    let month: Int
+    let day: Int
+    let time: String
+}

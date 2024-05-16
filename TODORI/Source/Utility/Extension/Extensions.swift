@@ -21,3 +21,11 @@ extension UIColor {
         return UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
     }
 }
+
+extension UITextField {
+    func addLeftPadding(inset: CGFloat) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: inset, height: self.frame.height))
+        self.leftView = paddingView
+        self.leftViewMode = ViewMode.always
+    }
+}

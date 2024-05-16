@@ -61,7 +61,7 @@ class FriendTodoTableViewCell: UITableViewCell {
     
     //컴포넌트 외형 설정
     private func setAppearence(){
-        cellBackgroundView.backgroundColor = UIColor.defaultColor
+        cellBackgroundView.backgroundColor = UIColor.todoriWhite
         cellBackgroundView.layer.cornerRadius = 10
         cellBackgroundView.clipsToBounds = true
         self.backgroundColor = .clear

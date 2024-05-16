@@ -201,7 +201,7 @@ class TextFieldManager {
     func getAddEmailTextField() -> UITextField {
         let textfield = UITextField()
         textfield.placeholder = "이메일 입력"
-        textfield.borderStyle = .roundedRect
+        textfield.borderStyle = .none
         textfield.layer.borderWidth = 1
         textfield.layer.borderColor = UIColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1).cgColor
         textfield.layer.cornerRadius = 7

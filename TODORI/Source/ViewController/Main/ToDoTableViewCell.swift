@@ -70,7 +70,7 @@ class ToDoTableViewCell: UITableViewCell {
     
     //컴포넌트 외형 설정
     private func setAppearence(){
-        cellBackgroundView.backgroundColor = UIColor.defaultColor
+        cellBackgroundView.backgroundColor = UIColor.todoriWhite
         cellBackgroundView.layer.cornerRadius = 10
         cellBackgroundView.clipsToBounds = true
         self.backgroundColor = .clear
@@ -150,7 +150,7 @@ extension ToDoTableViewCell:UITextFieldDelegate{
 }
 
 //프로토콜 정의
-protocol TodoTableViewCellDelegate:AnyObject{
+protocol TodoTableViewCellDelegate: AnyObject{
     func sendTodoData(section:Int, row:Int, todo:ToDo)
     func editDone(section:Int,row:Int,todo:ToDo)
     func writeNothing(section:Int, row:Int)

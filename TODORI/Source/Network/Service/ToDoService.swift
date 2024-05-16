@@ -354,4 +354,27 @@ class TodoService {
             }
         }
     }
+    
+    func getDateOfTodoForNotification(completion: @escaping((AFResult<Any>) -> Void)) {
+        let url = APIConstant.testURL + APIConstant.startTodo
+        
+        guard let token = TokenManager.shared.getToken() else {return}
+        
+        let header : HTTPHeaders = ["Content-Type" : "application/json",
+                                    "Authorization": "Token \(token)"]
+
+        
+        AF.request(url,
+                   method: .get,
+                   headers: header)
+        .validate(statusCode: 200 ..< 300)
+        .responseDecodable(of: StartTodoResponseData.self) { response in
+            switch response.result{
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

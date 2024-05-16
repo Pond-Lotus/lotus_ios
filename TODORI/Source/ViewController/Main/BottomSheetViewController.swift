@@ -14,7 +14,7 @@ class BottomSheetViewController: UIViewController{
     var delegate: BottomSheetViewControllerDelegate?
     var bottomSheetView: UIView = {
         var view = UIView()
-        view.backgroundColor = UIColor.defaultColor
+        view.backgroundColor = UIColor.todoriWhite
         return view
     }()
     var colorBarViewInBottomsheet: UIView = {
@@ -84,7 +84,7 @@ class BottomSheetViewController: UIViewController{
         view.layer.cornerRadius = 20
         view.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
         view.clipsToBounds = true
-        view.backgroundColor = .defaultColor
+        view.backgroundColor = UIColor.todoriWhite
         return view
     }()
     var datePicker: UIDatePicker = {
@@ -148,7 +148,6 @@ class BottomSheetViewController: UIViewController{
     }()
     var grayLineInBottomSheet: UIView = {
         var view = UIView()
-        view.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
         return view
     }()
     let textviewPlaceholder: String = "+ 메모하고 싶은 내용이 있나요?"
@@ -199,13 +198,14 @@ class BottomSheetViewController: UIViewController{
     var bottomSheetHeight: CGFloat = 0
     var nowHour: String = "99"
     var nowMin: String = "99"
+    var isDarkMode: Bool = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         descriptionTextView.delegate = self
-        
+        isDarkMode = self.traitCollection.userInterfaceStyle == .dark
         circleButtonArray = [redCircleButton, yellowCircleButton, greenCircleButton, blueCircleButton, pinkCircleButton, purpleCircleButton]
         
         addFunction()
@@ -271,6 +271,8 @@ class BottomSheetViewController: UIViewController{
             nowHour = String(time.prefix(2))
             nowMin = String(time.suffix(2))
             
+            let textColor = isDarkMode ? UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
+            : UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
             if time == "9999"{
                 timeLabel.text = "미지정"
                 timeLabel.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
@@ -282,7 +284,7 @@ class BottomSheetViewController: UIViewController{
                         timeLabel.text = "오전 \(nowHour):\(nowMin)"
                     }
                 }
-                timeLabel.textColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
+                timeLabel.textColor = isDarkMode ? UIColor(white: 0.91, alpha: 1) : UIColor(white: 0.258, alpha: 1)
             }
             //현재 투두의 id, section, row, color 저장 - bottom sheet 외부 클릭시 변경 사항을 저장하기 위함
             //            nowId = todo.id
@@ -304,6 +306,7 @@ class BottomSheetViewController: UIViewController{
         
         setUI()
         setAD()
+        setColorsByUserInterfaceStyle()
     }
     
     func addFunction(){
@@ -469,6 +472,8 @@ class BottomSheetViewController: UIViewController{
     }
     
     private func setAD() {
+
+        
         adView = GADBannerView()
         self.view.addSubview(adView)
 
@@ -480,7 +485,7 @@ class BottomSheetViewController: UIViewController{
             make.height.equalTo(79)
         }
         
-        adView.backgroundColor = .white
+        adView.backgroundColor = UIColor.todoriWhite
         adView.layer.cornerRadius = 20
         adView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMinXMinYCorner]
         adView.adUnitID = "ca-app-pub-8986601823711991/2940100869"
@@ -560,14 +565,6 @@ class BottomSheetViewController: UIViewController{
         if let requestTodo = todo {
             editTodo(todo: requestTodo)
         }
-        //        NotificationCenter.default.post(name: NSNotification.Name("EndEditTodo"), object: nil, userInfo: nil)
-        
-        
-        //        editTodo(title: titleTextFieldInBottomSheet.text ?? "", description: description, colorNum: nowColor, time: nowHour+nowMin, id: nowId)
-        //        modifyNotification(at: datePicker.date, identifier: nowId)
-        //        self.blackViewOfBottomSheet.removeFromSuperview()
-        //        self.bottomSheetView.removeFromSuperview()
-        
     }
     
     @objc private func tapTimeLabel(){
@@ -587,27 +584,16 @@ class BottomSheetViewController: UIViewController{
         nowHour = "99"
         nowMin = "99"
         timeLabel.text =  "미지정"
-        timeLabel.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
-//        deleteNotification(identifier: todo?.id)
+        timeLabel.textColor = UIColor(white: 0.62, alpha: 1)
+        deleteNotification(identifier: todo?.id)
         blackViewOfDatePicker.removeFromSuperview()
         datePickerBackgroundView.removeFromSuperview()
         titleTextFieldInBottomSheet.becomeFirstResponder()
     }
     
-    private func deleteNotification(identifier: Int){
-        // 푸시 알림 요청 식별자
-        let notificationIdentifier = String(identifier)
-        
-        // 기존 예약된 알림 요청 가져오기
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            let notificationRequest = requests.first { $0.identifier == notificationIdentifier }
-            
-            // 기존 알림 요청 삭제
-            if let request = notificationRequest {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [request.identifier])
-                print("remove notification")
-            }
-        }
+    private func deleteNotification(identifier: Int?){
+        guard let notificationIdentifier = identifier else {return}
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [String(notificationIdentifier)])
     }
     
     @objc private func tapDateLabel(){
@@ -616,73 +602,35 @@ class BottomSheetViewController: UIViewController{
         setCalendarViewUI()
     }
     
-    private func modifyNotification(at date: Date, identifier: Int){
-        // 푸시 알림 요청 식별자
-//        let notificationIdentifier = String(todo?.id)
+    private func modifyNotification(at date: Date, identifier: Int?){
+        //삭제 후 재설정
+        guard let notificationIdentifier = identifier else {return}
         let title = titleTextFieldInBottomSheet.text ?? "TODORI 미리 알림"
-        
-        // 기존 예약된 알림 요청 가져오기
-//        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-//            if let notificationRequest = requests.first(where: { $0.identifier == notificationIdentifier }) {
-//                let updatedContent = UNMutableNotificationContent()
-//                updatedContent.title = "오늘의 토도리"
-//                updatedContent.body = title
-//
-//                let calendar = Calendar.current
-//                var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-//                //                let yearMonthDay = DateFormat.shared.getYearMonthDay(date: self.calendarView.selectedDate!)
-//
-//                //                components.year = Int(yearMonthDay[0])
-//                //                components.month = Int(yearMonthDay[1])
-//                //                components.day = Int(yearMonthDay[2])
-//
-//                let updatedTrigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//
-//                let updatedRequest = UNNotificationRequest(identifier: notificationRequest.identifier, content: updatedContent, trigger: updatedTrigger)
-//                UNUserNotificationCenter.current().add(updatedRequest) { error in
-//                    if let error = error {
-//                        print("Failed to update notification: \(error.localizedDescription)")
-//                    } else {
-//                        print("Notification updated successfully.")
-//                    }
-//                }
-//            } else {
-//                print("absence")
-//                //                self.setNotification(at: date, identifier: identifier, title: title)
-//            }
-//        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [String(notificationIdentifier)])
+        setNotification(at: date, identifier: identifier, title: title)
     }
     
-    private func setNotification(at date: Date, identifier: Int, title:String) {
-//        let notificationIdentifier = String(todo?.id)
+    private func setNotification(at date: Date, identifier: Int?, title:String) {
+        guard let notificationIdentifier = identifier else {return}
         
         let content = UNMutableNotificationContent()
         content.title = "오늘의 토도리"
         content.body = title
         content.sound = UNNotificationSound.default
         
-        // 알림을 예약할 날짜와 시간을 구성합니다.
+        // date에 datePicker의 시, 분 정보만 포함되어있기 때문에 년, 월, 일 정보는 따로 넣어줌
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
-        //        let yearMonthDay = DateFormat.shared.getYearMonthDay(date: calendarView.selectedDate!)
         
-        //        components.year = Int(yearMonthDay[0])
-        //        components.month = Int(yearMonthDay[1])
-        //        components.day = Int(yearMonthDay[2])
+        let yearMonthDay = DateFormat.shared.getYearMonthDay(date: date)
+        components.year = Int(yearMonthDay[0])
+        components.month = Int(yearMonthDay[1])
+        components.day = Int(yearMonthDay[2])
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let request = UNNotificationRequest(identifier: String(notificationIdentifier), content: content, trigger: trigger)
         
-        // 알림 요청을 생성합니다.
-//        let request = UNNotificationRequest(identifier: String(todo?.id), content: content, trigger: trigger)
-        
-        // 알림을 예약합니다.
-//        UNUserNotificationCenter.current().add(request) { (error) in
-//            if let error = error {
-//                print("푸시 알림 예약 실패: \(error.localizedDescription)")
-//            } else {
-//                print("푸시 알림 예약 성공")
-//            }
-//        }
+        UNUserNotificationCenter.current().add(request)
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -727,18 +675,18 @@ class BottomSheetViewController: UIViewController{
     }
     
     @objc private func tapFinishButton(){
-        print("tap finish")
-        if datePickerBackgroundView.superview == self.view{
+        
+        if datePickerBackgroundView.superview == self.view {
             if nowHour == "99" && nowMin == "99"{
-                //            setNotification(at: datePicker.date, identifier: todo?.id, title: titleTextFieldInBottomSheet.text ?? "TODORI 미리 알림")
+                setNotification(at: datePicker.date, identifier: self.todo?.id, title: titleTextFieldInBottomSheet.text ?? "TODORI 미리 알림")
             }else {
-                //            modifyNotification(at: datePicker.date, identifier: todo?.id)
+                modifyNotification(at: datePicker.date, identifier: self.todo?.id)
             }
             nowHour = DateFormat.shared.getHour(date: datePicker.date)
             nowMin = DateFormat.shared.getMinute(date: datePicker.date)
             timeLabel.text =  "\(nowHour):\(nowMin)"
-            timeLabel.textColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1)
-            
+            timeLabel.textColor = isDarkMode ? UIColor(white: 0.91, alpha: 1) : UIColor(white: 0.258, alpha: 1)
+
             
             blackViewOfDatePicker.removeFromSuperview()
             datePickerBackgroundView.removeFromSuperview()
@@ -778,24 +726,6 @@ class BottomSheetViewController: UIViewController{
         
     }
     
-//    private func editTodo(title: String, description: String, colorNum: Int, time: String, id: Int){
-//        TodoService.shared.editTodo(title: title, description: description, colorNum: colorNum, time: time,id: id) { (response) in
-//            switch(response){
-//            case .success(let resultData):
-//                if let data = resultData as? TodoEditResponseData{
-//                    if data.resultCode == 200 {
-//                        if let resultTodo = self.todo {
-//                            self.delegate?.sendTodoData(todo: resultTodo)
-//                        }
-//                    }
-//                }
-//            case .failure(let meassage):
-//                print("failure", meassage)
-//
-//            }
-//        }
-//    }
-    
     private func editTodo(todo:ToDo){
         TodoService.shared.editTodo(todo: todo) { (response) in
             switch(response){
@@ -803,15 +733,27 @@ class BottomSheetViewController: UIViewController{
                 if let data = resultData as? TodoEditResponseData{
                     if data.resultCode == 200 {
                         if let resultTodo = self.todo {
+                            self.delegate?.sendTodoData(todo: resultTodo)
                             print("success")
                         }
                     }
                 }
             case .failure(let meassage):
                 print("failure", meassage)
-                
             }
         }
+    }
+    
+    private func setColorsByUserInterfaceStyle(){
+        if self.traitCollection.userInterfaceStyle == .dark {
+            grayLineInBottomSheet.backgroundColor = UIColor.dg04
+        } else {
+            grayLineInBottomSheet.backgroundColor = UIColor.gray
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setColorsByUserInterfaceStyle()
     }
 }
 extension BottomSheetViewController: UITextViewDelegate{

@@ -16,6 +16,7 @@ class MyFriendViewController: UIViewController {
     var tableView: UITableView = {
         let tableview = UITableView()
         tableview.separatorStyle = .none
+        tableview.backgroundColor = UIColor.todoriWhite
         return tableview
     }()
     var buttonStackView: UIStackView = {
@@ -23,20 +24,35 @@ class MyFriendViewController: UIViewController {
         stackview.axis = .horizontal
         stackview.distribution = .equalSpacing
         stackview.spacing = 8
+        stackview.backgroundColor = UIColor.todoriWhite
         return stackview
     }()
-    
     var deleteButtonBlackView: UIView = {
         let view = UIView()
         view.backgroundColor = .black.withAlphaComponent(0.5)
         return view
     }()
-
+    var nothingExistLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아직 친구를 맺지 않았어요.\n친구를 추가하여 일정을 공유해 보세요."
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.textColor = UIColor(white: 0.62, alpha: 1)
+        label.isHidden = true
+        return label
+    }()
+    var popupVC: TwoButtonPopupViewController = {
+        let popup = TwoButtonPopupViewController()
+        popup.titleLabel.text = "친구 끊기"
+        popup.messageLabel.text = "정말 친구를 끊으시나요?"
+        popup.negativeActionButton.setTitle("취소", for: .normal)
+        popup.positiveActionButton.setTitle("확인", for: .normal)
+        popup.modalPresentationStyle = .overCurrentContext
+        return popup
+    }()
 
     
-    let orangeBorderColor = UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1).cgColor
+    let orangeBorderColor = UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1)
     let orangeBackgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
-    let grayBorderColor = UIColor(red: 0.867, green: 0.859, blue: 0.859, alpha: 1).cgColor
     
     var friendList: [Friend] = []
     
@@ -44,19 +60,27 @@ class MyFriendViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         addFunction()
-        searchFriend()
         
         tableView.delegate = self
         tableView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        searchFriend()
+    }
+    
     private func setUI(){
         buttonStackView.addArrangedSubviews([entireButton, favoriteButton, managementButton])
-        self.view.addSubViews([buttonStackView, tableView])
+        self.view.addSubViews([buttonStackView, tableView, nothingExistLabel])
+        entireButton.layer.borderColor = orangeBorderColor.cgColor
 
-        
-        entireButton.layer.borderColor = orangeBorderColor
-        entireButton.backgroundColor = orangeBackgroundColor
+        if self.traitCollection.userInterfaceStyle == .dark {
+            entireButton.backgroundColor = .clear
+            entireButton.setTitleColor(orangeBorderColor, for: .normal)
+        } else {
+            entireButton.backgroundColor = orangeBackgroundColor
+            entireButton.setTitleColor(UIColor.black, for: .normal)
+        }
         
         entireButton.snp.makeConstraints { make in
             make.height.equalTo(28)
@@ -82,6 +106,10 @@ class MyFriendViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(buttonStackView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        nothingExistLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
                 
     }
@@ -112,12 +140,21 @@ class MyFriendViewController: UIViewController {
     }
     
     private func setTapButtonColorSetting(selectedButton: UIButton, deselectedButtons: [UIButton]){
-        selectedButton.layer.borderColor = orangeBorderColor
-        selectedButton.backgroundColor = orangeBackgroundColor
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            selectedButton.layer.borderColor = orangeBorderColor.cgColor
+            selectedButton.backgroundColor = .clear
+            selectedButton.setTitleColor(orangeBorderColor, for: .normal)
+        } else {
+            selectedButton.layer.borderColor = orangeBorderColor.cgColor
+            selectedButton.backgroundColor = orangeBackgroundColor
+            selectedButton.setTitleColor(UIColor.black, for: .normal)
+        }
         
         deselectedButtons.forEach { button in
-            button.layer.borderColor = grayBorderColor
-            button.backgroundColor = .white
+            button.layer.borderColor = UIColor.dg04?.cgColor
+            button.backgroundColor = .clear
+            button.setTitleColor(.textColor, for: .normal)
         }
     }
     
@@ -142,26 +179,6 @@ class MyFriendViewController: UIViewController {
         }
         tableView.reloadData()
     }
-    
-    private func tapDeleteButton(){
-//        print("tap delete button")
-//        let deletePopupVC = DeleteFriendPopupViewController()
-//        guard let deletePopupView = deletePopupVC.view else {
-//            print("no view")
-//            return
-//        }
-//        view.addSubview(deleteButtonBlackView)
-//        view.addSubview(deletePopupView)
-//        
-//        deleteButtonBlackView.snp.makeConstraints { make in
-//            make.left.right.top.bottom.equalToSuperview()
-//        }
-//        
-//        deletePopupView.snp.makeConstraints({ make in
-//            make.centerX.centerY.equalToSuperview()
-//        })
-    }
-    
 }
 extension MyFriendViewController{
     private func searchFriend(){
@@ -175,6 +192,7 @@ extension MyFriendViewController{
                         self.tableView.reloadData()
                         self.sortByNickname()
                         self.sortByStar()
+                        self.nothingExistLabel.isHidden = !self.friendList.isEmpty
                     }else{
                         print("request error")
                     }
@@ -207,28 +225,18 @@ extension MyFriendViewController: UITableViewDataSource{
         
         switch(tabStatus){
         case 0, 1:
-            let cell = FriendTableViewCell()
+            let cell = FriendTableViewCell(friend: friend)
             cell.selectionStyle = .none
-            cell.imageString = friend.image
-            cell.nicknameLabel.text = friend.nickname
-            cell.starButton.setImage(friend.star! ? UIImage(named: "star-on") : UIImage(named: "star-off"), for: .normal)
-            cell.friend = friend
             cell.delegate = self
             return cell
         case 2:
-            let cell = DeleteFriendTableViewCell(buttonFunction: tapDeleteButton)
+            let cell = DeleteFriendTableViewCell(friend: friend)
             cell.selectionStyle = .none
-            cell.imageString = friend.image
-            cell.nicknameLabel.text = friend.nickname
-            cell.friend = friend
             cell.delegate = self
             return cell
         default:
-            let cell = FriendTableViewCell()
+            let cell = FriendTableViewCell(friend: friend)
             cell.selectionStyle = .none
-            cell.imageString = friend.image
-            cell.nicknameLabel.text = friend.nickname
-            cell.friend = friend
             return cell
         }
         
@@ -249,12 +257,27 @@ extension MyFriendViewController: FriendTableViewCellDelegate {
 }
 
 extension MyFriendViewController: DeleteFriendTableViewCellDelegate{
-    func deleteFriend(friend: Friend) {
-        if let row = friendList.firstIndex(where: { person in
-            person.email == friend.email
-        }){
-            friendList.remove(at: row)
-            tableView.reloadData()
+    func tapDeleteFriend(friend: Friend) {
+        popupVC.action = {
+            FriendService.shared.deleteFriend(friend: friend) { response in
+                switch(response){
+                case .success(let data):
+                    if let result = data as? ResultCodeResponse {
+                        if result.resultCode == 200 {
+                            print("del friend 200")
+                            self.popupVC.dismiss(animated: false)
+                            self.friendList.removeAll(where: {$0.email == friend.email})
+                            self.tableView.reloadData()
+                        }else {
+                            print("del friend error")
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
+        self.present(popupVC, animated: false)
+        
     }
 }

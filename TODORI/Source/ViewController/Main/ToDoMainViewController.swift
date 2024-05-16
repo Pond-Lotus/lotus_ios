@@ -20,21 +20,112 @@ class ToDoMainViewController : UIViewController {
     private var overlayViewController: MyPageViewController?
     var dimmingView: UIView = UIView()
     var bottomSheetVC: BottomSheetViewController?
-    var calendarView: FSCalendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
-    var segmentedControl: UISegmentedControl = UISegmentedControl()
-    var tableView: UITableView = UITableView(frame: .zero, style: .grouped)
-    var topBarView: UIView = UIView()
-    var hambuergerButton: UIButton = UIButton()
+    
+    var calendarView: FSCalendar = {
+        let view = FSCalendar(frame: CGRect(x: 0, y: 0, width: 330, height: 270))
+        view.headerHeight = 0
+        view.firstWeekday = 2
+        view.appearance.titleFont = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        view.appearance.weekdayFont = UIFont.systemFont(ofSize: 13, weight: .medium)
+        view.appearance.selectionColor = UIColor.selectionColor
+        view.appearance.todayColor = UIColor.todaySelectionColor
+        view.appearance.titleSelectionColor = .black
+        view.appearance.weekdayTextColor = UIColor.textColor
+        view.calendarWeekdayView.weekdayLabels[6].textColor = .red
+        view.locale = Locale(identifier: "ko_KR")
+        return view
+    }()
+    
+    var segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl()
+        segmentedControl.insertSegment(withTitle: "월간", at: 0, animated: true)
+        segmentedControl.insertSegment(withTitle: "주간", at: 1, animated: true)
+        segmentedControl.selectedSegmentIndex = 0
+        let selectedAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 13, weight: .bold), .foregroundColor: UIColor.textColor]
+        let normalAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 13, weight: .bold), .foregroundColor: UIColor.darkGray]
+        segmentedControl.setTitleTextAttributes(selectedAttributes, for: .selected)
+        segmentedControl.setTitleTextAttributes(normalAttributes, for: .normal)
+        return segmentedControl
+    }()
+    
+    var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
+    var topBarView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.todoriWhite
+        return view
+    }()
+    
+    
+    var hamburgerButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "hamburger-button"), for: .normal)
+        return button
+    }()
+    
     var calendarImageView: UIImageView = UIImageView(image: UIImage(named: "calendar"))
-    var dateLabel: UILabel = UILabel()
+    
+    var dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.textColor
+        label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        return label
+    }()
+    
     var stackViewOfDateLabel:UIStackView = UIStackView()
+    
     var dateFormatter = DateFormatter()
-    var calendarBackgroundView: UIView = UIView()
+    
+    var calendarBackgroundView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 30
+        view.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        view.layer.masksToBounds = false
+        view.layer.shadowColor = UIColor.shadowColor?.cgColor
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowRadius = 5
+        view.layer.shadowOffset = CGSize(width: 0, height: 5)
+        return view
+    }()
+    
     var headerView: UIView = UIView()
-    private var weekdayLabel: UILabel = UILabel()
+    
+    private var weekdayLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        return label
+    }()
+    
     var dayLabel: UILabel = UILabel()
-    var floatingButton: UIImageView = UIImageView()
-    var collectionView: UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 151, height: 107), collectionViewLayout: UICollectionViewFlowLayout.init())
+    
+    var floatingButton: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "floating-button")
+        imageView.layer.shadowColor = UIColor.shadowColor?.cgColor
+        imageView.layer.shadowOpacity = 0.5
+        imageView.layer.shadowRadius = 5.0
+        imageView.layer.shadowOffset = CGSize(width: 1, height: 3)
+        return imageView
+    }()
+    var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 151, height: 107), collectionViewLayout: UICollectionViewFlowLayout.init())
+        collectionView.clipsToBounds = true
+        collectionView.layer.masksToBounds = false
+        collectionView.layer.shadowColor = UIColor.shadowColor?.cgColor
+        collectionView.layer.shadowOpacity = 0.4
+        collectionView.layer.shadowRadius = 5.0
+        collectionView.layer.shadowOffset = CGSize(width: -1, height: 3)
+        collectionView.layer.cornerRadius = 15
+        collectionView.backgroundColor = UIColor.todoriWhite
+        return collectionView
+    }()
+    
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
     var grayLineNextDateLabel: UIView = UIView()
     var grayBackgroundView: UIView = UIView() //키보드레이아웃에 맞춘 테이블 뷰 밑에 빈 공간을 채우기 위한 뷰
@@ -42,8 +133,20 @@ class ToDoMainViewController : UIViewController {
     var whiteBackgroundView: UIView = UIView() //캘린더뷰를 내렸을 때 비는 공간을 채우기 위한 뷰
     var clearViewOfFloatingButton: UIView = UIView()
     var clearViewForWritingTodo: UIView = UIView()
-    var nothingExistingView: UIView = UIView()
-    var nothingExistingLabel: UILabel = UILabel()
+    var nothingExistingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.todoriWhite
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    var nothingExistingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "등록된 토도리스트가 없습니다."
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.textColor = UIColor(red: 0.575, green: 0.561, blue: 0.561, alpha: 1) //라이트, 다크 동일
+        return label
+    }()
     var userButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "user"), for: .normal)
@@ -72,11 +175,29 @@ class ToDoMainViewController : UIViewController {
     let dateArray: [String] = ["123", "", "","","15","","6"]
     var dotsArray: [Dots] = []
     var dotArray:[String] = []
-    //여기까지는 임의의 코드. + fscalender event 관련 메서드
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initComponent()
+        setAutoLayout() //오토 레이아웃 설정
+        setAppearance() //컴포넌트 외형 설정
+        searchTodo(date: Date()) //투두 조회
         
+        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: nil, title: "")
+        initNotification()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        let components = Calendar.current.dateComponents([.year, .month], from: self.calendarView.currentPage)
+        self.setMonthOfDot(year: components.year!, month: components.month!)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
+    private func initComponent() {
         todoArrayList = [redArray, yellowArray, greenArray, blueArray, pinkArray, purpleArray]
         getPriorityName()
         
@@ -92,8 +213,13 @@ class ToDoMainViewController : UIViewController {
         calendarView.delegate = self
         calendarView.dataSource = self
         
+        calendarView.select(Date())
+        dateLabel.text = DateFormat.shared.getdateLabelString(date: calendarView.currentPage)
+        weekdayLabel.text = DateFormat.shared.getWeekdayInKorean(date: calendarView.selectedDate!)
+        dayLabel.text = DateFormat.shared.getDay(date: calendarView.selectedDate!)
+        
         //기본 뷰 색상 설정
-        view.backgroundColor = UIColor.defaultColor
+        
                 
         //데이트 포멧터 설정
         dateFormatter.locale = Locale(identifier: "ko")
@@ -101,197 +227,72 @@ class ToDoMainViewController : UIViewController {
         //컬렉션 뷰 셀 등록
         collectionView.register(ColorCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "collectionViewCell")
         
-        addComponent() //컴포넌트 및 뷰 추가
-        addFunctionToComponent()
-        setComponentAppearence() //컴포넌트 외형 설정
-        setAutoLayout() //오토 레이아웃 설정
-        searchTodo(date: calendarView.selectedDate!) //투두 조회
-        
-        NavigationBarManager.shared.setupNavigationBar(for: self, backButtonAction: nil, title: "")
-  
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        let components = Calendar.current.dateComponents([.year, .month], from: self.calendarView.currentPage)
-        self.setMonthOfDot(year: components.year!, month: components.month!)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    //각 컴포넌트에 동작 추가
-    private func addFunctionToComponent(){
         segmentedControl.addTarget(self, action: #selector(tapSegmentedControl), for: .valueChanged)
         floatingButton.isUserInteractionEnabled = true
         floatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapFloatingButton)))
-//        blackViewOfBottomSheet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBottomSheetBlackViewDismiss)))
         clearViewForWritingTodo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWritingTodoClearViewDissmiss)))
         clearViewOfFloatingButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFloatingButtonClearViewDismiss)))
-        hambuergerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
+        hamburgerButton.addTarget(self, action: #selector(tapHamburgerButton), for: .touchDown)
         userButton.addTarget(self, action: #selector(tapUserButton), for: .touchDown)
         NotificationCenter.default.addObserver(self, selector: #selector(didRecieveEndEditGroupName), name: NSNotification.Name("endEditGroupName"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didRecieveEndEditTodo), name: NSNotification.Name("EndEditTodo"), object: nil)
 
     }
     
-    private func addComponent(){
-        //기본 뷰에 세그먼티트 컨트롤, 햄버거바를 담을 뷰 추가
-        self.view.addSubview(topBarView)
-        
-        //상위 뷰에 새그먼티트 컨트롤, 햄버거바 추가
-        topBarView.addSubview(segmentedControl)
-        topBarView.addSubview(hambuergerButton)
-        topBarView.addSubview(userButton)
-        
-        //기본 뷰에 테이블뷰 추가
-        self.view.addSubview(tableView)
-        self.view.addSubview(grayBackgroundView)
-        tableView.separatorStyle = .none
-        
-        //calendar background view에 컴포넌트 추가
-        calendarBackgroundView.addSubview(calendarImageView)
-        calendarBackgroundView.addSubview(dateLabel)
-        calendarBackgroundView.addSubview(calendarView)
-        
-        //헤더뷰에 추가
-        headerView.addSubview(calendarBackgroundView)
-        headerView.addSubview(weekdayLabel)
-        headerView.addSubview(dayLabel)
-        headerView.addSubview(grayLineNextDateLabel)
-        
-        //tableview header view 지정
-        tableView.tableHeaderView = headerView
-        tableView.tableFooterView = grayFooterView
-        
-        //floating button 추가
-        tableView.addSubview(floatingButton)
-        
-        nothingExistingView.addSubview(nothingExistingLabel)
-        tableView.addSubview(nothingExistingView)
-    }
-    
-    //컴포넌트 외형 설정
-    private func setComponentAppearence(){
-        //segmented control segment 추가 및 초기 셋팅
-        segmentedControl.insertSegment(withTitle: "월간", at: 0, animated: true)
-        segmentedControl.insertSegment(withTitle: "주간", at: 1, animated: true)
-        segmentedControl.selectedSegmentIndex = 0
-        let selectedAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 13, weight: .bold)]
-        let normalAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 13, weight: .regular)]
-        segmentedControl.setTitleTextAttributes(selectedAttributes, for: .selected)
-        segmentedControl.setTitleTextAttributes(normalAttributes, for: .normal)
-
-        
-        //햄버거 바 버튼 이미지 지정
-        hambuergerButton.setImage(UIImage(named: "hamburger-button"), for: .normal)
-        
-        //캘린더 상단 날짜 라벨
-        dateLabel.textColor = UIColor.textColor
-        dateLabel.font.withSize(15)
-        dateLabel.text = DateFormat.shared.getdateLabelString(date: calendarView.currentPage)
-        dateLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        
-        //캘린더뷰 외형 설정
-        calendarView.headerHeight = 0
-        calendarView.select(calendarView.today)
-        calendarView.firstWeekday = 2
-        calendarView.appearance.titleFont = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        calendarView.appearance.weekdayFont = UIFont.systemFont(ofSize: 13, weight: .medium)
-        calendarView.appearance.selectionColor = UIColor.selectionColor
-        calendarView.appearance.todayColor = UIColor.todaySelectionColor
-        calendarView.appearance.titleSelectionColor = .black
-        calendarView.appearance.weekdayTextColor = UIColor.textColor
-        calendarView.calendarWeekdayView.weekdayLabels[6].textColor = .red
-        calendarView.locale = Locale(identifier: "ko_KR")
-        
-
+    private func setAppearance(){
+        //다크모드, 라이트모드별 컬러 설정
+        if self.traitCollection.userInterfaceStyle == .dark {
+            segmentedControl.backgroundColor = UIColor.black
+            segmentedControl.selectedSegmentTintColor = UIColor.todoriWhite
+        } else {
+            segmentedControl.backgroundColor = nil
+            segmentedControl.selectedSegmentTintColor = nil
+        }
         
         let calendarWidth: Int = Int(self.view.fs_width*0.9)
         let calendarHeight: Int = Int((self.view.fs_width * 0.9) * 0.8)
         let xCoordinateOfCalendarView: Int = Int((Int(self.view.fs_width) - calendarWidth)/2)
         let yCoordinateOfCalendarView: Int = Int(dateLabel.frame.origin.y + 55)
-        
         calendarView.frame = CGRect(x: xCoordinateOfCalendarView, y: yCoordinateOfCalendarView, width: calendarWidth, height: calendarHeight)
         
-        //캘린더 백그라운드 뷰 외형 설정
-        calendarBackgroundView.backgroundColor = UIColor.defaultColor
+        calendarBackgroundView.backgroundColor = UIColor.todoriWhite
+        view.backgroundColor = UIColor.todoriWhite
+        tableView.backgroundColor = UIColor.lightGray01
         
-        //테이블 뷰 외형 설정
-        tableView.backgroundColor = UIColor.backgroundColor
-        
-        //테이블 뷰 헤더 뷰 설정
         calendarBackgroundView.frame = CGRect(x: 0, y: 0, width: view.fs_width, height: calendarView.fs_height + 70)
-
         headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: calendarBackgroundView.fs_height + 70)
 
-
-        
-        //calendar background view 하단 라운드 및 그림자 설정
-        calendarBackgroundView.clipsToBounds = true
-        calendarBackgroundView.layer.cornerRadius = 30
-        calendarBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
-        calendarBackgroundView.layer.masksToBounds = false
-        calendarBackgroundView.layer.shadowColor = UIColor.shadowColor?.cgColor
-        calendarBackgroundView.layer.shadowOpacity = 0.2
-        calendarBackgroundView.layer.shadowRadius = 5
-        calendarBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        
-        //날짜 라벨
         dayLabel.font = UIFont.systemFont(ofSize: 26, weight: .bold)
-        weekdayLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        weekdayLabel.text = DateFormat.shared.getWeekdayInKorean(date: calendarView.selectedDate!)
-        dayLabel.text = DateFormat.shared.getDay(date: calendarView.selectedDate!)
-        weekdayLabel.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
-        
-        //Floating Button 외형 설정
+
         floatingButton_y = self.view.fs_height*0.7
         floatingButton.frame = CGRect(x: self.view.fs_width*0.75, y:  floatingButton_y, width:self.view.fs_width * 0.16 , height: self.view.fs_width * 0.16)
-        floatingButton.image = UIImage(named: "floating-button")
-        floatingButton.layer.shadowColor = UIColor.shadowColor?.cgColor
-        floatingButton.layer.shadowOpacity = 0.5
-        floatingButton.layer.shadowRadius = 5.0
-        floatingButton.layer.shadowOffset = CGSize(width: 1, height: 3)
         
-        //색깔 선택 view 외형 설정
-        collectionView.clipsToBounds = true
-        collectionView.layer.masksToBounds = false
-        collectionView.layer.shadowColor = UIColor.shadowColor?.cgColor
-        collectionView.layer.shadowOpacity = 0.4
-        collectionView.layer.shadowRadius = 5.0
-        collectionView.layer.shadowOffset = CGSize(width: -1, height: 3)
-        collectionView.layer.cornerRadius = 15
-        collectionView.backgroundColor = UIColor.defaultColor
+        grayLineNextDateLabel.backgroundColor = UIColor.dg04
         
+        grayBackgroundView.backgroundColor = UIColor.lightGray01
         
-        // 투두 없을 때 나오는 뷰 설정
-        nothingExistingView.backgroundColor = .defaultColor
-        nothingExistingView.clipsToBounds = true
-        nothingExistingView.layer.cornerRadius = 10
+        whiteBackgroundView.backgroundColor = UIColor.todoriWhite
         
-        //투두 없을 때 나오는 뷰 내부 라벨
-        nothingExistingLabel.text = "등록된 토도리스트가 없습니다."
-        nothingExistingLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        nothingExistingLabel.textColor = UIColor(red: 0.575, green: 0.561, blue: 0.561, alpha: 1) //라이트, 다크 동일
-        
-        grayLineNextDateLabel.backgroundColor = UIColor.lineColor
-        
-        grayBackgroundView.backgroundColor = UIColor.backgroundColor
-        
-        whiteBackgroundView.backgroundColor = .defaultColor
-        
-        grayFooterView.backgroundColor = UIColor.backgroundColor
+        grayFooterView.backgroundColor = UIColor.lightGray01
         grayFooterView.fs_width = self.view.fs_width
         grayFooterView.fs_height = self.view.fs_height*0.3
         
         clearViewOfFloatingButton.backgroundColor = .clear
-        
         clearViewForWritingTodo.backgroundColor = .clear
     }
     
-    //bottom sheet, date picker view 제외 메인 투두 뷰 오토 레이아웃 설정
     private func setAutoLayout(){
+        topBarView.addSubViews([segmentedControl, hamburgerButton, userButton])
+        self.view.addSubViews([topBarView, tableView, grayBackgroundView])
+        calendarBackgroundView.addSubViews([calendarImageView, dateLabel, calendarView])
+        headerView.addSubViews([calendarBackgroundView, weekdayLabel, dayLabel, grayLineNextDateLabel])
+
+        tableView.tableHeaderView = headerView
+        tableView.tableFooterView = grayFooterView
+        
+        nothingExistingView.addSubview(nothingExistingLabel)
+        tableView.addSubViews([floatingButton, nothingExistingView])
+        
         topBarView.snp.makeConstraints { make in
             make.right.left.top.equalTo(self.view.safeAreaLayoutGuide)
             make.height.equalTo(60)
@@ -303,7 +304,7 @@ class ToDoMainViewController : UIViewController {
             make.right.equalTo(-138)
         }
         
-        hambuergerButton.snp.makeConstraints { make in
+        hamburgerButton.snp.makeConstraints { make in
             make.width.height.equalTo(29)
             make.rightMargin.equalTo(-20)
             make.centerY.equalToSuperview()
@@ -311,7 +312,7 @@ class ToDoMainViewController : UIViewController {
         
         userButton.snp.makeConstraints { make in
             make.width.height.equalTo(23)
-            make.right.equalTo(hambuergerButton.snp.left).offset(-17)
+            make.right.equalTo(hamburgerButton.snp.left).offset(-17)
             make.centerY.equalToSuperview()
         }
         
@@ -369,6 +370,7 @@ class ToDoMainViewController : UIViewController {
         
     }
     
+
     //todo 작성 중 외부 클릭시 동작하는 함수
     @objc private func handleWritingTodoClearViewDissmiss(){
         tableView.endEditing(true)
@@ -500,19 +502,7 @@ class ToDoMainViewController : UIViewController {
     }
     
     private func deleteNotification(identifier: Int){
-        // 푸시 알림 요청 식별자
-        let notificationIdentifier = String(identifier)
-
-        // 기존 예약된 알림 요청 가져오기
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            let notificationRequest = requests.first { $0.identifier == notificationIdentifier }
-
-            // 기존 알림 요청 삭제
-            if let request = notificationRequest {
-                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [request.identifier])
-                print("remove notification")
-            }
-        }
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [String(identifier)])
     }
 
     //현재 존재하는 todo의 color을 따로 existingColorArray에 추가 및 투두 없음을 알리는 뷰 hidden 설정
@@ -545,6 +535,50 @@ class ToDoMainViewController : UIViewController {
         tableView.reloadData()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setAppearance()
+    }
+    
+    private func initNotification(){        
+        TodoService.shared.getDateOfTodoForNotification { response in
+            switch response {
+            case .success(let data):
+                guard let resultData = data as? StartTodoResponseData else {return}
+                guard resultData.resultCode == 200 else {return}
+                print("start todo 200")
+                //비동기 실행
+                DispatchQueue.global().async {
+                    resultData.data.forEach { todo in
+                        guard let hour = Int(todo.time.prefix(2)) else {return}
+                        guard let min = Int(todo.time.suffix(2)) else {return}
+                        // 알림을 예약할 날짜와 시간을 구성
+                        let calendar = Calendar.current
+                        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+                        components.year = todo.year
+                        components.month = todo.month
+                        components.day = todo.day
+                        components.hour = hour
+                        components.minute = min
+                        
+                        let content = UNMutableNotificationContent()
+                        content.title = "오늘의 토도리"
+                        content.body = "오늘의할일\(todo.month)\(todo.day)\(todo.time)"
+                        content.sound = UNNotificationSound.default
+                                            
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+                        let request = UNNotificationRequest(identifier: String(todo.id), content: content, trigger: trigger)
+                        
+                        UNUserNotificationCenter.current().add(request)
+                        print("0")
+                    }
+                }
+                
+            case .failure(let t):
+                print("start todo result code: 500 - failure")
+            }
+        }
+
+    }
 
 }
 
@@ -671,10 +705,6 @@ extension ToDoMainViewController{
             }
         }
     }
-    
-    private func setDayOfDot(date:Date){
-        
-    }
 }
 
 
@@ -733,10 +763,11 @@ extension ToDoMainViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let section = self.existingColorArray[indexPath.section]
         let row = indexPath.row
+        let todo = self.todoArrayList[section][row]
         
         let delete = UIContextualAction(style: .normal, title: "삭제") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            self.deleteTodo(todo: self.todoArrayList[section][row], section: indexPath.section, row: indexPath.row)
-            self.deleteNotification(identifier: self.todoArrayList[self.existingColorArray[indexPath.section]][indexPath.row].id)
+            self.deleteTodo(todo: todo, section: indexPath.section, row: indexPath.row)
+            self.deleteNotification(identifier: todo.id)
             success(true)
         }
         
@@ -1022,14 +1053,8 @@ extension ToDoMainViewController: TodoTableViewCellDelegate {
 //Bottom sheet 내부에서 변경된 사항을 메인 페이지에 적용시키기 위한 프로토콜
 extension ToDoMainViewController: BottomSheetViewControllerDelegate{
     func sendTodoData(todo: ToDo) {
-        todoArrayList[nowSection].remove(at: nowRow)
-        
-        let oldTodo = todoArrayList[nowSection][nowRow]
-        if oldTodo.year == todo.year && oldTodo.month == todo.month && oldTodo.day == todo.day{
-            todoArrayList[todo.color-1].append(todo)
-            todoSortById(section: todo.color-1)
-            todoSortByDone(section: todo.color-1)
-        }
+        guard let index = todoArrayList[nowSection].firstIndex(where: {$0.id == todo.id}) else {return}
+        todoArrayList[nowSection][index] = todo
         setExistArray()
         tableView.reloadData()
     }

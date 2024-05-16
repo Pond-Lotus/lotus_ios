@@ -151,7 +151,7 @@ class ButtonManager {
     func getFriendManagementBlackButton(title: String) -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor.textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         return button
     }
@@ -178,10 +178,10 @@ class ButtonManager {
     func getManagementButton(title: String) -> UIButton{
         let button = UIButton()
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor.textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         button.layer.cornerRadius = 15
-        button.layer.borderColor = UIColor(red: 0.867, green: 0.859, blue: 0.859, alpha: 1).cgColor
+        button.layer.borderColor = UIColor.dg04?.cgColor
         button.layer.borderWidth = 1
         button.titleLabel?.textAlignment = .center
         return button
@@ -189,7 +189,7 @@ class ButtonManager {
     
     func getAcceptButton() -> UIButton {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 1, green: 0.85, blue: 0.73, alpha: 1)
+        button.backgroundColor = UIColor.selectionColor
         button.setTitle("수락", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .bold)
@@ -201,9 +201,9 @@ class ButtonManager {
     
     func getRejectButton() -> UIButton {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1)
+        button.backgroundColor = UIColor.rejectButtonGray
         button.setTitle("거절", for: .normal)
-        button.setTitleColor(UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1), for: .normal)
+        button.setTitleColor(UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.00), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .bold)
         button.clipsToBounds = true
         button.layer.cornerRadius = 8
@@ -220,12 +220,12 @@ class ButtonManager {
     func getDeleteFriendButton() -> UIButton {
         let button = UIButton()
         button.setTitle("친구 끊기", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor.textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11, weight: .medium)
         button.clipsToBounds = true
         button.layer.cornerRadius = 6
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(red: 0.87, green: 0.86, blue: 0.86, alpha: 1).cgColor
+        button.layer.borderColor = UIColor.dg04?.cgColor
         return button
     }
 }

@@ -33,12 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print("Error fetching FCM registration token: \(error)")
           } else if let token = token {
             print("FCM registration token: \(token)")
-//            self.fcmRegTokenMessage.text  = "Remote FCM registration token: \(token)"
           }
         }
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["85a0cfb417fc588a284eae252a30ccdb"]
+        
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        print("여기는 AppDelegate 입니다.")
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         return true
     }
     

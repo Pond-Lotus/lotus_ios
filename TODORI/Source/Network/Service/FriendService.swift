@@ -149,7 +149,6 @@ class FriendService {
         let url = APIConstant.baseURL + APIConstant.Friend.deleteFriend
         
         guard let token = TokenManager.shared.getToken() else {print("no token"); return}
-        print("token: \(token)")
         
         let header: HTTPHeaders = ["Content-Type" : "application/json",
                                    "Authorization": "Token \(token)"]

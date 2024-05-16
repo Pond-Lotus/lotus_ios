@@ -12,15 +12,15 @@ class FriendManagementViewController: UIViewController{
     
     var myFriendButton: UIButton = ButtonManager.shared.getFriendManagementBlackButton(title: "나의 친구")
     var recievingRequestButton: UIButton = ButtonManager.shared.getFriendManagementGrayButton(title: "받은 요청")
-    var addButton: UIButton = ButtonManager.shared.getFriendManagementGrayButton(title: "추가")
+    var addTextButton: UIButton = ButtonManager.shared.getFriendManagementGrayButton(title: "추가")
     var selectedBarView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor.textColor
         return view
     }()
     var grayBarView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        view.backgroundColor = UIColor.line
         return view
     }()
     
@@ -41,7 +41,7 @@ class FriendManagementViewController: UIViewController{
     
     var topBarView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.todoriWhite
         return view
     }()
     
@@ -66,14 +66,15 @@ class FriendManagementViewController: UIViewController{
 
     
     private func setUI(){
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.todoriWhite
     
-        buttonStackView.addArrangedSubviews([myFriendButton, recievingRequestButton, addButton])
+//        addStackView.addArrangedSubviews([addTextButton, addImage])
+        buttonStackView.addArrangedSubviews([myFriendButton, recievingRequestButton, addTextButton])
         self.topBarView.addSubview(backButton)
         self.view.addSubview(topBarView)
         self.view.addSubview(buttonStackView)
-        self.view.addSubview(selectedBarView)
         self.view.addSubview(grayBarView)
+        self.view.addSubview(selectedBarView)
         self.view.addSubview(switchView)
         
         topBarView.snp.makeConstraints { make in
@@ -81,6 +82,7 @@ class FriendManagementViewController: UIViewController{
             make.height.equalTo(44)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
         }
+        
         backButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(20)
@@ -110,12 +112,16 @@ class FriendManagementViewController: UIViewController{
             make.top.equalTo(grayBarView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
+
+        addTextButton.setImage(UIImage(named: "add-deselected"), for: .normal)
+        addTextButton.semanticContentAttribute = .forceRightToLeft
+        addTextButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
     }
     
     private func addFunction(){
         myFriendButton.addTarget(self, action: #selector(tapMyFriendButton), for: .touchDown)
         recievingRequestButton.addTarget(self, action: #selector(tapRecieveRequestButton), for: .touchDown)
-        addButton.addTarget(self, action: #selector(tapAddButton), for: .touchDown)
+        addTextButton.addTarget(self, action: #selector(tapAddButton), for: .touchDown)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
@@ -124,10 +130,11 @@ class FriendManagementViewController: UIViewController{
     }
     
     @objc private func tapMyFriendButton(){
-        myFriendButton.setTitleColor(.black, for: .normal)
+        myFriendButton.setTitleColor(.textColor, for: .normal)
         recievingRequestButton.setTitleColor(.gray, for: .normal)
-        addButton.setTitleColor(.gray, for: .normal)
-        
+        addTextButton.setTitleColor(.gray, for: .normal)
+        addTextButton.setImage(UIImage(named: "add-deselected"), for: .normal)
+
         UIView.animate(withDuration: 0.2, animations: {
             self.selectedBarView.snp.remakeConstraints { make in
                 make.bottom.equalTo(self.grayBarView.snp.bottom)
@@ -143,9 +150,10 @@ class FriendManagementViewController: UIViewController{
     
     @objc private func tapRecieveRequestButton(){
         myFriendButton.setTitleColor(.gray, for: .normal)
-        recievingRequestButton.setTitleColor(.black, for: .normal)
-        addButton.setTitleColor(.gray, for: .normal)
-        
+        recievingRequestButton.setTitleColor(.textColor, for: .normal)
+        addTextButton.setTitleColor(.gray, for: .normal)
+        addTextButton.setImage(UIImage(named: "add-deselected"), for: .normal)
+
         UIView.animate(withDuration: 0.2, animations: {
             self.selectedBarView.snp.remakeConstraints { make in
                 make.bottom.equalTo(self.grayBarView.snp.bottom)
@@ -163,8 +171,9 @@ class FriendManagementViewController: UIViewController{
     @objc private func tapAddButton(){
         myFriendButton.setTitleColor(.gray, for: .normal)
         recievingRequestButton.setTitleColor(.gray, for: .normal)
-        addButton.setTitleColor(.black, for: .normal)
-        
+        addTextButton.setTitleColor(.textColor, for: .normal)
+        addTextButton.setImage(UIImage(named: "add-selected"), for: .normal)
+
         UIView.animate(withDuration: 0.2, animations: {
             self.selectedBarView.snp.remakeConstraints { make in
                 make.bottom.equalTo(self.grayBarView.snp.bottom)
@@ -196,5 +205,9 @@ class FriendManagementViewController: UIViewController{
         }
         self.addChild(viewController)
         
+    }
+    
+    private func setColorsByUserInterfaceStyle(){
+
     }
 }
