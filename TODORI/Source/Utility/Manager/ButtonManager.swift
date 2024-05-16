@@ -23,7 +23,21 @@ class ButtonManager {
     func getAutoLogInButton() -> UIButton {
         let button = UIButton()
         button.setTitle(" 자동 로그인", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let userInterfaceStyle = windowScene.traitCollection.userInterfaceStyle
+            switch userInterfaceStyle {
+            case .light:
+                button.setTitleColor(.black, for: .normal)
+            case .dark:
+                button.setTitleColor(UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1), for: .normal)
+            case .unspecified:
+                break
+            @unknown default:
+                fatalError()
+            }
+        }
+        
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         button.setImage(UIImage(named: "tick-circle")?.resize(to: CGSize(width: 17, height: 17)), for: .normal)
         button.setImage(UIImage(named: "tick-circle2")?.resize(to: CGSize(width: 17, height: 17)), for: .selected)
@@ -36,7 +50,7 @@ class ButtonManager {
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
-        button.backgroundColor = UIColor.mainColor
+        button.backgroundColor = UIColor.buttonColor
         button.layer.cornerRadius = 18
         return button
     }
@@ -44,7 +58,7 @@ class ButtonManager {
     func getFindPasswordButton() -> UIButton {
         let button = UIButton()
         button.setTitle("비밀번호 찾기", for: .normal)
-        button.setTitleColor(UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1), for: .normal)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return button
     }
@@ -52,7 +66,6 @@ class ButtonManager {
     func getSignUpButton() -> UIButton {
         let button = UIButton()
         button.setTitle("회원가입", for: .normal)
-        button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return button
     }
@@ -69,7 +82,7 @@ class ButtonManager {
     func getMyPageSettingButton(title: String, image: String) -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? .black : .white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         let image = UIImage(named: image)?.resize(to: CGSize(width: 18, height: 18))
         button.setImage(image, for: .normal)
@@ -78,7 +91,7 @@ class ButtonManager {
     
     func getSettingGroupButton() -> UIButton {
         let button = UIButton()
-        let image = UIImage(named: "edit-groups")?.resize(to: CGSize(width: 7, height: 14))
+        let image = UIImage(named: "edit-groups")?.resize(to: CGSize(width: 16, height: 20))
         let tintedImage = image?.withRenderingMode(.alwaysTemplate)
         button.setImage(tintedImage, for: .normal)
         button.tintColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
@@ -90,7 +103,7 @@ class ButtonManager {
     func getLogoutButton() -> UIButton {
         let button = UIButton()
         button.setTitle(" 로그아웃", for: .normal)
-        button.setTitleColor(UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1), for: .normal)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         let image = UIImage(named: "logout")?.resize(to: CGSize(width: 18, height: 18))
         button.setImage(image, for: .normal)
@@ -107,10 +120,9 @@ class ButtonManager {
         let button = UIButton()
         button.applyColorAnimation()
         button.setTitle("비밀번호 변경", for: .normal)
-        button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1).cgColor
+        button.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1).cgColor : UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1).cgColor
         button.layer.cornerRadius = 8
         return button
     }
@@ -118,9 +130,9 @@ class ButtonManager {
     func getDeleteAccountButton() -> UIButton {
         let button = UIButton()
         button.setTitle("계정 탈퇴하기", for: .normal)
-        button.setTitleColor( UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1), for: .normal)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.554, green: 0.554, blue: 0.554, alpha: 1) : UIColor(red: 0.259, green: 0.259, blue: 0.259, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        button.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        button.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
         button.layer.cornerRadius = 10
         return button
     }
@@ -129,9 +141,9 @@ class ButtonManager {
         let button = UIButton()
         button.applyColorAnimation()
         button.setTitle(title, for: .normal)
-        button.setTitleColor(titleColor, for: .normal)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1) : UIColor(red: 0.259, green: 0.259, blue: 0.259, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        button.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
         button.layer.cornerRadius = 8
         button.isEnabled = isEnabled
         return button
@@ -141,10 +153,15 @@ class ButtonManager {
         let button = UIButton()
         button.setTitle("  안내사항을 모두 확인하였으며, 탈퇴를 진행합니다.", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .light)
-        button.setTitleColor(UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1), for: .normal)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1), for: .normal)
         button.setImage(UIImage(named: "checkbox-off")?.resize(to: CGSize(width: 16, height: 16)), for: .normal)
-        button.setTitleColor(.black, for: .selected)
-        button.setImage(UIImage(named: "checkbox-on")?.resize(to: CGSize(width: 16, height: 16)), for: .selected)
+        button.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? .black : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1), for: .selected)
+        
+        if let image = UIImage(named: "checkbox-on")?.resize(to: CGSize(width: 16, height: 16)) {
+            let image = image.withRenderingMode(.alwaysTemplate)
+            button.setImage(image, for: .selected)
+            button.tintColor = UITraitCollection.current.userInterfaceStyle == .light ? .black : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1)
+        }
         return button
     }
     

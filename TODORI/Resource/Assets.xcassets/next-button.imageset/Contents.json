@@ -1,17 +1,92 @@
 {
   "images" : [
     {
+<<<<<<< HEAD
       "filename" : "next1.png",
+=======
+>>>>>>> develop
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+<<<<<<< HEAD
       "filename" : "next2.png",
+=======
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "next-button 2.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "next-button.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+>>>>>>> develop
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+<<<<<<< HEAD
       "filename" : "next3.png",
+=======
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "next-button@2x 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "next-button@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "next-button@3x 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "next-button@3x.png",
+>>>>>>> develop
       "idiom" : "universal",
       "scale" : "3x"
     }

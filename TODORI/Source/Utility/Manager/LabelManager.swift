@@ -16,7 +16,7 @@ class LabelManager {
         let label = UILabel()
         label.text = text
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.textColor = UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1)
+        label.textColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.621, green: 0.621, blue: 0.621, alpha: 1) : UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
         return label
     }
     
@@ -50,11 +50,14 @@ class LabelManager {
     
     func createCodeLabel() -> UILabel {
         let label = UILabel()
-        label.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        label.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : .clear
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 24)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
+        
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1).cgColor
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
@@ -68,10 +71,14 @@ class LabelManager {
             label.text = "   " + email
         }
         label.textAlignment = .left
-        label.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        label.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : .clear
         label.font = UIFont.systemFont(ofSize: 18, weight: .light)
         label.layer.cornerRadius = 8
         label.clipsToBounds = true
+        
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1).cgColor
+        
         return label
     }
     
@@ -102,10 +109,10 @@ class LabelManager {
         label.text = "   " + (UserDefaults.standard.string(forKey: "email") ?? "(UNKNOWN)")
         label.font = UIFont.systemFont(ofSize: 18, weight: .light)
         label.textColor = UIColor(red: 0.617, green: 0.617, blue: 0.617, alpha: 1)
-        label.backgroundColor = UIColor(red: 0.946, green: 0.946, blue: 0.946, alpha: 1)
+        label.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.946, green: 0.946, blue: 0.946, alpha: 1) : UIColor(red: 0.322, green: 0.322, blue: 0.322, alpha: 1)
         label.layer.cornerRadius = 8
         label.layer.borderWidth = 1.0
-        label.layer.borderColor = UIColor(red: 0.82, green: 0.82, blue: 0.82, alpha: 1).cgColor
+        label.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.82, green: 0.82, blue: 0.82, alpha: 1).cgColor : UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1).cgColor
         label.clipsToBounds = true
         return label
     }
@@ -115,10 +122,10 @@ class LabelManager {
         label.numberOfLines = 0
         label.text = text
         label.font = UIFont.systemFont(ofSize: 14, weight: weight)
-        label.textColor = color
+//        label.textColor = color
         
         let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        underlineView.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.322, green: 0.322, blue: 0.322, alpha: 1)
         label.addSubview(underlineView)
         underlineView.snp.makeConstraints { make in
             make.height.equalTo(1)

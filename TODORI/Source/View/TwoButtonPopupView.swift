@@ -32,7 +32,7 @@ class TwoButtonPopupView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        backgroundColor = UIColor.popupBackgroundColor
         layer.cornerRadius = 15
         layer.masksToBounds = true // 나가면 짤림
         
@@ -49,6 +49,9 @@ class TwoButtonPopupView: UIView {
         messageLabel.textAlignment = .center
         messageLabel.numberOfLines = 0
         messageLabel.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        if UITraitCollection.current.userInterfaceStyle == .dark {
+            messageLabel.textColor = UIColor(red: 0.749, green: 0.749, blue: 0.749, alpha: 1)
+        }
         addSubview(messageLabel)
         messageLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(11)
@@ -56,9 +59,9 @@ class TwoButtonPopupView: UIView {
         }
         
         actionButton1 = UIButton(type: .system)
-        actionButton1.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        actionButton1.backgroundColor = UIColor.popupButtonColor
         actionButton1.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        actionButton1.setTitleColor(UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1), for: .normal)
+        actionButton1.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : .white, for: .normal)
         actionButton1.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         
         addSubview(actionButton1)
@@ -71,9 +74,9 @@ class TwoButtonPopupView: UIView {
         }
         
         actionButton2 = UIButton(type: .system)
-        actionButton2.backgroundColor = UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1)
+        actionButton2.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 1, green: 0.855, blue: 0.725, alpha: 1) : UIColor(red: 0.4, green: 0.4, blue: 0.427, alpha: 1)
         actionButton2.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        actionButton2.setTitleColor(UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1), for: .normal)
+        actionButton2.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : .white, for: .normal)
         actionButton2.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         
         addSubview(actionButton2)

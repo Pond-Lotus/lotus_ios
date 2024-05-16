@@ -23,7 +23,7 @@ class TextFieldManager {
         textField.leftView = paddingView
         textField.leftViewMode = .always
         
-        textField.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
+        textField.backgroundColor = UIColor.textFieldColor
         textField.layer.cornerRadius = 18
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
@@ -55,7 +55,7 @@ class TextFieldManager {
         textField.rightViewMode = .always
         rightPaddingView.addSubview(passwordVisionButton)
         
-        textField.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.949, alpha: 1)
+        textField.backgroundColor = UIColor.textFieldColor
         textField.layer.cornerRadius = 18
         textField.isSecureTextEntry = true
         return textField
@@ -65,7 +65,7 @@ class TextFieldManager {
         let textField = UITextField()
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 18, weight: .light),
-            .foregroundColor: UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1)
+            .foregroundColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
         ]
         let attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
         textField.attributedPlaceholder = attributedPlaceholder
@@ -75,7 +75,7 @@ class TextFieldManager {
         textField.autocorrectionType = .no
         
         let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        underlineView.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
         textField.addSubview(underlineView)
         underlineView.snp.makeConstraints { make in
             make.height.equalTo(1.5)
@@ -108,7 +108,7 @@ class TextFieldManager {
         textField.autocorrectionType = .no
         
         let underlineView = UIView()
-        underlineView.backgroundColor = UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1)
+        underlineView.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1)
         textField.addSubview(underlineView)
         underlineView.snp.makeConstraints { make in
             make.height.equalTo(1.5)
@@ -121,10 +121,10 @@ class TextFieldManager {
     func getNicknameTextField() -> UITextField {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16, weight: .light)
-        textField.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.85)
+        textField.textColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0, green: 0, blue: 0, alpha: 0.85) : .white
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 16, weight: .light),
-            .foregroundColor:  UIColor(red: 0, green: 0, blue: 0, alpha: 0.85)
+            .foregroundColor: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0, green: 0, blue: 0, alpha: 0.85) : .white
         ]
         if let nickname = UserDefaults.standard.string(forKey: "nickname") {
             let attributedPlaceholder = NSAttributedString(string: nickname, attributes: attributes)
@@ -136,7 +136,7 @@ class TextFieldManager {
         textField.leftViewMode = .always
 
         textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.817, green: 0.817, blue: 0.817, alpha: 1).cgColor
+        textField.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.817, green: 0.817, blue: 0.817, alpha: 1).cgColor : UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1).cgColor
         textField.layer.cornerRadius = 8
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -149,7 +149,7 @@ class TextFieldManager {
         textField.leftView = paddingView
         textField.leftViewMode = .always
         textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(red: 0.817, green: 0.817, blue: 0.817, alpha: 1).cgColor
+        textField.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.817, green: 0.817, blue: 0.817, alpha: 1).cgColor : UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1).cgColor
         textField.layer.cornerRadius = 8
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none

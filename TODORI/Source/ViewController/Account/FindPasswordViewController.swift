@@ -8,16 +8,16 @@
 import UIKit
 
 class FindPasswordViewController: UIViewController {
-    private let titleLabel: UIStackView = StackViewManager.shared.getAccountTitleLabel(text: "안내드려요", color: .black, filename: "sms",  resize: 18, spacing: 5)
-    private let messageLabel: UILabel = LabelManager.shared.getMessageLabel(text: "가입한 이메일 주소를 입력해주세요.\n해당 이메일로 비밀번호 재설정을 위한 링크를 보내드립니다.", weight: .light, color: UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1))
+    private let titleLabel: UIStackView = StackViewManager.shared.getAccountTitleLabel(text: "안내드려요", color: UITraitCollection.current.userInterfaceStyle == .light ? .black : .white, filename: "sms",  resize: 18, spacing: 5)
+    private let messageLabel: UILabel = LabelManager.shared.getMessageLabel(text: "가입한 이메일 주소를 입력해주세요.\n해당 이메일로 비밀번호 재설정을 위한 링크를 보내드립니다.", weight: .light, color: UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1) : UIColor(red: 0.906, green: 0.906, blue: 0.906, alpha: 1))
     private let emailLabel: UILabel = LabelManager.shared.getEditTitleLabel(text: "이메일")
     private let emailTextField: UITextField = TextFieldManager.shared.getFindPasswordTextField()
     private let errorLabel: UILabel = LabelManager.shared.getErrorLabel(text: "유효한 이메일이 아닙니다.")
-    private let findPasswordButton: UIButton = ButtonManager.shared.getFinishButton(title: "비밀번호 찾기")
+    private let findPasswordButton: UIButton = ButtonManager.shared.getFinishButton(title: "비밀번호 찾기", false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.backgroundColor
         
         setupDelegate()
         setupUI()
@@ -37,6 +37,7 @@ class FindPasswordViewController: UIViewController {
     private func setupDelegate() {
         navigationController?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.emailTextField.delegate = self
 
     }
         
@@ -84,6 +85,12 @@ class FindPasswordViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
+    }
+    
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
     }
     
     @objc func backButtonTapped() {
@@ -141,6 +148,31 @@ extension FindPasswordViewController: OneButtonPopupViewDelegate {
         navigationController?.popToRootViewController(animated: true)
     }
 }
+
+extension FindPasswordViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+
+        if isValidEmail(newText) {
+            self.findPasswordButton.backgroundColor = UIColor.buttonColor
+            self.findPasswordButton.isEnabled = true
+            self.findPasswordButton.setTitleColor(.black, for: .normal)
+        } else {
+            self.findPasswordButton.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.913, green: 0.913, blue: 0.913, alpha: 1) : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1)
+            self.findPasswordButton.isEnabled = false
+            self.findPasswordButton.setTitleColor(UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1) : UIColor(red: 0.259, green: 0.259, blue: 0.259, alpha: 1), for: .normal)
+        }
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
 
 extension FindPasswordViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {

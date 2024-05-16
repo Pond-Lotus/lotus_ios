@@ -21,7 +21,7 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? .white : UIColor(red: 0.196, green: 0.192, blue: 0.204, alpha: 1)
     
         setupDelegate()
         setupButton()
@@ -199,7 +199,7 @@ class EditProfileViewController: UIViewController {
             self?.present(picker, animated: true, completion: nil)
         }
         
-        let defaultImageAction = UIAlertAction(title: "기본 이미지로 설정", style: .default) { _ in
+        let defaultImageAction = UIAlertAction(title: "기본 이미지로 설정", style: .destructive) { _ in
             let image = UIImage(named: "default-profile")
             if let imageData = image?.pngData() {
                 self.profileImageView.image = UIImage(data: imageData)

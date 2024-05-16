@@ -10,18 +10,11 @@ import FirebaseMessaging
 import Firebase
 import GoogleMobileAds
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     
-    
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
-        userNotificationCenterSetting()
-        FirebaseApp.configure()
-        Messaging.messaging().delegate = self
-        Messaging.messaging().isAutoInitEnabled = true
         
         UNUserNotificationCenter.current().delegate = self
       let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -40,6 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        if UITraitCollection.current.userInterfaceStyle == .light {
+            UIButton.appearance().setTitleColor(.black, for: .normal)
+        } else {
+            UIButton.appearance().setTitleColor(.white, for: .normal)
+        }
+        print("여기는 AppDelegate 입니다.")
         return true
     }
     

@@ -1,17 +1,80 @@
 {
   "images" : [
     {
-      "filename" : "Vector 3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Vector 2.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "edit-groups 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "edit-groups.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Vector 1.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "edit-groups@2x 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "edit-groups@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "edit-groups@3x 1.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "edit-groups@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

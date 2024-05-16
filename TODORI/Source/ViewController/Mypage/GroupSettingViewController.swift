@@ -53,7 +53,8 @@ class GroupSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UITraitCollection.current.userInterfaceStyle == .light ? .white : UIColor(red: 0.196, green: 0.192, blue: 0.204, alpha: 1)
+        
         setupDelegate()
     }
     

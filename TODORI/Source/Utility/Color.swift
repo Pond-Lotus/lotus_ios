@@ -10,7 +10,6 @@ import UIKit
 class ColorManager {
     static let shared = ColorManager()
     
-    let mainColor = UIColor(red: 1, green: 0.704, blue: 0.704, alpha: 1)
     let colorSet = ["red-circle", "yellow-circle", "green-circle", "blue-circle", "pink-circle", "purple-circle"]
         
     private init() {}
@@ -97,7 +96,12 @@ extension UIColor {
     static let boxFill = UIColor(named: "boxFill")
     static let boxLine = UIColor(named: "boxLine")
     static let line = UIColor(named: "line")
-    
+    static let popupBackgroundColor = UIColor(named: "popupBackgroundColor")
+    static let buttonColor = UIColor(named: "buttonColor")
+    static let popupButtonColor = UIColor(named: "popupButtonColor")
+    static var mainColor: UIColor { return UIColor(red: 1, green: 0.616, blue: 0.302, alpha: 1) }
+    static let textFieldColor = UIColor(named: "textfieldColor")
+
     static let textColor = UIColor(named: "textColor")
     static let shadowColor = UIColor(named: "shadowColor")
     static let calendarNotThisMonthTextColor = UIColor(named: "calendarNotThisMonthTextColor")
