@@ -57,7 +57,7 @@ class LabelManager {
         label.clipsToBounds = true
         
         label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1).cgColor
+        label.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor.clear.cgColor : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1).cgColor
 
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 41).isActive = true
@@ -77,7 +77,7 @@ class LabelManager {
         label.clipsToBounds = true
         
         label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1).cgColor
+        label.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor.clear.cgColor : UIColor(red: 0.447, green: 0.447, blue: 0.447, alpha: 1).cgColor
         
         return label
     }
