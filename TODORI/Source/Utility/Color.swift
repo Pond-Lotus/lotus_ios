@@ -105,7 +105,7 @@ extension UIColor {
     static let textColor = UIColor(named: "textColor")
     static let shadowColor = UIColor(named: "shadowColor")
     static let calendarNotThisMonthTextColor = UIColor(named: "calendarNotThisMonthTextColor")
- 
+    static let backgroundColor = UIColor(named: "backgroundColor")
     static let descriptionBackground = UIColor(named: "descriptionBackground")
     static let selectionColor = UIColor(named: "selectionColor")
     static let todaySelectionColor = UIColor(named: "todaySelectionColor")

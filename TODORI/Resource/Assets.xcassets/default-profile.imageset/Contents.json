@@ -9,27 +9,10 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-<<<<<<< HEAD
           "value" : "dark"
         }
       ],
       "filename" : "Default 3.png",
-=======
-          "value" : "light"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "default-profile.png",
->>>>>>> develop
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -42,27 +25,10 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-<<<<<<< HEAD
           "value" : "dark"
         }
       ],
       "filename" : "Default@2x.png",
-=======
-          "value" : "light"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "default-profile@2x.png",
->>>>>>> develop
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -75,27 +41,10 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
-<<<<<<< HEAD
           "value" : "dark"
         }
       ],
       "filename" : "Default@3x.png",
-=======
-          "value" : "light"
-        }
-      ],
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "default-profile@3x.png",
->>>>>>> develop
       "idiom" : "universal",
       "scale" : "3x"
     }

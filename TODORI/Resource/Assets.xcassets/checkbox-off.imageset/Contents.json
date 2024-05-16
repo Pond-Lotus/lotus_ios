@@ -12,11 +12,7 @@
           "value" : "dark"
         }
       ],
-<<<<<<< HEAD
       "filename" : "checkbox.png",
-=======
-      "filename" : "checkbox-off 3.png",
->>>>>>> develop
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -32,11 +28,7 @@
           "value" : "dark"
         }
       ],
-<<<<<<< HEAD
       "filename" : "checkbox@2x.png",
-=======
-      "filename" : "checkbox-off@2x.png",
->>>>>>> develop
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -52,11 +44,7 @@
           "value" : "dark"
         }
       ],
-<<<<<<< HEAD
       "filename" : "checkbox@3x.png",
-=======
-      "filename" : "checkbox-off@3x.png",
->>>>>>> develop
       "idiom" : "universal",
       "scale" : "3x"
     }

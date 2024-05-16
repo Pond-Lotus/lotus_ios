@@ -5,15 +5,9 @@
         "color-space" : "display-p3",
         "components" : {
           "alpha" : "1.000",
-<<<<<<< HEAD:TODORI/Resource/Assets.xcassets/Color/dg01.colorset/Contents.json
           "blue" : "0x42",
           "green" : "0x42",
           "red" : "0x42"
-=======
-          "blue" : "255",
-          "green" : "255",
-          "red" : "255"
->>>>>>> develop:TODORI/Resource/Assets.xcassets/Color/background.colorset/Contents.json
         }
       },
       "idiom" : "universal"
@@ -29,15 +23,9 @@
         "color-space" : "display-p3",
         "components" : {
           "alpha" : "1.000",
-<<<<<<< HEAD:TODORI/Resource/Assets.xcassets/Color/dg01.colorset/Contents.json
           "blue" : "0xE7",
           "green" : "0xE7",
           "red" : "0xE7"
-=======
-          "blue" : "34",
-          "green" : "34",
-          "red" : "34"
->>>>>>> develop:TODORI/Resource/Assets.xcassets/Color/background.colorset/Contents.json
         }
       },
       "idiom" : "universal"
