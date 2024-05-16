@@ -272,6 +272,8 @@ class MyPageViewController: UIViewController {
     }
     
     func inquireGroup() {
+        self.settingGroupButton.isEnabled = false
+        
         TodoService.shared.inquireGroupName() { result in
             switch result {
             case .success(let response):
@@ -303,6 +305,8 @@ class MyPageViewController: UIViewController {
             case .failure:
                 print("failure")
             }
+            
+            self.settingGroupButton.isEnabled = true
         }
     }
 }
