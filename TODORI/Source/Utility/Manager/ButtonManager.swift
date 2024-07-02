@@ -120,6 +120,7 @@ class ButtonManager {
         let button = UIButton()
         button.applyColorAnimation()
         button.setTitle("비밀번호 변경", for: .normal)
+        button.setTitleColor(UIColor.textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         button.layer.borderWidth = 0.5
         button.layer.borderColor = UITraitCollection.current.userInterfaceStyle == .light ? UIColor(red: 0.258, green: 0.258, blue: 0.258, alpha: 1).cgColor : UIColor(red: 0.62, green: 0.62, blue: 0.62, alpha: 1).cgColor

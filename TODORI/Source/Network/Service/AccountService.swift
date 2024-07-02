@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import FirebaseMessaging
 
 class UserService {
     static let shared = UserService()
@@ -79,7 +80,10 @@ class UserService {
     
     func login(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {
         let url = APIConstant.Account.login
-        let fcmToken = UserDefaults.standard.string(forKey: "fcmToken")
+        let messaging = Messaging.messaging()
+        
+        let fcmToken = messaging.fcmToken ?? ""
+        print("fcmtoken: \(fcmToken)")
         
         let parameters: [String: Any] = [
             "email": email,

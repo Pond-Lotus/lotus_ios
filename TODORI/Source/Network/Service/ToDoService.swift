@@ -325,7 +325,7 @@ class TodoService {
     }
     
     func getDayOfDot(year:Int, month:Int, completion:@escaping(AFResult<Any>) -> Void){
-        let url = APIConstant.testURL + APIConstant.day
+        let url = APIConstant.baseURL + APIConstant.day
         
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")
@@ -346,6 +346,7 @@ class TodoService {
                    headers: header)
         .validate(statusCode: 200 ..< 300)
         .responseDecodable(of: DayDotResponseData.self) { response in
+            print("in day dot")
             switch response.result{
             case .success(let response):
                 completion(.success(response))
@@ -356,7 +357,7 @@ class TodoService {
     }
     
     func getDateOfTodoForNotification(completion: @escaping((AFResult<Any>) -> Void)) {
-        let url = APIConstant.testURL + APIConstant.startTodo
+        let url = APIConstant.baseURL + APIConstant.startTodo
         
         guard let token = TokenManager.shared.getToken() else {return}
         

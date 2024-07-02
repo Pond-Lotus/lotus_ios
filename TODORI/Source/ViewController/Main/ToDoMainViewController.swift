@@ -539,14 +539,12 @@ class ToDoMainViewController : UIViewController {
         setAppearance()
     }
     
-    private func initNotification(){        
+    public func initNotification(){
         TodoService.shared.getDateOfTodoForNotification { response in
             switch response {
             case .success(let data):
                 guard let resultData = data as? StartTodoResponseData else {return}
                 guard resultData.resultCode == 200 else {return}
-                print("start todo 200")
-                //비동기 실행
                 DispatchQueue.global().async {
                     resultData.data.forEach { todo in
                         guard let hour = Int(todo.time.prefix(2)) else {return}
@@ -562,19 +560,18 @@ class ToDoMainViewController : UIViewController {
                         
                         let content = UNMutableNotificationContent()
                         content.title = "오늘의 토도리"
-                        content.body = "오늘의할일\(todo.month)\(todo.day)\(todo.time)"
+                        content.body = todo.title
                         content.sound = UNNotificationSound.default
                                             
                         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
                         let request = UNNotificationRequest(identifier: String(todo.id), content: content, trigger: trigger)
                         
                         UNUserNotificationCenter.current().add(request)
-                        print("0")
                     }
                 }
                 
             case .failure(let t):
-                print("start todo result code: 500 - failure")
+                print("start todo result code: 500 - failure \(t)")
             }
         }
 

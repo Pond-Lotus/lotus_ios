@@ -171,4 +171,5 @@ struct StartTodo: Codable {
     let month: Int
     let day: Int
     let time: String
+    let title: String
 }

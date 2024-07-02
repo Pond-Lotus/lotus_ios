@@ -262,6 +262,9 @@ class MyPageViewController: UIViewController {
                     print("이백")
                     UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                     UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                    for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                        UserDefaults.standard.removeObject(forKey: key.description)
+                    }
                     NavigationBarManager.shared.removeSeparatorView()
                     SceneDelegate.reset()
                 } else if response.resultCode == 500 {

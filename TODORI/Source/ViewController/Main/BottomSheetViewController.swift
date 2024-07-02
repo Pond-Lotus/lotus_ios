@@ -155,14 +155,14 @@ class BottomSheetViewController: UIViewController{
     var cancelButton: UIButton = {
         var button = UIButton()
         button.setTitle("취소", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor.textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         return button
     }()
     var finishButton: UIButton = {
         var button = UIButton()
         button.setTitle("확인", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor.textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return button
     }()
@@ -607,10 +607,15 @@ class BottomSheetViewController: UIViewController{
         guard let notificationIdentifier = identifier else {return}
         let title = titleTextFieldInBottomSheet.text ?? "TODORI 미리 알림"
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [String(notificationIdentifier)])
+        
+        let notificationPermission = UserDefaults.standard.string(forKey: "notificationPermission") ?? ""
+        guard notificationPermission == "authorized" else {return}
         setNotification(at: date, identifier: identifier, title: title)
     }
     
     private func setNotification(at date: Date, identifier: Int?, title:String) {
+        let notificationPermission = UserDefaults.standard.string(forKey: "notificationPermission") ?? ""
+        guard notificationPermission == "authorized" else {return}
         guard let notificationIdentifier = identifier else {return}
         
         let content = UNMutableNotificationContent()

@@ -205,7 +205,7 @@ class FriendService {
     }
     
     func getFriendDayOfDot(friend: Friend, year:Int, month:Int, completion:@escaping(AFResult<Any>) -> Void){
-        let url = APIConstant.testURL + APIConstant.Friend.day
+        let url = APIConstant.baseURL + APIConstant.Friend.day
         
         guard let token = TokenManager.shared.getToken() else {
             print("No token.")

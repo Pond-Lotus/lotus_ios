@@ -24,6 +24,7 @@ class FriendToDoViewController: UIViewController {
         calendarView.appearance.weekdayFont = UIFont.systemFont(ofSize: 13, weight: .medium)
         calendarView.appearance.selectionColor = UIColor.selectionColor
         calendarView.appearance.todayColor = UIColor.todaySelectionColor
+        calendarView.appearance.titleTodayColor = UIColor.textColor
         calendarView.appearance.titleSelectionColor = .black
         calendarView.appearance.weekdayTextColor = UIColor.textColor
         calendarView.calendarWeekdayView.weekdayLabels[6].textColor = .red

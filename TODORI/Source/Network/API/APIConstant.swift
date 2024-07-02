@@ -8,7 +8,7 @@
 import Foundation
 
 enum APIConstant {
-    static let baseURL = "http:35.225.210.179:8000"
+    static let baseURL = "http://34.22.73.14:8000"
     static let testURL = "http:35.225.210.179:8000"
     
     enum Account {
